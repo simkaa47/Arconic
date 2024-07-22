@@ -1,0 +1,39 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Arconic.View.MainWindow"
+        xmlns:plc="clr-namespace:Arconic.Core.Services.Plc;assembly=Arconic.Core"
+        xmlns:vm="using:Arconic.Core.ViewModels"
+        xmlns:mat="using:Material.Icons.Avalonia"
+        x:DataType="vm:MainViewModel"
+        Title="Arconic.View">
+    <Grid>
+        <StackPanel>
+            <mat:MaterialIcon Kind="Lamp"
+                              Classes.triggered="{Binding MainPlcService.Coil}"
+                              Height="100"
+                              Width="100">
+                <mat:MaterialIcon.Styles>
+                    <Style Selector="mat|MaterialIcon.triggered">
+                        <Style.Animations>
+                            <Animation Duration="0:0:1">
+                                <KeyFrame Cue="0%">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </KeyFrame>
+                                <KeyFrame Cue="100%">
+                                    <Setter Property="Foreground" Value="LightGreen"/>
+                                </KeyFrame>
+                            </Animation>
+                        </Style.Animations>
+                    </Style>
+                </mat:MaterialIcon.Styles>
+            </mat:MaterialIcon>
+            
+        </StackPanel>
+            
+            
+        
+    </Grid>
+</Window>
