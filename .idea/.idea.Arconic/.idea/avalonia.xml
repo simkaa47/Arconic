@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="Arconic.View/App.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/MainWindow.axaml" value="Arconic.View/Arconic.View.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

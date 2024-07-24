@@ -2,18 +2,7 @@
 
 namespace Arconic.Core.ViewModels;
 
-public class MainViewModel
+public class MainViewModel(PlcViewModel plcViewModel)
 {
-    public MainPlcService MainPlcService { get; }
-
-    public MainViewModel(MainPlcService mainPlcService)
-    {
-        MainPlcService = mainPlcService;
-        InitAsync();
-    }
-
-    private async void InitAsync()
-    {
-        await MainPlcService.ScanPlcAsync();
-    }
+    public PlcViewModel PlcViewModel { get; } = plcViewModel;
 }

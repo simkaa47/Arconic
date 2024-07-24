@@ -24,9 +24,9 @@ public partial class App : Application
 
     public App()
     {
-        _host = Host.CreateDefaultBuilder().ConfigureServices(services =>
+        _host = Host.CreateDefaultBuilder().ConfigureServices((conf, services) =>
         {
-            services.AddCoreServices();
+            services.AddCoreServices(conf.Configuration);
         }).Build();
     }
 

@@ -1,0 +1,41 @@
+﻿using Arconic.Core.Models.Parameters;
+using S7.Net;
+
+namespace Arconic.Core.Models.PlcData;
+
+public class DiscreteInputs
+{
+    #region Металл в клети
+    public Parameter<bool> MetallOnRoll { get; } =
+        new Parameter<bool>("Металл в клети", false, true, DataType.Input,  0, 1, 0);
+    #endregion
+    #region Авария привода
+    public Parameter<bool> DriveError { get; } =
+        new Parameter<bool>("Авария привода", false, true, DataType.Input,  0, 11, 0);
+    #endregion
+    #region Защитный автомат чиллера
+    public Parameter<bool> QfChiller { get; } =
+        new Parameter<bool>("Защитный автомат чиллера", false, true, DataType.Input,  0, 11, 1);
+    #endregion
+    #region Защитный автомат генератора
+    public Parameter<bool> QfGenerator { get; } =
+        new Parameter<bool>("Защитный автомат генератора", false, true, DataType.Input,  0, 11, 2);
+    #endregion
+    #region Защитный автомат привода
+    public Parameter<bool> QfDrive { get; } =
+        new Parameter<bool>("Защитный автомат привода", false, true, DataType.Input,  0, 11, 3);
+    #endregion
+    #region Контактор чиллера
+    public Parameter<bool> SqContactorChiller { get; } =
+        new Parameter<bool>("Контактор чиллера", false, true, DataType.Input,  0, 11, 5);
+    #endregion
+    #region Контактор генератора
+    public Parameter<bool> SqGeneratorChiller { get; } =
+        new Parameter<bool>("Контактор генератора", false, true, DataType.Input,  0, 11, 6);
+    #endregion
+    #region Контактор привода
+    public Parameter<bool> SqDriveChiller { get; } =
+        new Parameter<bool>("Контактор привода", false, true, DataType.Input,  0, 11, 7);
+    #endregion
+    
+}
