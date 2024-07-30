@@ -4,10 +4,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Arconic.View.MainWindow"
-        xmlns:plc="clr-namespace:Arconic.Core.Services.Plc;assembly=Arconic.Core"
+        xmlns:uc="using:Arconic.View.UserControls"
         xmlns:vm="using:Arconic.Core.ViewModels"
-        xmlns:mat="using:Material.Icons.Avalonia"
         x:DataType="vm:MainViewModel"
         Title="Arconic.View">
-    Hello world
+    <uc:MainControl></uc:MainControl>
 </Window>

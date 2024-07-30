@@ -1,51 +1,86 @@
 ﻿using Arconic.Core.Models.Parameters;
 using Arconic.Core.Options;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using S7.Net;
 
 namespace Arconic.Core.Services.Plc;
 
-public class MainPlcService
+public partial class MainPlcService(ILogger<MainPlcService> logger, IOptionsMonitor<PlcConnectOption> option)
+    : ObservableObject
 {
-    private readonly ILogger<MainPlcService> _logger;
-    private readonly IOptionsMonitor<PlcConnectOption> _option;
-    private readonly byte[] _bytes = new byte[10000];
-    private List<IOrderedEnumerable<ParameterBase>> ordered = new List<IOrderedEnumerable<ParameterBase>>();
+    private  CancellationTokenSource _cts = new CancellationTokenSource();
+    private readonly S7.Net.Plc _plc = new(CpuType.S71500,option.CurrentValue.Ip,0,0);
+    private List<PlcScanHelper> _ordered = new List<PlcScanHelper>();
+    [ObservableProperty]
+    private bool _isConnected;
+    private readonly Queue<ParameterBase> _writeCommands = new();
 
-    public MainPlcService(ILogger<MainPlcService> logger, IOptionsMonitor<PlcConnectOption> option)
+    public void WriteParameter(ParameterBase par)
     {
-        _logger = logger;
-        _option = option;
+        if (_plc.IsConnected)
+        {
+            _writeCommands.Enqueue(par);
+        }
     }
+
     public async Task ScanPlcAsync()
     {
-        var ordered = ParameterBase.Parameters
+        _plc.ReadTimeout = 1000;
+        _plc.WriteTimeout = 1000;
+        
+        _ordered = ParameterBase.Parameters
             .GroupBy(p => new { p.MemoryType, p.DbNum })
-            .Select(g => g.OrderBy(p => p.ByteNum)).ToList();
+            .Select(g => g.OrderBy(p => p.ByteNum))
+            .Select(i => new PlcScanHelper(i.ToList()))
+            .ToList();
         while (true)
         {
-            S7.Net.Plc plc = new S7.Net.Plc(CpuType.S71500,_option.CurrentValue.Ip,0,0);
-            await plc.OpenAsync();
+            
             try
             {
-                foreach (var group in ordered)
+                if (!_plc.IsConnected)
                 {
-                    await ReadGroupAsync(group.ToList());
+                    _cts.CancelAfter(1000);
+                    await _plc.OpenAsync(_cts.Token);
+                    IsConnected = _plc.IsConnected;
+                }
+
+                while (_writeCommands.Count>0)
+                {
+                    var command = _writeCommands.Dequeue();
+                    await command.WriteToPlcAsync(_plc);
+                }
+                foreach (var helper in _ordered)
+                {
+                    await ReadGroupAsync(helper);
                 }
             }
             catch (Exception e)
             {
-                _logger.LogError(e.Message);
+                logger.LogError(e.Message);
+                if (e is OperationCanceledException cancelException)
+                {
+                    _cts.Dispose();
+                    _cts = new CancellationTokenSource();
+                }
+                _plc.Close();
+                IsConnected = _plc.IsConnected;
+                Thread.Sleep(5000);
             }
-            plc.Close();
+            
         }
     }
 
-    private async Task ReadGroupAsync(List<ParameterBase> parameters)
+    private async Task ReadGroupAsync(PlcScanHelper helper)
     {
-        
+        _cts.CancelAfter(1000);
+        var bytes = await _plc.ReadBytesAsync(helper.DataType, helper.DbNum, 0, helper.MaxByteNum, _cts.Token);
+        foreach (var par in helper.Parameters)
+        {
+            par.GetValue(bytes);       
+        }
     }
-    
     
 }

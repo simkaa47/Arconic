@@ -4,7 +4,14 @@
     <option name="projectPerEditor">
       <map>
         <entry key="Arconic.View/App.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/Converters/GlobalConverter.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/MainWindow.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/CommonControls/ImageBitIndicator.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/CommonControls/ParameterButton.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/HighBar/HighBarControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/MainControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/Settings/SettingsMainControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/SourceUnits/SourceUnitControl.axaml" value="Arconic.View/Arconic.View.csproj" />
       </map>
     </option>
   </component>

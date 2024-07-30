@@ -1,0 +1,34 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             x:DataType="vm:MainViewModel"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Arconic.View.UserControls.HighBar.HighBarControl">
+   <Grid ColumnDefinitions="*,*,*,*,*,80" Height="80" ShowGridLines="True">
+       <!--Индикатор связи с ПЛК-->
+       <common:ImageBitIndicator Grid.Column="2"
+                                 Height="50" Width="50"
+                                 State="{Binding PlcViewModel.MainPlcService.IsConnected}"
+                                 FalseStateImage="/Assets/Images/comm_fail.png"
+                                 TrueStateImage="/Assets/Images/comm_ok.png"></common:ImageBitIndicator>
+       <!--Кнопка "Сброс ошибок"-->
+       <common:ParameterButton Grid.Column="4"
+                               Margin="10"
+                               Command="{Binding PlcViewModel.WriteParameterCommand}"
+                               Behavior="TrueIfPress"
+                               CommandParameter="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.Rst}">
+         <common:ParameterButton.ButtonContent>
+             <DockPanel>
+                 <Image Source="/Assets/Images/rst.png" Height="50" Width="50" Margin="5"/>
+                 <TextBlock Text="СБРОС ОШИБОК"
+                            TextWrapping="Wrap"
+                            VerticalAlignment="Center"></TextBlock>
+             </DockPanel>
+             
+         </common:ParameterButton.ButtonContent>
+       </common:ParameterButton>
+   </Grid>
+</UserControl>

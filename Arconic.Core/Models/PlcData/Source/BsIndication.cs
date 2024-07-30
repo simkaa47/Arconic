@@ -1,7 +1,7 @@
 ﻿using Arconic.Core.Models.Parameters;
 using S7.Net;
 
-namespace Arconic.Core.Models.PlcData;
+namespace Arconic.Core.Models.PlcData.Source;
 
 public class BsIndication()
 {
