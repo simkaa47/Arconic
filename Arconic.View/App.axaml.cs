@@ -1,10 +1,14 @@
+using System;
 using Arconic.Core;
+using Arconic.Core.Infrastructure.DataContext.Data;
 using Arconic.Core.ViewModels;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Arconic.View;
 
@@ -28,6 +32,21 @@ public partial class App : Application
         {
             services.AddCoreServices(conf.Configuration);
         }).Build();
+
+        using var scope = _host.Services.CreateScope();
+        var loggerFactory = scope.ServiceProvider.GetRequiredService<ILoggerFactory>();
+        try
+        {
+            var context = scope.ServiceProvider.GetRequiredService<ArconicDbContext>();
+            context.Database.Migrate();
+            ArconicDbContextSeed.Seed(context, loggerFactory);
+
+        }
+        catch (Exception ex)
+        {
+            var logger = loggerFactory.CreateLogger<Program>();
+            logger.LogError(ex, "An error occured diring migration");                    
+        }
     }
 
     public override void OnFrameworkInitializationCompleted()
