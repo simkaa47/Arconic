@@ -67,7 +67,7 @@ public partial class MainPlcService(ILogger<MainPlcService> logger, IOptionsMoni
                 }
                 _plc.Close();
                 IsConnected = _plc.IsConnected;
-                Thread.Sleep(5000);
+                await Task.Delay(5000);
             }
             
         }

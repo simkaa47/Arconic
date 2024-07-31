@@ -15,8 +15,7 @@ public partial class PlcViewModel
         MainPlcService = mainPlcService;
         InitAsync();
     }
-
-    private async void InitAsync()
+    private async void  InitAsync()
     {
         await MainPlcService.ScanPlcAsync();
     }
