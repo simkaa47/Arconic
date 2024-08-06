@@ -1,0 +1,105 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:source="using:Arconic.Core.Models.PlcData.Source"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             x:DataType="vm:PlcViewModel"
+             x:Class="Arconic.View.UserControls.Settings.SourceUnit.SourceIndicationControl">
+    <Grid  ColumnDefinitions="*,*,*">
+        <Grid.Styles>
+            <Style Selector="common|ImageBitIndicator">
+                <Setter Property="Height" Value="35"></Setter>
+                <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                <Setter Property="DockPanel.Dock" Value="Right"></Setter>
+                <Setter Property="FalseStateImage" Value="/Assets/Images/ind_err.png"></Setter>
+                <Setter Property="TrueStateImage" Value="/Assets/Images/ind_ok.png"></Setter>
+            </Style>
+            <Style Selector="TextBlock">
+                <Setter Property="DockPanel.Dock" Value="Left"></Setter>
+            </Style>
+        </Grid.Styles>
+        <Grid DataContext="{Binding Plc.ControlAndIndication.BsIndication}">
+            <ListBox HorizontalAlignment="Stretch" x:DataType="source:BsIndication">
+                <!--Нет ошибок-->
+                <DockPanel>
+                    <common:ImageBitIndicator State="{Binding NoErr.Value}"/>
+                    <TextBlock Text="Нет ошибок"></TextBlock>
+                </DockPanel>
+                <!--Питание подано-->
+                <DockPanel>
+                    <common:ImageBitIndicator State="{Binding PowerOn.Value}"/>
+                    <TextBlock Text="Питание подано"></TextBlock>
+                </DockPanel>
+                <!--Связь с генератором-->
+                <DockPanel>
+                    <common:ImageBitIndicator State="{Binding CommOk.Value}"/>
+                    <TextBlock Text="Связь с генератором"></TextBlock>
+                </DockPanel>
+                <!--HV включено-->
+                <DockPanel>
+                    <common:ImageBitIndicator State="{Binding HvOn.Value}"/>
+                    <TextBlock Text="HV включено"></TextBlock>
+                </DockPanel>
+                <!--Готовность к измерениям-->
+                <DockPanel>
+                    <common:ImageBitIndicator State="{Binding MeasReady.Value}"/>
+                    <TextBlock Text="Готовность к измерениям"></TextBlock>
+                </DockPanel>
+            </ListBox>
+        </Grid>
+        <ListBox Grid.Column="1" HorizontalAlignment="Stretch">
+            <!--Основной затвор открыт-->
+            <DockPanel>
+                <common:ImageBitIndicator State="{Binding Plc.Di.SqGateOpen0.Value}"/>
+                <TextBlock Text="{Binding Plc.Di.SqGateOpen0.Description}"></TextBlock>
+            </DockPanel>
+            <!--Доп затвор открыт 1-->
+            <DockPanel>
+                <common:ImageBitIndicator State="{Binding Plc.Di.SqGateOpen1.Value}"/>
+                <TextBlock Text="{Binding Plc.Di.SqGateOpen1.Description}"></TextBlock>
+            </DockPanel>
+            <!--Доп затвор открыт 2-->
+            <DockPanel>
+                <common:ImageBitIndicator State="{Binding Plc.Di.SqGateOpen2.Value}"/>
+                <TextBlock Text="{Binding Plc.Di.SqGateOpen2.Description}"></TextBlock>
+            </DockPanel>
+            <!--Сигнал на открытие затвора-->
+            <DockPanel>
+                <common:ImageBitIndicator State="{Binding Plc.Do.Gate0.Value}"/>
+                <TextBlock Text="{Binding Plc.Do.Gate0.Description}"></TextBlock>
+            </DockPanel>
+            <!--Сигнал на открытие затвора 2-->
+            <DockPanel>
+                <common:ImageBitIndicator State="{Binding Plc.Do.Gate2.Value}"/>
+                <TextBlock Text="{Binding Plc.Do.Gate2.Description}"></TextBlock>
+            </DockPanel>
+        </ListBox>
+        <ListBox Grid.Column="2" HorizontalAlignment="Stretch">
+            <!--Основной затвор закрыт-->
+            <DockPanel>
+                <common:ImageBitIndicator State="{Binding Plc.Di.SqGateСlose0.Value}"/>
+                <TextBlock Text="{Binding Plc.Di.SqGateСlose0.Description}"></TextBlock>
+            </DockPanel>
+            <!--Доп затвор закрыт 1-->
+            <DockPanel>
+                <common:ImageBitIndicator State="{Binding Plc.Di.SqGateClose1.Value}"/>
+                <TextBlock Text="{Binding Plc.Di.SqGateClose1.Description}"></TextBlock>
+            </DockPanel>
+            <!--Доп затвор закрыт 2-->
+            <DockPanel>
+                <common:ImageBitIndicator State="{Binding Plc.Di.SqGateClose2.Value}"/>
+                <TextBlock Text="{Binding Plc.Di.SqGateClose2.Description}"></TextBlock>
+            </DockPanel>
+            <!--Сигнал на открытие затвора 1-->
+            <DockPanel>
+                <common:ImageBitIndicator State="{Binding Plc.Do.Gate1.Value}"/>
+                <TextBlock Text="{Binding Plc.Do.Gate1.Description}"></TextBlock>
+            </DockPanel>
+        </ListBox>
+        
+        
+    </Grid>
+</UserControl>

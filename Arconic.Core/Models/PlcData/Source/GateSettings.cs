@@ -1,10 +1,11 @@
 ﻿using Arconic.Core.Models.Parameters;
 using S7.Net;
 
-namespace Arconic.Core.Models.PlcData;
+namespace Arconic.Core.Models.PlcData.Source;
 
-public class GateSettings(int offset)
+public class GateSettings(int offset, string name)
 {
+    public string Name { get; } = name;
     public Parameter<float> HighLimit { get; } =
         new("Верхний предел", 0, float.MaxValue, DataType.DataBlock, 1, offset, 0);
     public Parameter<bool> Gate1 { get; } =

@@ -6,11 +6,27 @@
         <entry key="Arconic.View/App.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Converters/GlobalConverter.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/MainWindow.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/Resources/Colors.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/Styles/TextBlocks/TextBlockCommon.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/Styles/TextBoxes/TextBoxCommon.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/Styles/Validation/ValidationErrors.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/Themes/ListBox/ListBoxItems.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/CommonControls/ImageBitIndicator.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/CommonControls/NumericParameter.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/CommonControls/ParameterButton.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/CommonControls/SuperControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/CommonControls/TemplatedControl1.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/CommonControls/ToggleSwitch.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/HighBar/HighBarControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Settings/SettingsMainControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/Settings/SourceUnit/GateSettingsControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/Settings/SourceUnit/GateSettingsControlTemplate.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/Settings/SourceUnit/SourceButtonsControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/Settings/SourceUnit/SourceChartsControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/Settings/SourceUnit/SourceIndicationControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/Settings/SourceUnit/SourceMainControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/Settings/SourceUnit/SourceSettingsControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/SourceUnits/SourceUnitControl.axaml" value="Arconic.View/Arconic.View.csproj" />
       </map>
     </option>

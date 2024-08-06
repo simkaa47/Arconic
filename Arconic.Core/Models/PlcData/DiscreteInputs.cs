@@ -38,4 +38,37 @@ public class DiscreteInputs
         new Parameter<bool>("Контактор привода", false, true, DataType.Input,  0, 11, 7);
     #endregion
     
+    #region Кнопка ЛПУ "Сервис"
+    public Parameter<bool> SbService { get; } =
+        new Parameter<bool>("Кнопка ЛПУ \"Сервис\"", false, true, DataType.Input,  0, 10, 5);
+    #endregion
+    
+    #region Датчик открытого затвора
+    public Parameter<bool> SqGateOpen0 { get; } =
+        new Parameter<bool>("Датчик открытого затвора", false, true, DataType.Input,  0, 15, 0);
+    #endregion
+    #region Датчик закрытого затвора
+    public Parameter<bool> SqGateСlose0 { get; } =
+        new Parameter<bool>("Датчик закрытого затвора", false, true, DataType.Input,  0, 15, 1);
+    #endregion
+    #region Датчик открытого дополнительного затвора 1
+    public Parameter<bool> SqGateOpen1 { get; } =
+        new Parameter<bool>("Датчик открытого дополнительного затвора 1", false, true, DataType.Input,  0, 15, 2);
+    #endregion
+    #region Датчик открытого дополнительного затвора 2
+    public Parameter<bool> SqGateClose1 { get; } =
+        new Parameter<bool>("Датчик закрытого дополнительного затвора 1", false, true, DataType.Input,  0, 15, 3);
+    #endregion
+    #region Датчик открытого дополнительного затвора 1
+    public Parameter<bool> SqGateOpen2 { get; } =
+        new Parameter<bool>("Датчик открытого дополнительного затвора 2", false, true, DataType.Input,  0, 15, 4);
+    #endregion
+    #region Датчик открытого дополнительного затвора 2
+    public Parameter<bool> SqGateClose2 { get; } =
+        new Parameter<bool>("Датчик закрытого дополнительного затвора 2", false, true, DataType.Input,  0, 15, 5);
+    #endregion
+    
+    
+    
+    
 }

@@ -1,0 +1,14 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             Name="root"
+             x:Class="Arconic.View.UserControls.CommonControls.ToggleSwitch">
+    <common:ImageBitIndicator State="{Binding ElementName=root,Path=State}"
+                              Height="35"
+                              PointerPressed="InputElement_OnPointerPressed"
+                              FalseStateImage="/Assets/Images/switch_off.png"
+                              TrueStateImage="/Assets/Images/switch_on.png"/>
+</UserControl>

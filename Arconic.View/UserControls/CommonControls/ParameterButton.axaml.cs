@@ -1,6 +1,8 @@
 ﻿using Arconic.Core.Models.Parameters;
+using Arconic.Core.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Media;
 
@@ -13,7 +15,21 @@ public partial class ParameterButton : ParameterControl
         InitializeComponent();
         AffectsMeasure<ParameterButton>(BehaviorProperty);
         AffectsMeasure<ParameterButton>(ButtonContentProperty);
+        AffectsMeasure<ParameterButton>(StateProperty);
+        
     }
+    
+    #region State
+    public bool State
+    {
+        get => (bool)GetValue(StateProperty);
+        set => SetValue(StateProperty, value);
+    }
+
+// Using a DependencyProperty as the backing store for State.  This enables animation, styling, binding, etc...
+    public static readonly StyledProperty<bool> StateProperty =
+        AvaloniaProperty.Register<ParameterButton, bool>(nameof(State), defaultBindingMode:BindingMode.TwoWay, defaultValue:false);
+    #endregion
     
     #region Contect
 
@@ -46,6 +62,7 @@ public partial class ParameterButton : ParameterControl
     private void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         this.Opacity = 0.95;
+        GetCommand();
         var commandParameter = GetCommandParameter();
         if (commandParameter != null)
         {
@@ -72,12 +89,21 @@ public partial class ParameterButton : ParameterControl
         if (commandParameter != null && Behavior == ButtonAction.TrueIfPress)
         {
             commandParameter.WriteValue = false;
-            Command.Execute(commandParameter);
+            Command?.Execute(commandParameter);
         }
     }
 
     private Parameter<bool>? GetCommandParameter()
     {
         return this.CommandParameter as Parameter<bool>;
+    }
+
+    private void GetCommand()
+    {
+        if (this.Command is null)
+        {
+            var app = Application.Current as App;
+            Command = app?.GetService<PlcViewModel>().WriteParameterCommand;
+        }
     }
 }

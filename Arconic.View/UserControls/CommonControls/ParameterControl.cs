@@ -18,15 +18,15 @@ public class ParameterControl : UserControl
     
     #region Command
 
-    public ICommand Command
+    public ICommand? Command
     {
-        get => (ICommand)GetValue(CommandProperty);
+        get => GetValue(CommandProperty);
         set => SetValue(CommandProperty, value);
     }
 
     // Using a DependencyProperty as the backing store for State.  This enables animation, styling, binding, etc...
-    public static readonly StyledProperty<ICommand> CommandProperty =
-        AvaloniaProperty.Register<ParameterControl, ICommand>(nameof(Command));
+    public static readonly StyledProperty<ICommand?> CommandProperty =
+        AvaloniaProperty.Register<ParameterControl, ICommand?>(nameof(Command));
 
     #endregion
 
@@ -54,7 +54,7 @@ public class ParameterControl : UserControl
 
     // Using a DependencyProperty as the backing store for State.  This enables animation, styling, binding, etc...
     public static readonly StyledProperty<int> ParamWidthProperty =
-        AvaloniaProperty.Register<ParameterControl, int>(nameof(ParamWidth), 145);
+        AvaloniaProperty.Register<ParameterControl, int>(nameof(ParamWidth), 80);
 
     #endregion
 

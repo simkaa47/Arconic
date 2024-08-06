@@ -1,24 +1,33 @@
-﻿using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
 using S7.Net;
 using S7.Net.Types;
+using DataType = S7.Net.DataType;
 using String = System.String;
 
 namespace Arconic.Core.Models.Parameters;
 
-public abstract partial class ParameterBase:ObservableValidator
+public abstract partial class ParameterBase(string description, 
+    DataType memoryType, 
+    int dbNum, 
+    int byteNum, 
+    int bitNum)
+    : ObservableValidator
 {
-    public string Description { get; set; } = String.Empty;
+    [MinLength(4)]
+    public string Description { get; } = description;
+
     [ObservableProperty]
     private bool _validationOk = false;
     [ObservableProperty]
     private bool _isWriting = false;
     [ObservableProperty]
     private bool _isReadOnly = false;
-    public DataType MemoryType { get; init; }
-    public int DbNum { get; init; }
-    public int ByteNum { get; init; }
-    public int BitNum { get; set; }
+    public DataType MemoryType { get; } = memoryType;
+    public int DbNum { get; } = dbNum;
+    public int ByteNum { get; } = byteNum;
+    protected int BitNum { get; } = bitNum;
     public int Length { get; set; }
     
     public int SizeBytes => GetSize();
@@ -47,27 +56,27 @@ public abstract partial class ParameterBase:ObservableValidator
         }
         else if (this is Parameter<short> parShort)
         {
-            var arr = S7.Net.Types.Int.ToByteArray(parShort.Value);
+            var arr = S7.Net.Types.Int.ToByteArray(parShort.WriteValue);
             await plc.WriteBytesAsync(MemoryType, DbNum, ByteNum, arr, cancellationToken);
         }
         else if (this is Parameter<ushort> parUShort)
         {
-            var arr = S7.Net.Types.Word.ToByteArray(parUShort.Value);
+            var arr = S7.Net.Types.Word.ToByteArray(parUShort.WriteValue);
             await plc.WriteBytesAsync(MemoryType, DbNum, ByteNum, arr, cancellationToken);
         }
         else if (this is Parameter<int> parInt)
         {
-            var arr = S7.Net.Types.DInt.ToByteArray(parInt.Value);
+            var arr = S7.Net.Types.DInt.ToByteArray(parInt.WriteValue);
             await plc.WriteBytesAsync(MemoryType, DbNum, ByteNum, arr, cancellationToken);
         }
         else if (this is Parameter<uint> parUInt)
         {
-            var arr = S7.Net.Types.DWord.ToByteArray(parUInt.Value);
+            var arr = S7.Net.Types.DWord.ToByteArray(parUInt.WriteValue);
             await plc.WriteBytesAsync(MemoryType, DbNum, ByteNum, arr, cancellationToken);
         }
         else if (this is Parameter<float> parFloat)
         {
-            var arr = S7.Net.Types.Real.ToByteArray(parFloat.Value);
+            var arr = S7.Net.Types.Real.ToByteArray(parFloat.WriteValue);
             await plc.WriteBytesAsync(MemoryType, DbNum, ByteNum, arr, cancellationToken);
         }
     }

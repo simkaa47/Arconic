@@ -1,0 +1,106 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:mat="using:Material.Icons.Avalonia"
+             xmlns:scg="clr-namespace:System.Collections.Generic;assembly=netstandard"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             xmlns:gate="using:Arconic.Core.Models.PlcData.Source"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             x:DataType="vm:PlcViewModel"
+             x:Class="Arconic.View.UserControls.Settings.SourceUnit.GateSettingsControl">
+    <UserControl.Resources>
+        <scg:List x:TypeArguments="sys:Object" x:Key="OpenGateNames1">
+            <sys:String>ОТКРЫТЬ ЗАТВОР 1</sys:String>
+            <sys:String>ЗАКРЫТЬ ЗАТВОР 1</sys:String>
+        </scg:List>
+        <scg:List x:TypeArguments="sys:Object" x:Key="OpenGateNames2">
+            <sys:String>ОТКРЫТЬ ЗАТВОР 2</sys:String>
+            <sys:String>ЗАКРЫТЬ ЗАТВОР 2</sys:String>
+        </scg:List>
+    </UserControl.Resources>
+    <Grid RowDefinitions="Auto,*">
+        <!--Заголовок-->
+        <StackPanel>
+            <TextBlock Text="Настройки дополнительных затворов"
+                     FontWeight="Bold"
+                     FontSize="20"></TextBlock>
+            <!--Предупреждение-->
+           <DockPanel HorizontalAlignment="Left"
+                      IsVisible="{Binding !Plc.Di.SbService.Value}">
+               <mat:MaterialIcon Kind="Warning"
+                                 DockPanel.Dock="Left"
+                                 Foreground="{StaticResource ErrorMainColor}"></mat:MaterialIcon>
+               <TextBlock Foreground="{StaticResource ErrorMainColor}"
+                          Margin="5,0,0,0"
+                          Text="Управление дополнительными затворами возможно только при нажатой кнопке 'Сервис' на ЛПУ"
+                          DockPanel.Dock="Right"></TextBlock>
+           </DockPanel>
+        </StackPanel>
+        <!--Табличка и управление завторами-->
+        <Grid Grid.Row="1"
+              RowDefinitions="*,Auto">
+            <!--Табличка-->
+            <DataGrid ItemsSource="{Binding Plc.Settings.Source.GateSettings}"
+                      IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:DataType="gate:GateSettings" Header="ИМЯ" Binding="{Binding Name}"/>
+                    <DataGridTemplateColumn Header="ВЕРХНИЙ ПРЕДЕЛ"
+                                            MaxWidth="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="gate:GateSettings">
+                                <common:NumericParameter DataContext="{Binding HighLimit}"
+                                                         HorizontalAlignment="Left"
+                                                         DescriptionInvisible="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="ЗАТВОР 1"
+                                            MaxWidth="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="gate:GateSettings">
+                               <common:ToggleSwitch CommandParameter="{Binding Gate1}"
+                                                    State="{Binding Gate1.Value}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="ЗАТВОР 2"
+                                            MaxWidth="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="gate:GateSettings">
+                                <common:ToggleSwitch CommandParameter="{Binding Gate2}"
+                                                     State="{Binding Gate2.Value}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <!--Кнопки управления дополнительными затворами-->
+            <Grid Grid.Row="1"
+                  IsVisible="{Binding Plc.Di.SbService.Value}"
+                  Height="50"
+                  ColumnDefinitions="*,*">
+                <common:ParameterButton Grid.Column="0"
+                                        Margin="5"
+                                        State="{Binding Plc.Di.SqGateOpen1}"
+                                        CommandParameter="{Binding Plc.Settings.Source.SbGate1}">
+                    <common:ParameterButton.ButtonContent>
+                        <TextBlock Text="{Binding Plc.Di.SqGateOpen1.Value, Converter={StaticResource GetIfTrueConverter}, ConverterParameter={StaticResource OpenGateNames1}}"
+                                   HorizontalAlignment="Center"/>
+                    </common:ParameterButton.ButtonContent>
+                </common:ParameterButton>
+                <common:ParameterButton Grid.Column="1"
+                                        Margin="5"
+                                        State="{Binding Plc.Di.SqGateOpen2}"
+                                        CommandParameter="{Binding Plc.Settings.Source.SbGate2}">
+                    <common:ParameterButton.ButtonContent>
+                        <TextBlock Text="{Binding Plc.Di.SqGateOpen2.Value, Converter={StaticResource GetIfTrueConverter}, ConverterParameter={StaticResource OpenGateNames2}}"
+                                   HorizontalAlignment="Center"/>
+                    </common:ParameterButton.ButtonContent>
+                </common:ParameterButton>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,74 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:mat="using:Material.Icons.Avalonia"
+             xmlns:scg="clr-namespace:System.Collections.Generic;assembly=netstandard"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             xmlns:gate="using:Arconic.Core.Models.PlcData.Source"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             x:DataType="vm:PlcViewModel"
+             x:Class="Arconic.View.UserControls.Settings.SourceUnit.SourceButtonsControl">
+    <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
+        <Grid.Resources>
+            <scg:List x:TypeArguments="sys:Object" x:Key="PowerBtns">
+                <sys:String>ПОДАТЬ ПИТАНИЕ НА ГЕНЕРАТОР</sys:String>
+                <sys:String>ОТКЛЮЧИТЬ ПИТАНИЕ ГЕНЕРАТОРА</sys:String>
+            </scg:List>
+            <scg:List x:TypeArguments="sys:Object" x:Key="HvBtns">
+                <sys:String>ВКЛЮЧИТЬ HV</sys:String>
+                <sys:String>ВЫКЛЮЧИТЬ HV</sys:String>
+            </scg:List>
+            <scg:List x:TypeArguments="sys:Object" x:Key="GateBtns">
+                <sys:String>ОТКРЫТЬ ЗАТВОР</sys:String>
+                <sys:String>ЗАКРЫТЬ ЗАТВОР</sys:String>
+            </scg:List>
+        </Grid.Resources>
+        <Grid.Styles>
+            <Style Selector="common|ParameterButton">
+                <Setter Property="Margin" Value="5"></Setter>
+            </Style>
+            <Style Selector="TextBlock">
+                <Setter Property="Margin" Value="8"></Setter>
+                <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            </Style>
+        </Grid.Styles>
+        <!--Питание генератора-->
+        <common:ParameterButton Grid.Row="0" Grid.Column="0"
+                                CommandParameter="{Binding Plc.Settings.Source.SbPower}"
+                                State="{Binding Plc.Settings.Source.SbPower.Value}">
+            <common:ParameterButton.ButtonContent>
+                <TextBlock Text="{Binding Plc.Settings.Source.SbPower.Value, Converter={StaticResource GetIfTrueConverter}, 
+                ConverterParameter={StaticResource PowerBtns}}"/>
+            </common:ParameterButton.ButtonContent>
+        </common:ParameterButton>
+        <!--HV-->
+        <common:ParameterButton Grid.Row="0" Grid.Column="1"
+                                CommandParameter="{Binding Plc.Settings.Source.SbHv}"
+                                State="{Binding Plc.Settings.Source.SbHv.Value}">
+            <common:ParameterButton.ButtonContent>
+                <TextBlock Text="{Binding Plc.Settings.Source.SbHv.Value, Converter={StaticResource GetIfTrueConverter}, 
+                ConverterParameter={StaticResource HvBtns}}"/>
+            </common:ParameterButton.ButtonContent>
+        </common:ParameterButton>
+        <!--Затвор-->
+        <common:ParameterButton Grid.Row="1" Grid.Column="0"
+                                CommandParameter="{Binding Plc.Settings.Source.SbGate}"
+                                State="{Binding Plc.Di.SqGateOpen0.Value}">
+            <common:ParameterButton.ButtonContent>
+                <TextBlock Text="{Binding Plc.Di.SqGateСlose0.Value, Converter={StaticResource GetIfTrueConverter}, 
+                ConverterParameter={StaticResource GateBtns}}"/>
+            </common:ParameterButton.ButtonContent>
+        </common:ParameterButton>
+        <!--Кондиционирование-->
+        <common:ParameterButton Grid.Row="1" Grid.Column="1"
+                                CommandParameter="{Binding Plc.Settings.Source.SbCond}"
+                                State="{Binding Plc.Settings.Source.SbCond.Value}">
+            <common:ParameterButton.ButtonContent>
+                <TextBlock Text="РЕЖИМ КОНДИЦИОНИРОВАНИЯ"/>
+            </common:ParameterButton.ButtonContent>
+        </common:ParameterButton>
+    </Grid>
+</UserControl>

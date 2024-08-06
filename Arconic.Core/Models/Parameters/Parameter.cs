@@ -7,15 +7,10 @@ namespace Arconic.Core.Models.Parameters;
 public  class Parameter<T>:ParameterBase where T:IComparable
 {
     public Parameter(string description, T minValue, T maxValue, DataType memoryType, int dbNum,
-        int byteNum, int bitNum)
+        int byteNum, int bitNum):base(description, memoryType, dbNum, byteNum, bitNum)
     {
-        Description = description;
         MinValue = minValue;
         MaxValue = maxValue;
-        MemoryType = memoryType;
-        DbNum = dbNum;
-        ByteNum = byteNum;
-        BitNum = bitNum;
         _timer = new System.Timers.Timer(5000);
         _timer.Elapsed += OnTimerElapsed; 
         ParameterBase.Parameters.Add(this);

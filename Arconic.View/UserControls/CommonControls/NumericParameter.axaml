@@ -1,0 +1,42 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:mod="using:Arconic.Core.Models.Parameters"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:li="using:LoadingIndicators.Avalonia"
+             xmlns:uc="using:Arconic.View.UserControls"
+             xmlns:sys="using:System"
+             Name="root"
+             x:DataType="mod:ParameterBase"
+             x:Class="Arconic.View.UserControls.CommonControls.NumericParameter">
+    <DockPanel>
+        <StackPanel Orientation="Horizontal"
+                    Margin="5"
+                    DockPanel.Dock="Right"
+                    VerticalAlignment="Center">
+            <TextBox x:CompileBindings="False"  Text="{Binding WriteValue}"
+                     IsEnabled="{CompiledBinding !IsReadOnly}"
+                     Height="40"
+                     Width="{Binding ElementName=root, Path=ParamWidth, TargetNullValue=80}">
+                <TextBox.KeyBindings>
+                    <KeyBinding x:DataType="mod:ParameterBase" x:CompileBindings="True" Gesture="Enter"
+                                Command="{Binding $parent[uc:MainControl].((vm:MainViewModel)DataContext).PlcViewModel.WriteParameterCommand, FallbackValue={x:Null}}"
+                                CommandParameter="{Binding}">
+                    </KeyBinding>
+                </TextBox.KeyBindings>
+            </TextBox>
+            <li:LoadingIndicator IsActive="{Binding IsWriting}"
+                                 IsVisible="{Binding IsWriting}"
+                                 MaxHeight="40"></li:LoadingIndicator>
+        </StackPanel>
+        <TextBlock Text="{Binding Description}"
+                   TextWrapping="Wrap"
+                   DockPanel.Dock="Left"
+                   Margin="0,0,10,0"
+                   IsVisible="{Binding ElementName=root, Path=!DescriptionInvisible}"/>
+       
+    </DockPanel>
+    
+</UserControl>

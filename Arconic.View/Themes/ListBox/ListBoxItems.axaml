@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme x:Key="SelectorListBoxItem"
+                  TargetType="ListBoxItem">
+        <Setter Property="Background" Value="{DynamicResource ParameterBackgroundCommonColor}"/>
+        <Setter Property="Template">			
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border BorderBrush="{DynamicResource ListBoxItemBorderBrush}"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="0,0,0,1" Margin="0">
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          Name="content"
+                                          VerticalAlignment="Center"
+                                          Margin="10,0,0,0"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style Selector="^:selected">
+            <Setter Property="Background" Value="{DynamicResource ParameterSelected}"/>			
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>
