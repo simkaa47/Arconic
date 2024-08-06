@@ -1,4 +1,6 @@
-﻿namespace Arconic.Core.Models.PlcData;
+﻿using Arconic.Core.Models.Parameters;
+
+namespace Arconic.Core.Models.PlcData;
 
 public class Plc
 {
@@ -6,4 +8,5 @@ public class Plc
     public DiscreteInputs Di { get; } = new DiscreteInputs();
     public Settings Settings { get; } = new Settings();
     public ControlAndIndication ControlAndIndication { get; } = new ControlAndIndication();
+    
 }

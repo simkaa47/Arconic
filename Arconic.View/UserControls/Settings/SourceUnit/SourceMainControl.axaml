@@ -1,0 +1,30 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:local="using:Arconic.View.UserControls.Settings.SourceUnit"
+             x:DataType="vm:PlcViewModel"
+             x:Class="Arconic.View.UserControls.Settings.SourceUnit.SourceMainControl">
+    <Grid ColumnDefinitions="450,*">
+        <Grid Grid.RowDefinitions="*, Auto">
+            <!--Список параметров-->
+            <local:SourceSettingsControl></local:SourceSettingsControl>
+            <!--Настройки-->
+            <local:GateSettingsControl Grid.Column="0" Grid.Row="1"></local:GateSettingsControl>
+        </Grid>
+        
+        <Grid Grid.Column="1" RowDefinitions="*,350" >
+            <!--Chart-->
+            <local:SourceChartsControl/>
+            <Grid Grid.Row="1" ColumnDefinitions="*,*">
+                <!--Кнопки управления-->
+                <local:SourceButtonsControl Grid.Column="0"></local:SourceButtonsControl>
+                <!--Индикация-->
+                <local:SourceIndicationControl Grid.Column="1"></local:SourceIndicationControl>
+            </Grid>
+        </Grid>
+    </Grid>
+        
+</UserControl>

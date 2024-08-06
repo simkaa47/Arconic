@@ -1,0 +1,30 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.View.ViewModels"
+             x:DataType="vm:SourceTrendViewModel"
+             xmlns:mat="using:Material.Icons.Avalonia"
+             xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
+             x:Class="Arconic.View.UserControls.Settings.SourceUnit.SourceChartsControl">
+    <Grid>
+        <lvc:CartesianChart EasingFunction="{x:Null}"
+                            XAxes="{Binding XAxes}"
+                            AnimationsSpeed="0"
+                            Sections="{Binding Sections}"
+                            ZoomMode="Both"
+                            DrawMarginFrame="{Binding DrawMarginFrame}"
+                            YAxes="{Binding YAxes}"
+                            Series="{Binding Series}"
+                            SyncContext="{Binding Sync}"/>
+        <Button VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                CornerRadius="25"
+                Command="{Binding EnableRealTimeCommand}">
+            <mat:MaterialIcon Kind="ZoomOut"
+                              Height="50"
+                              Width="50"></mat:MaterialIcon>
+        </Button>
+    </Grid>
+    
+</UserControl>

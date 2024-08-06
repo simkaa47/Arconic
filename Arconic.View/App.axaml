@@ -8,11 +8,18 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="/Converters/GlobalConverter.axaml"/>
+                <ResourceInclude Source="/Themes/ListBox/ListBoxItems.axaml"></ResourceInclude>
+                <ResourceInclude Source="/Resources/Colors.axaml"></ResourceInclude>
+                <ResourceInclude Source="avares://LoadingIndicators.Avalonia/LoadingIndicators.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+        <StyleInclude Source="/Styles/Validation/ValidationErrors.axaml"></StyleInclude>
+        <StyleInclude Source="/Styles/TextBlocks/TextBlockCommon.axaml"></StyleInclude>
+        <StyleInclude Source="/Styles/TextBoxes/TextBoxCommon.axaml"></StyleInclude>
         <mat:MaterialIconStyles />
     </Application.Styles>
 </Application>

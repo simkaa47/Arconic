@@ -6,16 +6,16 @@ namespace Arconic.Core.Models.PlcData.Source;
 public class SourceUnitSettings()
 {
     public GateSettings[] GateSettings { get; } =
-        Enumerable.Range(0, 3).Select(i => new GateSettings(i * 10)).ToArray();
+        Enumerable.Range(0, 3).Select(i => new GateSettings(i * 10, $"Диапазон {i+1}")).ToArray();
 
-    public Parameter<ushort> VoltageSv { get; } =
-        new Parameter<ushort>("Уставка напряжения, кВ", 0, 1600, DataType.DataBlock, 1, 30, 0);
-    public Parameter<ushort> CurrentSv { get; } =
-        new Parameter<ushort>("Уставка тока, mA", 0, 300, DataType.DataBlock, 1, 32, 0);
+    public Parameter<float> VoltageSv { get; } =
+        new Parameter<float>("Уставка напряжения, кВ", 0, 160, DataType.DataBlock, 1, 30, 0);
+    public Parameter<float> CurrentSv { get; } =
+        new Parameter<float>("Уставка тока, mA", 0, 30, DataType.DataBlock, 1, 34, 0);
     public Parameter<ushort> TimeoutSqGate { get; } =
-        new Parameter<ushort>("Тайм-аут срабатывания датчика затвора, с", 0, 300, DataType.DataBlock, 1, 34, 0);
+        new Parameter<ushort>("Тайм-аут срабатывания датчика затвора, с", 0, 300, DataType.DataBlock, 1, 38, 0);
     public Parameter<ushort> TimeOutComm { get; } =
-        new Parameter<ushort>("Время определения связи с генератором, с", 0, 300, DataType.DataBlock, 1, 36, 0);
+        new Parameter<ushort>("Время определения связи с генератором, с", 0, 300, DataType.DataBlock, 1, 40, 0);
     public Parameter<bool> SbPower { get; } =
         new Parameter<bool>("Кнопка подачи питания на генератор", false, true, DataType.DataBlock, 1, 48, 0);
     public Parameter<bool> SbHv { get; } =

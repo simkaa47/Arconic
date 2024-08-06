@@ -11,6 +11,7 @@ public partial class MainPlcService(ILogger<MainPlcService> logger, IOptionsMoni
     : ObservableObject
 {
     private  CancellationTokenSource _cts = new CancellationTokenSource();
+    public event Action? PlcScanCompleted;
     private readonly S7.Net.Plc _plc = new(CpuType.S71500,option.CurrentValue.Ip,0,0);
     private List<PlcScanHelper> _ordered = new List<PlcScanHelper>();
     [ObservableProperty]
@@ -56,6 +57,7 @@ public partial class MainPlcService(ILogger<MainPlcService> logger, IOptionsMoni
                 {
                     await ReadGroupAsync(helper);
                 }
+                PlcScanCompleted?.Invoke();
             }
             catch (Exception e)
             {

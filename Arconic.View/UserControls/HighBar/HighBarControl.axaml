@@ -17,8 +17,8 @@
        <!--Кнопка "Сброс ошибок"-->
        <common:ParameterButton Grid.Column="4"
                                Margin="10"
-                               Command="{Binding PlcViewModel.WriteParameterCommand}"
                                Behavior="TrueIfPress"
+                               BorderThickness="1"
                                CommandParameter="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.Rst}">
          <common:ParameterButton.ButtonContent>
              <DockPanel>

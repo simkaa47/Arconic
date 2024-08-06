@@ -2,6 +2,7 @@ using System;
 using Arconic.Core;
 using Arconic.Core.Infrastructure.DataContext.Data;
 using Arconic.Core.ViewModels;
+using Arconic.View.ViewModels;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -31,6 +32,7 @@ public partial class App : Application
         _host = Host.CreateDefaultBuilder().ConfigureServices((conf, services) =>
         {
             services.AddCoreServices(conf.Configuration);
+            services.AddSingleton<SourceTrendViewModel>();
         }).Build();
 
         using var scope = _host.Services.CreateScope();

@@ -1,0 +1,49 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             x:DataType="vm:PlcViewModel"
+             x:Class="Arconic.View.UserControls.Settings.SourceUnit.SourceSettingsControl">
+    <ListBox HorizontalAlignment="Stretch"
+             VerticalAlignment="Top"
+             ItemContainerTheme="{StaticResource SelectorListBoxItem}">
+        <!--Напряжение-->
+        <DockPanel>
+            <!--Текущее значение-->
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                <TextBlock Text="/"></TextBlock>
+                <common:NumericParameter DataContext="{Binding Plc.Settings.Source.VoltageSv}"
+                                         DescriptionInvisible="True"/>
+            </StackPanel>
+            <!--Уставка-->
+            <common:NumericParameter DataContext="{Binding Plc.ControlAndIndication.BsIndication.Voltage}"
+                                     DockPanel.Dock="Left"/>
+        </DockPanel>
+        <!--Ток-->
+        <DockPanel>
+            <!--Текущее значение-->
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                <TextBlock Text="/"></TextBlock>
+                <common:NumericParameter DataContext="{Binding Plc.Settings.Source.CurrentSv}"
+                                         DescriptionInvisible="True"/>
+            </StackPanel>
+            <!--Уставка-->
+            <common:NumericParameter DataContext="{Binding Plc.ControlAndIndication.BsIndication.Current}"
+                                     DockPanel.Dock="Left"/>
+        </DockPanel>
+        <!--Время определения связи с генератором-->
+        <common:NumericParameter DataContext="{Binding Plc.Settings.Source.TimeOutComm}"/>
+        <!--Время определения ошибки датчика затвора-->
+        <common:NumericParameter DataContext="{Binding Plc.Settings.Source.TimeoutSqGate}"/>
+        <!--Наработка часов генератора-->
+        <common:NumericParameter DataContext="{Binding Plc.ControlAndIndication.BsIndication.WorkHours}"/>
+        <!--Температура блока управления-->
+        <common:NumericParameter DataContext="{Binding Plc.ControlAndIndication.BsIndication.UnitTemp}"/>
+        <!--Осталост времени до конца кондиционирования-->
+        <common:NumericParameter DataContext="{Binding Plc.ControlAndIndication.BsIndication.HeatLeftSec}"
+                                 IsVisible="{Binding $parent[UserControl].((vm:PlcViewModel)DataContext).Plc.Settings.Source.SbCond.Value, FallbackValue=False}"/>
+    </ListBox>
+</UserControl>
