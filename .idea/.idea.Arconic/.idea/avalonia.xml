@@ -7,6 +7,7 @@
         <entry key="Arconic.View/Converters/GlobalConverter.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/MainWindow.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Resources/Colors.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/Resources/CommonTextStatuses.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Styles/TextBlocks/TextBlockCommon.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Styles/TextBoxes/TextBoxCommon.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Styles/Validation/ValidationErrors.axaml" value="Arconic.View/Arconic.View.csproj" />
