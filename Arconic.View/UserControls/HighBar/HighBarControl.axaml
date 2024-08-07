@@ -7,15 +7,51 @@
              x:DataType="vm:MainViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Arconic.View.UserControls.HighBar.HighBarControl">
-   <Grid ColumnDefinitions="*,*,*,*,*,80" Height="80" ShowGridLines="True">
+   <Grid ColumnDefinitions="*,*,*,*,*,*,80" Height="80" ShowGridLines="True">
+       <!--Konvels logo-->
+       <Image Source="/Assets/Images/KONVELS_logo.png"
+              Margin="10"></Image>
        <!--Индикатор связи с ПЛК-->
-       <common:ImageBitIndicator Grid.Column="2"
-                                 Height="50" Width="50"
-                                 State="{Binding PlcViewModel.MainPlcService.IsConnected}"
-                                 FalseStateImage="/Assets/Images/comm_fail.png"
-                                 TrueStateImage="/Assets/Images/comm_ok.png"></common:ImageBitIndicator>
-       <!--Кнопка "Сброс ошибок"-->
+       <DockPanel Grid.Column="2">
+           <common:ImageBitIndicator 
+               Height="50" Width="50" DockPanel.Dock="Left"
+               State="{Binding PlcViewModel.MainPlcService.IsConnected}"
+               FalseStateImage="/Assets/Images/comm_fail.png"
+               TrueStateImage="/Assets/Images/comm_ok.png"></common:ImageBitIndicator>
+           <TextBlock Text="СВЯЗЬ С ПЛК" DockPanel.Dock="Right"
+                    VerticalAlignment="Center" Margin="20"/>
+       </DockPanel>
+       <!--Индикатор связи с АСУТП заказчика-->
+       <DockPanel Grid.Column="3">
+           <common:ImageBitIndicator 
+               Height="50" Width="50" DockPanel.Dock="Left"
+               State="{Binding PlcViewModel.Plc.ControlAndIndication.HighLevelData.CommState.Value}"
+               FalseStateImage="/Assets/Images/comm_fail.png"
+               TrueStateImage="/Assets/Images/comm_ok.png"></common:ImageBitIndicator>
+           <TextBlock Text="СВЯЗЬ С АСУ" DockPanel.Dock="Right"
+                      VerticalAlignment="Center" Margin="20"/>
+       </DockPanel>
+       <!--Кнопка Открыть-закрыть затвор-->
        <common:ParameterButton Grid.Column="4"
+                               Margin="10"
+                               BorderThickness="1"
+                               CommandParameter="{Binding PlcViewModel.Plc.Settings.Source.SbGate}">
+           <common:ParameterButton.ButtonContent>
+               <DockPanel>
+                   <common:ImageBitIndicator State="{Binding PlcViewModel.Plc.Di.SqGateСlose0.Value}"
+                                             Height="50" Width="50" Margin="5"
+                                             FalseStateImage="/Assets/Images/x_ray_red.png"
+                                             TrueStateImage="/Assets/Images/x_ray_grey.png"/>
+                   <TextBlock Text="{Binding PlcViewModel.Plc.Di.SqGateСlose0.Value, 
+                   Converter={StaticResource GetIfTrueConverter}, 
+                   ConverterParameter={StaticResource GateBtns}}"
+                              DockPanel.Dock="Right"/>
+               </DockPanel>
+             
+           </common:ParameterButton.ButtonContent>
+       </common:ParameterButton>
+       <!--Кнопка "Сброс ошибок"-->
+       <common:ParameterButton Grid.Column="5"
                                Margin="10"
                                Behavior="TrueIfPress"
                                BorderThickness="1"

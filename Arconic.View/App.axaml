@@ -8,6 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="/Converters/GlobalConverter.axaml"/>
+                <ResourceInclude Source="/Resources/CommonTextStatuses.axaml"></ResourceInclude>
                 <ResourceInclude Source="/Themes/ListBox/ListBoxItems.axaml"></ResourceInclude>
                 <ResourceInclude Source="/Resources/Colors.axaml"></ResourceInclude>
                 <ResourceInclude Source="avares://LoadingIndicators.Avalonia/LoadingIndicators.axaml" />
