@@ -4,12 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:bs="using:Arconic.View.UserControls.Settings.SourceUnit"
+             xmlns:det="using:Arconic.View.UserControls.Settings.Detectors"
              xmlns:vm="using:Arconic.Core.ViewModels"
              x:DataType="vm:MainViewModel"
              x:Class="Arconic.View.UserControls.Settings.SettingsMainControl">
     <TabControl TabStripPlacement="Left">
         <TabItem Header="БЛОК ИСТОЧНИКА">
             <bs:SourceMainControl DataContext="{Binding PlcViewModel}"></bs:SourceMainControl>
+        </TabItem>
+        <TabItem Header="БЛОК ДЕТЕКТОРОВ">
+            <det:DetectorsMainControl DataContext="{Binding PlcViewModel}"></det:DetectorsMainControl>
         </TabItem>
     </TabControl>
 </UserControl>

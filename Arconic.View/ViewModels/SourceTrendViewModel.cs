@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Arconic.Core.Services.Plc;
 using Arconic.Core.ViewModels;
-using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LiveChartsCore;
@@ -18,7 +16,7 @@ using SkiaSharp;
 
 namespace Arconic.View.ViewModels;
 
-public partial class SourceTrendViewModel:ObservableObject
+public partial class SourceTrendViewModel:TrendBaseViewModel
 {
     private const string VoltageAxisName = "U, кВ";
     private const string CurrentAxisName = "I, мA";
@@ -32,16 +30,9 @@ public partial class SourceTrendViewModel:ObservableObject
         Init();
     }
     private DateTime _lastTimeUpdated;
-
     public ObservableCollection<DateTimePoint>[] Values { get; } =
         Enumerable.Range(0, 2).Select(i => new ObservableCollection<DateTimePoint>()).ToArray();
-    public object Sync { get; } = new object();
-    [ObservableProperty]
-    private DrawMarginFrame? _drawMarginFrame;
-
     public ISeries[]? Series { get; private set; } 
-    public LiveChartsCore.Measure.Margin Margin { get; set; } = new LiveChartsCore.Measure.Margin(16);
-    
     public Axis[] YAxes { get; set; } =
     {
         new Axis()
@@ -93,19 +84,6 @@ public partial class SourceTrendViewModel:ObservableObject
 
     [ObservableProperty]
     private RectangularSection[]? _sections;
-    
-    
-    private static string Formatter(DateTime date)
-    {
-        return date.ToString("G");
-    }
-    
-    private SKColor GetSKColor(string colorString)
-    {
-        var color = Color.Parse(colorString);
-        var skColor = new SKColor(color.R, color.G, color.B, color.A);
-        return skColor;
-    }
     
     [RelayCommand]
     private void EnableRealTime()
@@ -166,13 +144,6 @@ public partial class SourceTrendViewModel:ObservableObject
         YAxes[1].LabelsPaint = new SolidColorPaint(SKColors.Red);
         YAxes[1].SeparatorsPaint = new SolidColorPaint(SKColors.White.WithAlpha(128));
         
-        
-        
-        DrawMarginFrame  =  new DrawMarginFrame
-        {
-            Fill = new SolidColorPaint(GetSKColor("#2C2C2E")),
-            Stroke = new SolidColorPaint(SKColors.White.WithAlpha(128))
-        };
     }
     private Random rnd  = new Random();
     
@@ -224,6 +195,5 @@ public partial class SourceTrendViewModel:ObservableObject
             }
         };
     }
-    
     
 }

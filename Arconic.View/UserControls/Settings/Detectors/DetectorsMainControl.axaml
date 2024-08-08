@@ -1,0 +1,27 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             x:DataType="vm:PlcViewModel"
+             xmlns:local="using:Arconic.View.UserControls.Settings.Detectors"
+             x:Class="Arconic.View.UserControls.Settings.Detectors.DetectorsMainControl">
+    <Grid RowDefinitions="*,Auto">
+        <local:DetectorsTrendControl></local:DetectorsTrendControl>
+        <ListBox Grid.Row="1" Width="1000" HorizontalAlignment="Left"
+                 ItemContainerTheme="{StaticResource SelectorListBoxItem}">
+            <common:NumericParameter DataContext="{Binding Plc.Settings.DetectorsSettings.ExpTime}"/>
+            <common:NumericParameter DataContext="{Binding Plc.Settings.DetectorsSettings.KGain}"/>
+            <DockPanel>
+                <common:ToggleSwitch CommandParameter="{Binding Plc.Settings.DetectorsSettings.EmulOnOff}"
+                                     DockPanel.Dock="Right"
+                                     Margin="5"
+                                     State="{Binding Plc.Settings.DetectorsSettings.EmulOnOff.Value}"/>
+                <TextBlock Text="Эмуляция детекторов" DockPanel.Dock="Left"/>
+            </DockPanel>
+        </ListBox>
+    </Grid>
+    
+</UserControl>
