@@ -33,6 +33,7 @@ public partial class App : Application
         {
             services.AddCoreServices(conf.Configuration);
             services.AddSingleton<SourceTrendViewModel>();
+            services.AddSingleton<DetectorsTrendViewModel>();
         }).Build();
 
         using var scope = _host.Services.CreateScope();

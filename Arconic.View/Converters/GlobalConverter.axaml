@@ -4,4 +4,5 @@
     <conv:GetIfTrueConverter x:Key="GetIfTrueConverter"/>
     <conv:GetIfTrueMultiValueConverter x:Key="GetIfTrueMultiValueConverter"/>
     <conv:StringToBitmapConverter x:Key="StringToBitmapConverter"/>
+    <conv:IfEqualConverter x:Key="IfEqualConverter"/>
 </ResourceDictionary>

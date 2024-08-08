@@ -1,0 +1,63 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
+             xmlns:vm="using:Arconic.View.ViewModels"
+             xmlns:scg="clr-namespace:System.Collections.Generic;assembly=netstandard"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             x:DataType="vm:DetectorsTrendViewModel"
+             x:Class="Arconic.View.UserControls.Settings.Detectors.DetectorsTrendControl">
+    <UserControl.Resources>
+        <scg:List x:TypeArguments="sys:Object" x:Key="ModeNames">
+            <sys:String>Данные детекторов</sys:String>
+            <sys:String>Диапазон 1 - значения стандартизации на открытом затворе</sys:String>
+            <sys:String>Диапазон 1 - значения стандартизации на закрытом затворе</sys:String>
+            <sys:String>Диапазон 2 - значения стандартизации на открытом затворе</sys:String>
+            <sys:String>Диапазон 2 - значения стандартизации на закрытом затворе</sys:String>
+            <sys:String>Диапазон 3 - значения стандартизации на открытом затворе</sys:String>
+            <sys:String>Диапазон 3 - значения стандартизации на закрытом затворе</sys:String>
+            <sys:String>Значения эмуляций детекторов</sys:String>
+        </scg:List>
+    </UserControl.Resources>
+    <Grid RowDefinitions="50, *, Auto">
+        <!--Выбор отображаемых данных-->
+        <ComboBox ItemsSource="{StaticResource ModeNames}"
+                  SelectedIndex="{Binding Mode}"/>
+        <!--Тренд-->
+        <lvc:CartesianChart Grid.Row="1" YAxes="{Binding YAxes}"
+                            AnimationsSpeed="0"
+                            DockPanel.Dock="Top"
+                            XAxes="{Binding XAxes}"
+                            DrawMarginFrame="{Binding DrawMarginFrame}"
+                            SyncContext="{Binding Sync}"
+                            Series="{Binding Series}"/>
+        <Grid Grid.Row="2" ColumnDefinitions="*,100,*,100,*,100,150"
+              IsVisible="{Binding Mode, 
+              Converter={StaticResource IfEqualConverter}, 
+              ConverterParameter={x:Static vm:DetectorsTrendMode.Emulations}}"
+              HorizontalAlignment="Left"
+              MaxWidth="1000"
+              Margin="10">
+            <Grid.Styles>
+                <Style Selector="TextBlock">
+                    <Setter Property="Margin" Value="15,5,15,5"></Setter>
+                    <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+                </Style>
+            </Grid.Styles>
+            <TextBlock Text="Стартовый номер детектора для записи"/>
+            <TextBox Grid.Column="1" Text="{Binding MinWriteIndex}"></TextBox>
+            <TextBlock Grid.Column="2" Text="Конечный номер детектора для записи"/>
+            <TextBox Grid.Column="3" Text="{Binding MaxWriteIndex}"></TextBox>
+            <TextBlock Grid.Column="4" Text="Значение записи"/>
+            <TextBox Grid.Column="5" Text="{Binding WriteValue}"></TextBox>
+            <Button Grid.Column="6" Command="{Binding WriteValuesCommand}"
+                    Margin="10,5,10,5" Background="{StaticResource AquaColor}">
+                <TextBlock Text="Записать"
+                           HorizontalAlignment="Center"/>
+            </Button>
+        </Grid>
+    </Grid>
+    
+</UserControl>
