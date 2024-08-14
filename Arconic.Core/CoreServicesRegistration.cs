@@ -1,5 +1,9 @@
-﻿using Arconic.Core.Infrastructure.DataContext.Data;
+﻿using Arconic.Core.Abstractions.DataAccess;
+using Arconic.Core.Infrastructure.DataContext.Data;
+using Arconic.Core.Infrastructure.DataContext.Repositories;
 using Arconic.Core.Options;
+using Arconic.Core.Services.Access;
+using Arconic.Core.Services.Events;
 using Arconic.Core.Services.Plc;
 using Arconic.Core.ViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -18,8 +22,11 @@ public static class CoreServicesRegistration
         });
         
         services.AddSingleton<MainViewModel>();
+        services.AddSingleton<EventMainService>();
+        services.AddSingleton<AccessService>();
         services.AddSingleton<MainPlcService>();
         services.AddSingleton<PlcViewModel>();
+        services.AddTransient(typeof(IRepository<>), typeof(BaseRepository<>));
         services.Configure<PlcConnectOption>(configuration.GetSection(PlcConnectOption.SectionName));
         
     }

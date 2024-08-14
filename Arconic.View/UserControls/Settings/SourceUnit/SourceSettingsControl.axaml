@@ -14,7 +14,7 @@
         <DockPanel>
             <!--Текущее значение-->
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                <TextBlock Text="/"></TextBlock>
+                <TextBlock Text="/" Margin="5"></TextBlock>
                 <common:NumericParameter DataContext="{Binding Plc.Settings.Source.VoltageSv}"
                                          DescriptionInvisible="True"/>
             </StackPanel>
@@ -26,7 +26,7 @@
         <DockPanel>
             <!--Текущее значение-->
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                <TextBlock Text="/"></TextBlock>
+                <TextBlock Text="/" Margin="5"></TextBlock>
                 <common:NumericParameter DataContext="{Binding Plc.Settings.Source.CurrentSv}"
                                          DescriptionInvisible="True"/>
             </StackPanel>

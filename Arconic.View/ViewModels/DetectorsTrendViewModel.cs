@@ -1,7 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading.Tasks;
+using Arconic.Core.Models.Event;
 using Arconic.Core.Models.PlcData;
+using Arconic.Core.Services.Events;
 using Arconic.Core.Services.Plc;
 using Arconic.Core.ViewModels;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -9,26 +12,33 @@ using CommunityToolkit.Mvvm.Input;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
+using Microsoft.Extensions.Logging;
 using SkiaSharp;
 
 namespace Arconic.View.ViewModels;
 
 public partial class DetectorsTrendViewModel : TrendBaseViewModel
 {
-    public DetectorsTrendViewModel(PlcViewModel plcViewModel, MainPlcService mainPlcService)
+    public DetectorsTrendViewModel(PlcViewModel plcViewModel, 
+        MainPlcService mainPlcService, 
+        EventMainService eventMainService,
+        ILogger<DetectorsTrendViewModel> logger)
     {
         _plcViewModel = plcViewModel;
         _plc = plcViewModel.Plc;
         _mainPlcService = mainPlcService;
+        _eventMainService = eventMainService;
+        _logger = logger;
         _mainPlcService.PlcScanCompleted += OnPlcScanCompleted;
         SetStyle();
     }
     
     private readonly PlcViewModel _plcViewModel;
     private readonly MainPlcService _mainPlcService;
-    private Plc _plc;
-
-    public object Sync { get; } = new Object();
+    private readonly EventMainService _eventMainService;
+    private readonly ILogger<DetectorsTrendViewModel> _logger;
+    private readonly Plc _plc;
+    
 
     [ObservableProperty]
     private DetectorsTrendMode _mode;
@@ -123,13 +133,20 @@ public partial class DetectorsTrendViewModel : TrendBaseViewModel
 
     
     [RelayCommand]
-    private void WriteValues()
+    private async Task WriteValues()
     {
         if (Mode == DetectorsTrendMode.Emulations)
         {
             if (MinWriteIndex >= 0 && MinWriteIndex <= 31
                                    && MaxWriteIndex >= 0 && MaxWriteIndex <= 31)
             {
+                await _eventMainService.OnEventOccure(new EventHistoryItem()
+                {
+                    Message =
+                        $"Нажата кнопка записи значений эмуляций детекторов с записью с {MinWriteIndex} по {MaxWriteIndex} номера детекторов",
+                    EventType = EventType.HmiEvent
+
+                });
                 for (int i = MinWriteIndex; i <= MaxWriteIndex; i++)
                 {
                     lock (Sync)

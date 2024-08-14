@@ -1,0 +1,26 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="DataGridCell">
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>	
+        <Setter Property="BorderThickness" Value="0,0,0,0"/>
+        <Setter Property="Padding" Value="16,0,10,0"/>
+        <Setter Property="BorderBrush" Value="{StaticResource CommonBorderBrush}"/>
+        <Style Selector="^:current /template/ Rectangle#CurrencyVisual">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^:focus /template/ Grid#FocusVisual">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^:invalid /template/ Rectangle#InvalidVisualElement">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+    </Style>
+</Styles>

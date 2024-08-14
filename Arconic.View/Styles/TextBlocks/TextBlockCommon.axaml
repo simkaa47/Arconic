@@ -8,6 +8,7 @@
 
     <Style Selector="TextBlock">
        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="Margin" Value="0"></Setter>
         <Setter Property="TextWrapping" Value="Wrap"></Setter>
     </Style>
 </Styles>

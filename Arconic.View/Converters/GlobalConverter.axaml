@@ -5,4 +5,5 @@
     <conv:GetIfTrueMultiValueConverter x:Key="GetIfTrueMultiValueConverter"/>
     <conv:StringToBitmapConverter x:Key="StringToBitmapConverter"/>
     <conv:IfEqualConverter x:Key="IfEqualConverter"/>
+    <conv:GetEventColor x:Key="GetEventColor"/>
 </ResourceDictionary>

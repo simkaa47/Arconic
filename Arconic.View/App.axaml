@@ -18,8 +18,13 @@
     <Application.Styles>
         <FluentTheme />
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+        <StyleInclude Source="avares://Avalonia.Controls.TreeDataGrid/Themes/Fluent.axaml"/>
+        <StyleInclude Source="/UserControls/CommonControls/DateTimePicker/DateTimePickerStyle.axaml"></StyleInclude>
         <StyleInclude Source="/Styles/Validation/ValidationErrors.axaml"></StyleInclude>
         <StyleInclude Source="/Styles/TextBlocks/TextBlockCommon.axaml"></StyleInclude>
+        <StyleInclude Source="/Styles/DataGrid/DataGridHeader.axaml"></StyleInclude>
+        <StyleInclude Source="/Styles/DataGrid/DataGridRows.axaml"></StyleInclude>
+        <StyleInclude Source="/Styles/DataGrid/DataGridColumnCells.axaml"></StyleInclude>
         <StyleInclude Source="/Styles/TextBoxes/TextBoxCommon.axaml"></StyleInclude>
         <mat:MaterialIconStyles />
     </Application.Styles>
