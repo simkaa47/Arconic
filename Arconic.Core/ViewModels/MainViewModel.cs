@@ -1,8 +1,8 @@
-﻿using Arconic.Core.Services.Plc;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Arconic.Core.ViewModels;
 
-public class MainViewModel(PlcViewModel plcViewModel)
+public partial class MainViewModel(PlcViewModel plcViewModel) : ObservableObject
 {
     public PlcViewModel PlcViewModel { get; } = plcViewModel;
 }

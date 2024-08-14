@@ -88,7 +88,7 @@ public partial class SourceTrendViewModel:TrendBaseViewModel
     [RelayCommand]
     private void EnableRealTime()
     {
-        if (XAxes is not null && XAxes.Length > 0)
+        if(XAxes.Length > 0)
         {
             XAxes[0].MaxLimit = null;
             XAxes[0].MinLimit = null;
@@ -151,7 +151,7 @@ public partial class SourceTrendViewModel:TrendBaseViewModel
     private void AddDataAsync()
     {
         var dt = DateTime.Now;
-        if (dt >= _lastTimeUpdated.AddMilliseconds(1000))
+        if (dt >= _lastTimeUpdated.AddMilliseconds(1000) && _plcService.IsConnected)
         {
             lock (Sync)
             {

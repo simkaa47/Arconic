@@ -8,16 +8,24 @@
         <entry key="Arconic.View/MainWindow.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Resources/Colors.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Resources/CommonTextStatuses.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/Resources/FontFamilies.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/Styles/DataGrid/DataGridColumnCells.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/Styles/DataGrid/DataGridHeader.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Styles/TextBlocks/TextBlockCommon.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Styles/TextBoxes/TextBoxCommon.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Styles/Validation/ValidationErrors.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Themes/ListBox/ListBoxItems.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/CommonControls/DateTimePicker/DateTimePicker.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/CommonControls/DateTimePicker/DateTimePickerStyle.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/CommonControls/ImageBitIndicator.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/CommonControls/NumericParameter.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/CommonControls/ParameterButton.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/CommonControls/SuperControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/CommonControls/TemplatedControl1.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/CommonControls/ToggleSwitch.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/Errors/ErrorsMainControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/Errors/Settings/SettingsMainControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/Events/EventsMainControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/HighBar/HighBarControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Settings/Detectors/DetectorsMainControl.axaml" value="Arconic.View/Arconic.View.csproj" />

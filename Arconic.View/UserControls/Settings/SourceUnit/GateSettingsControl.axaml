@@ -44,6 +44,8 @@
               RowDefinitions="*,Auto">
             <!--Табличка-->
             <DataGrid ItemsSource="{Binding Plc.Settings.Source.GateSettings}"
+                      VerticalGridLinesBrush="{DynamicResource DataGridVerticalBrush}"
+                      GridLinesVisibility="Vertical"
                       IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn x:DataType="gate:GateSettings" Header="ИМЯ" Binding="{Binding Name}"/>

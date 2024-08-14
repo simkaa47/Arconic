@@ -1,0 +1,26 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="DataGridRow">
+	
+        <Style Selector="^:selected">
+            <Style Selector="^ /template/ Rectangle#BackgroundRectangle">
+                <Setter Property="Fill" Value="Transparent" />				
+            </Style>
+            <Style Selector="^:pointerover /template/ Rectangle#BackgroundRectangle">
+                <Setter Property="Fill" Value="Transparent" />				
+            </Style>
+            <Style Selector="^:focus /template/ Rectangle#BackgroundRectangle">
+                <Setter Property="Fill" Value="Transparent" />				
+            </Style>
+            <Style Selector="^:pointerover:focus /template/ Rectangle#BackgroundRectangle">
+                <Setter Property="Fill" Value="Transparent" />				
+            </Style>
+        </Style>
+    </Style>
+</Styles>

@@ -3,6 +3,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:hb="using:Arconic.View.UserControls.HighBar"
              xmlns:sett="using:Arconic.View.UserControls.Settings"
+             xmlns:err="using:Arconic.View.UserControls.Errors"
+             xmlns:ev="using:Arconic.View.UserControls.Events"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             x:DataType="vm:MainViewModel"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Arconic.View.UserControls.MainControl">
@@ -12,6 +16,13 @@
             <TabItem Header="НАСТРОЙКИ">
                 <sett:SettingsMainControl></sett:SettingsMainControl>
             </TabItem>
+            <TabItem Header="ОШИБКИ">
+               <err:ErrorsMainControl/>
+            </TabItem>
+            <TabItem Header="ИСТОРИЯ СОБЫТИЙ">
+                <ev:EventsMainControl/>
+            </TabItem>
         </TabControl>
+        
     </Grid>
 </UserControl>

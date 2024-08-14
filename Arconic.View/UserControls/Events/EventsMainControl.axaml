@@ -1,0 +1,57 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.View.ViewModels"
+             xmlns:e="using:Arconic.Core.Models.Event"
+             xmlns:dt="using:Arconic.View.UserControls.CommonControls.DateTimePicker"
+             x:DataType="vm:EventsViewModel"
+             x:Class="Arconic.View.UserControls.Events.EventsMainControl">
+    <Grid RowDefinitions="Auto,*">
+        <StackPanel Orientation="Horizontal">
+            <dt:DateTimePicker Description="Стартовая точка времени"
+                               Margin="16,5,0,5"
+                               Command="{Binding DateSelectedCommand}"
+                               DateTime="{Binding StartHistoryPoint}"/>
+            <dt:DateTimePicker Description="Конечная точка времени"
+                               Margin="16,5,0,5"
+                               Command="{Binding DateSelectedCommand}"
+                               DateTime="{Binding EndHistoryPoint}"/>
+        </StackPanel>
+        <TreeDataGrid Grid.Row="1"
+                      Name="TreeDataGrid"
+                      Source="{Binding EventsSource}">
+            <TreeDataGrid.Styles>
+                <Style Selector="TreeDataGridRow" x:DataType="e:EventHistoryItem">
+                    <Setter Property="Background" Value="{Binding Converter={StaticResource GetEventColor}}"/>
+                    <Setter Property="Margin" Value="2"></Setter>
+                    <Setter Property="Template">
+                        <ControlTemplate TargetType="TreeDataGridRow">
+                            <Grid>
+                                <Border Margin="{TemplateBinding Margin}"
+                                        MinHeight="40"
+                                        HorizontalAlignment="Stretch"
+                                        Background="{TemplateBinding Background}">
+                                    <TreeDataGridCellsPresenter ElementFactory="{TemplateBinding ElementFactory}"
+                                                                Name="PART_CellsPresenter"
+                                                                Items="{TemplateBinding Columns}"
+                                                                Rows="{TemplateBinding Rows}">
+                                    </TreeDataGridCellsPresenter>
+                                </Border>
+                                <ToolTip>
+                                    <ToolTip.Tip>
+                                        <TextBlock Text="{Binding Description}"
+                                                   TextWrapping="Wrap"
+                                                   MaxWidth="500"/>
+                                    </ToolTip.Tip>
+                                </ToolTip>
+                            </Grid>
+                           
+                        </ControlTemplate>
+                    </Setter>
+                </Style>
+            </TreeDataGrid.Styles>
+        </TreeDataGrid>
+    </Grid>
+</UserControl>

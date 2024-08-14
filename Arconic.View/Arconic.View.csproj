@@ -11,6 +11,7 @@
     <ItemGroup>
         <PackageReference Include="Avalonia" Version="11.1.1" />
         <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.1.1" />
+        <PackageReference Include="Avalonia.Controls.TreeDataGrid" Version="11.0.10" />
         <PackageReference Include="Avalonia.Desktop" Version="11.1.1" />
         <PackageReference Include="Avalonia.Svg.Skia" Version="11.1.0" />
         <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.1" />
@@ -41,9 +42,30 @@
 
     <ItemGroup>
       <UpToDateCheckInput Remove="UserControls\SourceUnits\SourceUnitControl.axaml" />
+      <UpToDateCheckInput Remove="UserControls\Settings\Detectors\DetectorsMainControl.axaml" />
+      <UpToDateCheckInput Remove="UserControls\Settings\Detectors\DetectorsTrendControl.axaml" />
+      <UpToDateCheckInput Remove="UserControls\Settings\SettingsMainControl.axaml" />
+      <UpToDateCheckInput Remove="UserControls\Settings\SourceUnit\GateSettingsControl.axaml" />
+      <UpToDateCheckInput Remove="UserControls\Settings\SourceUnit\SourceButtonsControl.axaml" />
+      <UpToDateCheckInput Remove="UserControls\Settings\SourceUnit\SourceChartsControl.axaml" />
+      <UpToDateCheckInput Remove="UserControls\Settings\SourceUnit\SourceIndicationControl.axaml" />
+      <UpToDateCheckInput Remove="UserControls\Settings\SourceUnit\SourceMainControl.axaml" />
+      <UpToDateCheckInput Remove="UserControls\Settings\SourceUnit\SourceSettingsControl.axaml" />
     </ItemGroup>
 
     <ItemGroup>
         <AvaloniaResource Include="Assets\**"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="UserControls\Settings\Detectors\DetectorsMainControl.axaml" />
+      <AdditionalFiles Include="UserControls\Settings\Detectors\DetectorsTrendControl.axaml" />
+      <AdditionalFiles Include="UserControls\Settings\SettingsMainControl.axaml" />
+      <AdditionalFiles Include="UserControls\Settings\SourceUnit\GateSettingsControl.axaml" />
+      <AdditionalFiles Include="UserControls\Settings\SourceUnit\SourceButtonsControl.axaml" />
+      <AdditionalFiles Include="UserControls\Settings\SourceUnit\SourceChartsControl.axaml" />
+      <AdditionalFiles Include="UserControls\Settings\SourceUnit\SourceIndicationControl.axaml" />
+      <AdditionalFiles Include="UserControls\Settings\SourceUnit\SourceMainControl.axaml" />
+      <AdditionalFiles Include="UserControls\Settings\SourceUnit\SourceSettingsControl.axaml" />
     </ItemGroup>
 </Project>

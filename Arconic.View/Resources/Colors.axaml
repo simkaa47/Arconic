@@ -9,7 +9,9 @@
     
     <SolidColorBrush Color="#F44336" x:Key="ErrorMainColor"/>
     <SolidColorBrush Color="#28BCBA" x:Key="AquaColor"/>
+    <SolidColorBrush Color="#3F3F42" x:Key="DataGridVerticalBrush"/>			
     <SolidColorBrush Color="#2C2C2E" x:Key="ParameterBackgroundCommonColor"/>	
     <SolidColorBrush Color="#5B5B5B" x:Key="ListBoxItemBorderBrush"/>	
     <SolidColorBrush Color="#5B5B5B" x:Key="ParameterSelected"/>
+    <SolidColorBrush Color="#5B5B5B" x:Key="CommonBorderBrush"/>
 </ResourceDictionary>

@@ -1,0 +1,97 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.View.ViewModels"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             xmlns:event="using:Arconic.Core.Models.Event"
+             x:DataType="vm:EventsViewModel"
+             x:Class="Arconic.View.UserControls.Errors.ErrorsMainControl">
+    <TabControl ItemsSource="{Binding GroupErrors}"
+                TabStripPlacement="Left">
+        <TabControl.ItemTemplate>
+            <DataTemplate DataType="event:ErrorGroup">
+	            <StackPanel Orientation="Horizontal">
+		            <common:ImageBitIndicator FalseStateImage="/Assets/Images/ind_err.png"
+		                                      TrueStateImage="/Assets/Images/ind_ok.png"
+		                                      Height="35" Width="35"
+		                                      State="{Binding Errors.Count, Converter={StaticResource IfEqualConverter}, ConverterParameter=0}"/>
+		            <TextBlock Text="{Binding GroupName}"/>
+	            </StackPanel>
+	            
+            </DataTemplate>
+        </TabControl.ItemTemplate>
+        <TabControl.ContentTemplate>
+            <DataTemplate DataType="event:ErrorGroup">
+                <DataGrid ItemsSource="{Binding Errors}"
+                          IsReadOnly="True">
+                    <DataGrid.Styles>
+				<Style Selector="DataGridColumnHeader">
+					<Setter Property="Padding" Value="20"/>
+					<Setter Property="FontSize" Value="14"/>
+					<Setter Property="VerticalContentAlignment" Value="Center"/>
+					<Setter Property="FontFamily" Value="{DynamicResource RobotoFont}"/>
+					<Setter Property="FontWeight" Value="Medium"/>						
+					<Setter Property="BorderThickness" Value="0,0,0,0"/>
+					<Setter Property="Template">
+						<ControlTemplate>
+							<Border x:Name="HeaderBorder"
+									Background="Transparent"
+									BorderBrush="{TemplateBinding BorderBrush}"
+									BorderThickness="{TemplateBinding BorderThickness}"
+									CornerRadius="{TemplateBinding CornerRadius}">
+								<Grid Name="PART_ColumnHeaderRoot" ColumnDefinitions="*,Auto">
+
+									<Panel Margin="{TemplateBinding Padding}"
+										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+										<Grid>
+
+											<TextBlock Text="{TemplateBinding Content}"
+													   TextWrapping="Wrap"
+													   VerticalAlignment="Top"/>
+										</Grid>
+									</Panel>
+								</Grid>
+							</Border>
+						</ControlTemplate>
+					</Setter>
+				</Style>
+				<Style Selector="DataGridRow" x:DataType="event:PlcError">
+					
+					<Setter Property="Template">
+						
+						<ControlTemplate TargetType="DataGridRow">
+							<Border Margin="0,0,0,4"
+									BorderThickness="0"
+									Background="Red"
+									MinHeight="32">
+								<DataGridCellsPresenter Name="PART_CellsPresenter"
+                      Grid.Column="1"/>
+							</Border>
+							
+						</ControlTemplate>
+					</Setter>					
+				</Style>
+				<Style Selector="DataGridCell">
+					<Setter Property="VerticalContentAlignment" Value="Center"/>
+					<Setter Property="HorizontalContentAlignment" Value="Left"/>
+					<Setter Property="BorderThickness" Value="0,0,0,0"/>
+					<Setter Property="Padding" Value="19,10,19,10"/>
+					<Setter Property="FontSize" Value="14"/>
+					<Setter Property="FontFamily" Value="{DynamicResource RobotoFont}"/>
+					<Setter Property="FontWeight" Value="Regular"/>
+					<Setter Property="BorderBrush" Value="{DynamicResource CommonBorderBrush}"/>
+				</Style>
+</DataGrid.Styles>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn x:DataType="event:PlcError"  Header="ДАТА ВОЗНИКНОВЕНИЯ" Binding="{Binding LastExecTime, StringFormat=dd.MM.yyyy HH:mm:ss}"/>
+                        <DataGridTextColumn x:DataType="event:PlcError"  Header="КОД ОШИБКИ" Binding="{Binding Code}"/>
+                        <DataGridTextColumn x:DataType="event:PlcError"  Header="СООБЩЕНИЕ" Binding="{Binding ActiveMessage}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DataTemplate>
+        </TabControl.ContentTemplate>
+    </TabControl>
+</UserControl>

@@ -13,7 +13,7 @@
              x:Class="Arconic.View.UserControls.CommonControls.NumericParameter">
     <DockPanel>
         <StackPanel Orientation="Horizontal"
-                    Margin="5"
+                    Margin="0,5,5,5"
                     DockPanel.Dock="Right"
                     VerticalAlignment="Center">
             <TextBox x:CompileBindings="False"  Text="{Binding WriteValue}"
