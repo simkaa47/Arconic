@@ -1,0 +1,95 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        CanResize="False"
+        BorderBrush="{StaticResource AquaColor}"
+        BorderThickness="1"
+        xmlns:login="using:Arconic.Core.Models.AccessControl"
+        CornerRadius="4"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource CommonBorderBrush}"
+        SystemDecorations="None"
+        Width="400"
+        Height="500"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:DataType="login:Login"
+        x:Class="Arconic.View.Dialogs.Access.AccessDialogWindow"
+        Title="AccessDialogWindow">
+    <Window.Styles>
+        <Style Selector="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource RobotoFont}"/>
+        </Style>		
+    </Window.Styles>
+    <Grid>
+        <!--Logo-->
+        <Image Source="/Assets/Images/KONVELS_logo.png"
+               Width="174" Height="45" HorizontalAlignment="Center"
+               Margin="0,20"
+               VerticalAlignment="Top"></Image>
+        <StackPanel HorizontalAlignment="Center"
+                    Margin="0,120">
+            <!--Login-->
+            <TextBox Theme="{StaticResource LoginTextBoxTheme}"
+                     Name="LoginField"
+                     Text="{Binding LoginName}"
+                     BorderBrush="{Binding FaliledLogin, Converter={StaticResource GetIfTrueConverter}, ConverterParameter={StaticResource TextBoxErrorColors}}"
+                     Watermark="Логин"/>
+            
+            <TextBlock Text="Неправильный логин или пароль"
+                       FontSize="12"
+                       Margin="14,2"
+                       IsVisible="{Binding FaliledLogin}"
+                       Foreground="{DynamicResource ErrorMainColor}"
+                       FontWeight="Regular"/>
+            
+            <!--Password-->
+
+            <TextBox Margin="0,40,0,0"
+                     Theme="{StaticResource LoginTextBoxTheme}"
+                     Name="PasswordField"
+                     BorderBrush="{Binding FaliledLogin, Converter={StaticResource GetIfTrueConverter}, ConverterParameter={StaticResource TextBoxErrorColors}}"
+                     Text="{Binding Password}"
+                     PasswordChar="*"
+                     Watermark="Пароль"/>
+            <TextBlock Text="Неправильный логин или пароль"
+                       FontSize="12"
+                       Margin="14,2"
+                       IsVisible="{Binding FaliledLogin}"
+                       Foreground="{DynamicResource ErrorMainColor}"
+                       FontWeight="Regular"/>
+        </StackPanel>
+        
+        <!--Buttons-->
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0,20"
+                    VerticalAlignment="Bottom"
+        >
+            <Button Height="50"
+                    Margin="5"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"
+                    Background="{DynamicResource ButtonDeny}"
+                    Click="Cancel_Click"
+                    Width="120">
+                <TextBlock Text="Отмена"
+                           FontSize="16"
+                           HorizontalAlignment="Center"></TextBlock>
+            </Button>
+            <Button Height="50"
+                    Margin="5"
+                    Background="{DynamicResource  ButtonAccept}"
+                    VerticalAlignment="Stretch"
+                    IsEnabled="{Binding !HasErrors}"
+                    HorizontalAlignment="Stretch"
+                    Click="Login_Click"
+                    Width="120">
+                <TextBlock Text="Ок"
+                           FontSize="16"
+                           HorizontalAlignment="Center"></TextBlock>
+            </Button>
+        </StackPanel>
+    </Grid>
+    
+</Window>

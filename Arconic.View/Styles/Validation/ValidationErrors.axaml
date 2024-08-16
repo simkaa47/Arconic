@@ -37,4 +37,46 @@
             </DataTemplate>
         </Setter>
     </Style>
+    
+    <Style Selector="DataValidationErrors.LoginValidation">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel LastChildFill="True">
+                    <ContentControl DockPanel.Dock="Bottom"
+                                    ContentTemplate="{TemplateBinding ErrorTemplate}"
+                                    DataContext="{TemplateBinding Owner}"
+                                    Content="{Binding (DataValidationErrors.Errors)}"
+                                    IsVisible="{Binding (DataValidationErrors.HasErrors)}"/>
+                    <ContentPresenter Name="PART_ContentPresenter"
+                                      DockPanel.Dock="Top"
+                                      Background="{TemplateBinding Background}"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      CornerRadius="{TemplateBinding CornerRadius}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      Content="{TemplateBinding Content}"
+                                      Padding="{TemplateBinding Padding}"/>
+                </DockPanel>
+            </ControlTemplate>
+        </Setter>
+        <Setter Property="ErrorTemplate">
+            <DataTemplate x:DataType="{x:Type x:Object}">
+                <ItemsControl ItemsSource="{Binding}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Margin="14,2,0,2"
+                                       TextWrapping="Wrap"
+                                       FontSize="12"
+                                       Text="{Binding}"
+                                       FontFamily="{StaticResource RobotoFont}"
+                                       Foreground="{DynamicResource ErrorMainColor}"
+                                       FontWeight="Regular">
+							
+                            </TextBlock>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </DataTemplate>
+        </Setter>
+    </Style>
 </Styles>

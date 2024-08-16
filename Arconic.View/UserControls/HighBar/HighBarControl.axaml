@@ -3,11 +3,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:hb="using:Arconic.View.UserControls.HighBar"
              xmlns:common="using:Arconic.View.UserControls.CommonControls"
              x:DataType="vm:MainViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Arconic.View.UserControls.HighBar.HighBarControl">
-   <Grid ColumnDefinitions="*,*,*,*,*,*,80" Height="80" ShowGridLines="True">
+   <Grid ColumnDefinitions="*,*,*,*,*,*,*,80" Height="80" ShowGridLines="True">
        <!--Konvels logo-->
        <Image Source="/Assets/Images/KONVELS_logo.png"
               Margin="10"></Image>
@@ -66,5 +67,19 @@
              
          </common:ParameterButton.ButtonContent>
        </common:ParameterButton>
+       <!--Время и пользователь-->
+       <StackPanel Grid.Column="6">
+           <Border Margin="10,5"
+                   VerticalAlignment="Center"
+                   Background="{StaticResource DateTimeBackground}"
+                   HorizontalAlignment="Center">
+               <TextBlock Text="{Binding DateTime,StringFormat={}{0:HH:mm:ss    dd.MM.yyyy}}"
+                          FontSize="15"					   
+                          FontWeight="Medium"
+                          HorizontalAlignment="Center"/>
+           </Border>
+           <hb:AccessControl DataContext="{Binding AccessViewModel}"
+                             Margin="10,5"/>
+       </StackPanel>
    </Grid>
 </UserControl>

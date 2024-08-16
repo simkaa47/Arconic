@@ -6,12 +6,23 @@
         <SolidColorBrush Color="Transparent"/>
         <SolidColorBrush Color="#28BCBA"/>
     </scg:List>
+    <scg:List x:TypeArguments="sys:Object" x:Key="TextBoxErrorColors">
+        <SolidColorBrush Color="{DynamicResource TextBoxErrorColorOk}"/>
+        <SolidColorBrush Color="{DynamicResource TextBoxErrorColorNotOk}"/>
+    </scg:List>
     
     <SolidColorBrush Color="#F44336" x:Key="ErrorMainColor"/>
     <SolidColorBrush Color="#28BCBA" x:Key="AquaColor"/>
+    <SolidColorBrush Color="#28BCBA" x:Key="ButtonAccept"/>
+    <SolidColorBrush Color="#3F3F42" x:Key="ButtonDeny"/>
+    <SolidColorBrush Color="#1C1C1E" x:Key="CommonColor"/>
+    <SolidColorBrush Color="#FFFFFF" x:Key="TexBoxCommon"/>
     <SolidColorBrush Color="#3F3F42" x:Key="DataGridVerticalBrush"/>			
     <SolidColorBrush Color="#2C2C2E" x:Key="ParameterBackgroundCommonColor"/>	
     <SolidColorBrush Color="#5B5B5B" x:Key="ListBoxItemBorderBrush"/>	
     <SolidColorBrush Color="#5B5B5B" x:Key="ParameterSelected"/>
     <SolidColorBrush Color="#5B5B5B" x:Key="CommonBorderBrush"/>
+    <SolidColorBrush Color="#2C2C2E" x:Key="DateTimeBackground"/>
+    <Color x:Key="TextBoxErrorColorOk">White</Color>
+    <Color x:Key="TextBoxErrorColorNotOk">Red</Color>
 </ResourceDictionary>

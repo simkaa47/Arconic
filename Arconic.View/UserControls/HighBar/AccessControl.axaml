@@ -1,0 +1,51 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ma="using:Material.Icons.Avalonia"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:scg="clr-namespace:System.Collections.Generic;assembly=netstandard"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             x:DataType="vm:AccessViewModel"
+             x:Class="Arconic.View.UserControls.HighBar.AccessControl">
+    <UserControl.Resources>
+        <scg:List x:TypeArguments="sys:Object" x:Key="AccountColors">
+            <SolidColorBrush Color="Red"/>
+            <SolidColorBrush Color="Transparent"/>
+        </scg:List>
+    </UserControl.Resources>
+    <Grid ColumnDefinitions="*, Auto">
+        <DockPanel>
+            <Button Height="40" Width="40"
+                    CornerRadius="20"
+                    Margin="5"
+                    Background="{Binding IsAuthorized, Converter={StaticResource GetIfTrueConverter}, ConverterParameter={StaticResource AccountColors}}"
+                    Padding="0"
+                    Click="ButtonLogin_OnClick">
+           
+                <ma:MaterialIcon Kind="User"
+                                 Height="25"
+                                 Width="25"
+                                 Margin="0"></ma:MaterialIcon>
+            </Button>
+            <TextBlock Margin="5,0" 
+                       Text="{Binding CurrentUser.FullName, FallbackValue=Пользователь не авторизован}"/>
+        </DockPanel>
+        <Button Grid.Column="1" Height="40" Width="40"
+                CornerRadius="20"
+                Margin="5"
+                IsVisible="{Binding IsAuthorized}"
+                Background="Transparent"
+                Padding="0"
+                Command="{Binding LogoutCommand}">
+           
+            <ma:MaterialIcon Kind="Logout"
+                             Height="25"
+                             Width="25"
+                             Margin="0"></ma:MaterialIcon>
+        </Button>
+    </Grid>
+    
+    
+</UserControl>
