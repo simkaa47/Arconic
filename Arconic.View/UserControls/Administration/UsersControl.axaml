@@ -1,0 +1,64 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mat="using:Material.Icons.Avalonia"
+             xmlns:user="using:Arconic.Core.Models.AccessControl"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:AccessViewModel"
+             x:Class="Arconic.View.UserControls.Administration.UsersControl">
+    <Grid RowDefinitions="Auto,*">
+        <Button Width="160"
+                Margin="10"
+                Command="{Binding AddUserCommand}"
+                Background="{StaticResource ButtonAccept}">
+            <TextBlock Text="Добавить пользователя"
+                       Margin="10,5"
+                       HorizontalAlignment="Center"/>
+        </Button>
+        <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding Users}"
+                  IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:DataType="user:User" Header="Логин" Binding="{Binding Login}"/>
+                <DataGridTextColumn x:DataType="user:User" Header="Имя" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn x:DataType="user:User" Header="Фамилия" Binding="{Binding LastName}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Background="{StaticResource ButtonAccept}"
+                                        CommandParameter="{Binding}"
+                                        Command="{Binding $parent[UserControl].((vm:AccessViewModel)DataContext).EditUserCommand, FallbackValue={x:Null}}"
+                                        Margin="4">
+                                    <mat:MaterialIcon Height="25"
+                                                      Width="25"
+                                                      Margin="5"
+                                                      Kind="Edit">
+                                    </mat:MaterialIcon>
+                                    <ToolTip.Tip>
+                                        <TextBlock Text="Редактировать пользователя"></TextBlock>
+                                    </ToolTip.Tip>
+                                </Button>
+                                <Button Background="{StaticResource ButtonAccept}"
+                                        CommandParameter="{Binding}"
+                                        Command="{Binding $parent[UserControl].((vm:AccessViewModel)DataContext).DeleteUserCommand, FallbackValue={x:Null}}"
+                                        Margin="4">
+                                    <mat:MaterialIcon Height="25"
+                                                      Width="25"
+                                                      Margin="5"
+                                                      Kind="Delete">
+                                    </mat:MaterialIcon>
+                                    <ToolTip.Tip>
+                                        <TextBlock Text="Удалить данные пользователя"></TextBlock>
+                                    </ToolTip.Tip>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

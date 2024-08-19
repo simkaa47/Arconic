@@ -1,6 +1,8 @@
 ﻿using Arconic.Core.Abstractions.DataAccess;
+using Arconic.Core.Abstractions.Security;
 using Arconic.Core.Infrastructure.DataContext.Data;
 using Arconic.Core.Infrastructure.DataContext.Repositories;
+using Arconic.Core.Infrastructure.Security;
 using Arconic.Core.Options;
 using Arconic.Core.Services.Access;
 using Arconic.Core.Services.Events;
@@ -24,6 +26,8 @@ public static class CoreServicesRegistration
         services.AddSingleton<MainViewModel>();
         services.AddSingleton<EventMainService>();
         services.AddSingleton<AccessService>();
+        services.AddSingleton<AccessViewModel>();
+        services.AddTransient<IPasswordHasher, PasswordHasher>();
         services.AddSingleton<MainPlcService>();
         services.AddSingleton<PlcViewModel>();
         services.AddTransient(typeof(IRepository<>), typeof(BaseRepository<>));

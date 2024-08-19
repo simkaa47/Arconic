@@ -7,10 +7,12 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="/Themes/TextBox/TextBoxes.axaml"/>
+                <ResourceInclude Source="/Resources/FontFamilies.axaml"/>
                 <ResourceInclude Source="/Converters/GlobalConverter.axaml"/>
-                <ResourceInclude Source="/Resources/CommonTextStatuses.axaml"></ResourceInclude>
-                <ResourceInclude Source="/Themes/ListBox/ListBoxItems.axaml"></ResourceInclude>
-                <ResourceInclude Source="/Resources/Colors.axaml"></ResourceInclude>
+                <ResourceInclude Source="/Resources/CommonTextStatuses.axaml"/>
+                <ResourceInclude Source="/Themes/ListBox/ListBoxItems.axaml"/>
+                <ResourceInclude Source="/Resources/Colors.axaml"/>
                 <ResourceInclude Source="avares://LoadingIndicators.Avalonia/LoadingIndicators.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -19,7 +21,7 @@
         <FluentTheme />
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
         <StyleInclude Source="avares://Avalonia.Controls.TreeDataGrid/Themes/Fluent.axaml"/>
-        <StyleInclude Source="/UserControls/CommonControls/DateTimePicker/DateTimePickerStyle.axaml"></StyleInclude>
+        <StyleInclude Source="/UserControls/CommonControls/DateTimePicker/DateTimePickerStyle.axaml"/>
         <StyleInclude Source="/Styles/Validation/ValidationErrors.axaml"></StyleInclude>
         <StyleInclude Source="/Styles/TextBlocks/TextBlockCommon.axaml"></StyleInclude>
         <StyleInclude Source="/Styles/DataGrid/DataGridHeader.axaml"></StyleInclude>

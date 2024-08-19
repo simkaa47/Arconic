@@ -2,7 +2,14 @@
 
 namespace Arconic.Core.Infrastructure.DataContext;
 
-public class Entity:ObservableObject
+public class Entity:ObservableValidator
 {
     public int Id { get; set; }
+    public bool Validate()
+    {
+        this.ValidateAllProperties();
+        return !HasErrors;
+    }
+
+    
 }

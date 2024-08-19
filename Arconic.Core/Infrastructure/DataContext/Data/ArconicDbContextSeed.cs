@@ -20,14 +20,17 @@ public class ArconicDbContextSeed
 
     private static void SeedUsers(ArconicDbContext context)
     {
-        var testUser = context.Users.FirstOrDefault();
+        var testUser = context.Users.FirstOrDefault(u => u.Level == AccessLevel.Admin);
         if (testUser == null)
         {
             var users = new List<User>
             {
                 new()
                 {
-                    FirstName = "Иван", LastName = "Жуковский", Password = "konvels2024", Login = "admin",
+                    FirstName = "Иван", 
+                    LastName = "Жуковский", 
+                    Password = "3xQwVVQqdMZVZqZf64Vx7A==:KkUUIafFL49ctAHmjbUPg5PJK5xWzZV6e1AeKephD8E=", 
+                    Login = "admin",
                     Level = AccessLevel.Admin
                 }
             };

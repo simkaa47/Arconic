@@ -1,27 +1,39 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Arconic.Core.Infrastructure.DataContext;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Arconic.Core.Models.AccessControl;
 
-public class User:Entity
+public partial class User:Entity
 {
     [MinLength(3)]
     [Required]
-    public string Login { get; set; } = string.Empty;
+    [NotifyDataErrorInfo]
+    [ObservableProperty]
+    private string _login  = string.Empty;
     [MinLength(3)]
     [Required]
+    [NotifyDataErrorInfo]
     [MaxLength(100)]
-    public string LastName { get; set; } = string.Empty;
+    [ObservableProperty]
+    private string _lastName  = string.Empty;
     [MinLength(3)]
     [Required]
+    [NotifyDataErrorInfo]
     [MaxLength(100)]
-    public string FirstName { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
-    public string Password { get; set; } = string.Empty;
-    public AccessLevel Level { get; set; }
+    [ObservableProperty]
+    private string _firstName  = string.Empty;
+    [ObservableProperty]
+    private string _description  = string.Empty;
+    [ObservableProperty]
+    [Required]
+    [NotifyDataErrorInfo]
+    [MinLength(4)]
+    private string _password = string.Empty;
+    [ObservableProperty] 
+    private AccessLevel _level;
     [NotMapped] 
-    [MaxLength(200)]
     public string FullName => $"{FirstName} {LastName}";
 
 }

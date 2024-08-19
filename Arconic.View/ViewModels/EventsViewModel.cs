@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Arconic.Core.Abstractions.DataAccess;
+using Arconic.Core.Infrastructure.DataContext.Data;
 using Arconic.Core.Models.AccessControl;
 using Arconic.Core.Models.Event;
 using Arconic.Core.Services.Events;
@@ -14,6 +15,7 @@ using Avalonia.Controls.Models.TreeDataGrid;
 using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.EntityFrameworkCore;
 
 namespace Arconic.View.ViewModels;
 
@@ -21,7 +23,8 @@ public partial class EventsViewModel:ObservableObject
 {
     private readonly EventMainService _eventMainService;
     private readonly MainPlcService _plcService;
-    private readonly IRepository<EventHistoryItem> _repo;
+    private readonly DbContext _dbContext;
+
     private readonly ObservableCollection<EventHistoryItem> _events 
         = new ObservableCollection<EventHistoryItem>();
 
@@ -29,11 +32,11 @@ public partial class EventsViewModel:ObservableObject
     
 
     public EventsViewModel(EventMainService eventMainService, 
-        MainPlcService plcService, IRepository<EventHistoryItem> repo)
+        MainPlcService plcService, ArconicDbContext dbContext)
     {
         _eventMainService = eventMainService;
         _plcService = plcService;
-        _repo = repo;
+        _dbContext = dbContext;
         EventsSource = new FlatTreeDataGridSource<EventHistoryItem>(_events)
         {
             Columns =
@@ -78,8 +81,10 @@ public partial class EventsViewModel:ObservableObject
     {
         try
         {
-            var events = await _repo.GetWhere(i => i.Date >= StartHistoryPoint
-                                                   && i.Date <= EndHistoryPoint);
+            var events = await _dbContext.Set<EventHistoryItem>().Where(i => i.Date >= StartHistoryPoint
+                                                                         && i.Date <= EndHistoryPoint)
+                .Include(e=>e.User)
+                .ToListAsync();
             _events.Clear();
             foreach (var e in events)
             {
