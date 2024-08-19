@@ -18,7 +18,6 @@ public class PasswordHasher : IPasswordHasher
         var result = string.Join(Separator, Convert.ToBase64String(salt), Convert.ToBase64String(hash));
         return result;
     }
-
     public bool Verify(string? passwordHash, string? inputPassword)
     {
         if (string.IsNullOrEmpty(passwordHash) || string.IsNullOrEmpty(inputPassword)) return false;

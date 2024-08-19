@@ -1,0 +1,90 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:user="using:Arconic.Core.Models.AccessControl"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource CommonBorderBrush}"
+        SystemDecorations="None"
+        x:Class="Arconic.View.Dialogs.Access.AddEditUserDialogWindow"
+        x:DataType="user:User"
+        Width="400"
+        SizeToContent="Height"
+        Title="AddEditUserDialogWindow">
+    <StackPanel>
+        <StackPanel.Styles>
+            <Style Selector="TextBox">
+                <Setter Property="FontSize" Value="16"></Setter>
+                <Setter Property="Height" Value="40"></Setter>
+                <Setter Property="Width" Value="300"></Setter>
+            </Style>
+            <Style Selector="StackPanel">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="0,10"></Setter>
+            </Style>
+        </StackPanel.Styles>
+        <!--Логин-->
+        <StackPanel>
+            <TextBlock Text="Логин"/>
+            <TextBox Text="{Binding Login}"/>
+        </StackPanel>
+        <!--Имя-->
+        <StackPanel>
+            <TextBlock Text="Имя"/>
+            <TextBox Text="{Binding FirstName}"/>
+        </StackPanel>
+        <!--Фамилия-->
+        <StackPanel>
+            <TextBlock Text="Фамилия"/>
+            <TextBox Text="{Binding LastName}"/>
+        </StackPanel>
+        <!--Фамилия-->
+        <StackPanel>
+            <TextBlock Text="Пароль"/>
+            <TextBox Text="{Binding Password}"
+                     Name="PasswordField"
+                     PasswordChar="*"/>
+        </StackPanel>
+        <!--Уровень доступа-->
+        <StackPanel>
+            <TextBlock Text="Уровень доступа"/>
+           <ComboBox ItemsSource="{StaticResource UserLevels}"
+                     SelectedIndex="{Binding Level}"
+                     Height="40"
+                     FontSize="16"
+                     Width="300"></ComboBox>
+           
+        </StackPanel>
+        <!--Buttons-->
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0,20"
+                    VerticalAlignment="Bottom"
+        >
+            <Button Height="50"
+                    Margin="5"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"
+                    Background="{DynamicResource ButtonDeny}"
+                    Click="Cancel_Click"
+                    Width="120">
+                <TextBlock Text="Отмена"
+                           FontSize="16"
+                           HorizontalAlignment="Center"></TextBlock>
+            </Button>
+            <Button Height="50"
+                    Margin="5"
+                    Background="{DynamicResource  ButtonAccept}"
+                    VerticalAlignment="Stretch"
+                    IsEnabled="{Binding !HasErrors}"
+                    HorizontalAlignment="Stretch"
+                    Click="Accept_Click"
+                    Width="120">
+                <TextBlock Text="Ок"
+                           FontSize="16"
+                           HorizontalAlignment="Center"></TextBlock>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</Window>

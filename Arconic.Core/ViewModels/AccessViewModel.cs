@@ -1,4 +1,6 @@
-﻿using Arconic.Core.Models.AccessControl;
+﻿using Arconic.Core.Abstractions.AccessControl;
+using Arconic.Core.Abstractions.Common;
+using Arconic.Core.Models.AccessControl;
 using Arconic.Core.Services.Access;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -10,15 +12,28 @@ public partial class AccessViewModel:ObservableObject
 {
     private readonly AccessService _accessService;
     private readonly ILogger<AccessViewModel> _logger;
+    private readonly IUserAddEditDIalog _userDialog;
+    private readonly IQuestionDialog _questionDialog;
 
-    public AccessViewModel(AccessService accessService, ILogger<AccessViewModel> logger)
+    public AccessViewModel(AccessService accessService,
+        ILogger<AccessViewModel> logger, 
+        IUserAddEditDIalog userDialog, 
+        IQuestionDialog questionDialog)
     {
         _accessService = accessService;
         _logger = logger;
+        _userDialog = userDialog;
+        _questionDialog = questionDialog;
+        InitAsync();
+    }
+
+    private async void InitAsync()
+    {
+        Users = await _accessService.GetUsers();
     }
     
     [ObservableProperty]
-    private List<User> _users;
+    private IEnumerable<User>? _users;
     [ObservableProperty]
     private User? _currentUser;
     [ObservableProperty]
@@ -44,6 +59,41 @@ public partial class AccessViewModel:ObservableObject
     {
         CurrentUser = _accessService.Logout();
         IsAuthorized = false;
+    }
+    [RelayCommand]
+    private async Task AddUserAsync()
+    {
+        var user = await _userDialog.AddUser();
+        if (user is not null)
+        {
+            await _accessService.AddUserAsync(user);
+            Users = await _accessService.GetUsers();
+        }
+    }
+
+    [RelayCommand]
+    private async Task EditUserAsync(object? par)
+    {
+        if (par is not null && par is User user)
+        {
+            if (await _userDialog.EditUser(user))
+            {
+                await _accessService.UpdateUserAsync(user);
+            }
+        }
+    }
+    [RelayCommand]
+    private async Task DeleteUserAsync(object? par)
+    {
+        if (par is not null && par is User user)
+        {
+            if (await _questionDialog.AskAsync("Удаление данных пользователя",
+                    $"Удалить данные пользователя с логином \"{user.Login}\" из базы данных?"))
+            {
+                await _accessService.DeleteUserAsync(user);
+                Users = await _accessService.GetUsers();
+            }
+        }
     }
 
 

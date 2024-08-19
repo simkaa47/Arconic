@@ -4,6 +4,7 @@
              xmlns:hb="using:Arconic.View.UserControls.HighBar"
              xmlns:sett="using:Arconic.View.UserControls.Settings"
              xmlns:err="using:Arconic.View.UserControls.Errors"
+             xmlns:adm="using:Arconic.View.UserControls.Administration"
              xmlns:ev="using:Arconic.View.UserControls.Events"
              xmlns:vm="using:Arconic.Core.ViewModels"
              x:DataType="vm:MainViewModel"
@@ -21,6 +22,9 @@
             </TabItem>
             <TabItem Header="ИСТОРИЯ СОБЫТИЙ">
                 <ev:EventsMainControl/>
+            </TabItem>
+            <TabItem Header="АДМИНИСТРИРОВАНИЕ">
+                <adm:AdministrationTab/>
             </TabItem>
         </TabControl>
         

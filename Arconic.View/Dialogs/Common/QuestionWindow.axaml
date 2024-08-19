@@ -1,0 +1,50 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Width="400"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource CommonBorderBrush}"
+        x:Name="Root"
+        SizeToContent="Height"
+        x:Class="Arconic.View.Dialogs.Common.QuestionWindow"
+        Title="{Binding ElementName=Root, Path=UserTitle, Mode=OneWay}">
+    <Grid RowDefinitions="*, Auto">
+        <TextBlock FontSize="16"
+                   Margin="20"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Text="{Binding ElementName=Root, Path=Message, Mode=OneWay}"></TextBlock>
+        <!--Buttons-->
+        <StackPanel Grid.Row="1" Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0,20"
+                    VerticalAlignment="Bottom"
+        >
+            <Button Height="50"
+                    Margin="5"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"
+                    Background="{DynamicResource ButtonDeny}"
+                    Click="Cancel_Click"
+                    Width="120">
+                <TextBlock Text="Отмена"
+                           FontSize="16"
+                           HorizontalAlignment="Center"></TextBlock>
+            </Button>
+            <Button Height="50"
+                    Margin="5"
+                    Background="{DynamicResource  ButtonAccept}"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"
+                    Click="Accept_Click"
+                    Width="120">
+                <TextBlock Text="Ок"
+                           FontSize="16"
+                           HorizontalAlignment="Center"></TextBlock>
+            </Button>
+        </StackPanel>
+    </Grid>
+   
+</Window>

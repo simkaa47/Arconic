@@ -10,6 +10,61 @@ public class AccessService(ILogger<AccessService> logger,
 {
     public User? CurrentUser { get; private set; }
 
+    public async Task AddUserAsync(User user)
+    {
+        try
+        {
+            user.Password = passwordHasher.GetHash(user.Password);
+            await userRepository.AddAsync(user);
+            logger.LogInformation("Пользователь с логином \"{login}\" успешно добавлен", user.Login);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e,"Ошибка добавления паользователя с логином \"{login}\"", user.Login);
+        }
+    }
+    
+    public async Task UpdateUserAsync(User user)
+    {
+        try
+        {
+            user.Password = passwordHasher.GetHash(user.Password);
+            await userRepository.UpdateAsync(user);
+            logger.LogInformation("Данные пользователя с логином \"{login}\" успешно обновлены", user.Login);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e,"Ошибка обновления данных пользователя с логином \"{login}\"", user.Login);
+        }
+    }
+
+    public async Task<IEnumerable<User>?> GetUsers()
+    {
+        var users = Enumerable.Empty<User>();
+        try
+        {
+            users = await userRepository.GetWhere(u=>u.Level != AccessLevel.Admin);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e,"Ошибка загрузки списка пользователей из базы данных");
+        }
+        return users;
+    }
+
+    public async Task DeleteUserAsync(User user)
+    {
+        try
+        {
+            await userRepository.DeleteAsync(user);
+            logger.LogInformation("Данные пользователя с логином \"{login}\" удалены из базы данных", user.Login);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e,"Ошибка удаления пользователя с логином \"{login}\"", user.Login);
+        }
+    }
+
     public async Task<bool> LoginAsync(Login login)
     {
         try
@@ -32,7 +87,7 @@ public class AccessService(ILogger<AccessService> logger,
         }
         catch (Exception e)
         {
-            logger.LogError($"Ошибка при авторизации пользователя с логином  \"{login.LoginName}\"",e);
+            logger.LogError(e,$"Ошибка при авторизации пользователя с логином  \"{login.LoginName}\"");
         }
 
         return false;

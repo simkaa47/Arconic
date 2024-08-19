@@ -6,4 +6,8 @@
         <sys:String>ЗАКРЫТЬ ЗАТВОР</sys:String>
         <sys:String>ОТКРЫТЬ ЗАТВОР</sys:String>
     </scg:List>
+    <scg:List x:TypeArguments="sys:Object" x:Key="UserLevels">
+        <sys:String>Пользователь</sys:String>
+        <sys:String>Сервисный инженер</sys:String>
+    </scg:List>
 </ResourceDictionary>

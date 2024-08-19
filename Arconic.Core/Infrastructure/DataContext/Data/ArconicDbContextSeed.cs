@@ -20,7 +20,7 @@ public class ArconicDbContextSeed
 
     private static void SeedUsers(ArconicDbContext context)
     {
-        var testUser = context.Users.FirstOrDefault();
+        var testUser = context.Users.FirstOrDefault(u => u.Level == AccessLevel.Admin);
         if (testUser == null)
         {
             var users = new List<User>
