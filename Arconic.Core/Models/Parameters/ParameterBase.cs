@@ -27,7 +27,7 @@ public abstract partial class ParameterBase(string description,
     public DataType MemoryType { get; } = memoryType;
     public int DbNum { get; } = dbNum;
     public int ByteNum { get; } = byteNum;
-    protected int BitNum { get; } = bitNum;
+    private int BitNum { get; } = bitNum;
     public int Length { get; set; }
     
     public int SizeBytes => GetSize();

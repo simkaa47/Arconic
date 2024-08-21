@@ -1,0 +1,68 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:strips="using:Arconic.Core.Models.PlcData.HighLevel"
+             x:DataType="strips:HighLevelData"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             x:Class="Arconic.View.UserControls.MainTab.StripInfoControl">
+    <DataGrid ItemsSource="{Binding Coils}"
+              IsReadOnly="True">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="НАЗВАНИЕ" Binding="{Binding Name}"/>
+            <DataGridTemplateColumn Header="МАРКА СТАЛИ">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="strips:StripInfo">
+                        <common:NumericParameter
+                            DataContext="{Binding SteelLabel}"
+                            DescriptionInvisible="True"
+                            ParamWidth="200"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="№ ПОЛОСЫ">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="strips:StripInfo">
+                        <common:NumericParameter
+                            DataContext="{Binding StripId}"
+                            DescriptionInvisible="True"
+                            ParamWidth="200"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="ОЖИДАЕМАЯ ТОЛЩИНА" MaxWidth="120">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="strips:StripInfo">
+                        <common:NumericParameter
+                            DataContext="{Binding ExpectedThick}"
+                            DescriptionInvisible="True"
+                            ParamWidth="80"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="ОЖИДАЕМАЯ ШИРИНА" MaxWidth="160">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="strips:StripInfo">
+                        <common:NumericParameter
+                            DataContext="{Binding ExpectedWidth}"
+                            DescriptionInvisible="True"
+                            ParamWidth="80"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="ДОПОЛНИТЕЛЬНЫЙ К-Т" MaxWidth="160">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="strips:StripInfo">
+                        <common:NumericParameter
+                            DataContext="{Binding AddCoeff}"
+                            DescriptionInvisible="True"
+                            ParamWidth="80"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTextColumn Header="ДАТА И ВРЕМЯ" Binding="{Binding DateAndTime.Value}"/>
+        </DataGrid.Columns>
+        
+    </DataGrid>
+</UserControl>
