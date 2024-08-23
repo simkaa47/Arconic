@@ -7,7 +7,7 @@ namespace Arconic.Core.Models.Parameters;
 public  class Parameter<T>:ParameterBase where T:IComparable
 {
     public Parameter(string description, T minValue, T maxValue, DataType memoryType, int dbNum,
-        int byteNum, int bitNum):base(description, memoryType, dbNum, byteNum, bitNum)
+        int byteNum, int bitNum = 0):base(description, memoryType, dbNum, byteNum, bitNum)
     {
         MinValue = minValue;
         MaxValue = maxValue;

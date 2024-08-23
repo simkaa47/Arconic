@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Reflection.Metadata;
 using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
 using S7.Net;
 using S7.Net.Types;
 using DataType = S7.Net.DataType;
+using DateTime = System.DateTime;
 using String = System.String;
 
 namespace Arconic.Core.Models.Parameters;
@@ -38,6 +40,7 @@ public abstract partial class ParameterBase(string description,
         else if (this is Parameter<string>) return Length;
         else if (this is Parameter<short> || this is Parameter<ushort>) return 2;
         else if (this is Parameter<int> || this is Parameter<uint>) return 4;
+        else if (this is Parameter<DateTime>) return 8;
         else if (this is Parameter<float>) return 4;
         else return 0;
     }
@@ -118,6 +121,11 @@ public abstract partial class ParameterBase(string description,
         {
             var floatArr = arr.Skip(ByteNum).Take(4).ToArray();
             parFloat.Value = Real.FromByteArray(floatArr);
+        }
+        else if(this is Parameter<DateTime> parDt)
+        {
+            var dtArr = arr.Skip(ByteNum).Take(8).ToArray();
+            parDt.Value = S7.Net.Types.DateTime.FromByteArray(dtArr);
         }
             
     }

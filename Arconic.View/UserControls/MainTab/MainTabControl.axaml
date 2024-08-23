@@ -8,6 +8,15 @@
              x:DataType="vm:MainViewModel"
              x:Class="Arconic.View.UserControls.MainTab.MainTabControl">
     <Grid RowDefinitions="*,Auto">
+        <Grid Grid.Row="0" ColumnDefinitions="500,*">
+            <ScrollViewer>
+                <StackPanel>
+                    <local:MainTextStatusesControl DataContext="{Binding PlcViewModel.Plc}"/>
+                    <local:MainTabIndicationList DataContext="{Binding PlcViewModel.Plc}"/>
+                </StackPanel>
+            </ScrollViewer>
+            
+        </Grid>
         <local:StripInfoControl Grid.Row="1"
                                 DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.HighLevelData}"/>
     </Grid>

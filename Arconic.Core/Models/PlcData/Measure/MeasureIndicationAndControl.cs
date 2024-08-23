@@ -11,4 +11,30 @@ public class MeasureIndicationAndControl
         new Parameter<bool>("Сброс ошибок", false, true, DataType.DataBlock, 2, 1500, 0);
 
     #endregion
+
+    public Parameter<float> Length { get; } =
+        new Parameter<float>("Текущая длина, м", 0, float.MaxValue, DataType.DataBlock, 2, 7972);
+    public Parameter<float> Width { get; } =
+        new Parameter<float>("Текущая ширина, мм", 0, float.MaxValue, DataType.DataBlock, 2, 7976);
+    public Parameter<float> Speed { get; } =
+        new Parameter<float>("Текущая скорость, м/c", 0, float.MaxValue, DataType.DataBlock, 2, 7980);
+    public Parameter<float> Thick { get; } =
+        new Parameter<float>("Текущая толщина, мкм", 0, float.MaxValue, DataType.DataBlock, 2, 7992);
+    public Parameter<ushort> ScanNumber { get; } =
+        new Parameter<ushort>("Номер скана", 0, ushort.MaxValue, DataType.DataBlock, 2, 8000);
+    public Parameter<DateTime> LastStandTime { get; } =
+        new Parameter<DateTime>("Дата и время последней стандартизации", DateTime.MinValue, DateTime.MaxValue, DataType.DataBlock, 1, 1204);
+    
+    public Parameter<float> CaretPosition { get; } =
+        new Parameter<float>("Положение каретки от левого края полосы, мм", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 8002);
+    
+    public Parameter<bool> StripUnderFlag { get; } =
+        new Parameter<bool>("Полоса в измермтельном зазоре", false, true, DataType.DataBlock, 2, 1502, bitNum:0);
+    
+    public Parameter<short> MainStatuse { get; } =
+        new Parameter<short>("Статус прибора", 0, 20, DataType.DataBlock, 2, 8006);
+    public Parameter<float> Klin { get; } =
+        new Parameter<float>("Клин, мкм", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 8008);
+    public Parameter<float> Chechevitsa { get; } =
+        new Parameter<float>("Клин, мкм", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 8012);
 }

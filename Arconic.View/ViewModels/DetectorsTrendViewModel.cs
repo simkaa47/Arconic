@@ -30,6 +30,7 @@ public partial class DetectorsTrendViewModel : TrendBaseViewModel
         _eventMainService = eventMainService;
         _logger = logger;
         _mainPlcService.PlcScanCompleted += OnPlcScanCompleted;
+        Series[0].Values = Enumerable.Range(0, 31).Select(i => 0f);
         SetStyle();
     }
     
@@ -78,7 +79,7 @@ public partial class DetectorsTrendViewModel : TrendBaseViewModel
         new Axis()
         {
             Name = "Значения АЦП детекторов, каунты",
-            InLineNamePlacement = false,
+            InLineNamePlacement = false, MinLimit = 0,
             NamePaint =  new SolidColorPaint(SKColors.White.WithAlpha(128)),
             ShowSeparatorLines = true,
             LabelsPaint = new SolidColorPaint(SKColors.White.WithAlpha(128)),
