@@ -1,4 +1,6 @@
 ﻿using Arconic.Core.Models.Event;
+using Arconic.Core.Models.Parameters;
+using S7.Net;
 
 namespace Arconic.Core.Models.PlcData.Events;
 
@@ -26,4 +28,9 @@ public class PlcEventsData
         new PlcEvent("Ошибка единичного измерения",2,801, 1),
         new PlcEvent("Установлено поключение с АСУ",2,801, 2),
     ];
-}
+
+    public Parameter<bool> StripStart { get; } =
+         new Parameter<bool>("Начало полосы", false, true, DataType.DataBlock, 2, 800, 3);
+    public Parameter<bool> StripEnd { get; } =
+        new Parameter<bool>("Конец полосы", false, true, DataType.DataBlock, 2, 800, 4);
+ }

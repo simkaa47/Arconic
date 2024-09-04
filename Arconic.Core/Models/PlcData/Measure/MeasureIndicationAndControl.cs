@@ -37,4 +37,7 @@ public class MeasureIndicationAndControl
         new Parameter<float>("Клин, мкм", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 8008);
     public Parameter<float> Chechevitsa { get; } =
         new Parameter<float>("Клин, мкм", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 8012);
+
+    public PlcScan PreviousScan { get; } = new PlcScan(1540);
+    public PlcScan ActualScan { get; } = new PlcScan(4756);
 }

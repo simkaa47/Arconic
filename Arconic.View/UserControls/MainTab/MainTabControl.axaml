@@ -15,7 +15,7 @@
                     <local:MainTabIndicationList DataContext="{Binding PlcViewModel.Plc}"/>
                 </StackPanel>
             </ScrollViewer>
-            
+            <local:MainTrendsControl Grid.Column="1" DataContext="{Binding MainTrendsViewModel}"/>
         </Grid>
         <local:StripInfoControl Grid.Row="1"
                                 DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.HighLevelData}"/>
