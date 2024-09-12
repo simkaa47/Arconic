@@ -1,0 +1,12 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mainTab="clr-namespace:Arconic.View.UserControls.MainTab"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:local="using:Arconic.View.UserControls.MainTab"
+             x:DataType="vm:MainTrendsViewModel"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Arconic.View.UserControls.MainTab.CurrentTrendsControl">
+    <local:MainTrendTemplate DataContext="{Binding ActualTrend}"/>
+</UserControl>

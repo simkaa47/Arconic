@@ -8,7 +8,7 @@ public class EventHistoryItem:Entity
 {
     public DateTime Date { get; set; }
     public User? User { get; set; } 
-    public int? UserId { get; init; }
+    public long? UserId { get; set; }
     [MaxLength(200)]
     public string? Message { get; init; }
     public string? Description { get; init; }

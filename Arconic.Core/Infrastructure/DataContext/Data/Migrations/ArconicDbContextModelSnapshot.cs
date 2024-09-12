@@ -19,7 +19,7 @@ namespace Arconic.Core.Infrastructure.DataContext.Data.Migrations
 
             modelBuilder.Entity("Arconic.Core.Models.AccessControl.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -55,7 +55,7 @@ namespace Arconic.Core.Infrastructure.DataContext.Data.Migrations
 
             modelBuilder.Entity("Arconic.Core.Models.Event.EventHistoryItem", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -79,7 +79,7 @@ namespace Arconic.Core.Infrastructure.DataContext.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("UserId")
+                    b.Property<long?>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -89,6 +89,121 @@ namespace Arconic.Core.Infrastructure.DataContext.Data.Migrations
                     b.ToTable("EventHistoryItems");
                 });
 
+            modelBuilder.Entity("Arconic.Core.Models.Trends.Scan", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<float>("CentralLineDeviation")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("Chechewitsa")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("Klin")
+                        .HasColumnType("REAL");
+
+                    b.Property<long>("StripId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<float>("Width")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StripId");
+
+                    b.ToTable("Scans");
+                });
+
+            modelBuilder.Entity("Arconic.Core.Models.Trends.Strip", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<float>("CentralLinePosition")
+                        .HasColumnType("REAL");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("ExpectedThick")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("ExpectedWidth")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("MaxExpectedThick")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("MaxExpectedWidth")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("MeasMode")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<float>("MinExpectedThick")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("MinExpectedWidth")
+                        .HasColumnType("REAL");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SteelLabel")
+                        .IsRequired()
+                        .HasMaxLength(26)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("StripId")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Strips");
+                });
+
+            modelBuilder.Entity("Arconic.Core.Models.Trends.ThickPoint", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("Lendth")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("Position")
+                        .HasColumnType("REAL");
+
+                    b.Property<long?>("ScanId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<float>("Speed")
+                        .HasColumnType("REAL");
+
+                    b.Property<long?>("StripId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<float>("Thick")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ScanId");
+
+                    b.HasIndex("StripId");
+
+                    b.ToTable("ThickPoints");
+                });
+
             modelBuilder.Entity("Arconic.Core.Models.Event.EventHistoryItem", b =>
                 {
                     b.HasOne("Arconic.Core.Models.AccessControl.User", "User")
@@ -96,6 +211,44 @@ namespace Arconic.Core.Infrastructure.DataContext.Data.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Arconic.Core.Models.Trends.Scan", b =>
+                {
+                    b.HasOne("Arconic.Core.Models.Trends.Strip", "Strip")
+                        .WithMany("Scans")
+                        .HasForeignKey("StripId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Strip");
+                });
+
+            modelBuilder.Entity("Arconic.Core.Models.Trends.ThickPoint", b =>
+                {
+                    b.HasOne("Arconic.Core.Models.Trends.Scan", "Scan")
+                        .WithMany("ThickPoints")
+                        .HasForeignKey("ScanId");
+
+                    b.HasOne("Arconic.Core.Models.Trends.Strip", "Strip")
+                        .WithMany("ThickPoints")
+                        .HasForeignKey("StripId");
+
+                    b.Navigation("Scan");
+
+                    b.Navigation("Strip");
+                });
+
+            modelBuilder.Entity("Arconic.Core.Models.Trends.Scan", b =>
+                {
+                    b.Navigation("ThickPoints");
+                });
+
+            modelBuilder.Entity("Arconic.Core.Models.Trends.Strip", b =>
+                {
+                    b.Navigation("Scans");
+
+                    b.Navigation("ThickPoints");
                 });
 #pragma warning restore 612, 618
         }

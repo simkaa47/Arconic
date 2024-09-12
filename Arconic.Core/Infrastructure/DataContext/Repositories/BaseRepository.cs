@@ -35,7 +35,7 @@ public class BaseRepository<T>(ArconicDbContext dbContext) : IRepository<T>
         return entity;
     }
 
-    public async Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> predicate)
+    public async Task<List<T>> GetWhere(Expression<Func<T, bool>> predicate)
     {
         var list = await dbContext.Set<T>()
             .Where(predicate)

@@ -1,0 +1,96 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             xmlns:plc="using:Arconic.Core.Models.PlcData"
+             x:DataType="plc:Plc"
+             x:Class="Arconic.View.UserControls.MainTab.MainTabIndicationList">
+    <UserControl.Styles>
+        <Style Selector="TextBlock.Left">
+            <Setter Property="DockPanel.Dock" Value="Left"/>
+            <Setter Property="MaxWidth" Value="280"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+            <Setter Property="Margin" Value="5,8,0,8"/>
+        </Style>
+        <Style Selector="TextBlock.Right">
+            <Setter Property="DockPanel.Dock" Value="Right"/>
+            <Setter Property="Width" Value="160"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+            <Setter Property="Margin" Value="20,8,5,8"/>
+        </Style>
+        <Style Selector="common|ImageBitIndicator">
+            <Setter Property="Height" Value="35"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="DockPanel.Dock" Value="Right"></Setter>
+            <Setter Property="FalseStateImage" Value="/Assets/Images/ind_err.png"></Setter>
+            <Setter Property="TrueStateImage" Value="/Assets/Images/ind_ok.png"></Setter>
+        </Style>
+    </UserControl.Styles>
+    <ListBox HorizontalAlignment="Stretch"
+             ItemContainerTheme="{StaticResource SelectorListBoxItem}"
+             VerticalAlignment="Stretch">
+        <!--Текущая толщина, мм-->
+        <DockPanel>
+            <TextBlock Text="Текущая толщина полосы, мкм" Classes="Left"/>
+            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Thick.Value, StringFormat=f3}" 
+                       Classes="Right"/>
+        </DockPanel>
+        <!--Текущая ширина, мм-->
+        <DockPanel>
+            <TextBlock Text="Текущая ширина полосы, мм" Classes="Left"/>
+            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Width.Value, StringFormat=f3}" 
+                       Classes="Right"/>
+        </DockPanel>
+        <!--Скорость полосы, м/c-->
+        <DockPanel>
+            <TextBlock Text="Скорость полосы, м/c" Classes="Left"/>
+            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Speed.Value, StringFormat=f3}" 
+                       Classes="Right"/>
+        </DockPanel>
+        <!--Текущая длина полосы, м-->
+        <DockPanel>
+            <TextBlock Text="Текущая длина полосы, м" Classes="Left"/>
+            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Length.Value, StringFormat=f3}" 
+                       Classes="Right"/>
+        </DockPanel>
+        <!--Положение каретки от левого края полосы, мм-->
+        <DockPanel>
+            <TextBlock Text="Положение каретки от левого края полосы, мм" Classes="Left"/>
+            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.CaretPosition.Value, StringFormat=f3}" 
+                       Classes="Right"/>
+        </DockPanel>
+        <!--Клин, мкм-->
+        <DockPanel>
+            <TextBlock Text="Клин, мкм" Classes="Left"/>
+            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Klin.Value, StringFormat=f3}" 
+                       Classes="Right"/>
+        </DockPanel>
+        <!--Чечевица, мкм-->
+        <DockPanel>
+            <TextBlock Text="Чечевица, мкм" Classes="Left"/>
+            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Chechevitsa.Value, StringFormat=f3}" 
+                       Classes="Right"/>
+        </DockPanel>
+        <!--Номер скана-->
+        <DockPanel>
+            <TextBlock Text="Номер скана" Classes="Left"/>
+            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.ScanNumber.Value}" 
+                       Classes="Right"/>
+        </DockPanel>
+        <!--Время последней стандартизации-->
+        <DockPanel>
+            <TextBlock Text="Время последней стандартизации" Classes="Left"/>
+            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.LastStandTime.Value}" 
+                       Classes="Right"/>
+        </DockPanel>
+        <!--Наличие полосы в измерительном зазоре-->
+        <DockPanel>
+            <TextBlock Text="Наличие полосы в измерительном зазоре" Classes="Left"/>
+            <common:ImageBitIndicator State="{Binding ControlAndIndication.MeasureIndicationAndControl.StripUnderFlag.Value}"/>
+        </DockPanel>
+    </ListBox>
+</UserControl>

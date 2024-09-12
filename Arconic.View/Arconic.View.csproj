@@ -28,6 +28,7 @@
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
+        <PackageReference Include="OxyPlot.Avalonia" Version="2.1.0-Avalonia11" />
     </ItemGroup>
 
     <ItemGroup>

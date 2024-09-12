@@ -10,4 +10,32 @@
         <sys:String>Пользователь</sys:String>
         <sys:String>Сервисный инженер</sys:String>
     </scg:List>
+    <scg:List x:TypeArguments="sys:Object" x:Key="MeasStatuses">
+        <sys:String>ИНИЦИАЛИЗАЦИЯ ДАННЫХ</sys:String>
+        <sys:String>СИТ НЕ ГОТОВА К ИЗМЕРЕНИЯМ</sys:String>
+        <sys:String>ПЕРЕМЕЩЕНИЕ РАМЫ</sys:String>
+        <sys:String>СТАНДАРТИЗАЦИЯ</sys:String>
+        <sys:String>КАЛИБРОВКА</sys:String>
+        <sys:String>ПЕРЕХОД В РЕЖИМ ИЗМЕРЕНИЯ</sys:String>
+        <sys:String>ИЗМЕРЕНИЕ</sys:String>
+        <sys:String>ИЗМЕРЕНИЕ</sys:String>
+        <sys:String>ВЫБОР РЕЖИМА ИЗМЕРЕНИЯ</sys:String>
+    </scg:List>
+    <scg:List x:TypeArguments="sys:Object" x:Key="DriveStatuses">
+        <sys:String>РАМА В НЕОПРЕДЕЛЕННОМ ПОЛОЖЕНИИ</sys:String>
+        <sys:String>РАМА В ПОЛОЖЕНИИ "ПАРКИНГ"</sys:String>
+        <sys:String>ДВИЖЕНИЕ В ПОЗИЦИЮ "ПАРКИНГ"</sys:String>
+        <sys:String>РАМА В ПОЛОЖЕНИИ ИЗМЕРЕНИЯ</sys:String>
+        <sys:String>ДВИЖЕНИЕ В ПОЗИЦИЮ ИЗМЕРЕНИЯ</sys:String>
+        <sys:String>РАМА В ПОЛОЖЕНИИ ЛЕВОГО КРАЯ ПОЛОСЫ</sys:String>
+        <sys:String>ДВИЖЕНИЕ В СТОРОНУ ЛЕВОГО КРАЯ ПОЛОСЫ</sys:String>
+        <sys:String>РАМА В ПОЛОЖЕНИИ ПРАВОГО КРАЯ ПОЛОСЫ</sys:String>
+        <sys:String>ДВИЖЕНИЕ В СТОРОНУ ПРАВОГО КРАЯ ПОЛОСЫ</sys:String>
+        <sys:String>РАМА В КРАЙНЕМ ЛЕВОМ АВАРИЙНОМ ПОЛОЖЕНИИ</sys:String>
+        <sys:String>РАМА В КРАЙНЕМ ПРАВОМ АВАРИЙНОМ ПОЛОЖЕНИИ</sys:String>
+        <sys:String>ТОЧКОВОЕ ПЕРЕМЕЩЕНИЕ ВЛЕВО</sys:String>
+        <sys:String>ТОЧКОВОЕ ПЕРЕМЕЩЕНИЕ ПРАВО</sys:String>
+        <sys:String>НАЖАТ АВАРИЙНЫЙ СТОП</sys:String>
+        <sys:String>НЕТ ГОТОВНОСТИ ПРИВОДА</sys:String>
+    </scg:List>
 </ResourceDictionary>

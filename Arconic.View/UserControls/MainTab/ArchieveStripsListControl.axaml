@@ -1,0 +1,45 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:strip="using:Arconic.Core.Models.Trends"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:MainTrendsViewModel"
+             x:Class="Arconic.View.UserControls.MainTab.ArchieveStripsListControl">
+    <UserControl.Styles>
+        <Style Selector="TextBlock.LStyle">
+            <Setter Property="DockPanel.Dock" Value="Left"/>
+            <Setter Property="Foreground" Value="{StaticResource TexBoxCommon80}"/>
+        </Style>
+        <Style Selector="TextBlock.RStyle">
+            <Setter Property="DockPanel.Dock" Value="Right"/>
+            <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource TexBoxCommon80}"/>
+        </Style>
+    </UserControl.Styles>
+    <ListBox ItemsSource="{Binding ArchieveStrips}"
+             SelectedItem="{Binding SelectedArchieveStrip}">
+        <ListBox.ItemTemplate>
+            <DataTemplate DataType="strip:Strip">
+                <StackPanel>
+                    <!--Дата  и время-->
+                    <DockPanel>
+                        <TextBlock Classes="LStyle" Text="Дата:"/>
+                        <TextBlock Classes="RStyle" Text="{Binding StartTime}"/>
+                    </DockPanel>
+                    <!--ID полосы-->
+                    <DockPanel>
+                        <TextBlock Classes="LStyle" Text="ID полосы:"/>
+                        <TextBlock Classes="RStyle" Text="{Binding StripId}"/>
+                    </DockPanel>
+                    <!--Марка стали-->
+                    <DockPanel>
+                        <TextBlock Classes="LStyle" Text="Марка стали:"/>
+                        <TextBlock Classes="RStyle" Text="{Binding SteelLabel}"/>
+                    </DockPanel>
+                </StackPanel>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+</UserControl>

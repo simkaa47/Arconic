@@ -1,0 +1,37 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:dt="using:Arconic.View.UserControls.CommonControls.DateTimePicker"
+             xmlns:local="using:Arconic.View.UserControls.MainTab"
+             x:DataType="vm:MainTrendsViewModel"
+             x:Class="Arconic.View.UserControls.MainTab.ArchieveThendsControl">
+    <Grid ColumnDefinitions="*,300">
+        <!--Тренды-->
+        <local:ArchieveTrendsViewer/>
+        <!--Выбор трендов по дате-->
+        <Grid Grid.Column="1" RowDefinitions="Auto,*">
+            <Border
+                Margin="10"
+                BorderBrush="{StaticResource CommonBorderBrush}"
+                Background="{StaticResource ParameterBackgroundCommonColor}">
+                <StackPanel >
+                    <StackPanel>
+                        <TextBlock Text="Начальная дата и время"></TextBlock>
+                        <dt:DateTimePicker DateTime="{Binding StartArchieveTime}"
+                                           Command="{Binding GetArchieveStripsCommand}"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Конечная дата и время"></TextBlock>
+                        <dt:DateTimePicker DateTime="{Binding EndArchieveTime}"
+                                           Command="{Binding GetArchieveStripsCommand}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+           <local:ArchieveStripsListControl Grid.Row="1"/>
+           
+        </Grid>
+    </Grid>
+</UserControl>

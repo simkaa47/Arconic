@@ -32,6 +32,8 @@ public partial class MainPlcService(ILogger<MainPlcService> logger, IOptionsMoni
         _plc.ReadTimeout = 1000;
         _plc.WriteTimeout = 1000;
         
+        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance); 
+        
         _ordered = ParameterBase.Parameters
             .GroupBy(p => new { p.MemoryType, p.DbNum })
             .Select(g => g.OrderBy(p => p.ByteNum))

@@ -11,12 +11,43 @@
         <SolidColorBrush Color="{DynamicResource TextBoxErrorColorNotOk}"/>
     </scg:List>
     
+    <scg:List x:TypeArguments="sys:Object" x:Key="MainStatusColors">
+        <SolidColorBrush Color="{DynamicResource TexBoxCommonColor80}"/>
+        <SolidColorBrush Color="{DynamicResource TextBoxErrorColorNotOk}"/>
+        <SolidColorBrush Color="{DynamicResource TexBoxCommonColor80}"/>
+        <SolidColorBrush Color="{DynamicResource TexBoxCommonColor80}"/>
+        <SolidColorBrush Color="{DynamicResource TexBoxCommonColor80}"/>
+        <SolidColorBrush Color="LightGreen"/>
+        <SolidColorBrush Color="LightGreen"/>
+        <SolidColorBrush Color="LightGreen"/>
+        <SolidColorBrush Color="LightGreen"/>
+    </scg:List>
+    
+    <scg:List x:TypeArguments="sys:Object" x:Key="DriveStatuseColors">
+        <SolidColorBrush Color="{DynamicResource TextBoxErrorColorNotOk}"/>
+        <SolidColorBrush Color="{DynamicResource TexBoxCommonColor80}"/>
+        <SolidColorBrush Color="LightGreen"/>
+        <SolidColorBrush Color="{DynamicResource TexBoxCommonColor80}"/>
+        <SolidColorBrush Color="LightGreen"/>
+        <SolidColorBrush Color="{DynamicResource TexBoxCommonColor80}"/>
+        <SolidColorBrush Color="LightGreen"/>
+        <SolidColorBrush Color="{DynamicResource TexBoxCommonColor80}"/>
+        <SolidColorBrush Color="LightGreen"/>
+        <SolidColorBrush Color="{DynamicResource TextBoxErrorColorNotOk}"/>
+        <SolidColorBrush Color="{DynamicResource TextBoxErrorColorNotOk}"/>
+        <SolidColorBrush Color="LightGreen"/>
+        <SolidColorBrush Color="LightGreen"/>
+        <SolidColorBrush Color="{DynamicResource TextBoxErrorColorNotOk}"/>
+        <SolidColorBrush Color="{DynamicResource TextBoxErrorColorNotOk}"/>
+    </scg:List>
+    
     <SolidColorBrush Color="#F44336" x:Key="ErrorMainColor"/>
     <SolidColorBrush Color="#28BCBA" x:Key="AquaColor"/>
     <SolidColorBrush Color="#28BCBA" x:Key="ButtonAccept"/>
     <SolidColorBrush Color="#3F3F42" x:Key="ButtonDeny"/>
     <SolidColorBrush Color="#1C1C1E" x:Key="CommonColor"/>
     <SolidColorBrush Color="#FFFFFF" x:Key="TexBoxCommon"/>
+    <SolidColorBrush Color="#C0FFFFFF" x:Key="TexBoxCommon80"/>
     <SolidColorBrush Color="#3F3F42" x:Key="DataGridVerticalBrush"/>			
     <SolidColorBrush Color="#2C2C2E" x:Key="ParameterBackgroundCommonColor"/>	
     <SolidColorBrush Color="#5B5B5B" x:Key="ListBoxItemBorderBrush"/>	
@@ -25,4 +56,6 @@
     <SolidColorBrush Color="#2C2C2E" x:Key="DateTimeBackground"/>
     <Color x:Key="TextBoxErrorColorOk">White</Color>
     <Color x:Key="TextBoxErrorColorNotOk">Red</Color>
+    <Color x:Key="TexBoxCommonColor80">#C0FFFFFF</Color>
+    
 </ResourceDictionary>
