@@ -22,6 +22,7 @@ public static class CoreServicesRegistration
     {
         services.AddDbContext<ArconicDbContext>((options) =>
         {
+            options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             options.UseSqlite(configuration.GetConnectionString("Sqlite"));
         });
         

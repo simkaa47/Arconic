@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Diagnostics;
 using Arconic.Core.Abstractions.DataAccess;
 using Arconic.Core.Abstractions.Trends;
 using Arconic.Core.Models.Parameters;
@@ -8,6 +7,7 @@ using Arconic.Core.Models.PlcData.Drive;
 using Arconic.Core.Models.Trends;
 using Arconic.Core.Services.Plc;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 
 namespace Arconic.Core.ViewModels;
@@ -22,7 +22,6 @@ public partial class MainTrendsViewModel:ObservableObject
     private DateTime _lastPointDateTime;
 
     public TrendUserDto ActualTrend { get; } = new TrendUserDto();
-
     public MainTrendsViewModel(ILogger<MainTrendsViewModel> logger, 
         IRepository<Strip> stripRepository, 
         MainPlcService plcService,
@@ -41,9 +40,32 @@ public partial class MainTrendsViewModel:ObservableObject
     [ObservableProperty]
     private IEnumerable<Strip>? _archieveStrips;
     [ObservableProperty]
-    private DateTime _startArchieveTime;
+    private DateTime _startArchieveTime = DateTime.Today;
     [ObservableProperty]
-    private DateTime _endArchieveTime;
+    private DateTime _endArchieveTime = DateTime.Now;
+    [ObservableProperty]
+    private IEnumerable<TrendUserDto>? _archieveScans;
+
+    private Strip? _selectedArchieveStrip;
+    [ObservableProperty]
+    private Strip? _selectedArchieveStripForViewing;
+    public Strip? SelectedArchieveStrip
+    {
+        get => _selectedArchieveStrip;
+        set
+        {
+            if (SetProperty(ref _selectedArchieveStrip, value) && SelectedArchieveStrip is not null)
+            {
+                UpdateSelectedArchieveStrip(SelectedArchieveStrip.Id);
+            }
+        }
+    }
+
+    private async void UpdateSelectedArchieveStrip(long id)
+    {
+        SelectedArchieveStripForViewing = await _trendsService.GetExtendedStrip(id);
+        ArchieveScans = SelectedArchieveStripForViewing != null ?  _trendsService.GetScansFromStrip(SelectedArchieveStripForViewing) : null;
+    }
 
     private async void InitAsync()
     {
@@ -89,6 +111,12 @@ public partial class MainTrendsViewModel:ObservableObject
             ExpectedWidth = _plc.ControlAndIndication.HighLevelData.Coils[1].ExpectedWidth.Value,
             ExpectedThick = _plc.ControlAndIndication.HighLevelData.Coils[1].ExpectedThick.Value,
         };
+        ActualTrend.Mode = ActualStrip.MeasMode;
+        ActualTrend.ExpectedThick = ActualStrip.ExpectedThick;
+        ActualTrend.ExpectedWidth = ActualStrip.ExpectedWidth;
+        ActualTrend.CentralLine = ActualStrip.CentralLinePosition;
+        ActualTrend.LeftBorder = ActualStrip.CentralLinePosition - ActualStrip.ExpectedWidth / 2;
+        ActualTrend.RightBorder = ActualStrip.CentralLinePosition + ActualStrip.ExpectedWidth / 2;
         ActualTrend.PreviousScan = null;
         ActualTrend.ActualScan.Clear();
         ActualTrend.Thicks.Clear();
@@ -111,12 +139,13 @@ public partial class MainTrendsViewModel:ObservableObject
                         _plc.ControlAndIndication.MeasureIndicationAndControl.PreviousScan.StartPosition.Value, 
                         _plc.ControlAndIndication.MeasureIndicationAndControl.PreviousScan.EndPosition.Value,
                         ActualStrip);
+                    var lastIndex = ActualStrip.Scans.Count - 1;
+                    ActualTrend.PreviousScan = ActualStrip.Scans[lastIndex].ThickPoints;
+                    ActualTrend.ActualScan.Clear();
+                    ActualStrip.Scans.Add(new Scan());
+                    await AddStripToDbAsync();
                 }
-                ActualStrip.Scans.Add(new Scan());
-                var lastIndex = ActualStrip.Scans.Count - 1;
-                ActualTrend.PreviousScan = ActualStrip.Scans[lastIndex].ThickPoints;
-                ActualTrend.ActualScan.Clear();
-                await AddStripToDbAsync();
+                
             }
         }
     }
@@ -159,6 +188,11 @@ public partial class MainTrendsViewModel:ObservableObject
                 
             }
         }
+    }
+    [RelayCommand]
+    private async Task GetArchieveStrips()
+    {
+        ArchieveStrips = await _trendsService.GetArchieveStrips(StartArchieveTime, EndArchieveTime);
     }
     
     

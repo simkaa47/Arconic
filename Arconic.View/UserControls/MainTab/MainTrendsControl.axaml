@@ -9,6 +9,8 @@
         <TabItem Header="Текущий тренд">
             <local:CurrentTrendsControl/>
         </TabItem>
-        <TabItem Header="Архивный тренды"></TabItem>
+        <TabItem Header="Архивные тренды">
+            <local:ArchieveThendsControl/>
+        </TabItem>
     </TabControl>
 </UserControl>

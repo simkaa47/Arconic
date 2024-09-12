@@ -1,0 +1,97 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:drive="using:Arconic.Core.Models.PlcData.Drive"
+             xmlns:strip="using:Arconic.Core.Models.Trends"
+             x:DataType="vm:MainTrendsViewModel"
+             xmlns:local="using:Arconic.View.UserControls.MainTab"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Arconic.View.UserControls.MainTab.ArchieveTrendsViewer">
+    <UserControl.Styles>
+        <Style Selector="TextBlock.LStyle">
+            <Setter Property="DockPanel.Dock" Value="Left"/>
+            <Setter Property="Width" Value="160"></Setter>
+            <Setter Property="Margin" Value="10,5"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource TexBoxCommon80}"/>
+        </Style>
+        <Style Selector="TextBlock.RStyle">
+            <Setter Property="DockPanel.Dock" Value="Right"/>
+            <Setter Property="Width" Value="60"></Setter>
+            <Setter Property="Margin" Value="0,5"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource TexBoxCommon80}"/>
+        </Style>
+    </UserControl.Styles>
+    <Grid RowDefinitions="Auto,*">
+        <Grid RowDefinitions="*,Auto">
+            <local:StripResultsViewer DataContext="{Binding SelectedArchieveStripForViewing}"
+                                      IsVisible="{Binding Converter={x:Static ObjectConverters.IsNotNull}}"/>
+            
+        </Grid>
+        
+        <ListBox Grid.Row="1" ItemsSource="{Binding ArchieveScans}">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="strip:TrendUserDto">
+                    <Grid ColumnDefinitions="*, Auto">
+                        <local:MainTrendTemplate Height="300"
+                                                 Grid.Column="0"/>
+                        <ListBox Grid.Column="1"
+                                 IsVisible="{Binding Mode,Converter={StaticResource IfNotEqualConverter}, ConverterParameter={x:Static drive:MeasModes.CentralLine}}"
+                                 ItemContainerTheme="{StaticResource SelectorListBoxItem}">
+                            <DockPanel>
+                                <TextBlock Classes="LStyle" Text="Ширина полосы, мм"/>
+                                <TextBlock Classes="RStyle" Text="{Binding ActualWidth, StringFormat=f1}"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <TextBlock Classes="LStyle" Text="Мин. толщина, мкм"/>
+                                <TextBlock Classes="RStyle" Text="{Binding MinThick, StringFormat=f1}"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <TextBlock Classes="LStyle" Text="Макс. толщина, мкм"/>
+                                <TextBlock Classes="RStyle" Text="{Binding MaxThick, StringFormat=f1}"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <TextBlock Classes="LStyle" Text="Клин, мкм"/>
+                                <TextBlock Classes="RStyle" Text="{Binding Klin, StringFormat=f1}"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <TextBlock Classes="LStyle" Text="Чечевица, мкм"/>
+                                <TextBlock Classes="RStyle" Text="{Binding Path=Chechecitsa, StringFormat=f1}"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <TextBlock Classes="LStyle" Text="Отклонение полосы от ЦЛ, мм"/>
+                                <TextBlock Classes="RStyle" Text="{Binding Path=StripDeviation, StringFormat=f1}"/>
+                            </DockPanel>
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Height="20" Width="20"
+                                               Fill="Red"
+                                               ></Rectangle>
+                                    <TextBlock Foreground="{StaticResource TexBoxCommon80}"
+                                               Margin="5"
+                                               Text="Текущий скан"
+                                               ></TextBlock>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Height="20" Width="20"
+                                               Fill="Orange"
+                                    ></Rectangle>
+                                    <TextBlock Foreground="{StaticResource TexBoxCommon80}"
+                                               Margin="5"
+                                               Text="Средний скан"
+                                    ></TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                            
+                            
+                        </ListBox>
+                    </Grid>
+                    
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+    </ListBox>
+    </Grid>
+    
+</UserControl>

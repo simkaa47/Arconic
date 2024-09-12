@@ -183,7 +183,7 @@ namespace Arconic.Core.Infrastructure.DataContext.Data.Migrations
                     b.Property<float>("Position")
                         .HasColumnType("REAL");
 
-                    b.Property<long>("ScanId")
+                    b.Property<long?>("ScanId")
                         .HasColumnType("INTEGER");
 
                     b.Property<float>("Speed")
@@ -228,15 +228,15 @@ namespace Arconic.Core.Infrastructure.DataContext.Data.Migrations
                 {
                     b.HasOne("Arconic.Core.Models.Trends.Scan", "Scan")
                         .WithMany("ThickPoints")
-                        .HasForeignKey("ScanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ScanId");
 
-                    b.HasOne("Arconic.Core.Models.Trends.Strip", null)
+                    b.HasOne("Arconic.Core.Models.Trends.Strip", "Strip")
                         .WithMany("ThickPoints")
                         .HasForeignKey("StripId");
 
                     b.Navigation("Scan");
+
+                    b.Navigation("Strip");
                 });
 
             modelBuilder.Entity("Arconic.Core.Models.Trends.Scan", b =>

@@ -1,0 +1,80 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:strip="using:Arconic.Core.Models.Trends"
+             xmlns:drive="using:Arconic.Core.Models.PlcData.Drive"
+             x:DataType="strip:Strip"
+             x:Class="Arconic.View.UserControls.MainTab.StripResultsViewer">
+    <UserControl.Styles>
+        <Style Selector="TextBlock.LStyle">
+            <Setter Property="DockPanel.Dock" Value="Left"/>
+            <Setter Property="Width" Value="160"></Setter>
+            <Setter Property="Margin" Value="10,5"></Setter>
+            <Setter Property="Foreground" Value="{DynamicResource TexBoxCommon80}"/>
+        </Style>
+        <Style Selector="TextBlock.RStyle">
+            <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource TexBoxCommon80}"/>
+        </Style>
+        <Style Selector="Border.ParBorder" >
+            <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+            <Setter Property="DockPanel.Dock" Value="Right"/>
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="BorderThickness" Value="1"></Setter>
+            <Setter Property="Padding" Value="10,0,10,0"></Setter>
+            <Setter Property="Width" Value="80"></Setter>
+            <Setter Property="MinHeight" Value="40"></Setter>
+            <Setter Property="CornerRadius" Value="4"></Setter>
+            
+            <Setter Property="BorderBrush" Value="{StaticResource TexBoxCommon80}"></Setter>
+        </Style>
+    </UserControl.Styles>
+    <Grid ColumnDefinitions="*,*">
+       <ListBox Grid.Column="0"
+                Margin="0"
+                ItemContainerTheme="{StaticResource SelectorListBoxItem}">
+           <DockPanel>
+               <TextBlock Classes="LStyle" Text="Длина, м"/>
+               <Border Classes="ParBorder">
+                   <TextBlock Text="{Binding Length, StringFormat=f1}"></TextBlock>
+               </Border>
+           </DockPanel>
+           <DockPanel IsVisible="{Binding MeasMode,Converter={StaticResource IfNotEqualConverter}, ConverterParameter={x:Static drive:MeasModes.CentralLine}}">
+               <TextBlock Classes="LStyle" Text="Средняя ширина, мм"/>
+               <Border Classes="ParBorder">
+                   <TextBlock Text="{Binding AverageWidth, StringFormat=f1}"></TextBlock>
+               </Border>
+           </DockPanel>
+           <DockPanel IsVisible="{Binding MeasMode,Converter={StaticResource IfNotEqualConverter}, ConverterParameter={x:Static drive:MeasModes.CentralLine}}">
+               <TextBlock Classes="LStyle" Text="Средний клин, мкм"/>
+               <Border Classes="ParBorder">
+                   <TextBlock Text="{Binding AverageKlin, StringFormat=f1}"></TextBlock>
+               </Border>
+           </DockPanel>
+       </ListBox>
+        <ListBox Grid.Column="1"
+                 Margin="0"
+                 ItemContainerTheme="{StaticResource SelectorListBoxItem}">
+            <DockPanel>
+                <TextBlock Classes="LStyle" Text="Средняя толщина, мкм"/>
+                <Border Classes="ParBorder">
+                    <TextBlock Text="{Binding AverageThick, StringFormat=f1}"></TextBlock>
+                </Border>
+            </DockPanel>
+            <DockPanel IsVisible="{Binding MeasMode,Converter={StaticResource IfNotEqualConverter}, ConverterParameter={x:Static drive:MeasModes.CentralLine}}">
+                <TextBlock Classes="LStyle" Text="Среднее отклонение от ЦЛ, мм"/>
+                <Border Classes="ParBorder">
+                    <TextBlock Text="{Binding AverageCentralLineDeviation, StringFormat=f1}"></TextBlock>
+                </Border>
+            </DockPanel>
+            <DockPanel IsVisible="{Binding MeasMode,Converter={StaticResource IfNotEqualConverter}, ConverterParameter={x:Static drive:MeasModes.CentralLine}}">
+                <TextBlock Classes="LStyle" Text="Средняя чечевица, мкм"/>
+                <Border Classes="ParBorder">
+                    <TextBlock Text="{Binding AverageChehevitsa, StringFormat=f1}"></TextBlock>
+                </Border>
+            </DockPanel>
+        </ListBox>
+   </Grid>
+</UserControl>

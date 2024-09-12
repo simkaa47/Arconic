@@ -24,10 +24,23 @@ public class Strip:Entity
 
     public MeasModes MeasMode { get; init; }
     public List<ThickPoint> ThickPoints { get; } = new List<ThickPoint>();
+     
+    private float _length;
     [NotMapped]
-    public float Length { get; set; }
-    [NotMapped]
-    public float AverageThick { get; set; }
+    public float Length
+    {
+        get=> _length;
+        set => SetProperty(ref _length, value);
+    }
+
+    private float _averageThick;
+    [NotMapped] 
+    public float AverageThick
+    {
+        get=>_averageThick;
+        set=> SetProperty(ref _averageThick, value);
+    }
+    
     [NotMapped]
     public float MinThick { get; set; }
     [NotMapped]
@@ -52,5 +65,7 @@ public class Strip:Entity
     public float MinChehevitsa { get; set; }
     [NotMapped]
     public float MaxChehevitsa { get; set; }
-    
+    [NotMapped] 
+    public List<ThickPoint> AverageScan { get; set; } = new List<ThickPoint>();
+
 }
