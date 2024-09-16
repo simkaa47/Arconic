@@ -22,7 +22,7 @@
                      Width="{Binding ElementName=root, Path=ParamWidth, TargetNullValue=80}">
                 <TextBox.KeyBindings>
                     <KeyBinding x:DataType="mod:ParameterBase" x:CompileBindings="True" Gesture="Enter"
-                                Command="{Binding $parent[uc:MainControl].((vm:MainViewModel)DataContext).PlcViewModel.WriteParameterCommand, FallbackValue={x:Null}}"
+                                Command="{Binding $parent[Window].((vm:MainViewModel)DataContext).PlcViewModel.WriteParameterCommand, FallbackValue={x:Null}}"
                                 CommandParameter="{Binding}">
                     </KeyBinding>
                 </TextBox.KeyBindings>

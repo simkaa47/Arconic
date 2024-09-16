@@ -8,6 +8,7 @@
         <entry key="Arconic.View/Dialogs/Access/AccessDialogWindow.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Dialogs/Access/AddEditUserDialogWindow.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Dialogs/Common/QuestionWindow.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/Dialogs/SteelMagazine/SteelMagazineDialogWindow.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/MainWindow.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Resources/Colors.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Resources/CommonTextStatuses.axaml" value="Arconic.View/Arconic.View.csproj" />

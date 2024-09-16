@@ -31,9 +31,11 @@
         <!--Кнопки-->
         <Grid Grid.Row="1" ColumnDefinitions="*,*">
             <Button Grid.Column="0"
+                    Command="{Binding AddSteelCommand}"
                     Content="ДОБАВИТЬ"
                     Classes="InternalButton"></Button>
             <Button Grid.Column="1"
+                    Command="{Binding DeleteSteelCommand}"
                     IsEnabled="{Binding SelectedSteel, Converter={x:Static ObjectConverters.IsNotNull}}"
                     Content="УДАЛИТЬ"
                     Classes="InternalButton"></Button>
