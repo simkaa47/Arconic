@@ -1,0 +1,42 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:steel="using:Arconic.View.UserControls.ControlTab.SteelMagazine"
+             xmlns:model="using:Arconic.Core.Models.PlcData.SteelLabel"
+             x:DataType="vm:SteelMagazineViewModel"
+             x:Class="Arconic.View.UserControls.ControlTab.SteelMagazine.SteelMagazineControl">
+    <Grid RowDefinitions="*, Auto">
+        <!--Список -->
+        <ListBox ItemsSource="{Binding Plc.Settings.SteelSettings.SteelItems}"
+                 SelectedItem="{Binding SelectedSteel}"
+                 ItemContainerTheme="{StaticResource SelectorListBoxItem}">
+            <ListBox.Styles>
+                <Style Selector="ListBoxItem">
+                    <Setter Property="IsVisible" x:DataType="model:SteelMagazineItem" Value="{Binding Name.Value, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"></Setter>
+                </Style>
+            </ListBox.Styles>
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="model:SteelMagazineItem">
+                    <TextBlock Text="{Binding Name.Value}"
+                               Foreground="{StaticResource TexBoxCommon80}"
+                               Margin="10,5"
+                               FontSize="18"/>
+                </DataTemplate>
+                
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <!--Кнопки-->
+        <Grid Grid.Row="1" ColumnDefinitions="*,*">
+            <Button Grid.Column="0"
+                    Content="ДОБАВИТЬ"
+                    Classes="InternalButton"></Button>
+            <Button Grid.Column="1"
+                    IsEnabled="{Binding SelectedSteel, Converter={x:Static ObjectConverters.IsNotNull}}"
+                    Content="УДАЛИТЬ"
+                    Classes="InternalButton"></Button>
+        </Grid>
+    </Grid>
+</UserControl>

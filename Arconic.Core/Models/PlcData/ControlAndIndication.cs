@@ -5,6 +5,7 @@ using Arconic.Core.Models.PlcData.Events;
 using Arconic.Core.Models.PlcData.HighLevel;
 using Arconic.Core.Models.PlcData.Measure;
 using Arconic.Core.Models.PlcData.Source;
+using Arconic.Core.Models.PlcData.SteelLabel;
 
 namespace Arconic.Core.Models.PlcData;
 
@@ -17,5 +18,6 @@ public class ControlAndIndication
     public PlcErrorsData PlcErrorsData { get; } = new PlcErrorsData();
     public PlcEventsData PlcEventsData { get; } = new PlcEventsData();
     public DriveIndication DriveIndication { get; } = new DriveIndication();
+    public SteelMagazineIndication SteelMagazineIndication { get; } = new SteelMagazineIndication();
 }
 

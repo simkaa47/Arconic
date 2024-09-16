@@ -12,6 +12,7 @@
         <entry key="Arconic.View/Resources/Colors.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Resources/CommonTextStatuses.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Resources/FontFamilies.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/Styles/Buttons/Buttons.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Styles/DataGrid/DataGridColumnCells.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Styles/DataGrid/DataGridHeader.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Styles/TextBlocks/TextBlockCommon.axaml" value="Arconic.View/Arconic.View.csproj" />
@@ -29,6 +30,8 @@
         <entry key="Arconic.View/UserControls/CommonControls/SuperControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/CommonControls/TemplatedControl1.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/CommonControls/ToggleSwitch.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/ControlTab/ControlTab.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/ControlTab/SteelMagazine/SteelMagazineControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Errors/ErrorsMainControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Errors/Settings/SettingsMainControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Events/EventsMainControl.axaml" value="Arconic.View/Arconic.View.csproj" />

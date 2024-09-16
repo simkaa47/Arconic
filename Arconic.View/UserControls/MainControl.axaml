@@ -5,6 +5,7 @@
              xmlns:sett="using:Arconic.View.UserControls.Settings"
              xmlns:err="using:Arconic.View.UserControls.Errors"
              xmlns:adm="using:Arconic.View.UserControls.Administration"
+             xmlns:control="using:Arconic.View.UserControls.ControlTab"
              xmlns:ev="using:Arconic.View.UserControls.Events"
              xmlns:vm="using:Arconic.Core.ViewModels"
              xmlns:main="using:Arconic.View.UserControls.MainTab"
@@ -17,6 +18,9 @@
         <TabControl Grid.Row="1" TabStripPlacement="Bottom">
             <TabItem Header="ИЗМЕРЕНИЕ">
                 <main:MainTabControl></main:MainTabControl>
+            </TabItem>
+            <TabItem Header="УПРАВЛЕНИЕ">
+                <control:ControlTab/>
             </TabItem>
             <TabItem Header="НАСТРОЙКИ">
                 <sett:SettingsMainControl></sett:SettingsMainControl>
