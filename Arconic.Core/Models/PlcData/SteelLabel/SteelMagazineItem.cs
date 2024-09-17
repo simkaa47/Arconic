@@ -3,8 +3,9 @@ using S7.Net;
 
 namespace Arconic.Core.Models.PlcData.SteelLabel;
 
-public class SteelMagazineItem(int dbNum, int offset)
+public class SteelMagazineItem(int dbNum, int offset, int index = 0)
 {
+    public int Index { get; } = index;
     public Parameter<string> Name { get; } =
         new Parameter<string>("Название марки стали", "", "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz", DataType.DataBlock, dbNum, offset)
             { Length = 26 };

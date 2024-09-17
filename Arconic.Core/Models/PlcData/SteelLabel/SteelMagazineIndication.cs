@@ -10,18 +10,18 @@ public class SteelMagazineIndication
         = new Parameter<short>("", 0, 30, DataType.DataBlock, 2, 8362);
 
     public Parameter<bool> PrepareToAddCommand { get; } =
-        new Parameter<bool>("", false, true, DataType.DataBlock, 2, 8363, 0);
+        new Parameter<bool>("", false, true, DataType.DataBlock, 2, 8364, 0);
     public Parameter<bool> AddCommand { get; } =
-        new Parameter<bool>("", false, true, DataType.DataBlock, 2, 8363, 1);
+        new Parameter<bool>("", false, true, DataType.DataBlock, 2, 8364, 1);
     public Parameter<bool> EditCommand { get; } =
-        new Parameter<bool>("", false, true, DataType.DataBlock, 2, 8363, 2);
+        new Parameter<bool>("", false, true, DataType.DataBlock, 2, 8364, 2);
     public Parameter<bool> DeleteCommand { get; } =
-        new Parameter<bool>("", false, true, DataType.DataBlock, 2, 8363, 3);
+        new Parameter<bool>("", false, true, DataType.DataBlock, 2, 8364, 3);
     public Parameter<bool> SetDim { get; } =
-        new Parameter<bool>("", false, true, DataType.DataBlock, 2, 8363, 4);
+        new Parameter<bool>("", false, true, DataType.DataBlock, 2, 8364, 4);
     public Parameter<bool> SetSteelCoeffCommand { get; } =
-        new Parameter<bool>("", false, true, DataType.DataBlock, 2, 8363, 5);
+        new Parameter<bool>("", false, true, DataType.DataBlock, 2, 8364, 5);
     public Parameter<bool> RecalcSteelCoeffCommand { get; } =
-        new Parameter<bool>("", false, true, DataType.DataBlock, 2, 8363, 6);
+        new Parameter<bool>("", false, true, DataType.DataBlock, 2, 8364, 6);
 
 }

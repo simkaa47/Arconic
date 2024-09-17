@@ -8,7 +8,7 @@
              x:DataType="vm:MainViewModel"
              x:Class="Arconic.View.UserControls.ControlTab.ControlTab">
     <Grid RowDefinitions="*"
-          ColumnDefinitions="*,*">
+          ColumnDefinitions="*,500">
         <steel:SteelMagazineControl Grid.Column="1"
                                     DataContext="{Binding  SteelMagazineViewModel}"/>
     </Grid>

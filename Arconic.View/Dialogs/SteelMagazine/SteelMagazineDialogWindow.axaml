@@ -98,6 +98,8 @@
                     Click="Cancel_Click"
                     Background="{StaticResource ButtonDeny}"/>
             <Button Grid.Column="1" Content="Принять"
+                    IsEnabled="{Binding PlcViewModel.Plc.ControlAndIndication.SteelMagazineIndication.Steel.Name.Value, 
+                    Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
                     Click="Accept_Click"
                     Classes="InternalButton"/>
         </Grid>
