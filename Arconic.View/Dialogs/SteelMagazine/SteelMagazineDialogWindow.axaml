@@ -1,0 +1,107 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Width="400"
+        Height="600"
+        xmlns:vm="using:Arconic.Core.ViewModels"
+        xmlns:common="using:Arconic.View.UserControls.CommonControls"
+        SystemDecorations="None"
+        Background="{StaticResource CommonBorderBrush}"
+        x:Name="Root"
+        x:DataType="vm:MainViewModel"
+        WindowStartupLocation="CenterScreen"
+        x:Class="Arconic.View.Dialogs.SteelMagazine.SteelMagazineDialogWindow"
+        Title="Добавить или удалить марку стали">
+    <Grid RowDefinitions="*, Auto">
+        <Grid DataContext="{Binding PlcViewModel.Plc}"
+              Margin="10">
+            <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}">
+                <!--Имя марки стали-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Name}"/>
+                <!--К-т 1-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.K1}"/>
+                <!--К-т 2-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.K2}"/> 
+                <!--Si-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Si}"/> 
+                <!--Fe-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Fe}"/>
+                <!--Cu-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Cu}"/>
+                <!--Mn-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Mn}"/>
+                <!--Mg-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Mg}"/>
+                <!--Cr-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Cr}"/>
+                <!--Zn-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Zn}"/>
+                <!--Ni-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Ni}"/>
+                <!--Ti-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Ti}"/>
+                <!--Be-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Be}"/>
+                <!--Ga-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Ga}"/>
+                <!--Pb-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Pb}"/>
+                <!--Cd-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Cd}"/>
+                <!--Zr-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Zr}"/>
+                <!--Li-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Li}"/>
+                <!--Na-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Na}"/>
+                <!--Co-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Co}"/>
+                <!--V-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.V}"/>
+                <!--As-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.As}"/>
+                <!--Sc-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Sc}"/>
+                <!--Ce-->
+                <common:NumericParameter 
+                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Ce}"/>
+            </ListBox>
+        </Grid>
+        <Grid Grid.Row="1" ColumnDefinitions="*,*">
+            <Button Content="Отмена"
+                    Classes="InternalButton"
+                    Click="Cancel_Click"
+                    Background="{StaticResource ButtonDeny}"/>
+            <Button Grid.Column="1" Content="Принять"
+                    IsEnabled="{Binding PlcViewModel.Plc.ControlAndIndication.SteelMagazineIndication.Steel.Name.Value, 
+                    Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                    Click="Accept_Click"
+                    Classes="InternalButton"/>
+        </Grid>
+    </Grid>
+</Window>

@@ -8,9 +8,11 @@
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
                     <Border BorderBrush="{DynamicResource ListBoxItemBorderBrush}"
                             Background="{TemplateBinding Background}"
+                            IsVisible="{TemplateBinding IsVisible}"
                             BorderThickness="0,0,0,1" Margin="0">
                         <ContentPresenter Content="{TemplateBinding Content}"
                                           Name="content"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
                                           VerticalAlignment="Center"
                                           Margin="10,0,0,0"/>
                     </Border>

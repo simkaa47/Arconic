@@ -26,6 +26,7 @@
         <StyleInclude Source="/Styles/TextBlocks/TextBlockCommon.axaml"></StyleInclude>
         <StyleInclude Source="/Styles/DataGrid/DataGridHeader.axaml"></StyleInclude>
         <StyleInclude Source="/Styles/DataGrid/DataGridRows.axaml"></StyleInclude>
+        <StyleInclude Source="/Styles/Buttons/Buttons.axaml"></StyleInclude>
         <StyleInclude Source="/Styles/DataGrid/DataGridColumnCells.axaml"></StyleInclude>
         <StyleInclude Source="/Styles/TextBoxes/TextBoxCommon.axaml"></StyleInclude>
         <StyleInclude Source="avares://OxyPlot.Avalonia/Themes/Default.axaml"/>

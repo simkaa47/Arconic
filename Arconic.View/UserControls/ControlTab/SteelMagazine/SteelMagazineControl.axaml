@@ -1,0 +1,73 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:mat="using:Material.Icons.Avalonia"
+             xmlns:steel="using:Arconic.View.UserControls.ControlTab.SteelMagazine"
+             xmlns:model="using:Arconic.Core.Models.PlcData.SteelLabel"
+             x:DataType="vm:SteelMagazineViewModel"
+             x:Class="Arconic.View.UserControls.ControlTab.SteelMagazine.SteelMagazineControl">
+    <Grid RowDefinitions="*, Auto">
+        <!--Список -->
+        <ListBox ItemsSource="{Binding Plc.Settings.SteelSettings.SteelItems}"
+                 SelectedItem="{Binding SelectedSteel}"
+                 ItemContainerTheme="{StaticResource SelectorListBoxItem}">
+            <ListBox.Styles>
+                <Style Selector="ListBoxItem">
+                    <Setter Property="IsVisible" x:DataType="model:SteelMagazineItem" Value="{Binding Name.Value, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"></Setter>
+                </Style>
+            </ListBox.Styles>
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="model:SteelMagazineItem">
+                    <DockPanel>
+                        <TextBlock Text="{Binding Name.Value}"
+                                   Foreground="{StaticResource TexBoxCommon80}"
+                                   Margin="10,5"
+                                   DockPanel.Dock="Left"
+                                   FontSize="18"/>
+                        <StackPanel Orientation="Horizontal"
+                                    DockPanel.Dock="Right"
+                                    HorizontalAlignment="Right">
+                            <Button Background="{StaticResource ButtonAccept}"
+                                    CommandParameter="{Binding}"
+                                    Command="{Binding $parent[UserControl].((vm:SteelMagazineViewModel)DataContext).EditSteelCommand, FallbackValue={x:Null}}"
+                                    Margin="4">
+                                <mat:MaterialIcon Height="20"
+                                                  Width="20"
+                                                  Margin="2"
+                                                  Kind="Edit">
+                                </mat:MaterialIcon>
+                                <ToolTip.Tip>
+                                    <TextBlock Text="Изменить данные марки стали"></TextBlock>
+                                </ToolTip.Tip>
+                            </Button>
+                            <Button Background="{StaticResource ButtonAccept}"
+                                    CommandParameter="{Binding}"
+                                    Command="{Binding $parent[UserControl].((vm:SteelMagazineViewModel)DataContext).DeleteSteelCommand, FallbackValue={x:Null}}"
+                                    Margin="4">
+                                <mat:MaterialIcon Height="20"
+                                                  Width="20"
+                                                  Margin="2"
+                                                  Kind="RemoveBox">
+                                </mat:MaterialIcon>
+                                <ToolTip.Tip>
+                                    <TextBlock Text="Удалить данные марки стали"></TextBlock>
+                                </ToolTip.Tip>
+                            </Button>
+                        </StackPanel>
+                       
+                    </DockPanel>
+                    
+                </DataTemplate>
+                
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <!--Кнопки-->
+        <Button Grid.Row="1"
+                Command="{Binding AddSteelCommand}"
+                Content="ДОБАВИТЬ"
+                Classes="InternalButton"/>
+    </Grid>
+</UserControl>

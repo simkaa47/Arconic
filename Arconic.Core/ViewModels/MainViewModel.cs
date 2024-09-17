@@ -9,10 +9,13 @@ public partial class MainViewModel : ObservableObject
     private readonly Timer _timer;
 
     public MainViewModel(PlcViewModel plcViewModel, 
-        AccessViewModel accessViewModel, MainTrendsViewModel mainTrendsViewModel)
+        AccessViewModel accessViewModel, 
+        SteelMagazineViewModel steelMagazineViewModel,
+        MainTrendsViewModel mainTrendsViewModel)
     {
         PlcViewModel = plcViewModel;
         AccessViewModel = accessViewModel;
+        SteelMagazineViewModel = steelMagazineViewModel;
         MainTrendsViewModel = mainTrendsViewModel;
         _timer = new Timer();
         _timer.Interval = 1000;
@@ -28,6 +31,7 @@ public partial class MainViewModel : ObservableObject
 
     public PlcViewModel PlcViewModel { get; }
     public AccessViewModel AccessViewModel { get; }
+    public SteelMagazineViewModel SteelMagazineViewModel { get; }
     public MainTrendsViewModel MainTrendsViewModel { get; }
 
     [ObservableProperty]
