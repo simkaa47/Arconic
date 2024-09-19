@@ -6,9 +6,18 @@ namespace Arconic.Core.Models.PlcData.Measure;
 public class MeasureIndicationAndControl
 {
     #region Сброс ошибок
-
     public Parameter<bool> Rst { get; } =
         new Parameter<bool>("Сброс ошибок", false, true, DataType.DataBlock, 2, 1500, 0);
+
+    #endregion
+    #region Стандартизация
+    public Parameter<bool> SbStandartisation { get; } =
+        new Parameter<bool>("Провести стандартизацию", false, true, DataType.DataBlock, 2, 1500, 1);
+
+    #endregion
+    #region Новая полоса
+    public Parameter<bool> SbNewStrip { get; } =
+        new Parameter<bool>("Новая полоса", false, true, DataType.DataBlock, 2, 1500, 2);
 
     #endregion
 

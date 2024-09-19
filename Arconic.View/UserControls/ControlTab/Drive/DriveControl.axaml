@@ -1,0 +1,89 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             x:DataType="vm:MainViewModel"
+             x:Class="Arconic.View.UserControls.ControlTab.Drive.DriveControl">
+    <Border Margin="5"
+            BorderThickness="1"
+            BorderBrush="{StaticResource ParameterBackgroundCommonColor}">
+        <Grid RowDefinitions="Auto,*">
+            <TextBlock Text="УПРАВЛЕНИЕ ПОЛОЖЕНИЕМ РАМЫ"
+                       FontSize="20" Margin="5,0,5,0"/>
+            <Border Grid.Row="1" Margin="5,0,5,5"
+                    BorderThickness="1"
+                    DataContext="{Binding PlcViewModel.Plc}"
+                    BorderBrush="{StaticResource ParameterBackgroundCommonColor}">
+                <StackPanel>
+                    <StackPanel.Styles>
+                        <Style Selector="Border.status">
+                            <Setter Property="Background" Value="{StaticResource ParameterBackgroundCommonColor}"></Setter>
+                            <Setter Property="MinHeight" Value="80"/>
+                            <Setter Property="BorderThickness" Value="2"/>
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                        <Style Selector="TextBlock.Big">
+                            <Setter Property="Margin" Value="20,10"/>
+                            <Setter Property="FontSize" Value="20"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="FontFamily" Value="{StaticResource RobotoFont}"/>
+                            <Setter Property="FontWeight" Value="Normal"/>
+                        </Style>
+                        <Style Selector="TextBlock.Small">
+                            <Setter Property="FontSize" Value="16"/>
+                            <Setter Property="Margin" Value="5,5,5,2"/>
+                            <Setter Property="VerticalAlignment" Value="Top"/>
+                            <Setter Property="Foreground" Value="{DynamicResource TexBoxCommon80}"/>
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                            <Setter Property="FontFamily" Value="{StaticResource RobotoFont}"/>
+                            <Setter Property="FontWeight" Value="Regular"/>
+                        </Style>
+                    </StackPanel.Styles>
+                    <!--Статус положения рамы-->
+                    <StackPanel Margin="20,5">
+                        <TextBlock Classes="Small" Text="Статус положения рамы"/>
+                        <Border Classes="status" BorderBrush="{Binding ControlAndIndication.DriveIndication.DriveStatus.Value, 
+            Converter={StaticResource GetByIndexFromParameterConverter}, 
+            ConverterParameter={StaticResource DriveStatuseColors}}">
+                            <TextBlock Classes="Big" Text="{Binding ControlAndIndication.DriveIndication.DriveStatus.Value, 
+            Converter={StaticResource GetByIndexFromParameterConverter}, 
+            ConverterParameter={StaticResource DriveStatuses}}"
+                                       Foreground="{Binding ControlAndIndication.DriveIndication.DriveStatus.Value, 
+            Converter={StaticResource GetByIndexFromParameterConverter}, 
+            ConverterParameter={StaticResource DriveStatuseColors}}"/>
+                        </Border>
+                    </StackPanel>
+                    <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}">
+                        <!--Текущее положение рамы-->
+                        <common:NumericParameter DataContext="{Binding ControlAndIndication.DriveIndication.CurrentPosition}"/>
+                        <!--Текущая скорость рамы-->
+                        <common:NumericParameter DataContext="{Binding ControlAndIndication.DriveIndication.CurrentVelocity}"/>
+                    </ListBox>
+                    <Grid ColumnDefinitions="*,*">
+                        <common:ParameterButton Grid.Column="0"
+                                                Margin="5"
+                                                CommandParameter="{Binding ControlAndIndication.DriveIndication.SbParking}">
+                            <common:ParameterButton.ButtonContent>
+                                <TextBlock Text="ДВИЖЕНИЕ В ПАРКОВКУ"
+                                           Margin="10"
+                                           HorizontalAlignment="Center"/>
+                            </common:ParameterButton.ButtonContent>
+                        </common:ParameterButton>
+                        <common:ParameterButton Grid.Column="1"
+                                                Margin="5"
+                                                CommandParameter="{Binding ControlAndIndication.DriveIndication.SbMeasure}">
+                            <common:ParameterButton.ButtonContent>
+                                <TextBlock Text="ДВИЖЕНИЕ В ПОЛОЖЕНИЕ ИЗМЕРЕНИЯ"
+                                           Margin="10"
+                                           HorizontalAlignment="Center"/>
+                            </common:ParameterButton.ButtonContent>
+                        </common:ParameterButton>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

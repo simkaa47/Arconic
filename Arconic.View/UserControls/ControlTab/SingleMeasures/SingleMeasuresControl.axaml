@@ -7,7 +7,7 @@
              xmlns:common="using:Arconic.View.UserControls.CommonControls"
              x:DataType="vm:SingleMeasuresViewModel"
              x:Class="Arconic.View.UserControls.ControlTab.SingleMeasures.SingleMeasuresControl">
-    <Border Margin="5,0,5,5"
+    <Border Margin="5"
             BorderThickness="1"
             BorderBrush="{StaticResource ParameterBackgroundCommonColor}">
         <Grid RowDefinitions="Auto, *">

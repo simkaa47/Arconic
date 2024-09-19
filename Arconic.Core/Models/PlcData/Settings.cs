@@ -1,4 +1,5 @@
-﻿using Arconic.Core.Models.PlcData.Detectors;
+﻿using Arconic.Core.Models.PlcData.Cooling;
+using Arconic.Core.Models.PlcData.Detectors;
 using Arconic.Core.Models.PlcData.Drive;
 using Arconic.Core.Models.PlcData.Measure;
 using Arconic.Core.Models.PlcData.Source;
@@ -12,6 +13,7 @@ public class Settings
     public MeasureSettings MeasureSettings { get; } = new MeasureSettings();
     public DetectorsSettings DetectorsSettings { get; } = new DetectorsSettings();
     public DriveSettings DriveSettings { get; } = new DriveSettings();
+    public CoolingSettings CoolingSettings { get; } = new CoolingSettings();
 
     public SteelMagazineSettings SteelSettings { get; } = new SteelMagazineSettings();
 }
