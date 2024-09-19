@@ -1,0 +1,105 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             x:DataType="vm:SingleMeasuresViewModel"
+             x:Class="Arconic.View.UserControls.ControlTab.SingleMeasures.SingleMeasuresControl">
+    <Border Margin="5,0,5,5"
+            BorderThickness="1"
+            BorderBrush="{StaticResource ParameterBackgroundCommonColor}">
+        <Grid RowDefinitions="Auto, *">
+            <TextBlock Text="ЕДИНИЧНОЕ ИЗМЕРЕНИЕ"
+                       FontSize="20"
+                       Margin="5,0,5,0">
+            </TextBlock>
+            <Border Grid.Row="1"
+                    Margin="5,0,5,5"
+                    BorderThickness="1"
+                    BorderBrush="{StaticResource ParameterBackgroundCommonColor}">
+                <Grid RowDefinitions="Auto,*">
+                    <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}">
+                        <!--Время измерения-->
+                        <common:NumericParameter DataContext="{Binding Plc.Settings.MeasureSettings.SingleMeasTime}" />
+                        <!--Номинальная толщина-->
+                        <common:NumericParameter
+                            DataContext="{Binding Plc.ControlAndIndication.MeasureIndicationAndControl.SingleMeasureIndication.NominalThick}" />
+                        <!--Марка стали-->
+                        <DockPanel>
+                            <TextBlock Text="Марка стали"
+                                       DockPanel.Dock="Left" />
+                            <ComboBox Height="40"
+                                      ItemsSource="{Binding SteelLabels, Mode=OneWay, UpdateSourceTrigger=LostFocus}"
+                                      Margin="5"
+                                      SelectedItem="{Binding Plc.ControlAndIndication.HighLevelData.Coils[1].SteelLabel.WriteValue, Mode=OneWay}"
+                                      DockPanel.Dock="Right"
+                                      HorizontalAlignment="Right"
+                                      Width="80">
+                            </ComboBox>
+                        </DockPanel>
+
+                    </ListBox>
+                    <StackPanel Grid.Row="1">
+                        <TextBlock Text="Измеренная величина"
+                                   Margin="10,0,0,0">
+                        </TextBlock>
+                        <Border Margin="10,0,10,10"
+                                BorderBrush="{StaticResource TexBoxCommon80}"
+                                BorderThickness="2"
+                                Padding="10">
+                            <TextBlock
+                                Text="{Binding Plc.ControlAndIndication.MeasureIndicationAndControl.SingleMeasureIndication.MeasuredThick.Value
+                    , StringFormat={}{0:f1} мкм}"
+                                FontSize="28"
+                                HorizontalAlignment="Center" />
+                        </Border>
+                        <!--Кнопка "провести единичное измерение"-->
+                        <common:ParameterButton
+                            HorizontalAlignment="Stretch"
+                            Height="60"
+                            Margin="10"
+                            IsVisible="{Binding !Plc.ControlAndIndication.MeasureIndicationAndControl.SingleMeasureIndication.SingleMeasFlag.Value}"
+                            CommandParameter="{Binding Plc.ControlAndIndication.MeasureIndicationAndControl.SingleMeasureIndication.SingleMeasCmd}">
+                            <common:ParameterButton.ButtonContent>
+                                <TextBlock Text="ПРОВЕСТИ ЕДИНИЧНОЕ ИЗМЕРЕНИЕ"
+                                           HorizontalAlignment="Center" />
+                            </common:ParameterButton.ButtonContent>
+
+                        </common:ParameterButton>
+                        <!--Кнопка "отменить единичное измерение"-->
+                        <common:ParameterButton
+                            HorizontalAlignment="Stretch"
+                            Height="60"
+                            Background="Red"
+                            Margin="10"
+                            IsVisible="{Binding Plc.ControlAndIndication.MeasureIndicationAndControl.SingleMeasureIndication.SingleMeasFlag.Value}"
+                            CommandParameter="{Binding Plc.ControlAndIndication.MeasureIndicationAndControl.SingleMeasureIndication.SingleMeasCancel}">
+                            <common:ParameterButton.ButtonContent>
+                                <TextBlock
+                                    Text="{Binding Plc.ControlAndIndication.MeasureIndicationAndControl.SingleMeasureIndication.CurrentTime.Value,
+                    StringFormat=ОТМЕНИТЬ ЕДИНИЧНОЕ ИЗМЕРЕНИЕ ({0})}"
+                                    HorizontalAlignment="Center" />
+                            </common:ParameterButton.ButtonContent>
+
+                        </common:ParameterButton>
+                        <!--Кнопка "пересчитать к-т сплава"-->
+                        <common:ParameterButton
+                            HorizontalAlignment="Stretch"
+                            Height="60"
+                            Margin="10"
+                            IsVisible="{Binding Plc.ControlAndIndication.MeasureIndicationAndControl.SingleMeasureIndication.MeasuredThick.Value,
+                Converter={StaticResource IfNotEqualConverter}, ConverterParameter=0}"
+                            CommandParameter="{Binding Plc.ControlAndIndication.SteelMagazineIndication.RecalcSteelCoeffCommand}">
+                            <common:ParameterButton.ButtonContent>
+                                <TextBlock Text="ПЕРЕСЧИТАТЬ К-Т СПЛАВА"
+                                           HorizontalAlignment="Center" />
+                            </common:ParameterButton.ButtonContent>
+                        </common:ParameterButton>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

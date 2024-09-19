@@ -84,7 +84,7 @@
         <!--Время последней стандартизации-->
         <DockPanel>
             <TextBlock Text="Время последней стандартизации" Classes="Left"/>
-            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.LastStandTime.Value}" 
+            <TextBlock Text="{Binding Settings.MeasureSettings.LastStandTime.Value}" 
                        Classes="Right"/>
         </DockPanel>
         <!--Наличие полосы в измерительном зазоре-->

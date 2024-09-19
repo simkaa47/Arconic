@@ -32,6 +32,7 @@
         <entry key="Arconic.View/UserControls/CommonControls/TemplatedControl1.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/CommonControls/ToggleSwitch.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/ControlTab/ControlTab.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/ControlTab/SingleMeasures/SingleMeasuresControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/ControlTab/SteelMagazine/SteelMagazineControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Errors/ErrorsMainControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Errors/Settings/SettingsMainControl.axaml" value="Arconic.View/Arconic.View.csproj" />
