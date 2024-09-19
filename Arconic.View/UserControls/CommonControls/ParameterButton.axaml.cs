@@ -103,7 +103,7 @@ public partial class ParameterButton : ParameterControl
         if (this.Command is null)
         {
             var app = Application.Current as App;
-            Command = app?.GetService<PlcViewModel>().WriteParameterCommand;
+            Command = app?.GetService<PlcViewModel>()?.WriteParameterCommand;
         }
     }
 }

@@ -22,8 +22,6 @@ public class MeasureIndicationAndControl
         new Parameter<float>("Текущая толщина, мкм", 0, float.MaxValue, DataType.DataBlock, 2, 7992);
     public Parameter<ushort> ScanNumber { get; } =
         new Parameter<ushort>("Номер скана", 0, ushort.MaxValue, DataType.DataBlock, 2, 8000);
-    public Parameter<DateTime> LastStandTime { get; } =
-        new Parameter<DateTime>("Дата и время последней стандартизации", DateTime.MinValue, DateTime.MaxValue, DataType.DataBlock, 1, 1204);
     
     public Parameter<float> CaretPosition { get; } =
         new Parameter<float>("Положение каретки от левого края полосы, мм", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 8002);
@@ -40,4 +38,6 @@ public class MeasureIndicationAndControl
 
     public PlcScan PreviousScan { get; } = new PlcScan(1540);
     public PlcScan ActualScan { get; } = new PlcScan(4756);
+
+    public SingleMeasureIndication SingleMeasureIndication { get; } = new SingleMeasureIndication();
 }

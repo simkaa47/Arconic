@@ -30,6 +30,7 @@ public static class CoreServicesRegistration
         services.AddSingleton<EventMainService>();
         services.AddSingleton<AccessService>();
         services.AddSingleton<MainTrendsViewModel>();
+        services.AddSingleton<SingleMeasuresViewModel>();
         services.AddSingleton<SteelMagazineViewModel>();
         services.AddSingleton<AccessViewModel>();
         services.AddTransient<IPasswordHasher, PasswordHasher>();
