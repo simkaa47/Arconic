@@ -2,16 +2,60 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:drive="using:Arconic.View.UserControls.ControlTab.Drive"
+             xmlns:main="using:Arconic.View.UserControls.MainTab"
              xmlns:steel="using:Arconic.View.UserControls.ControlTab.SteelMagazine"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
              xmlns:single="using:Arconic.View.UserControls.ControlTab.SingleMeasures"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="vm:MainViewModel"
              x:Class="Arconic.View.UserControls.ControlTab.ControlTab">
-    <Grid RowDefinitions="*"
+    <Grid RowDefinitions="*, Auto"
           ColumnDefinitions="*,*,500">
         <single:SingleMeasuresControl DataContext="{Binding SingleMeasuresViewModel}"/>
-        <steel:SteelMagazineControl Grid.Column="2"
+        <Grid Grid.Row="0" Grid.Column="1"
+              RowDefinitions="Auto,*">
+            <drive:DriveControl></drive:DriveControl>
+            <ScrollViewer Grid.Row="1">
+                <StackPanel >
+                    <!--Имитация рполосы-->
+                    <common:ParameterButton Margin="10"
+                                            VerticalAlignment="Top"
+                                            State="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.SbNewStrip.Value}"
+                                            CommandParameter="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.SbNewStrip}">
+                        <common:ParameterButton.ButtonContent>
+                            <TextBlock Text="ИМИТАЦИЯ  ПОЛОСЫ"
+                                       HorizontalAlignment="Center"
+                                       Margin="10">
+                        
+                            </TextBlock>
+                        </common:ParameterButton.ButtonContent>
+                    </common:ParameterButton>
+                    <!--Управление чиллером-->
+                    <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}"
+                             Margin="10">
+                        <DockPanel >
+                            <TextBlock Text="{Binding PlcViewModel.Plc.Settings.CoolingSettings.SbChiller.Description}"/>
+                            <common:ToggleSwitch CommandParameter="{Binding PlcViewModel.Plc.Settings.CoolingSettings.SbChiller}"
+                                                 State="{Binding PlcViewModel.Plc.Settings.CoolingSettings.SbChiller.Value}"
+                                                 Margin="5"
+                                                 HorizontalAlignment="Right"/>
+                        </DockPanel>
+                    </ListBox>
+                    
+                    
+                </StackPanel>
+            </ScrollViewer>
+           
+            
+        </Grid>
+        <steel:SteelMagazineControl Grid.Row="0" Grid.Column="2"
+                                    Grid.RowSpan="2"
                                     DataContext="{Binding  SteelMagazineViewModel}"/>
+        <main:StripInfoControl Grid.Row="1"
+                               DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.HighLevelData}"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"></main:StripInfoControl>
     </Grid>
 </UserControl>

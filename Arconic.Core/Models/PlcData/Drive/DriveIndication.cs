@@ -5,6 +5,25 @@ namespace Arconic.Core.Models.PlcData.Drive;
 
 public class DriveIndication
 {
+    public Parameter<float> CurrentPosition { get; } = new Parameter<float>("Текущее положение рамы, мм",
+        float.MinValue, float.MaxValue, DataType.DataBlock, 2, 200) { IsReadOnly = true };
+    public Parameter<float> CurrentPositionPlc { get; } = new Parameter<float>("Положение рамы в импульсах энкодера",
+        float.MinValue, float.MaxValue, DataType.DataBlock, 2, 204) { IsReadOnly = true };
+    public Parameter<float> CurrentVelocity { get; } = new Parameter<float>("Текущая скорость, мм/c",
+        float.MinValue, float.MaxValue, DataType.DataBlock, 2, 208) { IsReadOnly = true };
+
+    public Parameter<bool> SbParking { get; } = new Parameter<bool>("Переместить раму в положение \"Парковка\"", false,
+        true, DataType.DataBlock, 2, 220, 0);
+    public Parameter<bool> SbMeasure { get; } = new Parameter<bool>("Переместить раму в положение \"Измерение\"", false,
+        true, DataType.DataBlock, 2, 220,1);
+    public Parameter<bool> SbJogForw { get; } = new Parameter<bool>("Шаговое перемещение вперед", false,
+        true, DataType.DataBlock, 2, 220, 2);
+    public Parameter<bool> SbJogRev { get; } = new Parameter<bool>("Шаговое перемещение назад", false,
+        true, DataType.DataBlock, 2, 220,3);
+    public Parameter<bool> SbRstErr { get; } = new Parameter<bool>("Сброс ошибки ПЧ", false,
+        true, DataType.DataBlock, 2, 220,4);
+    public Parameter<bool> SbSetPos { get; } = new Parameter<bool>("Установить положение рамы", false,
+        true, DataType.DataBlock, 2, 220,5);
     public Parameter<short> DriveStatus { get; } =
         new Parameter<short>("Статус перемещения рамы", 0, 20, DataType.DataBlock, 2, 224);
 }
