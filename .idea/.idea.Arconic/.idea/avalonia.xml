@@ -13,6 +13,7 @@
         <entry key="Arconic.View/Resources/Colors.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Resources/CommonTextStatuses.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Resources/FontFamilies.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/Resources/Templates/Datagrids.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Styles/Buttons/Buttons.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Styles/DataGrid/DataGridColumnCells.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Styles/DataGrid/DataGridHeader.axaml" value="Arconic.View/Arconic.View.csproj" />
@@ -32,6 +33,7 @@
         <entry key="Arconic.View/UserControls/CommonControls/TemplatedControl1.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/CommonControls/ToggleSwitch.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/ControlTab/ControlTab.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/ControlTab/Drive/DriveControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/ControlTab/SingleMeasures/SingleMeasuresControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/ControlTab/SteelMagazine/SteelMagazineControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Errors/ErrorsMainControl.axaml" value="Arconic.View/Arconic.View.csproj" />
@@ -53,6 +55,7 @@
         <entry key="Arconic.View/UserControls/MainTab/StripInfoControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainTab/StripResultsViewer.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainTab/TextStatusControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/Settings/Cooling/CoolingSettingsTab.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Settings/Detectors/DetectorsMainControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Settings/Detectors/DetectorsTrendControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Settings/SettingsMainControl.axaml" value="Arconic.View/Arconic.View.csproj" />

@@ -1,4 +1,5 @@
-﻿using Arconic.Core.Models.PlcData.Detectors;
+﻿using Arconic.Core.Models.PlcData.Cooling;
+using Arconic.Core.Models.PlcData.Detectors;
 using Arconic.Core.Models.PlcData.Drive;
 using Arconic.Core.Models.PlcData.Errors;
 using Arconic.Core.Models.PlcData.Events;
@@ -18,6 +19,7 @@ public class ControlAndIndication
     public PlcErrorsData PlcErrorsData { get; } = new PlcErrorsData();
     public PlcEventsData PlcEventsData { get; } = new PlcEventsData();
     public DriveIndication DriveIndication { get; } = new DriveIndication();
+    public CoolingIndication CoolingIndication { get; } = new CoolingIndication();
     public SteelMagazineIndication SteelMagazineIndication { get; } = new SteelMagazineIndication();
 }
 

@@ -1,0 +1,104 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:sensor="using:Arconic.Core.Models.PlcData"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             x:DataType="vm:CoolingViewModel"
+             x:Class="Arconic.View.UserControls.Settings.Cooling.CoolingSettingsTab">
+    <Grid>
+        <Grid.Styles>
+            <Style Selector="Border.border" >
+                <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                <Setter Property="VerticalAlignment" Value="Top"></Setter>
+                <Setter Property="Margin" Value="10"></Setter>
+                <Setter Property="BorderBrush" Value="{StaticResource CommonBorderBrush}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Style>
+        </Grid.Styles>
+        <ScrollViewer>
+            <WrapPanel>
+                <Border Classes="border">
+                    <StackPanel Margin="5">
+                        <TextBlock Text="ИЗМЕРИТЕЛЬ РАСХОДА ОХЛАЖДАЮЩЕЙ ЖИДКСТИ"></TextBlock>
+                        <DataGrid ItemsSource="{Binding FlowBoolSensors}"
+                                  Name="SensorsGrid"
+                                  Template="{StaticResource BoolSensorTemplate}">
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+                <Border Classes="border">
+                    <StackPanel Margin="5">
+                        <TextBlock Text="ИЗМЕРИТЕЛЬ РАСХОДА ОХЛАЖДАЮЩЕЙ ЖИДКСТИ"></TextBlock>
+                        <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}"
+                                 HorizontalAlignment="Stretch">
+                            <DockPanel>
+                                <TextBlock Text="Опрос измерителя по RS485"/>
+                                <common:ToggleSwitch CommandParameter="{Binding Plc.Settings.CoolingSettings.SbPulsar}"
+                                                     HorizontalAlignment="Right"
+                                                     Margin="5"
+                                                     State="{Binding Plc.Settings.CoolingSettings.SbPulsar.Value}"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <TextBlock Text="Индикация связи с измерителем"/>
+                                <common:ImageBitIndicator HorizontalAlignment="Right"
+                                                          Margin="5"
+                                                          Height="35"
+                                                          TrueStateImage="/Assets/Images/ind_ok.png"
+                                                          FalseStateImage="/Assets/Images/ind_err.png"
+                                                          State="{Binding Plc.ControlAndIndication.CoolingIndication.PulsarComm.Value}"/>
+                            </DockPanel>
+                            <common:NumericParameter DataContext="{Binding Plc.ControlAndIndication.CoolingIndication.PulsarValue}"/>
+                            <common:NumericParameter DataContext="{Binding Plc.Settings.CoolingSettings.PulsarEmulValue}"/>
+                            <DockPanel>
+                                <TextBlock Text="Эмуляция значения измерителя"/>
+                                <common:ToggleSwitch CommandParameter="{Binding Plc.Settings.CoolingSettings.SbPulsarEmulation}"
+                                                     HorizontalAlignment="Right"
+                                                     Margin="5"
+                                                     State="{Binding Plc.Settings.CoolingSettings.SbPulsarEmulation.Value}"/>
+                            </DockPanel>
+                            <common:NumericParameter DataContext="{Binding Plc.ControlAndIndication.CoolingIndication.PulsarValueResult}"/>
+                            <common:NumericParameter DataContext="{Binding Plc.Settings.CoolingSettings.PulsarMinValue}"/>
+                            <common:NumericParameter DataContext="{Binding Plc.Settings.CoolingSettings.PulsarMaxValue}"/>
+                        </ListBox>
+                    </StackPanel>
+                </Border>
+                <Border Classes="border">
+                    <StackPanel Margin="5">
+                        <TextBlock Text="ЧИЛЛЕР"/>
+                        <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}">
+                            <DockPanel>
+                                <TextBlock Text="Питание на чиллер"/>
+                                <common:ToggleSwitch CommandParameter="{Binding Plc.Settings.CoolingSettings.SbChiller}"
+                                                     HorizontalAlignment="Right"
+                                                     Margin="5"
+                                                     State="{Binding Plc.Settings.CoolingSettings.SbChiller.Value}"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <TextBlock Text="Контактор включен"/>
+                                <common:ImageBitIndicator HorizontalAlignment="Right"
+                                                          Margin="5"
+                                                          Height="35"
+                                                          TrueStateImage="/Assets/Images/ind_ok.png"
+                                                          FalseStateImage="/Assets/Images/ind_err.png"
+                                                          State="{Binding Plc.ControlAndIndication.CoolingIndication.ChillerContactor.Value}"/>
+                            </DockPanel>
+                            <DockPanel>
+                                <TextBlock Text="Аварийное реле чиллера"/>
+                                <common:ImageBitIndicator HorizontalAlignment="Right"
+                                                          Margin="5"
+                                                          Height="35"
+                                                          TrueStateImage="/Assets/Images/ind_ok.png"
+                                                          FalseStateImage="/Assets/Images/ind_err.png"
+                                                          State="{Binding Plc.ControlAndIndication.CoolingIndication.ChillerAlarmRelay.Value}"/>
+                            </DockPanel>
+                        </ListBox>
+                    </StackPanel>
+                </Border>
+            </WrapPanel>
+        </ScrollViewer>
+        
+    </Grid>
+</UserControl>

@@ -10,12 +10,14 @@ public partial class MainViewModel : ObservableObject
 
     public MainViewModel(PlcViewModel plcViewModel, 
         AccessViewModel accessViewModel, 
+        CoolingViewModel coolingViewModel,
         SingleMeasuresViewModel singleMeasuresViewModel,
         SteelMagazineViewModel steelMagazineViewModel,
         MainTrendsViewModel mainTrendsViewModel)
     {
         PlcViewModel = plcViewModel;
         AccessViewModel = accessViewModel;
+        CoolingViewModel = coolingViewModel;
         SingleMeasuresViewModel = singleMeasuresViewModel;
         SteelMagazineViewModel = steelMagazineViewModel;
         MainTrendsViewModel = mainTrendsViewModel;
@@ -33,6 +35,7 @@ public partial class MainViewModel : ObservableObject
 
     public PlcViewModel PlcViewModel { get; }
     public AccessViewModel AccessViewModel { get; }
+    public CoolingViewModel CoolingViewModel { get; }
     public SingleMeasuresViewModel SingleMeasuresViewModel { get; }
     public SteelMagazineViewModel SteelMagazineViewModel { get; }
     public MainTrendsViewModel MainTrendsViewModel { get; }
