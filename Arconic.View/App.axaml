@@ -8,6 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="/Themes/TextBox/TextBoxes.axaml"/>
+                <ResourceInclude Source="/Resources/Templates/Datagrids.axaml"/>
                 <ResourceInclude Source="/Resources/FontFamilies.axaml"/>
                 <ResourceInclude Source="/Converters/GlobalConverter.axaml"/>
                 <ResourceInclude Source="/Resources/CommonTextStatuses.axaml"/>

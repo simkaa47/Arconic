@@ -1,0 +1,65 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:sensor="using:Arconic.Core.Models.PlcData"
+                    xmlns:common="using:Arconic.View.UserControls.CommonControls"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTemplate TargetType="DataGrid" x:Key="BoolSensorTemplate">
+        <DataGrid ItemsSource="{TemplateBinding ItemsSource}"
+                  VerticalGridLinesBrush="{DynamicResource DataGridVerticalBrush}"
+                  GridLinesVisibility="Vertical"
+                  HorizontalAlignment="Left"
+                  IsReadOnly="True">
+            <DataGrid.Styles>
+                <Style Selector="common|ImageBitIndicator">
+                    <Setter Property="TrueStateImage" Value="/Assets/Images/ind_ok.png"/>
+                    <Setter Property="FalseStateImage" Value="/Assets/Images/ind_err.png"/>
+                    <Setter Property="Height" Value="35"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Margin" Value="0,5,5,5"></Setter>
+                </Style>
+            </DataGrid.Styles>
+            <DataGrid.Columns>
+                <DataGridTextColumn x:DataType="sensor:BoolSensorInfo" Header="Название сигнала"
+                                    Binding="{Binding Description}"/>
+                <DataGridTemplateColumn x:DataType="sensor:BoolSensorInfo"
+                                        Header="Реальное значение"
+                                        Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="sensor:BoolSensorInfo">
+                            <common:ImageBitIndicator State="{Binding RealValue.Value}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:DataType="sensor:BoolSensorInfo"
+                                        Header="Значение эмуляции"
+                                        Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="sensor:BoolSensorInfo">
+                            <common:ToggleSwitch CommandParameter="{Binding EmulValue}"
+                                                 State="{Binding EmulValue.Value}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:DataType="sensor:BoolSensorInfo"
+                                        Header="Эмуляция"
+                                        Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="sensor:BoolSensorInfo">
+                            <common:ToggleSwitch CommandParameter="{Binding EmulOnOff}"
+                                                 State="{Binding EmulOnOff.Value}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:DataType="sensor:BoolSensorInfo"
+                                        Header="Результат"
+                                        Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="sensor:BoolSensorInfo">
+                            <common:ImageBitIndicator State="{Binding Result.Value}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </ControlTemplate>
+</ResourceDictionary>
