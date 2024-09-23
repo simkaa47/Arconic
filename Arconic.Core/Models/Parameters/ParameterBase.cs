@@ -17,6 +17,10 @@ public abstract partial class ParameterBase(string description,
     int bitNum)
     : ObservableValidator
 {
+    public const int SettingsDbNum = 1;
+    public const int IndicationDbNum = 2;
+    
+    
     [MinLength(4)]
     public string Description { get; } = description;
 

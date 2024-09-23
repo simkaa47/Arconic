@@ -5,6 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:bs="using:Arconic.View.UserControls.Settings.SourceUnit"
              xmlns:det="using:Arconic.View.UserControls.Settings.Detectors"
+             xmlns:diagn="using:Arconic.View.UserControls.Settings.DiagnBoards"
              xmlns:safety="using:Arconic.View.UserControls.Settings.Safety"
              xmlns:cool="using:Arconic.View.UserControls.Settings.Cooling"
              xmlns:vm="using:Arconic.Core.ViewModels"
@@ -22,6 +23,9 @@
         </TabItem>
         <TabItem Header="ДАТЧИКИ БЕЗОПАСНОСТИ">
            <safety:SafetyTab DataContext="{Binding SafetyViewModel}"/>
+        </TabItem>
+        <TabItem Header="ДИАГН. ПЛАТЫ">
+            <diagn:DiagnBoardsTab/>
         </TabItem>
     </TabControl>
 </UserControl>

@@ -1,0 +1,105 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             xmlns:sensor="using:Arconic.Core.Models.PlcData"
+             xmlns:db="using:Arconic.Core.Models.PlcData.DiagnBoards"
+             x:DataType="db:DiagnBoardInfo"
+             x:Class="Arconic.View.UserControls.Settings.DiagnBoards.DiagnBoardTemplate">
+    <Border HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Margin="10"
+            Padding="10"
+            BorderBrush="{StaticResource CommonBorderBrush}"
+            BorderThickness="1">
+        <StackPanel>
+            <TextBlock Text="{Binding Name}"
+                       FontSize="20"></TextBlock>
+            <DataGrid ItemsSource="{Binding AnalogSensorInfos}"
+                      VerticalGridLinesBrush="{DynamicResource DataGridVerticalBrush}"
+                      GridLinesVisibility="Vertical"
+                      HorizontalAlignment="Left"
+                      IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:DataType="sensor:AnalogSensorInfo" Header="Название сигнала"
+                                        Binding="{Binding Description}"/>
+                    <DataGridTemplateColumn x:DataType="sensor:AnalogSensorInfo" Header="Значение АЦП"
+                                            MaxWidth="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding AdcValue.Value}"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn x:DataType="sensor:AnalogSensorInfo" Header="Реальное значение"
+                                            MaxWidth="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding RealValue.Value, StringFormat=f1}"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn x:DataType="sensor:AnalogSensorInfo" Header="Значение эмуляции"
+                                            MaxWidth="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="sensor:AnalogSensorInfo">
+                                <common:NumericParameter DataContext="{Binding EmulValue}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn x:DataType="sensor:AnalogSensorInfo" Header="Эмуляция">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="sensor:AnalogSensorInfo">
+                                <common:ToggleSwitch CommandParameter="{Binding EmulOnOff}"
+                                                     State="{Binding EmulOnOff.Value}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn x:DataType="sensor:AnalogSensorInfo" Header="Макс. значение"
+                                            MaxWidth="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="sensor:AnalogSensorInfo">
+                                <common:NumericParameter DataContext="{Binding MaxValue}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}">
+                <ListBox.Styles>
+                    <Style Selector="common|ImageBitIndicator">
+                        <Setter Property="TrueStateImage" Value="/Assets/Images/ind_ok.png"/>
+                        <Setter Property="FalseStateImage" Value="/Assets/Images/ind_err.png"/>
+                        <Setter Property="Height" Value="35"/>
+                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="0,5,5,5"></Setter>
+                    </Style>
+                </ListBox.Styles>
+                <DockPanel>
+                    <TextBlock Text="Опрос платы"></TextBlock>
+                    <common:ToggleSwitch CommandParameter="{Binding OnOff}"
+                                         HorizontalAlignment="Right"
+                                         State="{Binding OnOff.Value}"/>
+                </DockPanel>
+                <DockPanel IsVisible="{Binding OnOff.Value}">
+                    <TextBlock Text="Связь с платой"></TextBlock>
+                    <common:ImageBitIndicator State="{Binding !ErrCom.Value}"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock Text="Детектирование удара"></TextBlock>
+                    <common:ToggleSwitch CommandParameter="{Binding ShockDetecting}"
+                                         HorizontalAlignment="Right"
+                                         State="{Binding ShockDetecting.Value}"/>
+                </DockPanel>
+                <common:NumericParameter DataContext="{Binding AccAxisX}"/>
+                <common:NumericParameter DataContext="{Binding AccAxisY}"/>
+                <common:NumericParameter DataContext="{Binding AccAxisZ}"/>
+                <common:NumericParameter DataContext="{Binding LastShockDate}" ParamWidth="160"/>
+            </ListBox>
+        </StackPanel>
+    </Border>
+    
+</UserControl>
