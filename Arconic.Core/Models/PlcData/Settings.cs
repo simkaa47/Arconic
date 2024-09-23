@@ -2,6 +2,7 @@
 using Arconic.Core.Models.PlcData.Detectors;
 using Arconic.Core.Models.PlcData.Drive;
 using Arconic.Core.Models.PlcData.Measure;
+using Arconic.Core.Models.PlcData.Safety;
 using Arconic.Core.Models.PlcData.Source;
 using Arconic.Core.Models.PlcData.SteelLabel;
 
@@ -14,6 +15,7 @@ public class Settings
     public DetectorsSettings DetectorsSettings { get; } = new DetectorsSettings();
     public DriveSettings DriveSettings { get; } = new DriveSettings();
     public CoolingSettings CoolingSettings { get; } = new CoolingSettings();
+    public SafetySettings SafetySettings { get; } = new SafetySettings();
 
     public SteelMagazineSettings SteelSettings { get; } = new SteelMagazineSettings();
 }

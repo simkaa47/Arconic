@@ -1,0 +1,64 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             x:DataType="vm:SafetyViewModel"
+             x:Class="Arconic.View.UserControls.Settings.Safety.SafetyTab">
+    <Grid>
+        <Grid.Styles>
+            <Style Selector="Border.border" >
+                <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                <Setter Property="VerticalAlignment" Value="Top"></Setter>
+                <Setter Property="Margin" Value="10"></Setter>
+                <Setter Property="BorderBrush" Value="{StaticResource CommonBorderBrush}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Style>
+        </Grid.Styles>
+        <ScrollViewer>
+            <WrapPanel>
+                <Border Classes="border">
+                    <StackPanel Margin="5">
+                        <TextBlock Text="ДАТЧИКИ БЕЗОПАСНОСТИ"></TextBlock>
+                        <DataGrid ItemsSource="{Binding Sensors}"
+                                  Template="{StaticResource BoolSensorTemplate}">
+                        </DataGrid>
+                    </StackPanel>
+                </Border> 
+                <Border Classes="border">
+                    <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}">
+                        <DockPanel>
+                            <TextBlock Text="{Binding Plc.ControlAndIndication.SafetyIndication.SbAbort.Description}"/>
+                            <common:ImageBitIndicator HorizontalAlignment="Right"
+                                                      Margin="5"
+                                                      Height="35"
+                                                      TrueStateImage="/Assets/Images/ind_ok.png"
+                                                      FalseStateImage="/Assets/Images/ind_err.png"
+                                                      State="{Binding Plc.ControlAndIndication.SafetyIndication.SbAbort.Value}"/>
+                        </DockPanel>
+                        <DockPanel>
+                            <TextBlock Text="{Binding Plc.ControlAndIndication.SafetyIndication.SbConsoleAbort.Description}"/>
+                            <common:ImageBitIndicator HorizontalAlignment="Right"
+                                                      Margin="5"
+                                                      Height="35"
+                                                      TrueStateImage="/Assets/Images/ind_ok.png"
+                                                      FalseStateImage="/Assets/Images/ind_err.png"
+                                                      State="{Binding Plc.ControlAndIndication.SafetyIndication.SbConsoleAbort.Value}"/>
+                        </DockPanel>
+                        <DockPanel>
+                            <TextBlock Text="{Binding Plc.ControlAndIndication.SafetyIndication.HlAbort.Description}"/>
+                            <common:ImageBitIndicator HorizontalAlignment="Right"
+                                                      Margin="5"
+                                                      Height="35"
+                                                      TrueStateImage="/Assets/Images/ind_ok.png"
+                                                      FalseStateImage="/Assets/Images/ind_err.png"
+                                                      State="{Binding Plc.ControlAndIndication.SafetyIndication.HlAbort.Value}"/>
+                        </DockPanel>
+                    </ListBox>
+                </Border>
+            </WrapPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
