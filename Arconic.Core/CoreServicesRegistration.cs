@@ -30,6 +30,7 @@ public static class CoreServicesRegistration
         services.AddSingleton<EventMainService>();
         services.AddSingleton<AccessService>();
         services.AddSingleton<CoolingViewModel>();
+        services.AddSingleton<SafetyViewModel>();
         services.AddSingleton<MainTrendsViewModel>();
         services.AddSingleton<SingleMeasuresViewModel>();
         services.AddSingleton<SteelMagazineViewModel>();
