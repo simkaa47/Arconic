@@ -8,6 +8,7 @@
              xmlns:diagn="using:Arconic.View.UserControls.Settings.DiagnBoards"
              xmlns:safety="using:Arconic.View.UserControls.Settings.Safety"
              xmlns:drive="using:Arconic.View.UserControls.Settings.Drive"
+             xmlns:oth="using:Arconic.View.UserControls.Settings.Other"
              xmlns:cool="using:Arconic.View.UserControls.Settings.Cooling"
              xmlns:vm="using:Arconic.Core.ViewModels"
              x:DataType="vm:MainViewModel"
@@ -30,6 +31,9 @@
         </TabItem>
         <TabItem Header="ПРИВОД">
            <drive:DriveSettingsTab/>
+        </TabItem>
+        <TabItem Header="ПРОЧИЕ НАСТРОЙКИ">
+            <oth:OtherSettsTab/>
         </TabItem>
     </TabControl>
 </UserControl>

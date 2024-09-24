@@ -1,0 +1,52 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             x:DataType="vm:MainViewModel"
+             xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+             xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+             x:Class="Arconic.View.UserControls.Settings.Other.OtherSettsTab">
+    <Grid>
+      <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}"
+             VerticalAlignment="Top"
+             HorizontalAlignment="Left">
+        <DockPanel>
+            <!--Режим измерения-->
+            <TextBlock Text="Режим измерения"></TextBlock>
+            <ComboBox Height="40"
+                      ItemsSource="{StaticResource MeasModes}"
+                      Margin="20,5,5,5"
+                      SelectedIndex="{Binding PlcViewModel.Plc.Settings.DriveSettings.MeasMode.WriteValue}"
+                      DockPanel.Dock="Right"
+                      HorizontalAlignment="Right"
+                      Width="160">
+                <i:Interaction.Behaviors>
+                    <ia:EventTriggerBehavior EventName="DropDownClosed">
+                        <ia:InvokeCommandAction Command="{Binding PlcViewModel.WriteParameterCommand}"
+                                                CommandParameter="{Binding PlcViewModel.Plc.Settings.DriveSettings.MeasMode}"/>
+                    </ia:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+            </ComboBox>
+        </DockPanel>
+        <!--Время стандартизации (откр затвор)-->
+        <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.StanOpenTime}"/>
+        <!--Время стандартизации (закр затвор)-->
+        <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.StanCloseTime}"/>
+        <!--Время усреднения-->
+        <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.AverageTime}"/>
+        <!--Период выдачи данных-->
+        <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.SendDataToAsutpPeriod}"/>
+        <!--Время закрытия завтора-->
+        <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.CloseGateTimeSv}"/>
+        <!--Время закрытия завтора-->
+        <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.CloseGateTimeCv}"/>
+        <!--Время посл станд-ии-->
+        <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.LastStandTime}"
+                                 ParamWidth="160"/>
+    </ListBox>  
+    </Grid>
+    
+</UserControl>

@@ -10,6 +10,11 @@
         <sys:String>Пользователь</sys:String>
         <sys:String>Сервисный инженер</sys:String>
     </scg:List>
+    <scg:List x:TypeArguments="sys:Object" x:Key="MeasModes">
+        <sys:String>Сканирование</sys:String>
+        <sys:String>Сканирования (20 мм от края)</sys:String>
+        <sys:String>Измерение по ЦЛ</sys:String>
+    </scg:List>
     <scg:List x:TypeArguments="sys:Object" x:Key="MeasStatuses">
         <sys:String>ИНИЦИАЛИЗАЦИЯ ДАННЫХ</sys:String>
         <sys:String>СИТ НЕ ГОТОВА К ИЗМЕРЕНИЯМ</sys:String>

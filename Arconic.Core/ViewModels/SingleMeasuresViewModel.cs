@@ -6,10 +6,12 @@ namespace Arconic.Core.ViewModels;
 
 public partial class SingleMeasuresViewModel:ObservableObject
 {
+    public PlcViewModel PlcViewModel { get; }
     private readonly ILogger<SingleMeasuresViewModel> _logger;
 
     public SingleMeasuresViewModel(ILogger<SingleMeasuresViewModel> logger, PlcViewModel plcViewModel)
     {
+        PlcViewModel = plcViewModel;
         _logger = logger;
         Plc = plcViewModel.Plc;
         Init();
@@ -32,7 +34,7 @@ public partial class SingleMeasuresViewModel:ObservableObject
     }   
     
     [ObservableProperty]
-    private IEnumerable<string?> _steelLabels;
+    private IEnumerable<string?>? _steelLabels;
 
 
     private void GetSteelLabels()
