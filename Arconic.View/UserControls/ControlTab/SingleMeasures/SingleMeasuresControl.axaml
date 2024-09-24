@@ -6,6 +6,8 @@
              xmlns:vm="using:Arconic.Core.ViewModels"
              xmlns:common="using:Arconic.View.UserControls.CommonControls"
              x:DataType="vm:SingleMeasuresViewModel"
+             xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+             xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
              x:Class="Arconic.View.UserControls.ControlTab.SingleMeasures.SingleMeasuresControl">
     <Border Margin="5"
             BorderThickness="1"
@@ -32,11 +34,18 @@
                                        DockPanel.Dock="Left" />
                             <ComboBox Height="40"
                                       ItemsSource="{Binding SteelLabels, Mode=OneWay, UpdateSourceTrigger=LostFocus}"
-                                      Margin="5"
-                                      SelectedItem="{Binding Plc.ControlAndIndication.HighLevelData.Coils[1].SteelLabel.WriteValue, Mode=OneWay}"
+                                      Margin="20,5,5,5"
+                                      SelectedIndex="0"
+                                      SelectedItem="{Binding Plc.ControlAndIndication.MeasureIndicationAndControl.SingleMeasureIndication.SteelLabel.WriteValue}"
                                       DockPanel.Dock="Right"
                                       HorizontalAlignment="Right"
-                                      Width="80">
+                                      Width="160">
+                                <i:Interaction.Behaviors>
+                                    <ia:EventTriggerBehavior EventName="DropDownClosed">
+                                        <ia:InvokeCommandAction Command="{Binding PlcViewModel.WriteParameterCommand}"
+                                                                CommandParameter="{Binding Plc.ControlAndIndication.MeasureIndicationAndControl.SingleMeasureIndication.SteelLabel }"/>
+                                    </ia:EventTriggerBehavior>
+                                </i:Interaction.Behaviors>
                             </ComboBox>
                         </DockPanel>
 

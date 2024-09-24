@@ -48,5 +48,8 @@ public class MeasureIndicationAndControl
     public PlcScan PreviousScan { get; } = new PlcScan(1540);
     public PlcScan ActualScan { get; } = new PlcScan(4756);
 
+    public Parameter<ushort> CloseGateTimeCv { get; } = new Parameter<ushort>("Осталось времени до закрытия затвора, с",
+        0, ushort.MaxValue, DataType.DataBlock, ParameterBase.IndicationDbNum, 8020){IsReadOnly = true};
+
     public SingleMeasureIndication SingleMeasureIndication { get; } = new SingleMeasureIndication();
 }
