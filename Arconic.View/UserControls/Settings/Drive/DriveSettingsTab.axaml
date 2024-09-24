@@ -1,0 +1,176 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             x:DataType="vm:MainViewModel"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Arconic.View.UserControls.Settings.Drive.DriveSettingsTab">
+    <ScrollViewer>
+        <WrapPanel>
+            <WrapPanel.Styles>
+                <Style Selector="Border.status">
+                            <Setter Property="Background" Value="{StaticResource ParameterBackgroundCommonColor}"></Setter>
+                            <Setter Property="MinHeight" Value="80"/>
+                            <Setter Property="BorderThickness" Value="2"/>
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                        <Style Selector="TextBlock.Big">
+                            <Setter Property="Margin" Value="20,10"/>
+                            <Setter Property="FontSize" Value="20"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="FontFamily" Value="{StaticResource RobotoFont}"/>
+                            <Setter Property="FontWeight" Value="Normal"/>
+                        </Style>
+                        <Style Selector="TextBlock.Small">
+                            <Setter Property="FontSize" Value="16"/>
+                            <Setter Property="Margin" Value="5,5,5,2"/>
+                            <Setter Property="VerticalAlignment" Value="Top"/>
+                            <Setter Property="Foreground" Value="{DynamicResource TexBoxCommon80}"/>
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                            <Setter Property="FontFamily" Value="{StaticResource RobotoFont}"/>
+                            <Setter Property="FontWeight" Value="Regular"/>
+                        </Style>
+            </WrapPanel.Styles>
+            <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}"
+                     VerticalAlignment="Top"
+                     MinWidth="400"
+                     HorizontalAlignment="Left">
+                <!--Скорость-->
+                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.DriveSettings.SpeedHz}"/>
+                <!--Позиция парковки-->
+                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.DriveSettings.ParkingPosition}"/>
+                <!--Позиция ЦЛ-->
+                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.DriveSettings.CentralPosition}"/>
+                <!--MaxWidth-->
+                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.DriveSettings.MaxMeasureWidth}"/>
+                <!--K gear-->
+                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.DriveSettings.Kgear}"/>
+                <!--Preset value-->
+                <DockPanel>
+                    <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.DriveIndication.SetPosition}"/>
+                    <common:ParameterButton Margin="5"
+                                            HorizontalAlignment="Right"
+                                            CommandParameter="{Binding PlcViewModel.Plc.ControlAndIndication.DriveIndication.SbSetPos}">
+                        <common:ParameterButton.ButtonContent>
+                            <TextBlock Text="УСТАНОВИТЬ"
+                                       Margin="5"
+                                       HorizontalAlignment="Center"></TextBlock>
+                        </common:ParameterButton.ButtonContent>
+                    </common:ParameterButton>
+                </DockPanel>
+                
+                <!--Current position-->
+                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.DriveIndication.CurrentPosition}"/>
+                <!--Current position pls-->
+                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.DriveIndication.CurrentPositionPlc}"/>
+                <!--Current velocity-->
+                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.DriveIndication.CurrentVelocity}"/>
+        
+            </ListBox>
+            
+            <StackPanel>
+                <!--Статус положения рамы-->
+                <StackPanel Margin="20,5">
+                    <TextBlock Classes="Small" Text="Статус положения рамы"/>
+                    <Border Classes="status" BorderBrush="{Binding PlcViewModel.Plc.ControlAndIndication.DriveIndication.DriveStatus.Value, 
+            Converter={StaticResource GetByIndexFromParameterConverter}, 
+            ConverterParameter={StaticResource DriveStatuseColors}}">
+                        <TextBlock Classes="Big" Text="{Binding PlcViewModel.Plc.ControlAndIndication.DriveIndication.DriveStatus.Value, 
+            Converter={StaticResource GetByIndexFromParameterConverter}, 
+            ConverterParameter={StaticResource DriveStatuses}}"
+                                   Foreground="{Binding PlcViewModel.Plc.ControlAndIndication.DriveIndication.DriveStatus.Value, 
+            Converter={StaticResource GetByIndexFromParameterConverter}, 
+            ConverterParameter={StaticResource DriveStatuseColors}}"/>
+                    </Border>
+                </StackPanel>
+                <!--Кнопки-->
+                <StackPanel.Styles>
+                    <Style Selector="common|ParameterButton">
+                        <Setter Property="MinHeight" Value="60"></Setter>
+                        <Setter Property="Margin" Value="10"></Setter>
+                    </Style>
+                    <Style Selector="TextBlock">
+                        <Setter Property="FontSize" Value="16"></Setter>
+                        <Setter Property="Margin" Value="10,5"></Setter>
+                        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                    </Style>
+                </StackPanel.Styles>
+                <Grid RowDefinitions="*,*,Auto"
+                      DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.DriveIndication}"
+                      ColumnDefinitions="*,*">
+                    <common:ParameterButton Grid.Column="0" Grid.Row="0"
+                                            CommandParameter="{Binding SbParking}">
+                        <common:ParameterButton.ButtonContent>
+                            <TextBlock Text="РАМА В 'ПАРКИНГ'"></TextBlock>
+                        </common:ParameterButton.ButtonContent>
+                    </common:ParameterButton>
+                    <common:ParameterButton Grid.Column="1" Grid.Row="0"
+                                            CommandParameter="{Binding SbMeasure}">
+                        <common:ParameterButton.ButtonContent>
+                            <TextBlock Text="РАМА В 'ИЗМЕРЕНИЕ'"></TextBlock>
+                        </common:ParameterButton.ButtonContent>
+                    </common:ParameterButton>
+                    <common:ParameterButton Grid.Column="0" Grid.Row="1"
+                                            CommandParameter="{Binding SbJogForw}">
+                        <common:ParameterButton.ButtonContent>
+                            <TextBlock Text="ТОЛЧКОВОЕ ПЕРЕМЕЩЕНИЕ ВПЕРЕД'"></TextBlock>
+                        </common:ParameterButton.ButtonContent>
+                    </common:ParameterButton>
+                    <common:ParameterButton Grid.Column="1" Grid.Row="1"
+                                            CommandParameter="{Binding SbJogRev}">
+                        <common:ParameterButton.ButtonContent>
+                            <TextBlock Text="ТОЛЧКОВОЕ ПЕРЕМЕЩЕНИЕ НАЗАД'"></TextBlock>
+                        </common:ParameterButton.ButtonContent>
+                    </common:ParameterButton>
+                    <common:ParameterButton Grid.Column="0" Grid.Row="2"
+                                            Grid.ColumnSpan="2"
+                                            CommandParameter="{Binding SbRstErr}">
+                        <common:ParameterButton.ButtonContent>
+                            <TextBlock Text="СБРОС ОШИБКИ ПЧ"></TextBlock>
+                        </common:ParameterButton.ButtonContent>
+                    </common:ParameterButton>
+                </Grid>
+                
+            </StackPanel>
+            <!--Датчики-->
+            <ListBox DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.DriveIndication}"
+                     VerticalAlignment="Top"
+                     ItemContainerTheme="{StaticResource SelectorListBoxItem}">
+                <ListBox.Styles>
+                    <Style Selector="common|ImageBitIndicator">
+                        <Setter Property="TrueStateImage" Value="/Assets/Images/ind_ok.png"/>
+                        <Setter Property="FalseStateImage" Value="/Assets/Images/ind_err.png"/>
+                        <Setter Property="Height" Value="35"/>
+                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="10,5,5,5"></Setter>
+                    </Style>
+                </ListBox.Styles>
+                <DockPanel>
+                    <TextBlock Text="{Binding SqAbortLeft.Description}"></TextBlock>
+                    <common:ImageBitIndicator State="{Binding SqAbortLeft.Value}"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock Text="{Binding SqAbortRight.Description}"></TextBlock>
+                    <common:ImageBitIndicator State="{Binding SqAbortRight.Value}"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock Text="{Binding IsParkingPosition.Description}"></TextBlock>
+                    <common:ImageBitIndicator State="{Binding IsParkingPosition.Value}"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock Text="{Binding IsCentralPosition.Description}"></TextBlock>
+                    <common:ImageBitIndicator State="{Binding IsCentralPosition.Value}"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock Text="{Binding FcComm.Description}"></TextBlock>
+                    <common:ImageBitIndicator State="{Binding FcComm.Value}"/>
+                </DockPanel>
+            </ListBox>
+        </WrapPanel>
+    </ScrollViewer>
+   
+    
+</UserControl>

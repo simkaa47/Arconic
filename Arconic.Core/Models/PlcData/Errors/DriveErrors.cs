@@ -15,7 +15,7 @@ public class DriveErrors
         }
     }
     
-    private List<PlcError> Errors { get; } =
+    public List<PlcError> Errors { get; } =
     [
         new PlcError($"{PlcError.DriveTag.ToTitleCase()}: Сработал аварийный концевик слева", 2, 738, 0),
         new PlcError($"{PlcError.DriveTag.ToTitleCase()}: Сработал аварийный концевик справа", 2, 738, 1),

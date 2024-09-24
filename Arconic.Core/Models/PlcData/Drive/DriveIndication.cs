@@ -11,6 +11,9 @@ public class DriveIndication
         float.MinValue, float.MaxValue, DataType.DataBlock, 2, 204) { IsReadOnly = true };
     public Parameter<float> CurrentVelocity { get; } = new Parameter<float>("Текущая скорость, мм/c",
         float.MinValue, float.MaxValue, DataType.DataBlock, 2, 208) { IsReadOnly = true };
+    
+    public Parameter<uint> SetPosition { get; } = new Parameter<uint>("Позиция предустановки, мм",
+        uint.MinValue, uint.MaxValue, DataType.DataBlock, 2, 216);
 
     public Parameter<bool> SbParking { get; } = new Parameter<bool>("Переместить раму в положение \"Парковка\"", false,
         true, DataType.DataBlock, 2, 220, 0);
@@ -26,4 +29,22 @@ public class DriveIndication
         true, DataType.DataBlock, 2, 220,5);
     public Parameter<short> DriveStatus { get; } =
         new Parameter<short>("Статус перемещения рамы", 0, 20, DataType.DataBlock, 2, 224);
+
+    public Parameter<bool> SqAbortLeft { get; } =
+        new Parameter<bool>("Датчик крайнего левого положения",
+            false, true, DataType.Input, 0, 12, 0);
+    public Parameter<bool> SqAbortRight { get; } =
+        new Parameter<bool>("Датчик крайнего правого положения",
+            false, true, DataType.Input, 0, 12, 1);
+    
+    public Parameter<bool> IsParkingPosition { get; } =
+        new Parameter<bool>("В позиции парковки",
+            false, true, DataType.DataBlock, ParameterBase.IndicationDbNum, 222, 0);
+    public Parameter<bool> IsCentralPosition { get; } =
+        new Parameter<bool>("В позиции измерения",
+            false, true, DataType.DataBlock, ParameterBase.IndicationDbNum, 222, 1);
+    public Parameter<bool> FcComm { get; } =
+        new Parameter<bool>("Связь с ПЧ",
+            false, true, DataType.DataBlock, ParameterBase.IndicationDbNum, 222, 4);
+    
 }
