@@ -3,12 +3,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:mat="using:Material.Icons.Avalonia"
              xmlns:hb="using:Arconic.View.UserControls.HighBar"
              xmlns:common="using:Arconic.View.UserControls.CommonControls"
              x:DataType="vm:MainViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Arconic.View.UserControls.HighBar.HighBarControl">
-   <Grid ColumnDefinitions="*,*,*,*,*,*,*,80" Height="80" ShowGridLines="True">
+   <Grid ColumnDefinitions="*,*,*,*,*,*,*,240" Height="80">
        <!--Konvels logo-->
        <Image Source="/Assets/Images/KONVELS_logo.png"
               Margin="10"></Image>
@@ -80,6 +81,52 @@
            </Border>
            <hb:AccessControl DataContext="{Binding AccessViewModel}"
                              Margin="10,5"/>
+           
        </StackPanel>
+       <!--Кнопки управления приложением-->
+       <Grid Grid.Column="7" ColumnDefinitions="*,*,*">
+           <Grid.Styles>
+               <Style Selector="Button">
+                   <Setter Property="BorderBrush" Value="{StaticResource CommonBorderBrush}"></Setter>
+                   <Setter Property="Background" Value="Black"></Setter>
+                   <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+                   <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+                   <Setter Property="BorderThickness" Value="1,0,0,1"></Setter>
+               </Style>
+           </Grid.Styles>
+           <Button Grid.Column="0"
+                   Click="MinimizeWindowButtonOnClick">
+               <mat:MaterialIcon Kind="WindowMinimize" Width="40" Height="40"></mat:MaterialIcon>
+               <ToolTip.Tip>
+                   <TextBlock Text="Свернуть"></TextBlock>
+               </ToolTip.Tip>
+           </Button>
+           <Button Grid.Column="1"
+                   IsVisible="{Binding $parent[Window].WindowState, Converter={StaticResource IfEqualConverter},
+                   ConverterParameter={x:Static WindowState.Normal}}"
+                   Click="MaximizeWindowButtonOnClick">
+               <mat:MaterialIcon Kind="WindowMaximize" Width="40" Height="40"></mat:MaterialIcon>
+               <ToolTip.Tip>
+                   <TextBlock Text="Развернуть"></TextBlock>
+               </ToolTip.Tip>
+           </Button>
+           <Button Grid.Column="1"
+                   IsVisible="{Binding $parent[Window].WindowState, Converter={StaticResource IfEqualConverter},
+                   ConverterParameter={x:Static WindowState.FullScreen}}"
+                   Click="NormalWindowButtonOnClick">
+               <mat:MaterialIcon Kind="WindowRestore" Width="40" Height="40"></mat:MaterialIcon>
+               <ToolTip.Tip>
+                   <TextBlock Text="Свернуть в окно"></TextBlock>
+               </ToolTip.Tip>
+           </Button>
+           
+           <Button Grid.Column="2"
+                   Click="CloseWindowButtonOnClick">
+               <mat:MaterialIcon Kind="WindowClose" Width="40" Height="40"></mat:MaterialIcon>
+               <ToolTip.Tip>
+                   <TextBlock Text="Закрыть приложение"></TextBlock>
+               </ToolTip.Tip>
+           </Button>
+       </Grid>
    </Grid>
 </UserControl>

@@ -6,6 +6,7 @@
         x:Class="Arconic.View.MainWindow"
         xmlns:uc="using:Arconic.View.UserControls"
         xmlns:vm="using:Arconic.Core.ViewModels"
+        WindowState="FullScreen"
         x:DataType="vm:MainViewModel"
         Title="Arconic.View">
     <uc:MainControl></uc:MainControl>
