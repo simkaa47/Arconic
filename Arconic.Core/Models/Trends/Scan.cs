@@ -12,8 +12,7 @@ public partial class Scan:Entity
     private float _klin;
     [ObservableProperty] 
     private float _chechewitsa;
-    [ObservableProperty]
-    private long _stripId;
+    public long StripId { get; init; }
     [ObservableProperty]
     private Strip? _strip;
     [ObservableProperty] 

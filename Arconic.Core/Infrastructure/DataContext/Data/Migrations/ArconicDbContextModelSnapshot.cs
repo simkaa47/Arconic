@@ -158,7 +158,7 @@ namespace Arconic.Core.Infrastructure.DataContext.Data.Migrations
                         .HasMaxLength(26)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("StripId")
+                    b.Property<string>("StripNumber")
                         .IsRequired()
                         .HasMaxLength(16)
                         .HasColumnType("TEXT");
@@ -228,11 +228,13 @@ namespace Arconic.Core.Infrastructure.DataContext.Data.Migrations
                 {
                     b.HasOne("Arconic.Core.Models.Trends.Scan", "Scan")
                         .WithMany("ThickPoints")
-                        .HasForeignKey("ScanId");
+                        .HasForeignKey("ScanId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Arconic.Core.Models.Trends.Strip", "Strip")
                         .WithMany("ThickPoints")
-                        .HasForeignKey("StripId");
+                        .HasForeignKey("StripId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Scan");
 

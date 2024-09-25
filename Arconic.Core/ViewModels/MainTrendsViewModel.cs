@@ -104,7 +104,7 @@ public partial class MainTrendsViewModel:ObservableObject
         ActualStrip = new Strip()
         {
             MeasMode = (MeasModes)_plc.Settings.DriveSettings.MeasMode.Value,
-            StripId = _plc.ControlAndIndication.HighLevelData.Coils[1].StripId.Value ?? "",
+            StripNumber = _plc.ControlAndIndication.HighLevelData.Coils[1].StripId.Value ?? "",
             SteelLabel = _plc.ControlAndIndication.HighLevelData.Coils[1].SteelLabel.Value ?? "",
             StartTime = DateTime.Now,
             CentralLinePosition = _plc.Settings.DriveSettings.CentralPosition.Value,

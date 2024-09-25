@@ -6,6 +6,7 @@ using Arconic.Core.Infrastructure.DataContext.Repositories;
 using Arconic.Core.Infrastructure.Security;
 using Arconic.Core.Options;
 using Arconic.Core.Services.Access;
+using Arconic.Core.Services.Database;
 using Arconic.Core.Services.Events;
 using Arconic.Core.Services.Plc;
 using Arconic.Core.Services.Trends;
@@ -30,6 +31,7 @@ public static class CoreServicesRegistration
         services.AddSingleton<EventMainService>();
         services.AddSingleton<AccessService>();
         services.AddSingleton<CoolingViewModel>();
+        services.AddHostedService<ClearDatabaseService>();
         services.AddSingleton<SafetyViewModel>();
         services.AddSingleton<MainTrendsViewModel>();
         services.AddSingleton<SingleMeasuresViewModel>();
@@ -41,6 +43,7 @@ public static class CoreServicesRegistration
         services.AddTransient(typeof(IRepository<>), typeof(BaseRepository<>));
         services.AddTransient<ITrendsService, TrendsService>();
         services.Configure<PlcConnectOption>(configuration.GetSection(PlcConnectOption.SectionName));
+        services.Configure<DbClearOption>(configuration.GetSection(DbClearOption.SectionName));
         
     }
 }

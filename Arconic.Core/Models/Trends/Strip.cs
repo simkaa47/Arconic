@@ -9,7 +9,7 @@ public class Strip:Entity
 {
     public List<Scan> Scans { get; set; } = new List<Scan>();
     [MaxLength(16)]
-    public string StripId { get; init; } = string.Empty;
+    public string StripNumber { get; init; } = string.Empty;
     [MaxLength(26)]
     public string SteelLabel { get; init; } = string.Empty;
     public DateTime StartTime { get; init; }

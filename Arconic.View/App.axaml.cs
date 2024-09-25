@@ -55,6 +55,7 @@ public partial class App : Application
                 logging.AddDatabaseLogging(this.GetService<EventMainService>);
             });
         }).Build();
+        
 
         using var scope = _host.Services.CreateScope();
         var loggerFactory = scope.ServiceProvider.GetRequiredService<ILoggerFactory>();
@@ -77,6 +78,7 @@ public partial class App : Application
             desktop.MainWindow.DataContext = GetService<MainViewModel>();
         }
         base.OnFrameworkInitializationCompleted();
+        _host.StartAsync();
 
         
     }

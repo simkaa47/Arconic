@@ -31,7 +31,7 @@
                     <!--ID полосы-->
                     <DockPanel>
                         <TextBlock Classes="LStyle" Text="ID полосы:"/>
-                        <TextBlock Classes="RStyle" Text="{Binding StripId}"/>
+                        <TextBlock Classes="RStyle" Text="{Binding StripNumber}"/>
                     </DockPanel>
                     <!--Марка стали-->
                     <DockPanel>
