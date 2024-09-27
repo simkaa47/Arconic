@@ -42,10 +42,20 @@
         <!--Время закрытия завтора-->
         <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.CloseGateTimeSv}"/>
         <!--Время закрытия завтора-->
+        <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.TemperatureSv}"/>
+        <!--Время закрытия завтора-->
         <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.CloseGateTimeCv}"/>
         <!--Время посл станд-ии-->
         <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.LastStandTime}"
                                  ParamWidth="160"/>
+        <!--Режим калибровки-->
+        <DockPanel>
+            <TextBlock Text="Режим калибровки"></TextBlock>
+            <common:ToggleSwitch CommandParameter="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.SbCalibration}"
+                                 State="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.SbCalibration.Value}"
+                                 Margin="5"
+                                 HorizontalAlignment="Right"/>
+        </DockPanel>
     </ListBox>  
     </Grid>
     

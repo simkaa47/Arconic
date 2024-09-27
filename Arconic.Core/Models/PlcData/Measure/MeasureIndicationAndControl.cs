@@ -20,6 +20,11 @@ public class MeasureIndicationAndControl
         new Parameter<bool>("Новая полоса", false, true, DataType.DataBlock, 2, 1500, 2);
 
     #endregion
+    #region Режим калибровки
+    public Parameter<bool> SbCalibration { get; } =
+        new Parameter<bool>("Режим калибровки", false, true, DataType.DataBlock, 2, 1500, 5);
+
+    #endregion
 
     public Parameter<float> Length { get; } =
         new Parameter<float>("Текущая длина, м", 0, float.MaxValue, DataType.DataBlock, 2, 7972);
