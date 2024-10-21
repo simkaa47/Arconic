@@ -24,7 +24,7 @@
         <sys:String>ПЕРЕХОД В РЕЖИМ ИЗМЕРЕНИЯ</sys:String>
         <sys:String>ИЗМЕРЕНИЕ</sys:String>
         <sys:String>ИЗМЕРЕНИЕ</sys:String>
-        <sys:String>ВЫБОР РЕЖИМА ИЗМЕРЕНИЯ</sys:String>
+        <sys:String>ГОТОВНОСТЬ К ИЗМЕРЕНИЯМ</sys:String>
     </scg:List>
     <scg:List x:TypeArguments="sys:Object" x:Key="DriveStatuses">
         <sys:String>РАМА В НЕОПРЕДЕЛЕННОМ ПОЛОЖЕНИИ</sys:String>

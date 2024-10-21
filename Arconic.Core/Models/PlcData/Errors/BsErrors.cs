@@ -25,7 +25,7 @@ public class BsErrors
         new PlcError($"{PlcError.SourceTag.ToTitleCase()}: Нет готовности от системы охлаждения",  2, 730, 6),
         new PlcError($"{PlcError.SourceTag.ToTitleCase()}: Нет готовности от системы безопасности",  2, 730, 7),
         new PlcError($"{PlcError.SourceTag.ToTitleCase()}: Нет готовности от системы контроля диагностических плат",  2, 731, 0),
-        new PlcError($"{PlcError.SourceTag.ToTitleCase()}: Разомкнута церь безопасности генератора",  2, 731, 1),
+        new PlcError($"{PlcError.SourceTag.ToTitleCase()}: Разомкнута цепь безопасности генератора",  2, 731, 1),
         new PlcError($"{PlcError.SourceTag.ToTitleCase()}: Нет готовности генератора",  2, 731, 2),
         new PlcError($"{PlcError.SourceTag.ToTitleCase()}: Сработал защитный автомат генератора",  2, 731, 3),
         new PlcError($"{PlcError.SourceTag.ToTitleCase()}: Ошибка срабатывания концевика подачи питания на генератор",  2, 731, 4),
