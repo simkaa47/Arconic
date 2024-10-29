@@ -3,11 +3,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:acc="using:Arconic.Core.Models.AccessControl"
              xmlns:common="using:Arconic.View.UserControls.CommonControls"
              Name="root"
              x:Class="Arconic.View.UserControls.CommonControls.ToggleSwitch">
     <common:ImageBitIndicator State="{Binding ElementName=root,Path=State}"
                               Height="35"
+                              IsEnabled="{Binding $parent[Window].((vm:MainViewModel)DataContext).AccessViewModel.CurrentUser, FallbackValue={x:Null}, 
+                     Converter={StaticResource UserAccessConverter}, 
+                     ConverterParameter={x:Static acc:AccessLevel.Service}}"
                               PointerPressed="InputElement_OnPointerPressed"
                               FalseStateImage="/Assets/Images/switch_off.png"
                               TrueStateImage="/Assets/Images/switch_on.png"/>

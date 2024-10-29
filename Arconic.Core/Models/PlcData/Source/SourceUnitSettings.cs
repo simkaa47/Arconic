@@ -13,9 +13,9 @@ public class SourceUnitSettings()
     public Parameter<float> CurrentSv { get; } =
         new Parameter<float>("Уставка тока, mA", 0, 30, DataType.DataBlock, 1, 34, 0);
     public Parameter<ushort> TimeoutSqGate { get; } =
-        new Parameter<ushort>("Тайм-аут срабатывания датчика затвора, с", 0, 300, DataType.DataBlock, 1, 38, 0);
+        new Parameter<ushort>("Тайм-аут срабатывания датчика затвора, мс", 0, 3000, DataType.DataBlock, 1, 38, 0);
     public Parameter<ushort> TimeOutComm { get; } =
-        new Parameter<ushort>("Время определения связи с генератором, с", 0, 3000, DataType.DataBlock, 1, 40, 0);
+        new Parameter<ushort>("Время определения связи с генератором, мс", 0, 3000, DataType.DataBlock, 1, 40, 0);
     public Parameter<bool> SbPower { get; } =
         new Parameter<bool>("Кнопка подачи питания на генератор", false, true, DataType.DataBlock, 1, 48, 0);
     public Parameter<bool> SbHv { get; } =

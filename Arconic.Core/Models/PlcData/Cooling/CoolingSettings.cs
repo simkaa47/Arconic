@@ -58,5 +58,7 @@ public class CoolingSettings
         0, 100, DataType.DataBlock, 1, 1118);
     public Parameter<float> PulsarMaxValue { get; } = new Parameter<float>("Измеритель расхода  - максимальное значение",
         0, 100, DataType.DataBlock, 1, 1122);
+    public Parameter<float> ChillerSv { get; } = new Parameter<float>("Уставка температуры чиллера, С",
+        0, 100, DataType.DataBlock, ParameterBase.SettingsDbNum, 1126);
 
 }

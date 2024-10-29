@@ -22,7 +22,7 @@ public partial class CoolingViewModel:ObservableObject
         FlowBoolSensors =
         [
             //Датчик потока на входе в бак
-            new BoolSensorInfo(Plc.ControlAndIndication.CoolingIndication.SqFlowTanksIn.Description, 
+            /*new BoolSensorInfo(Plc.ControlAndIndication.CoolingIndication.SqFlowTanksIn.Description, 
                 Plc.ControlAndIndication.CoolingIndication.SqFlowTanksIn,
                  Plc.Settings.CoolingSettings.SqFlowTanksInEmulationValue,
                 Plc.Settings.CoolingSettings.SqFlowTanksInEmulation,
@@ -44,7 +44,7 @@ public partial class CoolingViewModel:ObservableObject
                 Plc.ControlAndIndication.CoolingIndication.SqFlowTubeOut,
                 Plc.Settings.CoolingSettings.SqFlowTubeOutEmulationValue,
                 Plc.Settings.CoolingSettings.SqFlowTubeOutEmulation,
-                Plc.ControlAndIndication.CoolingIndication.SqFlowTubeOutResult),
+                Plc.ControlAndIndication.CoolingIndication.SqFlowTubeOutResult),*/
             // Датчик потока c баков (гидрошкаф)
             new BoolSensorInfo(Plc.ControlAndIndication.CoolingIndication.SqFlowTanksOutCabinet.Description, 
                 Plc.ControlAndIndication.CoolingIndication.SqFlowTanksOutCabinet,

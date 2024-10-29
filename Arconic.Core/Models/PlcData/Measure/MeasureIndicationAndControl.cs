@@ -13,6 +13,9 @@ public class MeasureIndicationAndControl
     #region Стандартизация
     public Parameter<bool> SbStandartisation { get; } =
         new Parameter<bool>("Провести стандартизацию", false, true, DataType.DataBlock, 2, 1500, 1);
+    
+    public Parameter<bool> StandartisationFlag { get; } =
+        new Parameter<bool>("Флаг стандартизации", false, true, DataType.DataBlock, 2, 1502, 2);
 
     #endregion
     #region Новая полоса

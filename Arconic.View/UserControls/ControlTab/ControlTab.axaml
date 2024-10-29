@@ -32,6 +32,21 @@
                             </TextBlock>
                         </common:ParameterButton.ButtonContent>
                     </common:ParameterButton>
+                    <!--Стандартизация-->
+                    <common:ParameterButton Margin="10"
+                                            VerticalAlignment="Top"
+                                            State="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.StandartisationFlag.Value}"
+                                            CommandParameter="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.SbStandartisation}">
+                        <common:ParameterButton.ButtonContent>
+                            <TextBlock Text="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.StandartisationFlag.Value, 
+                            Converter={StaticResource GetIfTrueConverter}
+                            , ConverterParameter={StaticResource StandStates}}"
+                                       HorizontalAlignment="Center"
+                                       Margin="10">
+                        
+                            </TextBlock>
+                        </common:ParameterButton.ButtonContent>
+                    </common:ParameterButton>
                     <!--Управление чиллером-->
                     <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}"
                              Margin="10">

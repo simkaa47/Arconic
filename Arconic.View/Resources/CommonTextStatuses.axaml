@@ -15,6 +15,10 @@
         <sys:String>Сканирования (20 мм от края)</sys:String>
         <sys:String>Измерение по ЦЛ</sys:String>
     </scg:List>
+    <scg:List x:TypeArguments="sys:Object" x:Key="StandStates">
+        <sys:String>ПРОВЕСТИ СТАНДАРТИЗАЦИЮ</sys:String>
+        <sys:String>ПРОИЗВОДИТСЯ СТАНДАРТИЗАЦИЯ</sys:String>
+    </scg:List>
     <scg:List x:TypeArguments="sys:Object" x:Key="MeasStatuses">
         <sys:String>ИНИЦИАЛИЗАЦИЯ ДАННЫХ</sys:String>
         <sys:String>СИТ НЕ ГОТОВА К ИЗМЕРЕНИЯМ</sys:String>
@@ -38,8 +42,8 @@
         <sys:String>ДВИЖЕНИЕ В СТОРОНУ ПРАВОГО КРАЯ ПОЛОСЫ</sys:String>
         <sys:String>РАМА В КРАЙНЕМ ЛЕВОМ АВАРИЙНОМ ПОЛОЖЕНИИ</sys:String>
         <sys:String>РАМА В КРАЙНЕМ ПРАВОМ АВАРИЙНОМ ПОЛОЖЕНИИ</sys:String>
-        <sys:String>ТОЧКОВОЕ ПЕРЕМЕЩЕНИЕ ВЛЕВО</sys:String>
-        <sys:String>ТОЧКОВОЕ ПЕРЕМЕЩЕНИЕ ПРАВО</sys:String>
+        <sys:String>ТОЧКОВОЕ ПЕРЕМЕЩЕНИЕ ВПЕРЕД</sys:String>
+        <sys:String>ТОЧКОВОЕ ПЕРЕМЕЩЕНИЕ НАЗАД</sys:String>
         <sys:String>НАЖАТ АВАРИЙНЫЙ СТОП</sys:String>
         <sys:String>НЕТ ГОТОВНОСТИ ПРИВОДА</sys:String>
     </scg:List>

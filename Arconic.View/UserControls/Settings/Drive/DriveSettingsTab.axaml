@@ -103,13 +103,13 @@
                     <common:ParameterButton Grid.Column="0" Grid.Row="0"
                                             CommandParameter="{Binding SbParking}">
                         <common:ParameterButton.ButtonContent>
-                            <TextBlock Text="РАМА В 'ПАРКИНГ'"></TextBlock>
+                            <TextBlock Text="ДВИЖЕНИЕ В ПАРКОВКУ"></TextBlock>
                         </common:ParameterButton.ButtonContent>
                     </common:ParameterButton>
                     <common:ParameterButton Grid.Column="1" Grid.Row="0"
                                             CommandParameter="{Binding SbMeasure}">
                         <common:ParameterButton.ButtonContent>
-                            <TextBlock Text="РАМА В 'ИЗМЕРЕНИЕ'"></TextBlock>
+                            <TextBlock Text="ДВИЖЕНИЕ В ПОЛОЖЕНИЕ ИЗМЕРЕНИЯ"></TextBlock>
                         </common:ParameterButton.ButtonContent>
                     </common:ParameterButton>
                     <common:ParameterButton Grid.Column="0" Grid.Row="1"

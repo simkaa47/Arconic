@@ -59,6 +59,17 @@ public class CoolingIndication
         new Parameter<bool>("Датчик потока c трубки в шкафу охлаждения", 
             false, true, DataType.Input, 0, 16, 3);
     
+    public Parameter<bool> ChillerErrComm { get; } =
+        new Parameter<bool>("Ошибка связи с чиллером", 
+            false, true, DataType.DataBlock, ParameterBase.IndicationDbNum, 711, 1);
+    
+    public Parameter<float> ChillerT1 { get; } =
+        new Parameter<float>("Температура на входе чиллера, С", 
+            float.MinValue, float.MaxValue, DataType.DataBlock, ParameterBase.IndicationDbNum, 720){IsReadOnly = true};
+    public Parameter<float> ChillerT2 { get; } =
+        new Parameter<float>("Температура на выходе чиллера, С", 
+            float.MinValue, float.MaxValue, DataType.DataBlock, ParameterBase.IndicationDbNum, 724){IsReadOnly = true};
+    
     
 
 }

@@ -21,7 +21,7 @@
             <WrapPanel>
                 <Border Classes="border">
                     <StackPanel Margin="5">
-                        <TextBlock Text="ИЗМЕРИТЕЛЬ РАСХОДА ОХЛАЖДАЮЩЕЙ ЖИДКСТИ"></TextBlock>
+                        <TextBlock Text="ДИСКРЕТНЫЕ ДАТЧИКИ ПРОТОКА ОХЛАЖДАЮЩЕЙ ЖИДКОСТИ"></TextBlock>
                         <DataGrid ItemsSource="{Binding FlowBoolSensors}"
                                   Name="SensorsGrid"
                                   Template="{StaticResource BoolSensorTemplate}">
@@ -93,6 +93,18 @@
                                                           FalseStateImage="/Assets/Images/ind_err.png"
                                                           State="{Binding Plc.ControlAndIndication.CoolingIndication.ChillerAlarmRelay.Value}"/>
                             </DockPanel>
+                            <DockPanel>
+                                <TextBlock Text="Ошибка связи с чиллером"/>
+                                <common:ImageBitIndicator HorizontalAlignment="Right"
+                                                          Margin="5"
+                                                          Height="35"
+                                                          TrueStateImage="/Assets/Images/ind_ok.png"
+                                                          FalseStateImage="/Assets/Images/ind_err.png"
+                                                          State="{Binding Plc.ControlAndIndication.CoolingIndication.ChillerErrComm.Value}"/>
+                            </DockPanel>
+                            <common:NumericParameter DataContext="{Binding Plc.Settings.CoolingSettings.ChillerSv}"/>
+                            <common:NumericParameter DataContext="{Binding Plc.ControlAndIndication.CoolingIndication.ChillerT1}"/>
+                            <common:NumericParameter DataContext="{Binding Plc.ControlAndIndication.CoolingIndication.ChillerT2}"/>
                         </ListBox>
                     </StackPanel>
                 </Border>
