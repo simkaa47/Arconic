@@ -11,7 +11,7 @@
              xmlns:common="using:Arconic.View.UserControls.CommonControls"
              x:DataType="vm:PlcViewModel"
              x:Class="Arconic.View.UserControls.Settings.SourceUnit.SourceButtonsControl">
-    <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
+    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,*,*">
         <Grid.Resources>
             <scg:List x:TypeArguments="sys:Object" x:Key="PowerBtns">
                 <sys:String>ПОДАТЬ ПИТАНИЕ НА ГЕНЕРАТОР</sys:String>
@@ -31,8 +31,21 @@
                 <Setter Property="HorizontalAlignment" Value="Center"></Setter>
             </Style>
         </Grid.Styles>
+        <!--Предупреждение о нажатой кнопке-->
+        <DockPanel Grid.ColumnSpan="2" HorizontalAlignment="Left"
+                   IsVisible="{Binding Plc.ControlAndIndication.BsIndication.HvProhibited.Value}">
+            <mat:MaterialIcon Kind="Warning"
+                              DockPanel.Dock="Left"
+                              Foreground="{StaticResource ErrorMainColor}"></mat:MaterialIcon>
+            <TextBlock Foreground="{StaticResource ErrorMainColor}"
+                       Margin="5,0,0,0"
+                       Text="HV запрещено кнопкой 'ВКЛ/ОТКЛ Питания HV' на ЛПУ"
+                       DockPanel.Dock="Right"></TextBlock>
+        </DockPanel>
+            
+       
         <!--Питание генератора-->
-        <common:ParameterButton Grid.Row="0" Grid.Column="0"
+        <common:ParameterButton Grid.Row="1" Grid.Column="0"
                                 CommandParameter="{Binding Plc.Settings.Source.SbPower}"
                                 State="{Binding Plc.Settings.Source.SbPower.Value}">
             <common:ParameterButton.ButtonContent>
@@ -41,7 +54,7 @@
             </common:ParameterButton.ButtonContent>
         </common:ParameterButton>
         <!--HV-->
-        <common:ParameterButton Grid.Row="0" Grid.Column="1"
+        <common:ParameterButton Grid.Row="1" Grid.Column="1"
                                 CommandParameter="{Binding Plc.Settings.Source.SbHv}"
                                 State="{Binding Plc.Settings.Source.SbHv.Value}">
             <common:ParameterButton.ButtonContent>
@@ -50,7 +63,7 @@
             </common:ParameterButton.ButtonContent>
         </common:ParameterButton>
         <!--Затвор-->
-        <common:ParameterButton Grid.Row="1" Grid.Column="0"
+        <common:ParameterButton Grid.Row="2" Grid.Column="0"
                                 CommandParameter="{Binding Plc.Settings.Source.SbGate}"
                                 State="{Binding Plc.Di.SqGateOpen0.Value}">
             <common:ParameterButton.ButtonContent>
@@ -59,7 +72,7 @@
             </common:ParameterButton.ButtonContent>
         </common:ParameterButton>
         <!--Кондиционирование-->
-        <common:ParameterButton Grid.Row="1" Grid.Column="1"
+        <common:ParameterButton Grid.Row="2" Grid.Column="1"
                                 CommandParameter="{Binding Plc.Settings.Source.SbCond}"
                                 State="{Binding Plc.Settings.Source.SbCond.Value}">
             <common:ParameterButton.ButtonContent>

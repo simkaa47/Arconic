@@ -23,7 +23,7 @@ public class CoolingErrors
         new PlcError($"{PlcError.CoolingTag.ToTitleCase()}: Ошибка протока охлаждающей жидкости из баков", 2, 740, 4),
         new PlcError($"{PlcError.CoolingTag.ToTitleCase()}: Ошибка протока охлаждающей жидкости с трубки генератора", 2, 740, 5),
         new PlcError($"{PlcError.CoolingTag.ToTitleCase()}: Ошибка протока охлаждающей жидкости на трубку генератора", 2, 740, 6),
-        new PlcError($"{PlcError.CoolingTag.ToTitleCase()}: Ошибка протока охлаждающей жидкости на трубки (гидрошкаф)", 2, 740, 7),
+        new PlcError($"{PlcError.CoolingTag.ToTitleCase()}: Ошибка протока охлаждающей жидкости на баки (гидрошкаф)", 2, 740, 7),
         new PlcError($"{PlcError.CoolingTag.ToTitleCase()}: Ошибка протока охлаждающей жидкости на трубки (гидрошкаф)", 2, 741, 0)
     ];
 }

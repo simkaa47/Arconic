@@ -31,6 +31,7 @@ public class BsErrors
         new PlcError($"{PlcError.SourceTag.ToTitleCase()}: Ошибка срабатывания концевика подачи питания на генератор",  2, 731, 4),
         new PlcError($"{PlcError.SourceTag.ToTitleCase()}: Нет связи с генератором",  2, 731, 5),
         new PlcError($"{PlcError.SourceTag.ToTitleCase()}: Снято питание из-за отстутствия связи генератора и ПЛК",  2, 731, 6),
-        new PlcError($"{PlcError.SourceTag.ToTitleCase()}: Необходимо произвести кондиционирование",  2, 731, 7)
+        new PlcError($"{PlcError.SourceTag.ToTitleCase()}: Необходимо произвести кондиционирование",  2, 731, 7),
+        new PlcError($"{PlcError.SourceTag.ToTitleCase()}: Нажата кнопка \"ВКЛ/ОТКЛ Питания HV\" на ЛПУ",  2, 746, 0)
     };
 }

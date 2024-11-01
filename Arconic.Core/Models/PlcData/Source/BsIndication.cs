@@ -21,6 +21,10 @@ public class BsIndication()
     public Parameter<ushort> HeatLeftSec { get; } = new Parameter<ushort>("Осталось до конца кондиционирования, с.", ushort.MinValue,
         ushort.MaxValue, DataType.DataBlock, 2, 16){ IsReadOnly = true };
     
+    public Parameter<DateTime> HvLastDate { get; } = new Parameter<DateTime>("Дата и время последней работы режима HV", 
+        DateTime.MinValue, 
+        DateTime.MaxValue, DataType.DataBlock, 2, 22){ IsReadOnly = true };
+    
     public Parameter<bool> NoErr { get; } = new Parameter<bool>("Нет ошибок", false,
         true, DataType.DataBlock, 2, 18, 0){ IsReadOnly = true };
     
@@ -35,4 +39,8 @@ public class BsIndication()
     
     public Parameter<bool> MeasReady { get; } = new Parameter<bool>("Готовность к измерениям", false,
         true, DataType.DataBlock, 2, 18, 4){ IsReadOnly = true };
+    public Parameter<bool> HvProhibited { get; } = new Parameter<bool>("HV запрещено кнопкой \"ВКЛ/ОТКЛ Питания HV\" на ЛПУ", false,
+        true, DataType.DataBlock, 2, 19, 6){ IsReadOnly = true };
+    public Parameter<bool> HvPermission { get; } = new Parameter<bool>("HV разрешено", false,
+        true, DataType.DataBlock, 2, 19, 7){ IsReadOnly = true };
 }

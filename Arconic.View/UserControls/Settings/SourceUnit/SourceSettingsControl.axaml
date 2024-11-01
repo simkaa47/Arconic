@@ -45,5 +45,8 @@
         <!--Осталост времени до конца кондиционирования-->
         <common:NumericParameter DataContext="{Binding Plc.ControlAndIndication.BsIndication.HeatLeftSec}"
                                  IsVisible="{Binding $parent[UserControl].((vm:PlcViewModel)DataContext).Plc.Settings.Source.SbCond.Value, FallbackValue=False}"/>
+        <!--Дата и время последней работы HV-->
+        <common:NumericParameter DataContext="{Binding Plc.ControlAndIndication.BsIndication.HvLastDate}"
+                                 ParamWidth="160"/>
     </ListBox>
 </UserControl>

@@ -22,7 +22,7 @@ public class AddEditUserDialog : IUserAddEditDIalog
             await window.ShowDialog(owner);
             if (window.DialogResult && !userToView.HasErrors)
             {
-                user = userToView.Adapt<User>();
+                userToView.Adapt<User, User>(user);
                 return true;
             }
             

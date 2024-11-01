@@ -26,11 +26,17 @@ public partial class User:Entity
     private string _firstName  = string.Empty;
     [ObservableProperty]
     private string _description  = string.Empty;
-    [ObservableProperty]
-    [Required]
-    [NotifyDataErrorInfo]
-    [MinLength(4)]
+    
+    
     private string _password = string.Empty;
+    [Required]
+    //[NotifyDataErrorInfo]
+    [MinLength(4)]
+    public string Password
+    {
+        get => _password;
+        set => SetProperty(ref _password, value);
+    }
     [ObservableProperty] 
     private AccessLevel _level;
     [NotMapped] 

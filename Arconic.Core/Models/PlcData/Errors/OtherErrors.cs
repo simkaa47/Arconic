@@ -18,7 +18,8 @@ public class OtherErrors
     private List<PlcError> Errors { get; } =
     [
         new PlcError($"{PlcError.OtherTag.ToTitleCase()}: Нет связи с АСУ предприятия", ParameterBase.IndicationDbNum, 742, 0),
-        new PlcError($"{PlcError.OtherTag.ToTitleCase()}: Необходимо произвести стандартизацию", ParameterBase.IndicationDbNum, 744, 0)
+        new PlcError($"{PlcError.OtherTag.ToTitleCase()}: Необходимо произвести стандартизацию", ParameterBase.IndicationDbNum, 744, 0),
+        new PlcError($"{PlcError.OtherTag.ToTitleCase()}: Нет связи с датчиком положения", ParameterBase.IndicationDbNum, 744, 1)
         
     ];
 }

@@ -26,7 +26,7 @@ public partial class CoolingViewModel:ObservableObject
                 Plc.ControlAndIndication.CoolingIndication.SqFlowTanksIn,
                  Plc.Settings.CoolingSettings.SqFlowTanksInEmulationValue,
                 Plc.Settings.CoolingSettings.SqFlowTanksInEmulation,
-                Plc.ControlAndIndication.CoolingIndication.SqFlowTanksInResult),
+                Plc.ControlAndIndication.CoolingIndication.SqFlowTanksInResult),*/
             //Датчик потока на выходе бака
             new BoolSensorInfo(Plc.ControlAndIndication.CoolingIndication.SqFlowTanksOut.Description, 
                 Plc.ControlAndIndication.CoolingIndication.SqFlowTanksOut,
@@ -34,7 +34,7 @@ public partial class CoolingViewModel:ObservableObject
                 Plc.Settings.CoolingSettings.SqFlowTanksOutEmulation,
                 Plc.ControlAndIndication.CoolingIndication.SqFlowTanksOutResult),
             // Датчик потока на входе трубок
-            new BoolSensorInfo(Plc.ControlAndIndication.CoolingIndication.SqFlowTubeIn.Description, 
+            /* new BoolSensorInfo(Plc.ControlAndIndication.CoolingIndication.SqFlowTubeIn.Description, 
                 Plc.ControlAndIndication.CoolingIndication.SqFlowTubeIn,
                 Plc.Settings.CoolingSettings.SqFlowTubeInEmulationValue,
                 Plc.Settings.CoolingSettings.SqFlowTubeInEmulation,

@@ -48,6 +48,11 @@
                     <common:ImageBitIndicator State="{Binding MeasReady.Value}"/>
                     <TextBlock Text="Готовность к измерениям"></TextBlock>
                 </DockPanel>
+                <!--Разрешение на hv-->
+                <DockPanel>
+                    <common:ImageBitIndicator State="{Binding HvPermission.Value}"/>
+                    <TextBlock Text="Разрешение HV"></TextBlock>
+                </DockPanel>
             </ListBox>
         </Grid>
         <ListBox Grid.Column="1" HorizontalAlignment="Stretch">
