@@ -42,8 +42,8 @@
         <sys:String>ДВИЖЕНИЕ В СТОРОНУ ПРАВОГО КРАЯ ПОЛОСЫ</sys:String>
         <sys:String>РАМА В КРАЙНЕМ ЛЕВОМ АВАРИЙНОМ ПОЛОЖЕНИИ</sys:String>
         <sys:String>РАМА В КРАЙНЕМ ПРАВОМ АВАРИЙНОМ ПОЛОЖЕНИИ</sys:String>
-        <sys:String>ТОЧКОВОЕ ПЕРЕМЕЩЕНИЕ ВПЕРЕД</sys:String>
         <sys:String>ТОЧКОВОЕ ПЕРЕМЕЩЕНИЕ НАЗАД</sys:String>
+        <sys:String>ТОЧКОВОЕ ПЕРЕМЕЩЕНИЕ ВПЕРЕД</sys:String>
         <sys:String>НАЖАТ АВАРИЙНЫЙ СТОП</sys:String>
         <sys:String>НЕТ ГОТОВНОСТИ ПРИВОДА</sys:String>
     </scg:List>

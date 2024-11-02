@@ -130,7 +130,7 @@
                     </common:ParameterButton>
                     <common:ParameterButton Grid.Column="0" Grid.Row="2"
                                             Grid.ColumnSpan="2"
-                                            Behavior="TrueIfPress"
+                                            
                                             CommandParameter="{Binding SbRstErr}">
                         <common:ParameterButton.ButtonContent>
                             <TextBlock Text="СБРОС ОШИБКИ ПЧ"></TextBlock>
