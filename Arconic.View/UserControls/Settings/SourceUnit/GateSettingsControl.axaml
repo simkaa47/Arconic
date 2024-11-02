@@ -59,7 +59,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="ЗАТВОР 1"
+                    <DataGridTemplateColumn Header="ОБРАЗЕЦ 10 ММ"
                                             MaxWidth="120">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate DataType="gate:GateSettings">
@@ -68,7 +68,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="ЗАТВОР 2"
+                    <DataGridTemplateColumn Header="ОБРАЗЕЦ 5 ММ"
                                             MaxWidth="120">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate DataType="gate:GateSettings">
