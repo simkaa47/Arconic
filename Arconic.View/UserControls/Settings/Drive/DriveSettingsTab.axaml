@@ -101,24 +101,28 @@
                       DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.DriveIndication}"
                       ColumnDefinitions="*,*">
                     <common:ParameterButton Grid.Column="0" Grid.Row="0"
+                                            Behavior="TrueIfPress"
                                             CommandParameter="{Binding SbParking}">
                         <common:ParameterButton.ButtonContent>
                             <TextBlock Text="ДВИЖЕНИЕ В ПАРКОВКУ"></TextBlock>
                         </common:ParameterButton.ButtonContent>
                     </common:ParameterButton>
                     <common:ParameterButton Grid.Column="1" Grid.Row="0"
+                                            Behavior="TrueIfPress"
                                             CommandParameter="{Binding SbMeasure}">
                         <common:ParameterButton.ButtonContent>
                             <TextBlock Text="ДВИЖЕНИЕ В ПОЛОЖЕНИЕ ИЗМЕРЕНИЯ"></TextBlock>
                         </common:ParameterButton.ButtonContent>
                     </common:ParameterButton>
                     <common:ParameterButton Grid.Column="0" Grid.Row="1"
+                                            Behavior="TrueIfPress"
                                             CommandParameter="{Binding SbJogForw}">
                         <common:ParameterButton.ButtonContent>
                             <TextBlock Text="ТОЛЧКОВОЕ ПЕРЕМЕЩЕНИЕ ВПЕРЕД'"></TextBlock>
                         </common:ParameterButton.ButtonContent>
                     </common:ParameterButton>
                     <common:ParameterButton Grid.Column="1" Grid.Row="1"
+                                            Behavior="TrueIfPress"
                                             CommandParameter="{Binding SbJogRev}">
                         <common:ParameterButton.ButtonContent>
                             <TextBlock Text="ТОЛЧКОВОЕ ПЕРЕМЕЩЕНИЕ НАЗАД'"></TextBlock>
@@ -126,6 +130,7 @@
                     </common:ParameterButton>
                     <common:ParameterButton Grid.Column="0" Grid.Row="2"
                                             Grid.ColumnSpan="2"
+                                            Behavior="TrueIfPress"
                                             CommandParameter="{Binding SbRstErr}">
                         <common:ParameterButton.ButtonContent>
                             <TextBlock Text="СБРОС ОШИБКИ ПЧ"></TextBlock>

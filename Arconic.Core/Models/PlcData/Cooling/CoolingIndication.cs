@@ -45,7 +45,7 @@ public class CoolingIndication
             false, true, DataType.Input, 0, 12, 5);
     public Parameter<bool> SqFlowTanksOut { get; } =
         new Parameter<bool>("Датчик потока c баков", 
-            false, true, DataType.Output, 0, 12, 6);
+            false, true, DataType.Input, 0, 12, 6);
     public Parameter<bool> SqFlowTubeOut { get; } =
         new Parameter<bool>("Датчик потока c трубки", 
             false, true, DataType.Input, 0, 12, 7);
