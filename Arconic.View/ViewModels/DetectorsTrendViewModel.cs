@@ -63,6 +63,7 @@ public partial class DetectorsTrendViewModel : TrendBaseViewModel
             Padding = 0,
             DataLabelsPaint = new SolidColorPaint(SKColors.White.WithAlpha(128)),
             DataLabelsRotation = 270,
+            DataLabelsFormatter = (point) => point.Coordinate.PrimaryValue.ToString("f1"),
             AnimationsSpeed = TimeSpan.Zero,
             // Defines the max width a bar can have
             MaxBarWidth = double.PositiveInfinity

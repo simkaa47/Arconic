@@ -24,7 +24,7 @@
     <Grid RowDefinitions="Auto,*">
         <!--Заголовок-->
         <StackPanel>
-            <TextBlock Text="Настройки дополнительных затворов"
+            <TextBlock Text="Настройки дополнительных образцов"
                      FontWeight="Bold"
                      FontSize="20"></TextBlock>
             <!--Предупреждение-->
