@@ -21,5 +21,12 @@ public class DetectorsSettings
     public Parameter<ushort>[] EmulationValues { get; } = Enumerable.Range(0, 32).Select(i =>
             new Parameter<ushort>($"Детектор №{i + 1}", 0, ushort.MaxValue, DataType.DataBlock, 1, 828 + i * 2, 0))
         .ToArray();
+    
+    public Parameter<short> StartStainIndex { get; } =
+        new Parameter<short>("Стартовый индекс измерительного пятна", 0, 31, DataType.DataBlock, 1, 824);
+    public Parameter<short> EndStainIndex { get; } =
+        new Parameter<short>("Конечный индекс измерительного пятна", 0, 31, DataType.DataBlock, 1, 826);
+    
+    
 
 }

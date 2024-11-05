@@ -14,6 +14,8 @@
                  ItemContainerTheme="{StaticResource SelectorListBoxItem}">
             <common:NumericParameter DataContext="{Binding Plc.Settings.DetectorsSettings.ExpTime}"/>
             <common:NumericParameter DataContext="{Binding Plc.Settings.DetectorsSettings.KGain}"/>
+            <common:NumericParameter DataContext="{Binding Plc.Settings.DetectorsSettings.StartStainIndex}"/>
+            <common:NumericParameter DataContext="{Binding Plc.Settings.DetectorsSettings.EndStainIndex}"/>
             <DockPanel>
                 <common:ToggleSwitch CommandParameter="{Binding Plc.Settings.DetectorsSettings.EmulOnOff}"
                                      DockPanel.Dock="Right"
