@@ -7,8 +7,8 @@ public class DriveIndication
 {
     public Parameter<float> CurrentPosition { get; } = new Parameter<float>("Текущее положение рамы, мм",
         float.MinValue, float.MaxValue, DataType.DataBlock, 2, 200) { IsReadOnly = true };
-    public Parameter<float> CurrentPositionPlc { get; } = new Parameter<float>("Положение рамы в импульсах энкодера",
-        float.MinValue, float.MaxValue, DataType.DataBlock, 2, 204) { IsReadOnly = true };
+    public Parameter<int> CurrentPositionPlc { get; } = new Parameter<int>("Положение рамы в импульсах энкодера",
+        int.MinValue, int.MaxValue, DataType.DataBlock, 2, 204) { IsReadOnly = true };
     public Parameter<float> CurrentVelocity { get; } = new Parameter<float>("Текущая скорость, мм/c",
         float.MinValue, float.MaxValue, DataType.DataBlock, 2, 208) { IsReadOnly = true };
     
