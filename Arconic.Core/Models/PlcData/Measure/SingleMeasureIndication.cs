@@ -20,4 +20,7 @@ public class SingleMeasureIndication
     public Parameter<bool> SingleMeasCancel { get; } =
         new Parameter<bool>("Отменить единичное измерение", false, true, DataType.DataBlock, 2, 1500, 4);
     
+    public Parameter<bool> AddSingleMeas { get; } =
+        new Parameter<bool>("Добавить единичное измерение", false, true, DataType.DataBlock, 2, 1500, 6);
+    
 }

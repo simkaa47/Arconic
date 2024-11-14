@@ -1,0 +1,75 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:mat="using:Material.Icons.Avalonia"
+             xmlns:sm="using:Arconic.Core.Models.PlcData.SingleMeasures"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             x:DataType="vm:SingleMeasuresViewModel"
+             xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+             xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+             x:Class="Arconic.View.UserControls.ControlTab.SingleMeasures.SingleMeasuresListControl">
+    <Grid RowDefinitions="Auto,*">
+        
+        <ComboBox  ItemsSource="{StaticResource MeasDiapasones}"
+                   Padding="10,5"
+                   SelectedIndex="{Binding SelectedDiapasone}">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="DropDownClosed">
+                    <ia:InvokeCommandAction
+                        Command="{Binding ChangeDiapasoneCommand}"/>
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </ComboBox>
+        <DataGrid Grid.Row="1"
+                  VerticalAlignment="Top"
+                  ItemsSource="{Binding SingleMeasuresList}"
+                  HorizontalAlignment="Left">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Дата и время измерения"
+                                    x:DataType="sm:SingleMeasCell"
+                                    Binding="{Binding DateAndTime.Value}"
+                                    Width="180"/>
+                <DataGridTemplateColumn Header="Ослабление">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="sm:SingleMeasCell">
+                            <common:NumericParameter DataContext="{Binding Weak}"
+                                                     DescriptionInvisible="True"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Толщина">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="sm:SingleMeasCell">
+                            <common:NumericParameter x:DataType="sm:SingleMeasCell"
+                                                     DataContext="{Binding Thick}"
+                                                     DescriptionInvisible="True"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="sm:SingleMeasCell">
+                            <Button Background="{StaticResource ButtonAccept}"
+                                    CommandParameter="{Binding}"
+                                    Command="{Binding $parent[UserControl].((vm:SingleMeasuresViewModel)DataContext).DeleteSingleMeasureCellCommand, FallbackValue={x:Null}}"
+                                    Margin="4">
+                                <mat:MaterialIcon Height="20"
+                                                  Width="20"
+                                                  Margin="2"
+                                                  Kind="RemoveBox">
+                                </mat:MaterialIcon>
+                                <ToolTip.Tip>
+                                    <TextBlock Text="Удалить данные измерения"></TextBlock>
+                                </ToolTip.Tip>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>        
+            
+        </DataGrid>
+    </Grid>
+</UserControl>

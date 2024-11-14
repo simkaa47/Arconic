@@ -30,7 +30,7 @@ public partial class DetectorsTrendViewModel : TrendBaseViewModel
         _eventMainService = eventMainService;
         _logger = logger;
         _mainPlcService.PlcScanCompleted += OnPlcScanCompleted;
-        Series[0].Values = Enumerable.Range(0, 31).Select(i => 0f);
+        Series[0].Values = Enumerable.Range(0, 31).Select(i => 0f).ToList();
         SetStyle();
     }
     
@@ -106,25 +106,25 @@ public partial class DetectorsTrendViewModel : TrendBaseViewModel
             switch (Mode)
             {
                 case DetectorsTrendMode.Detectors:
-                    Series[0].Values = _plc.ControlAndIndication.DetectorsIndication.Values.Select(v => v.Value);
+                    Series[0].Values = _plc.ControlAndIndication.DetectorsIndication.Values.Select(v => v.Value).ToList();
                     break;
                 case DetectorsTrendMode.StandOpen0:
-                    Series[0].Values = _plc.Settings.DetectorsSettings.Diap0.Open.Select(v => v.Value);
+                    Series[0].Values = _plc.Settings.DetectorsSettings.Diap0.Open.Select(v => v.Value).ToList();
                     break;
                 case DetectorsTrendMode.StandClose0:
-                    Series[0].Values = _plc.Settings.DetectorsSettings.Diap0.Close.Select(v => v.Value);
+                    Series[0].Values = _plc.Settings.DetectorsSettings.Diap0.Close.Select(v => v.Value).ToList();
                     break;
                 case DetectorsTrendMode.StandOpen1:
-                    Series[0].Values = _plc.Settings.DetectorsSettings.Diap1.Open.Select(v => v.Value);
+                    Series[0].Values = _plc.Settings.DetectorsSettings.Diap1.Open.Select(v => v.Value).ToList();
                     break;
                 case DetectorsTrendMode.StandClose1:
-                    Series[0].Values = _plc.Settings.DetectorsSettings.Diap1.Close.Select(v => v.Value);
+                    Series[0].Values = _plc.Settings.DetectorsSettings.Diap1.Close.Select(v => v.Value).ToList();
                     break;
                 case DetectorsTrendMode.StandOpen2:
-                    Series[0].Values = _plc.Settings.DetectorsSettings.Diap2.Open.Select(v => v.Value);
+                    Series[0].Values = _plc.Settings.DetectorsSettings.Diap2.Open.Select(v => v.Value).ToList();
                     break;
                 case DetectorsTrendMode.StandClose2:
-                    Series[0].Values = _plc.Settings.DetectorsSettings.Diap2.Close.Select(v => v.Value);
+                    Series[0].Values = _plc.Settings.DetectorsSettings.Diap2.Close.Select(v => v.Value).ToList();
                     break;
                 case DetectorsTrendMode.Emulations:
                     Series[0].Values = _plc.Settings.DetectorsSettings.EmulationValues.Select(v => (float)v.Value);

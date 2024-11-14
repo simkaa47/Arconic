@@ -10,5 +10,6 @@
     <conv:UserAccessConverter x:Key="UserAccessConverter"/>
     <conv:GetByIndexFromParameterConverter x:Key="GetByIndexFromParameterConverter"/>
     <conv:MultiplyOnNumberConverter x:Key="MultiplyOnNumberConverter"/>
+    <conv:GetByIndexMultiValueConverter x:Key="GetByIndexMultiValueConverter"/>
     <conv:UserAccessLowerThenActualConverter x:Key="UserAccessLowerThenActualConverter"/>
 </ResourceDictionary>

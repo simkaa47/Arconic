@@ -6,7 +6,7 @@ namespace Arconic.Core.Models.PlcData.Drive;
 public class DriveSettings
 {
     public Parameter<ushort> SpeedHz { get; } =
-        new Parameter<ushort>("Скрость ПЧ, Гц", 0, 50, DataType.DataBlock, 1, 1130);
+        new Parameter<ushort>("Скорость перемещения рамы, мм/c", 0, 220, DataType.DataBlock, 1, 1130);
 
     public Parameter<int> ParkingPosition { get; } =
         new Parameter<int>("Позиция паркинга, мм", int.MinValue, int.MaxValue, DataType.DataBlock, 1, 1132);

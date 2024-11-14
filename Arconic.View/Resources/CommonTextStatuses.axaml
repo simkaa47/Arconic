@@ -6,6 +6,11 @@
         <sys:String>ЗАКРЫТЬ ЗАТВОР</sys:String>
         <sys:String>ОТКРЫТЬ ЗАТВОР</sys:String>
     </scg:List>
+    <scg:List x:TypeArguments="sys:Object" x:Key="MeasDiapasones">
+        <sys:String>ДИАПАЗОН ТОЛЩИН 1</sys:String>
+        <sys:String>ДИАПАЗОН ТОЛЩИН 2</sys:String>
+        <sys:String>ДИАПАЗОН ТОЛЩИН 3</sys:String>
+    </scg:List>
     <scg:List x:TypeArguments="sys:Object" x:Key="UserLevels">
         <sys:String>Пользователь</sys:String>
         <sys:String>Сервисный инженер</sys:String>

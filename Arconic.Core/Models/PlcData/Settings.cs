@@ -3,6 +3,7 @@ using Arconic.Core.Models.PlcData.Detectors;
 using Arconic.Core.Models.PlcData.Drive;
 using Arconic.Core.Models.PlcData.Measure;
 using Arconic.Core.Models.PlcData.Safety;
+using Arconic.Core.Models.PlcData.SingleMeasures;
 using Arconic.Core.Models.PlcData.Source;
 using Arconic.Core.Models.PlcData.SteelLabel;
 
@@ -18,4 +19,9 @@ public class Settings
     public SafetySettings SafetySettings { get; } = new SafetySettings();
 
     public SteelMagazineSettings SteelSettings { get; } = new SteelMagazineSettings();
+    
+    public List<SingleMeasuresList> SingleMeasures { get; } = Enumerable
+        .Range(0,3)
+        .Select(i=> new SingleMeasuresList(1230+i*288))
+        .ToList();
 }

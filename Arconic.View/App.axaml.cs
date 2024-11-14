@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Arconic.Core;
 using Arconic.Core.Abstractions.AccessControl;
 using Arconic.Core.Abstractions.Common;
@@ -15,7 +16,6 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -77,6 +77,8 @@ public partial class App : Application
             desktop.MainWindow = new MainWindow();
             desktop.MainWindow.DataContext = GetService<MainViewModel>();
         }
+        
+       
         base.OnFrameworkInitializationCompleted();
         _host.StartAsync();
 
