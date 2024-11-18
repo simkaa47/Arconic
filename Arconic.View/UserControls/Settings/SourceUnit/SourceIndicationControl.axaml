@@ -61,12 +61,12 @@
                 <common:ImageBitIndicator State="{Binding Plc.Di.SqGateOpen0.Value}"/>
                 <TextBlock Text="{Binding Plc.Di.SqGateOpen0.Description}"></TextBlock>
             </DockPanel>
-            <!--Доп затвор открыт 1-->
+            <!--Образец 1 открыт-->
             <DockPanel>
                 <common:ImageBitIndicator State="{Binding Plc.Di.SqGateOpen1.Value}"/>
                 <TextBlock Text="{Binding Plc.Di.SqGateOpen1.Description}"></TextBlock>
             </DockPanel>
-            <!--Доп затвор открыт 2-->
+            <!--Доп Образец открыт 2-->
             <DockPanel>
                 <common:ImageBitIndicator State="{Binding Plc.Di.SqGateOpen2.Value}"/>
                 <TextBlock Text="{Binding Plc.Di.SqGateOpen2.Description}"></TextBlock>
@@ -76,7 +76,7 @@
                 <common:ImageBitIndicator State="{Binding Plc.Do.Gate0.Value}"/>
                 <TextBlock Text="{Binding Plc.Do.Gate0.Description}"></TextBlock>
             </DockPanel>
-            <!--Сигнал на открытие затвора 2-->
+            <!--Сигнал на закрытие образца 2-->
             <DockPanel>
                 <common:ImageBitIndicator State="{Binding Plc.Do.Gate2.Value}"/>
                 <TextBlock Text="{Binding Plc.Do.Gate2.Description}"></TextBlock>
@@ -88,17 +88,17 @@
                 <common:ImageBitIndicator State="{Binding Plc.Di.SqGateСlose0.Value}"/>
                 <TextBlock Text="{Binding Plc.Di.SqGateСlose0.Description}"></TextBlock>
             </DockPanel>
-            <!--Доп затвор закрыт 1-->
+            <!--Доп образец закрыт 1-->
             <DockPanel>
                 <common:ImageBitIndicator State="{Binding Plc.Di.SqGateClose1.Value}"/>
                 <TextBlock Text="{Binding Plc.Di.SqGateClose1.Description}"></TextBlock>
             </DockPanel>
-            <!--Доп затвор закрыт 2-->
+            <!--Доп образец закрыт 2-->
             <DockPanel>
                 <common:ImageBitIndicator State="{Binding Plc.Di.SqGateClose2.Value}"/>
                 <TextBlock Text="{Binding Plc.Di.SqGateClose2.Description}"></TextBlock>
             </DockPanel>
-            <!--Сигнал на открытие затвора 1-->
+            <!--Сигнал на закрытие затвора 1-->
             <DockPanel>
                 <common:ImageBitIndicator State="{Binding Plc.Do.Gate1.Value}"/>
                 <TextBlock Text="{Binding Plc.Do.Gate1.Description}"></TextBlock>

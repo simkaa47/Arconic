@@ -77,12 +77,12 @@ public class DiscreteOutputs
     public Parameter<bool> Gate0 { get; } = new Parameter<bool>("Сигнал основного завтора", false, true,
         DataType.Output,  0, 12, 3);
     #endregion
-    #region Сигнал дополнительного затвора 1
-    public Parameter<bool> Gate1 { get; } = new Parameter<bool>("Сигнал дополнительного затвора 1", false, true,
+    #region Сигнал на открытие образца 5 мм
+    public Parameter<bool> Gate1 { get; } = new Parameter<bool>("Сигнал на открытие образца 5 мм", false, true,
         DataType.Output,  0, 12, 4);
     #endregion
-    #region Сигнал дополнительного затвора 2
-    public Parameter<bool> Gate2 { get; } = new Parameter<bool>("Сигнал дополнительного затвора 2", false, true,
+    #region Сигнал на открытие образца 10 мм
+    public Parameter<bool> Gate2 { get; } = new Parameter<bool>("Сигнал на открытие образца 10 мм", false, true,
         DataType.Output,  0, 12, 5);
     #endregion
 }

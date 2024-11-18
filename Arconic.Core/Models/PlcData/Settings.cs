@@ -22,6 +22,6 @@ public class Settings
     
     public List<SingleMeasuresList> SingleMeasures { get; } = Enumerable
         .Range(0,3)
-        .Select(i=> new SingleMeasuresList(1230+i*288))
+        .Select(i=> new SingleMeasuresList(1400+i*288))
         .ToList();
 }

@@ -36,7 +36,7 @@
         <!--Текущая толщина, мм-->
         <DockPanel>
             <TextBlock Text="Текущая толщина полосы, мкм" Classes="Left"/>
-            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Thick.Value, StringFormat=f3}" 
+            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.ArmThick.Value, StringFormat=f3}" 
                        Classes="Right"/>
         </DockPanel>
         <!--Текущая ширина, мм-->

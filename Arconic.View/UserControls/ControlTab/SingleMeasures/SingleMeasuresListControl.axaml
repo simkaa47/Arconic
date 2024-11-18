@@ -12,17 +12,32 @@
              xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
              x:Class="Arconic.View.UserControls.ControlTab.SingleMeasures.SingleMeasuresListControl">
     <Grid RowDefinitions="Auto,*">
+        <DockPanel>
+            <ComboBox  ItemsSource="{StaticResource MeasDiapasones}"
+                       Padding="10,5"
+                       SelectedIndex="{Binding SelectedDiapasone}">
+                <i:Interaction.Behaviors>
+                    <ia:EventTriggerBehavior EventName="DropDownClosed">
+                        <ia:InvokeCommandAction
+                            Command="{Binding ChangeDiapasoneCommand}"/>
+                    </ia:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+            </ComboBox>
+            <Button Height="40"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Margin="5"
+                    Command="{Binding SaveToFileCommand}"
+                    Background="{StaticResource ButtonAccept}"
+                    Width="40">
+                <mat:MaterialIcon Kind="File"></mat:MaterialIcon>
+                <ToolTip.Tip>
+                    <TextBlock Text="Сохранить в файл"></TextBlock>
+                </ToolTip.Tip>
+            </Button>
+        </DockPanel>
         
-        <ComboBox  ItemsSource="{StaticResource MeasDiapasones}"
-                   Padding="10,5"
-                   SelectedIndex="{Binding SelectedDiapasone}">
-            <i:Interaction.Behaviors>
-                <ia:EventTriggerBehavior EventName="DropDownClosed">
-                    <ia:InvokeCommandAction
-                        Command="{Binding ChangeDiapasoneCommand}"/>
-                </ia:EventTriggerBehavior>
-            </i:Interaction.Behaviors>
-        </ComboBox>
+        
         <DataGrid Grid.Row="1"
                   VerticalAlignment="Top"
                   ItemsSource="{Binding SingleMeasuresList}"
