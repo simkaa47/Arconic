@@ -85,5 +85,10 @@ public partial class SingleMeasuresViewModel:ObservableObject
             PlcViewModel.MainPlcService.WriteParameter(cell.IsChecked);
         }
     }
+    [RelayCommand]
+    private async Task SaveToFileAsync()
+    {
+        
+    }
 
 }

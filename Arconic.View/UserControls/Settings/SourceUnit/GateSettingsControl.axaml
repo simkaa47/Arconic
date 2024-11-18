@@ -13,12 +13,12 @@
              x:Class="Arconic.View.UserControls.Settings.SourceUnit.GateSettingsControl">
     <UserControl.Resources>
         <scg:List x:TypeArguments="sys:Object" x:Key="OpenGateNames1">
-            <sys:String>ОТКРЫТЬ ОБРАЗЕЦ 10 ММ</sys:String>
-            <sys:String>ЗАКРЫТЬ ОБРАЗЕЦ 10 ММ</sys:String>
-        </scg:List>
-        <scg:List x:TypeArguments="sys:Object" x:Key="OpenGateNames2">
             <sys:String>ОТКРЫТЬ ОБРАЗЕЦ 5 ММ</sys:String>
             <sys:String>ЗАКРЫТЬ ОБРАЗЕЦ 5 ММ</sys:String>
+        </scg:List>
+        <scg:List x:TypeArguments="sys:Object" x:Key="OpenGateNames2">
+            <sys:String>ОТКРЫТЬ ОБРАЗЕЦ 10 ММ</sys:String>
+            <sys:String>ЗАКРЫТЬ ОБРАЗЕЦ 10 ММ</sys:String>
         </scg:List>
     </UserControl.Resources>
     <Grid RowDefinitions="Auto,*">
@@ -59,7 +59,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="ОБРАЗЕЦ 10 ММ"
+                    <DataGridTemplateColumn Header="ОБРАЗЕЦ 5 ММ"
                                             MaxWidth="120">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate DataType="gate:GateSettings">
@@ -68,7 +68,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="ОБРАЗЕЦ 5 ММ"
+                    <DataGridTemplateColumn Header="ОБРАЗЕЦ 10 ММ"
                                             MaxWidth="120">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate DataType="gate:GateSettings">

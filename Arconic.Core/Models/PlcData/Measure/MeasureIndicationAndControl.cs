@@ -37,6 +37,9 @@ public class MeasureIndicationAndControl
         new Parameter<float>("Текущая скорость, м/c", 0, float.MaxValue, DataType.DataBlock, 2, 7980);
     public Parameter<float> Thick { get; } =
         new Parameter<float>("Текущая толщина, мкм", 0, float.MaxValue, DataType.DataBlock, 2, 7992);
+    
+    public Parameter<float> ArmThick { get; } =
+        new Parameter<float>("Текущая толщина, мкм", 0, float.MaxValue, DataType.DataBlock, 2, 8022);
     public Parameter<ushort> ScanNumber { get; } =
         new Parameter<ushort>("Номер скана", 0, ushort.MaxValue, DataType.DataBlock, 2, 8000);
     
