@@ -74,7 +74,7 @@
                                     Padding="10">
                                 <TextBlock
                                     Text="{Binding Plc.ControlAndIndication.MeasureIndicationAndControl.SingleMeasureIndication.MeasuredThick.Value
-                    , StringFormat={}{0:f1} мкм}"
+                    , StringFormat={}{0:f3} мкм}"
                                     FontSize="28"
                                     HorizontalAlignment="Center" />
                             </Border>
