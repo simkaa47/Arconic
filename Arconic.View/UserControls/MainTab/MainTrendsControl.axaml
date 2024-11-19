@@ -4,10 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:local="using:Arconic.View.UserControls.MainTab"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             x:DataType="vm:MainTrendsViewModel"
              x:Class="Arconic.View.UserControls.MainTab.MainTrendsControl">
     <TabControl TabStripPlacement="Top">
         <TabItem Header="Текущий тренд">
-            <local:CurrentTrendsControl/>
+            <Grid>
+                <local:CurrentTrendsControl IsVisible="{Binding !Plc.ControlAndIndication.DriveIndication.IsParkingPosition.Value}"/>
+                <local:ParkingTrendControl IsVisible="{Binding Plc.ControlAndIndication.DriveIndication.IsParkingPosition.Value}"/>
+            </Grid>
+           
         </TabItem>
         <TabItem Header="Архивные тренды">
             <local:ArchieveThendsControl/>

@@ -1,0 +1,49 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             x:DataType="vm:MainTrendsViewModel"
+             xmlns:oxy="using:OxyPlot.Avalonia"
+             x:Class="Arconic.View.UserControls.MainTab.ParkingTrendControl">
+    <Grid>
+        <oxy:Plot PlotMargins="40,0,40,30" 
+                  PlotType="XY"     
+                  PlotAreaBorderColor="#80FFFFFF"
+                  IsLegendVisible="True"
+                  Background="{DynamicResource  CommonBorderBrush}"   
+                  PlotAreaBackground="{DynamicResource CommonBorderBrush}"
+                  TextColor="#80FFFFFF" 
+                  PlotAreaBorderThickness="1">
+            <oxy:Plot.Axes>
+                <oxy:LinearAxis  
+                    FontSize="14"
+                    MajorGridlineColor="#80FFFFFF"
+                    MajorGridlineStyle="Dot"
+                    Position ="Left" />
+                <oxy:LinearAxis  
+                    FontSize="14"
+                    MajorGridlineColor="#80FFFFFF"
+                    MajorGridlineStyle="Dot"
+                    Position ="Bottom" />
+            </oxy:Plot.Axes>
+            <oxy:LineSeries ItemsSource="{Binding ParkingMeasure.Points}"
+                            StrokeThickness="2"
+                            Color="Red"
+                            DataFieldX="DateTime"
+                            DataFieldY="Thick">
+                
+            </oxy:LineSeries>
+            <oxy:Plot.Annotations>
+                <oxy:LineAnnotation Type="Horizontal"
+                                    Color="Aqua"
+                                    TextColor="White"
+                                    Y="{Binding ParkingMeasure.ExpectedThick}"
+                                    StrokeThickness="1"
+                                    Text="ЗАДАНИЕ ТОЛЩИНЫ"></oxy:LineAnnotation>
+            </oxy:Plot.Annotations>
+            
+        </oxy:Plot>
+    </Grid>
+</UserControl>

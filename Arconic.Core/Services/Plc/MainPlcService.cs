@@ -27,6 +27,8 @@ public partial class MainPlcService(ILogger<MainPlcService> logger, IOptionsMoni
         }
     }
 
+   
+
     public async Task ScanPlcAsync()
     {
         _plc.ReadTimeout = 1000;
