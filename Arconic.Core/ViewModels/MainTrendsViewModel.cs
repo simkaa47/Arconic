@@ -18,8 +18,10 @@ public partial class MainTrendsViewModel:ObservableObject
     private readonly IRepository<Strip> _stripRepository;
     private readonly MainPlcService _plcService;
     private readonly ITrendsService _trendsService;
-    private readonly Plc _plc;
+    public Plc Plc { get; set; }
     private DateTime _lastPointDateTime;
+    [ObservableProperty]
+    private ParkingMeasure? _parkingMeasure;
 
     public TrendUserDto ActualTrend { get; } = new TrendUserDto();
     public MainTrendsViewModel(ILogger<MainTrendsViewModel> logger, 
@@ -32,7 +34,7 @@ public partial class MainTrendsViewModel:ObservableObject
         _stripRepository = stripRepository;
         _plcService = plcService;
         _trendsService = trendsService;
-        _plc = plcViewModel.Plc;
+        Plc = plcViewModel.Plc;
         InitAsync();
     }
     [ObservableProperty]
@@ -69,10 +71,30 @@ public partial class MainTrendsViewModel:ObservableObject
 
     private async void InitAsync()
     {
-        _plc.ControlAndIndication.PlcEventsData.StripEnd.PropertyChanged += OnEndStrip;
-        _plc.ControlAndIndication.PlcEventsData.StripStart.PropertyChanged += OnStartStrip;
-        _plc.ControlAndIndication.MeasureIndicationAndControl.ScanNumber.PropertyChanged += OnScanNumberChanged;
+        Plc.ControlAndIndication.PlcEventsData.StripEnd.PropertyChanged += OnEndStrip;
+        Plc.ControlAndIndication.PlcEventsData.StripStart.PropertyChanged += OnStartStrip;
+        Plc.ControlAndIndication.MeasureIndicationAndControl.ScanNumber.PropertyChanged += OnScanNumberChanged;
+        Plc.ControlAndIndication.MeasureIndicationAndControl.StripUnderFlag.PropertyChanged += OnStripUnder;
         _plcService.PlcScanCompleted += OnPlcScanCompleted;
+    }
+
+    private void OnStripUnder(object? sender, PropertyChangedEventArgs args)
+    {
+        if (sender is not null && sender is Parameter<bool> strip && args.PropertyName == "Value")
+        {
+            if (strip.Value && Plc.ControlAndIndication.DriveIndication.IsParkingPosition.Value)
+            {
+                ParkingMeasure = new ParkingMeasure
+                {
+                    StartTime = DateTime.Now,
+                    ExpectedThick = Plc.ControlAndIndication.HighLevelData.Coils[1].ExpectedThick.Value
+                };
+            }
+            else if(ParkingMeasure is not null)
+            {
+                ParkingMeasure.EndTime = DateTime.Now;
+            }
+        }
     }
 
 
@@ -100,16 +122,16 @@ public partial class MainTrendsViewModel:ObservableObject
     private async void OnStartStrip(object? sender, PropertyChangedEventArgs args)
     {
         if (args.PropertyName != "Value") return;
-        if (!_plc.ControlAndIndication.PlcEventsData.StripStart.Value) return;
+        if (!Plc.ControlAndIndication.PlcEventsData.StripStart.Value) return;
         ActualStrip = new Strip()
         {
-            MeasMode = (MeasModes)_plc.Settings.DriveSettings.MeasMode.Value,
-            StripNumber = _plc.ControlAndIndication.HighLevelData.Coils[1].StripId.Value ?? "",
-            SteelLabel = _plc.ControlAndIndication.HighLevelData.Coils[1].SteelLabel.Value ?? "",
+            MeasMode = (MeasModes)Plc.Settings.DriveSettings.MeasMode.Value,
+            StripNumber = Plc.ControlAndIndication.HighLevelData.Coils[1].StripId.Value ?? "",
+            SteelLabel = Plc.ControlAndIndication.HighLevelData.Coils[1].SteelLabel.Value ?? "",
             StartTime = DateTime.Now,
-            CentralLinePosition = _plc.Settings.DriveSettings.CentralPosition.Value,
-            ExpectedWidth = _plc.ControlAndIndication.HighLevelData.Coils[1].ExpectedWidth.Value,
-            ExpectedThick = _plc.ControlAndIndication.HighLevelData.Coils[1].ExpectedThick.Value,
+            CentralLinePosition = Plc.Settings.DriveSettings.CentralPosition.Value,
+            ExpectedWidth = Plc.ControlAndIndication.HighLevelData.Coils[1].ExpectedWidth.Value,
+            ExpectedThick = Plc.ControlAndIndication.HighLevelData.Coils[1].ExpectedThick.Value,
         };
         ActualTrend.Mode = ActualStrip.MeasMode;
         ActualTrend.ExpectedThick = ActualStrip.ExpectedThick;
@@ -127,17 +149,17 @@ public partial class MainTrendsViewModel:ObservableObject
     private async void OnScanNumberChanged(object? sender, PropertyChangedEventArgs args)
     {
         if (args.PropertyName == "Value" 
-            && _plc.Settings.DriveSettings.MeasMode.Value != (short)MeasModes.CentralLine 
+            && Plc.Settings.DriveSettings.MeasMode.Value != (short)MeasModes.CentralLine 
             && ActualStrip is not null)
         {
-            if (_plc.ControlAndIndication.MeasureIndicationAndControl.ScanNumber.Value > 0)
+            if (Plc.ControlAndIndication.MeasureIndicationAndControl.ScanNumber.Value > 0)
             {
                 var lastScan = ActualStrip.Scans.LastOrDefault();
                 if (lastScan is { ThickPoints.Count: > 0 })
                 {
                     _trendsService.AddEdgesAndRecalculate(lastScan, 
-                        _plc.ControlAndIndication.MeasureIndicationAndControl.PreviousScan.StartPosition.Value, 
-                        _plc.ControlAndIndication.MeasureIndicationAndControl.PreviousScan.EndPosition.Value,
+                        Plc.ControlAndIndication.MeasureIndicationAndControl.PreviousScan.StartPosition.Value, 
+                        Plc.ControlAndIndication.MeasureIndicationAndControl.PreviousScan.EndPosition.Value,
                         ActualStrip);
                     var lastIndex = ActualStrip.Scans.Count - 1;
                     ActualTrend.PreviousScan = ActualStrip.Scans[lastIndex].ThickPoints;
@@ -149,11 +171,30 @@ public partial class MainTrendsViewModel:ObservableObject
             }
         }
     }
+    
+    private void PutIntoParkingMeasure()
+    {
+        if (Plc.ControlAndIndication.MeasureIndicationAndControl.StripUnderFlag.Value &&
+            Plc.ControlAndIndication.DriveIndication.IsParkingPosition.Value &&
+            ParkingMeasure is not null)
+        {
+            if (ParkingMeasure.Points.Count == 0 || DateTime.Now > ParkingMeasure.Points[0].DateTime.AddSeconds(1))
+            {
+                ParkingMeasure.Points.Add(new TimePoint()
+                {
+                    DateTime = DateTime.Now,
+                    Thick = Plc.ControlAndIndication.MeasureIndicationAndControl.Thick.Value
+                });
+            }
+        }
+    }
 
     private async void OnPlcScanCompleted()
     {
-        if (_plc.ControlAndIndication.PlcEventsData.StripStart.Value && 
-            _plc.ControlAndIndication.MeasureIndicationAndControl.StripUnderFlag.Value)
+        PutIntoParkingMeasure();
+        
+        if (Plc.ControlAndIndication.PlcEventsData.StripStart.Value && 
+            Plc.ControlAndIndication.MeasureIndicationAndControl.StripUnderFlag.Value)
         {
             var currDt = DateTime.Now;
             if (ActualStrip is not null && currDt> _lastPointDateTime.AddMilliseconds(100))
@@ -161,11 +202,11 @@ public partial class MainTrendsViewModel:ObservableObject
                 _lastPointDateTime = currDt;
                 var point = new ThickPoint()
                 {
-                    Thick = _plc.ControlAndIndication.MeasureIndicationAndControl.Thick.Value,
+                    Thick = Plc.ControlAndIndication.MeasureIndicationAndControl.Thick.Value,
                     DateTime = DateTime.Now,
-                    Speed = _plc.ControlAndIndication.MeasureIndicationAndControl.Speed.Value,
-                    Lendth = _plc.ControlAndIndication.MeasureIndicationAndControl.Length.Value,
-                    Position = _plc.ControlAndIndication.MeasureIndicationAndControl.CaretPosition.Value
+                    Speed = Plc.ControlAndIndication.MeasureIndicationAndControl.Speed.Value,
+                    Lendth = Plc.ControlAndIndication.MeasureIndicationAndControl.Length.Value,
+                    Position = Plc.ControlAndIndication.MeasureIndicationAndControl.CaretPosition.Value
                 };
                 if (ActualStrip.MeasMode == MeasModes.CentralLine)
                 {

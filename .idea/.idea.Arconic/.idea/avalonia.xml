@@ -54,6 +54,7 @@
         <entry key="Arconic.View/UserControls/MainTab/MainTextStatusesControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainTab/MainTrendTemplate.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainTab/MainTrendsControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/MainTab/ParkingTrendControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainTab/StripInfoControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainTab/StripResultsViewer.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainTab/TextStatusControl.axaml" value="Arconic.View/Arconic.View.csproj" />
