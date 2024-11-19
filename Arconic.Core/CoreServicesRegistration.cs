@@ -1,4 +1,5 @@
 ﻿using Arconic.Core.Abstractions.DataAccess;
+using Arconic.Core.Abstractions.FileAccess;
 using Arconic.Core.Abstractions.Security;
 using Arconic.Core.Abstractions.Trends;
 using Arconic.Core.Infrastructure.DataContext.Data;
@@ -36,6 +37,7 @@ public static class CoreServicesRegistration
         services.AddSingleton<MainTrendsViewModel>();
         services.AddSingleton<SingleMeasuresViewModel>();
         services.AddSingleton<SteelMagazineViewModel>();
+        
         services.AddSingleton<AccessViewModel>();
         services.AddTransient<IPasswordHasher, PasswordHasher>();
         services.AddSingleton<MainPlcService>();

@@ -1,4 +1,5 @@
-﻿using Arconic.Core.Models.Parameters;
+﻿using Arconic.Core.Abstractions.FileAccess;
+using Arconic.Core.Models.Parameters;
 using Arconic.Core.Models.PlcData;
 using Arconic.Core.Models.PlcData.SingleMeasures;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -11,11 +12,15 @@ public partial class SingleMeasuresViewModel:ObservableObject
 {
     public PlcViewModel PlcViewModel { get; }
     private readonly ILogger<SingleMeasuresViewModel> _logger;
+    private readonly IFileDialog _fileDialog;
 
-    public SingleMeasuresViewModel(ILogger<SingleMeasuresViewModel> logger, PlcViewModel plcViewModel)
+    public SingleMeasuresViewModel(ILogger<SingleMeasuresViewModel> logger, 
+        PlcViewModel plcViewModel,
+        IFileDialog fileDialog)
     {
         PlcViewModel = plcViewModel;
         _logger = logger;
+        _fileDialog = fileDialog;
         Plc = plcViewModel.Plc;
         SingleMeasuresList = GetSingleMeasuresListFromDiapasone(0);
         Init();
@@ -88,7 +93,21 @@ public partial class SingleMeasuresViewModel:ObservableObject
     [RelayCommand]
     private async Task SaveToFileAsync()
     {
-        
+        var path = await  _fileDialog.GetFile();
+        if(String.IsNullOrEmpty(path))return;
+        try
+        {
+            
+            await using var writer = new StreamWriter(path, false);
+            foreach (var cell in SingleMeasuresList)
+            {
+                await writer.WriteLineAsync($"{cell.DateAndTime} {cell.Weak} {cell.Thick}");
+            }
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Ошибка записи калибровочной точки в файл");
+        }
     }
 
 }

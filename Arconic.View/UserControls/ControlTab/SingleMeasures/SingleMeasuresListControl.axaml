@@ -30,9 +30,9 @@
                     Command="{Binding SaveToFileCommand}"
                     Background="{StaticResource ButtonAccept}"
                     Width="40">
-                <mat:MaterialIcon Kind="File"></mat:MaterialIcon>
+                <mat:MaterialIcon Kind="Export"></mat:MaterialIcon>
                 <ToolTip.Tip>
-                    <TextBlock Text="Сохранить в файл"></TextBlock>
+                    <TextBlock Text="Экспорт в файл"></TextBlock>
                 </ToolTip.Tip>
             </Button>
         </DockPanel>

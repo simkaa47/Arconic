@@ -57,11 +57,11 @@ public class DiscreteInputs
     #endregion
     #region Датчик открытого дополнительного затвора 2
     public Parameter<bool> SqGateClose1 { get; } =
-        new Parameter<bool>("Образец 10 мм открыт", false, true, DataType.Input,  0, 15, 3);
+        new Parameter<bool>("Образец 5 мм закрыт", false, true, DataType.Input,  0, 15, 3);
     #endregion
     #region Датчик открытого дополнительного затвора 1
     public Parameter<bool> SqGateOpen2 { get; } =
-        new Parameter<bool>("Образец 5 мм закрыт", false, true, DataType.Input,  0, 15, 4);
+        new Parameter<bool>("Образец 10 мм открыт", false, true, DataType.Input,  0, 15, 4);
     #endregion
     #region Датчик открытого дополнительного затвора 2
     public Parameter<bool> SqGateClose2 { get; } =
