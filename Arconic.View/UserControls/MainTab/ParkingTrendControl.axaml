@@ -22,7 +22,7 @@
                     MajorGridlineColor="#80FFFFFF"
                     MajorGridlineStyle="Dot"
                     Position ="Left" />
-                <oxy:LinearAxis  
+                <oxy:DateTimeAxis  
                     FontSize="14"
                     MajorGridlineColor="#80FFFFFF"
                     MajorGridlineStyle="Dot"
