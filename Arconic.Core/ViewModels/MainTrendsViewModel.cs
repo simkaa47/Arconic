@@ -71,7 +71,7 @@ public partial class MainTrendsViewModel:ObservableObject
 
     private async void InitAsync()
     {
-        Plc.ControlAndIndication.PlcEventsData.StripEnd.PropertyChanged += OnEndStrip;
+        //Plc.ControlAndIndication.PlcEventsData.StripEnd.PropertyChanged += OnEndStrip;
         Plc.ControlAndIndication.PlcEventsData.StripStart.PropertyChanged += OnStartStrip;
         Plc.ControlAndIndication.MeasureIndicationAndControl.ScanNumber.PropertyChanged += OnScanNumberChanged;
         Plc.ControlAndIndication.MeasureIndicationAndControl.StripUnderFlag.PropertyChanged += OnStripUnder;
@@ -155,11 +155,12 @@ public partial class MainTrendsViewModel:ObservableObject
             if (Plc.ControlAndIndication.MeasureIndicationAndControl.ScanNumber.Value > 0)
             {
                 var lastScan = ActualStrip.Scans.LastOrDefault();
-                if (lastScan is { ThickPoints.Count: > 0 })
+                var plcLastScan = Plc.ControlAndIndication.MeasureIndicationAndControl.PreviousScan;
+                if (lastScan is { ThickPoints.Count: > 5 })
                 {
                     _trendsService.AddEdgesAndRecalculate(lastScan, 
-                        Plc.ControlAndIndication.MeasureIndicationAndControl.PreviousScan.StartPosition.Value, 
-                        Plc.ControlAndIndication.MeasureIndicationAndControl.PreviousScan.EndPosition.Value,
+                        plcLastScan.StartPosition.Value, 
+                        plcLastScan.EndPosition.Value,
                         ActualStrip);
                     var lastIndex = ActualStrip.Scans.Count - 1;
                     ActualTrend.PreviousScan = ActualStrip.Scans[lastIndex].ThickPoints;

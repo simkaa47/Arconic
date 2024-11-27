@@ -54,29 +54,20 @@ public class TrendsService(ArconicDbContext dbContext,
         }
     }
 
-    public void  AddEdgesAndRecalculate(Scan scan, float leftEdge, float rightEdge, Strip parent)
+    public void  AddEdgesAndRecalculate(Scan scan, float startEdge, float endEdge, Strip parent)
     {
         if (scan.ThickPoints.Count > 0)
         {
+            var left = Math.Min(startEdge, endEdge);
+            var right = Math.Max(startEdge, endEdge);
             var minPos = scan.ThickPoints.MinBy(p=>p.Position)!;
             var maxPos = scan.ThickPoints.MaxBy(p=>p.Position)!;;
-            var leftPoint = new ThickPoint()
-            {
-                Lendth = minPos.Lendth,
-                Thick = 0,
-                Position = minPos.Position
-            };
-            var rightPoint = new ThickPoint()
-            {
-                Lendth = maxPos.Lendth,
-                Thick = 0,
-                Position = maxPos.Position
-            };
-            scan.ThickPoints.Insert(0,leftPoint);
-            scan.ThickPoints.Add(rightPoint);
+            minPos.Position = left;
+            maxPos.Position = right;
+            
             scan.OrderPoints();
-            scan.Width = Math.Abs(rightPoint.Position - leftPoint.Position);
-            scan.CentralLineDeviation = (rightEdge + leftEdge) / 2 - parent.CentralLinePosition;
+            scan.Width = Math.Abs(right - right);
+            scan.CentralLineDeviation = (right + left) / 2 - parent.CentralLinePosition;
             var preLastIndex = scan.ThickPoints.Count - 2;
             var centralIndex = scan.ThickPoints.Count / 2;
             scan.Klin = scan.ThickPoints[1].Thick - scan.ThickPoints[preLastIndex].Thick;

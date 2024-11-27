@@ -6,7 +6,7 @@ public class ThickPoint : Entity
 {
     public float Thick { get; init; } 
     public float Lendth { get; init; } 
-    public float Position { get; init;} 
+    public float Position { get; set;} 
     public DateTime DateTime { get; init;} 
     public Scan? Scan { get; set; }
     public long? ScanId { get; set; }

@@ -29,14 +29,13 @@
                 <oxy:LinearAxis  
                     FontSize="14"
                     MajorGridlineColor="#80FFFFFF"
-                    AbsoluteMinimum="{Binding ExpectedThick, Converter={StaticResource MultiplyOnNumberConverter}, ConverterParameter={StaticResource Half}}"
-                    Maximum="{Binding ExpectedThick, Converter={StaticResource MultiplyOnNumberConverter}, ConverterParameter={StaticResource HighCoeff}}"
+                    
+                    
                     MajorGridlineStyle="Dot"
                     Position ="Left" />
                 <oxy:LinearAxis  
                     FontSize="14"
-                    Minimum="{Binding LeftBorder, Converter={StaticResource MultiplyOnNumberConverter}, ConverterParameter={StaticResource LowCoeff}}"
-                    Maximum="{Binding RightBorder, Converter={StaticResource MultiplyOnNumberConverter}, ConverterParameter={StaticResource HighCoeff}}"
+                    
                     
                     MajorGridlineColor="#80FFFFFF"
                     MajorGridlineStyle="Dot"
