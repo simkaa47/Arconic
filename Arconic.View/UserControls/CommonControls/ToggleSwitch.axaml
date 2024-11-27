@@ -6,14 +6,33 @@
              xmlns:vm="using:Arconic.Core.ViewModels"
              xmlns:acc="using:Arconic.Core.Models.AccessControl"
              xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             xmlns:mat="using:Material.Icons.Avalonia"
              Name="root"
              x:Class="Arconic.View.UserControls.CommonControls.ToggleSwitch">
-    <common:ImageBitIndicator State="{Binding ElementName=root,Path=State}"
-                              Height="35"
-                              IsEnabled="{Binding $parent[Window].((vm:MainViewModel)DataContext).AccessViewModel.CurrentUser, FallbackValue={x:False}, 
+    <Grid>
+        <common:ImageBitIndicator State="{Binding ElementName=root,Path=State}"
+                                  Height="35"
+                                  IsEnabled="{Binding $parent[Window].((vm:MainViewModel)DataContext).AccessViewModel.CurrentUser, FallbackValue={x:False}, 
                      Converter={StaticResource UserAccessConverter}, 
                      ConverterParameter={x:Static acc:AccessLevel.Service}}"
-                              PointerPressed="InputElement_OnPointerPressed"
-                              FalseStateImage="/Assets/Images/switch_off.png"
-                              TrueStateImage="/Assets/Images/switch_on.png"/>
+                                  PointerPressed="InputElement_OnPointerPressed"
+                                  FalseStateImage="/Assets/Images/switch_off.png"
+                                  TrueStateImage="/Assets/Images/switch_on.png"/>
+        <mat:MaterialIcon Kind="Warning" Foreground="Red"
+                          HorizontalAlignment="Right"
+                          VerticalAlignment="Center"
+                          Height="25" Width="25">
+            <mat:MaterialIcon.IsVisible>
+                <MultiBinding Converter="{StaticResource UserAccessDeniedConverter}">
+                    <Binding Path="$parent[Window].((vm:MainViewModel)DataContext).AccessViewModel.CurrentUser" FallbackValue="{x:Null}"></Binding>
+                    <Binding ElementName="root" Path="AccessLevel"></Binding>
+                </MultiBinding>
+            </mat:MaterialIcon.IsVisible>
+            <ToolTip.Tip>
+                <TextBlock Text="Для нажатия на нопку необходимо авторизоваться"
+                           Foreground="Red"/>
+            </ToolTip.Tip>
+        </mat:MaterialIcon>
+    </Grid>
+   
 </UserControl>

@@ -25,6 +25,7 @@
         <entry key="Arconic.View/Themes/TextBox/TextBoxes.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Administration/AdministrationTab.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Administration/UsersControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/CommonControls/AccesDeniedWarning.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/CommonControls/DateTimePicker/DateTimePicker.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/CommonControls/DateTimePicker/DateTimePickerStyle.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/CommonControls/ImageBitIndicator.axaml" value="Arconic.View/Arconic.View.csproj" />

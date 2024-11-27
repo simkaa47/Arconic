@@ -197,7 +197,7 @@ public partial class MainTrendsViewModel:ObservableObject
             Plc.ControlAndIndication.MeasureIndicationAndControl.StripUnderFlag.Value)
         {
             var currDt = DateTime.Now;
-            if (ActualStrip is not null && currDt> _lastPointDateTime.AddMilliseconds(100))
+            if (ActualStrip is not null && currDt> _lastPointDateTime.AddMilliseconds(50))
             {
                 _lastPointDateTime = currDt;
                 var point = new ThickPoint()
@@ -206,7 +206,7 @@ public partial class MainTrendsViewModel:ObservableObject
                     DateTime = DateTime.Now,
                     Speed = Plc.ControlAndIndication.MeasureIndicationAndControl.Speed.Value,
                     Lendth = Plc.ControlAndIndication.MeasureIndicationAndControl.Length.Value,
-                    Position = Plc.ControlAndIndication.MeasureIndicationAndControl.CaretPosition.Value
+                    Position = Plc.ControlAndIndication.DriveIndication.CurrentPosition.Value
                 };
                 if (ActualStrip.MeasMode == MeasModes.CentralLine)
                 {

@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using Arconic.Core.Models.AccessControl;
 using Avalonia;
 using Avalonia.Controls;
 
@@ -13,6 +14,7 @@ public class ParameterControl : UserControl
         AffectsMeasure<ParameterControl>(ParamWidthProperty);
         AffectsMeasure<ParameterControl>(DescriptionInvisibleProperty);
         AffectsMeasure<ParameterControl>(CoeffProperty);
+        AffectsMeasure<ParameterControl>(AccessLevelProperty);
     }
     
     
@@ -43,6 +45,8 @@ public class ParameterControl : UserControl
         AvaloniaProperty.Register<ParameterControl, object>(nameof(CommandParameter));
 
     #endregion
+    
+    
 
     #region ParamWidth
 
@@ -55,6 +59,20 @@ public class ParameterControl : UserControl
     // Using a DependencyProperty as the backing store for State.  This enables animation, styling, binding, etc...
     public static readonly StyledProperty<int> ParamWidthProperty =
         AvaloniaProperty.Register<ParameterControl, int>(nameof(ParamWidth), 80);
+
+    #endregion
+    
+    #region ParamWidth
+
+    public AccessLevel AccessLevel
+    {
+        get => (AccessLevel)GetValue(AccessLevelProperty);
+        set => SetValue(AccessLevelProperty, value);
+    }
+
+    // Using a DependencyProperty as the backing store for State.  This enables animation, styling, binding, etc...
+    public static readonly StyledProperty<AccessLevel> AccessLevelProperty =
+        AvaloniaProperty.Register<ParameterControl, AccessLevel>(nameof(AccessLevel), AccessLevel.Service);
 
     #endregion
 

@@ -1,4 +1,5 @@
 ﻿using Arconic.Core.Models.Parameters;
+using Arconic.Core.Services.Access;
 using Arconic.Core.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
@@ -47,10 +48,18 @@ public partial class ToggleSwitch : ParameterControl
 
     private void GetCommand()
     {
+        var app = Application.Current as App;
+        var accessService = app?.GetService<AccessService>();
+        if (accessService is null) return;
+        if (accessService.CurrentUser is null || accessService.CurrentUser.Level < this.AccessLevel)
+        {
+            Command = null;
+            return;
+        }
         if (this.Command is null)
         {
-            var app = Application.Current as App;
-            Command = app?.GetService<PlcViewModel>().WriteParameterCommand;
+            
+            Command = app?.GetService<PlcViewModel>()?.WriteParameterCommand;
         }
     }
 }

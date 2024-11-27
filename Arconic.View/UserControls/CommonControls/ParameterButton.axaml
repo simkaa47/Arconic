@@ -4,29 +4,49 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              Name="root"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:mat="using:Material.Icons.Avalonia"
              BorderThickness="0"
              x:Class="Arconic.View.UserControls.CommonControls.ParameterButton">
-   <Border PointerPressed="InputElement_OnPointerPressed"
-           Background="{Binding ElementName=root, Path=State, Converter={StaticResource GetIfTrueConverter}, ConverterParameter={StaticResource ButtonsColorsCommon}}"
-           VerticalAlignment="Stretch"
-           BorderThickness="1"
-           BorderBrush="{StaticResource AquaColor}"
-           Opacity="{Binding ElementName=root, Path=Opacity}"
-           CornerRadius="4"
-           HorizontalAlignment="Stretch"
-           PointerReleased="InputElement_OnPointerReleased">
-       <Border.Styles>
-           <Style Selector="Border">
-               <Setter Property="Transitions">
-                   <Transitions>
-                       <TransformOperationsTransition Property="RenderTransform" Duration="0:0:.075" />
-                   </Transitions>
-               </Setter>
-               <Style Selector="^:pointerover">
-                   <Setter Property="RenderTransform" Value="scale(0.99)" />
-               </Style>
-           </Style>
-       </Border.Styles>
-       <ContentPresenter Content="{Binding ElementName=root, Path=ButtonContent}"></ContentPresenter>
-   </Border>
+    <Grid>
+        <Border PointerPressed="InputElement_OnPointerPressed"
+                Background="{Binding ElementName=root, Path=State, Converter={StaticResource GetIfTrueConverter}, ConverterParameter={StaticResource ButtonsColorsCommon}}"
+                VerticalAlignment="Stretch"
+                BorderThickness="1"
+                BorderBrush="{StaticResource AquaColor}"
+                Opacity="{Binding ElementName=root, Path=Opacity}"
+                CornerRadius="4"
+                HorizontalAlignment="Stretch"
+                PointerReleased="InputElement_OnPointerReleased">
+            <Border.Styles>
+                <Style Selector="Border">
+                    <Setter Property="Transitions">
+                        <Transitions>
+                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:.075" />
+                        </Transitions>
+                    </Setter>
+                    <Style Selector="^:pointerover">
+                        <Setter Property="RenderTransform" Value="scale(0.99)" />
+                    </Style>
+                </Style>
+            </Border.Styles>
+            <ContentPresenter Content="{Binding ElementName=root, Path=ButtonContent}"></ContentPresenter>
+        </Border>
+        <mat:MaterialIcon Kind="Warning" Foreground="Red"
+                          HorizontalAlignment="Right"
+                          VerticalAlignment="Center"
+                          Height="25" Width="25">
+            <mat:MaterialIcon.IsVisible>
+                <MultiBinding Converter="{StaticResource UserAccessDeniedConverter}">
+                    <Binding Path="$parent[Window].((vm:MainViewModel)DataContext).AccessViewModel.CurrentUser" FallbackValue="{x:Null}"></Binding>
+                    <Binding ElementName="root" Path="AccessLevel"></Binding>
+                </MultiBinding>
+            </mat:MaterialIcon.IsVisible>
+            <ToolTip.Tip>
+                <TextBlock Text="Для нажатия на нопку необходимо авторизоваться"
+                           Foreground="Red"/>
+            </ToolTip.Tip>
+        </mat:MaterialIcon>
+    </Grid>
+   
 </UserControl>

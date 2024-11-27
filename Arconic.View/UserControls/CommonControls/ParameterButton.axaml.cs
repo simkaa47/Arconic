@@ -105,7 +105,7 @@ public partial class ParameterButton : ParameterControl
         var app = Application.Current as App;
         var accessService = app?.GetService<AccessService>();
         if (accessService is null) return;
-        if (accessService.CurrentUser is null || accessService.CurrentUser.Level < AccessLevel.Service)
+        if (accessService.CurrentUser is null || accessService.CurrentUser.Level < this.AccessLevel)
         {
             Command = null;
             return;

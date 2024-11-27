@@ -1,15 +1,23 @@
-﻿using Arconic.Core;
+﻿using Arconic.Console.WriteAbsorbtions;
+using Arconic.Core;
 using Arconic.Core.Abstractions.DataAccess;
 using Arconic.Core.Abstractions.Security;
 using Arconic.Core.Infrastructure.DataContext.Data;
 using Arconic.Core.Infrastructure.Security;
 using Arconic.Core.Models.Trends;
+using Arconic.Core.Services.Plc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration.Json;
+using Microsoft.Extensions.Logging;
 
 var services = new ServiceCollection()
+    .AddLogging((logging) =>
+    {
+        
+    })
+    .AddTransient<WriteAbsorbtionService>()
     .AddTransient<IPasswordHasher, PasswordHasher>();
 var builder = new ConfigurationBuilder();
 builder.SetBasePath(Directory.GetCurrentDirectory())
@@ -33,21 +41,8 @@ catch (Exception ex)
     Console.WriteLine(ex);                  
 }
 
-var repo = serviceProvider.GetRequiredService<IRepository<Strip>>();
-try
-{
-    var strip = new Strip();
-    var scan = new Scan();
-    await repo.AddAsync(strip);
-    strip.Scans.Add(scan);
-    await repo.UpdateAsync(strip);
-    scan.ThickPoints.Add(new ThickPoint());
-    await repo.UpdateAsync(strip);
-    strip.ThickPoints.Add((new ThickPoint()));
-    await repo.UpdateAsync(strip);
+// Write Absorbtion Service
+var absService = serviceProvider.GetRequiredService<WriteAbsorbtionService>();
 
-}
-catch (Exception e)
-{
-    Console.WriteLine(e);
-}
+//await absService.WriteElementInfo("Al",13, 0, 2.71f);
+

@@ -23,7 +23,8 @@
             <TabItem Header="УПРАВЛЕНИЕ">
                 <control:ControlTab/>
             </TabItem>
-            <TabItem Header="НАСТРОЙКИ">
+            <TabItem Header="НАСТРОЙКИ" IsVisible="{Binding AccessViewModel.CurrentUser, 
+            Converter={StaticResource UserAccessConverter}, ConverterParameter={x:Static acc:AccessLevel.Service}}">
                 <sett:SettingsMainControl></sett:SettingsMainControl>
             </TabItem>
             <TabItem Header="ОШИБКИ">

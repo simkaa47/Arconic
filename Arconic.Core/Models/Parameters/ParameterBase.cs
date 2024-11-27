@@ -86,6 +86,11 @@ public abstract partial class ParameterBase(string description,
             var arr = S7.Net.Types.Real.ToByteArray(parFloat.WriteValue);
             await plc.WriteBytesAsync(MemoryType, DbNum, ByteNum, arr, cancellationToken);
         }
+        else if (this is Parameter<double> parDouble)
+        {
+            var arr = S7.Net.Types.LReal.ToByteArray(parDouble.WriteValue);
+            await plc.WriteBytesAsync(MemoryType, DbNum, ByteNum, arr, cancellationToken);
+        }
     }
 
     public void GetValue(byte[] arr)

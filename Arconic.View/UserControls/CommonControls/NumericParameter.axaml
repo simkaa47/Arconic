@@ -5,10 +5,8 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:mod="using:Arconic.Core.Models.Parameters"
              xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:mat="using:Material.Icons.Avalonia"
              xmlns:li="using:LoadingIndicators.Avalonia"
-             xmlns:acc="using:Arconic.Core.Models.AccessControl"
-             xmlns:uc="using:Arconic.View.UserControls"
-             xmlns:sys="using:System"
              Name="root"
              x:DataType="mod:ParameterBase"
              x:Class="Arconic.View.UserControls.CommonControls.NumericParameter">
@@ -17,20 +15,47 @@
                     Margin="0,5,5,5"
                     DockPanel.Dock="Right"
                     VerticalAlignment="Center">
-            <TextBox x:CompileBindings="False"  Text="{Binding WriteValue}"
-                     IsEnabled="{CompiledBinding !IsReadOnly}"
-                     Height="40"
-                     IsReadOnly="{CompiledBinding $parent[Window].((vm:MainViewModel)DataContext).AccessViewModel.CurrentUser, FallbackValue={x:Null}, 
-                     Converter={StaticResource UserAccessLowerThenActualConverter}, 
-                     ConverterParameter={x:Static acc:AccessLevel.Service}}"
-                     Width="{Binding ElementName=root, Path=ParamWidth, TargetNullValue=80}">
-                <TextBox.KeyBindings>
-                    <KeyBinding x:DataType="mod:ParameterBase" x:CompileBindings="True" Gesture="Enter"
-                                Command="{Binding $parent[Window].((vm:MainViewModel)DataContext).PlcViewModel.WriteParameterCommand, FallbackValue={x:Null}}"
-                                CommandParameter="{Binding}">
-                    </KeyBinding>
-                </TextBox.KeyBindings>
-            </TextBox>
+            <Grid>
+                <TextBox x:CompileBindings="False"  Text="{Binding WriteValue}"
+                         IsEnabled="{CompiledBinding !IsReadOnly}"
+                         Height="40"
+                         Width="{Binding ElementName=root, Path=ParamWidth, TargetNullValue=80}">
+                    <TextBox.IsReadOnly>
+                        <MultiBinding Converter="{StaticResource UserAccessDeniedConverter}">
+                            <CompiledBinding Path="$parent[Window].((vm:MainViewModel)DataContext).AccessViewModel.CurrentUser" FallbackValue="{x:Null}"></CompiledBinding>
+                            <Binding ElementName="root" Path="AccessLevel"></Binding>
+                        </MultiBinding>
+                    </TextBox.IsReadOnly>
+                
+                    <TextBox.KeyBindings>
+                        <KeyBinding x:DataType="mod:ParameterBase" x:CompileBindings="True" Gesture="Enter"
+                                    Command="{Binding $parent[Window].((vm:MainViewModel)DataContext).PlcViewModel.WriteParameterCommand, FallbackValue={x:Null}}"
+                                    CommandParameter="{Binding}">
+                        </KeyBinding>
+                    </TextBox.KeyBindings>
+                </TextBox>
+                <mat:MaterialIcon Kind="Warning" Foreground="Red"
+                                  HorizontalAlignment="Right"
+                                  VerticalAlignment="Center"
+                                  Height="25" Width="25">
+                    <mat:MaterialIcon.IsVisible>
+                        <MultiBinding Converter="{x:Static BoolConverters.And}">
+                            <MultiBinding Converter="{StaticResource UserAccessDeniedConverter}">
+                                <Binding Path="$parent[Window].((vm:MainViewModel)DataContext).AccessViewModel.CurrentUser" FallbackValue="{x:Null}"></Binding>
+                                <Binding ElementName="root" Path="AccessLevel"></Binding>
+                            </MultiBinding>
+                            <Binding Path="!IsReadOnly"></Binding>
+                        </MultiBinding>
+                        
+                    </mat:MaterialIcon.IsVisible>
+                    <ToolTip.Tip>
+                        <TextBlock Text="Для изменения параметра необходимо авторизоваться"
+                                   Foreground="Red"/>
+                    </ToolTip.Tip>
+                </mat:MaterialIcon>
+            </Grid>
+            
+            
             <li:LoadingIndicator IsActive="{Binding IsWriting}"
                                  IsVisible="{Binding IsWriting}"
                                  MaxHeight="40"></li:LoadingIndicator>
