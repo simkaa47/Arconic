@@ -5,13 +5,17 @@ using Arconic.Core.Models.PlcData.Drive;
 using Arconic.Core.Models.Trends;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace Arconic.Core.Services.Trends;
 
 public class TrendsService(ArconicDbContext dbContext, 
-    ILogger<TrendsService> logger) : ITrendsService
+    ILogger<TrendsService> logger, 
+    IServiceProvider _serviceProvider) : ITrendsService
 {
+    
+
     public async Task<bool> StripExist(Strip? strip)
     {
         if (strip is null) return false;
@@ -77,43 +81,54 @@ public class TrendsService(ArconicDbContext dbContext,
         }
     }
 
-    public List<TrendUserDto>? GetScansFromStrip(Strip source)
+    public List<ITrendUserDto>? GetScansFromStrip(Strip source)
     {
-        var dto = new TrendUserDto();
-        dto.Mode = source.MeasMode;
-        dto.ExpectedThick = source.ExpectedThick;
-        dto.ExpectedWidth = source.ExpectedWidth;
-        dto.LeftBorder = source.CentralLinePosition - source.ExpectedWidth / 2;
-        dto.RightBorder = source.CentralLinePosition + source.ExpectedWidth / 2;
+        var dto = _serviceProvider.GetService<ITrendUserDto>();
+        if(dto is null) return null;
+        dto.ReInit(mode:source.MeasMode, 
+            expectedThick:source.ExpectedThick, 
+            expectedWidth:source.ExpectedWidth, 
+            leftBorder:source.CentralLinePosition - source.ExpectedWidth / 2,
+            rightBorder:source.CentralLinePosition + source.ExpectedWidth / 2);
+        
+        
         if (dto.Mode == MeasModes.CentralLine)
         {
-            dto.SetThicks(source.ThickPoints);
-            return new List<TrendUserDto>(){dto};
+            dto.SetTimeCurve(source.ThickPoints);
+            return [dto];
         }
         else
         {
+            ITrendUserDto? scanInfo = null;
             return source.Scans.Where(s=>s.ThickPoints.Count>0)
+                .Where(s=> (scanInfo = _serviceProvider.GetService<ITrendUserDto>()) is not null)
                 .Select(s =>
             {
-                var scanInfo = new TrendUserDto();
-                dto.Adapt(scanInfo);
+                scanInfo!.ReInit(mode:source.MeasMode, 
+                    expectedThick:source.ExpectedThick, 
+                    expectedWidth:source.ExpectedWidth, 
+                    leftBorder:source.CentralLinePosition - source.ExpectedWidth / 2,
+                    rightBorder:source.CentralLinePosition + source.ExpectedWidth / 2);
                 var left = s.ThickPoints.Min(tp => tp.Position);
                 var right = s.ThickPoints.Max(tp => tp.Position);
-                scanInfo.PreviousScan = s.ThickPoints;
+                var klin = 0.0f;
+                var chechevitsa = 0.0f;
                 if (s.ThickPoints.Count > 1)
                 {
                     var preLastIndex = s.ThickPoints.Count - 2;
                     var centralIndex = s.ThickPoints.Count / 2;
-                    scanInfo.Klin = s.ThickPoints[1].Thick - s.ThickPoints[preLastIndex].Thick;
-                    scanInfo.Chechecitsa = s.ThickPoints[centralIndex].Thick -
-                                           (s.ThickPoints[1].Thick + s.ThickPoints[preLastIndex].Thick) / 2;
+                    klin = s.ThickPoints[1].Thick - s.ThickPoints[preLastIndex].Thick;
+                    chechevitsa = s.ThickPoints[centralIndex].Thick -
+                                  (s.ThickPoints[1].Thick + s.ThickPoints[preLastIndex].Thick) / 2;
                 }
-                
-                scanInfo.StripDeviation = (right + left) / 2 - source.CentralLinePosition;
-                scanInfo.MaxThick = s.ThickPoints.Where(tp=>tp.Thick>0).Max(tp => tp.Thick);
-                scanInfo.MinThick = s.ThickPoints.Where(tp=>tp.Thick>0).Min(tp => tp.Thick);
-                scanInfo.ActualWidth = right - left;
-                scanInfo.ActualScan = new ObservableCollection<ThickPoint>(source.AverageScan);
+                scanInfo!.Recalculate(stripDeviation:(right + left) / 2 - source.CentralLinePosition,
+                    maxThick:s.ThickPoints.Where(tp=>tp.Thick>0).Max(tp => tp.Thick),
+                    minThick:s.ThickPoints.Where(tp=>tp.Thick>0).Min(tp => tp.Thick),
+                    actualWidth:right - left,
+                    klin: klin,
+                    chechevitsa: chechevitsa);
+               scanInfo.SetActualScan(s.ThickPoints);
+               
                 return scanInfo;
             }).ToList();
         }

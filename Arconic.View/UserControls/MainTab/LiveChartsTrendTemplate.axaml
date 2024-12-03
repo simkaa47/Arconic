@@ -1,0 +1,27 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.View.ViewModels"
+             x:DataType="vm:TrendUserDto"
+             xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
+             xmlns:drive="using:Arconic.Core.Models.PlcData.Drive"
+             x:Class="Arconic.View.UserControls.MainTab.LiveChartsTrendTemplate">
+    <lvc:CartesianChart EasingFunction="{x:Null}"
+                        DrawMarginFrame="{Binding DrawMarginFrame}"
+                        XAxes="{Binding XAxes}"
+                        Series="{Binding Series}"
+                        YAxes="{Binding YAxes}"
+                        SyncContext="{Binding Sync}"
+                        AnimationsSpeed="0"
+                        ZoomMode="Both">
+        <lvc:CartesianChart.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Zoom Out"
+                          Command="{Binding ZoomOutCommand}"/>
+            </ContextMenu>
+            
+        </lvc:CartesianChart.ContextMenu>
+    </lvc:CartesianChart>
+</UserControl>

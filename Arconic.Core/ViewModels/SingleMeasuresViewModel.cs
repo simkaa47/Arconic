@@ -101,7 +101,7 @@ public partial class SingleMeasuresViewModel:ObservableObject
             await using var writer = new StreamWriter(path, false);
             foreach (var cell in SingleMeasuresList)
             {
-                await writer.WriteLineAsync($"{cell.DateAndTime} {cell.Weak} {cell.Thick}");
+                await writer.WriteLineAsync($"{cell.DateAndTime.WriteValue} {cell.Weak.WriteValue} {cell.Thick.WriteValue}");
             }
         }
         catch (Exception e)

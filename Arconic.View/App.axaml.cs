@@ -4,6 +4,7 @@ using Arconic.Core.Abstractions.AccessControl;
 using Arconic.Core.Abstractions.Common;
 using Arconic.Core.Abstractions.FileAccess;
 using Arconic.Core.Abstractions.SteelMagazine;
+using Arconic.Core.Abstractions.Trends;
 using Arconic.Core.Infrastructure.DataContext.Data;
 using Arconic.Core.Services.Events;
 using Arconic.Core.Services.Logging;
@@ -46,6 +47,7 @@ public partial class App : Application
         {
             services.AddCoreServices(conf.Configuration);
             services.AddSingleton<EventsViewModel>();
+            services.AddTransient<ITrendUserDto, TrendUserDto>();
             services.AddTransient<ISteelMagazineDialog, SteelMagazineDIalog>();
             services.AddTransient<IUserAddEditDIalog, AddEditUserDialog>();
             services.AddTransient<IQuestionDialog, QuestionDialog>();

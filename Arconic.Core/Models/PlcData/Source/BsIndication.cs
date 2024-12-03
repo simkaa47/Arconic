@@ -8,6 +8,12 @@ public class BsIndication()
     public Parameter<float> Voltage { get; } = new Parameter<float>("Текущее значение напряжения генератора, кВ", float.MinValue,
         float.MaxValue, DataType.DataBlock, 2, 0){ IsReadOnly = true };
     
+    public Parameter<float> TubeCaseTemp { get; } = new Parameter<float>("Температура корпуса трубки, С", float.MinValue,
+        float.MaxValue, DataType.DataBlock, 2, 30){ IsReadOnly = true };
+    
+    public Parameter<float> TubeHoseTemp { get; } = new Parameter<float>("Температура шланга трубки, С", float.MinValue,
+        float.MaxValue, DataType.DataBlock, 2, 34){ IsReadOnly = true };
+    
     public Parameter<float> Current { get; } = new Parameter<float>("Текущее значение тока генератора, mA", float.MinValue,
         float.MaxValue, DataType.DataBlock, 2, 4){ IsReadOnly = true };
 

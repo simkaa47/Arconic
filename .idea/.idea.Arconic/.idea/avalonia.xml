@@ -50,6 +50,8 @@
         <entry key="Arconic.View/UserControls/MainTab/ArchieveThendsControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainTab/ArchieveTrendsViewer.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainTab/CurrentTrendsControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/MainTab/LiveChartsTrendControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/MainTab/LiveChartsTrendTemplate.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainTab/MainTabControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainTab/MainTabIndicationList.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainTab/MainTextStatusesControl.axaml" value="Arconic.View/Arconic.View.csproj" />

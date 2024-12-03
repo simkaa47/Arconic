@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="using:Arconic.Core.ViewModels"
              xmlns:drive="using:Arconic.Core.Models.PlcData.Drive"
-             xmlns:strip="using:Arconic.Core.Models.Trends"
+             xmlns:trend="using:Arconic.View.ViewModels"
              x:DataType="vm:MainTrendsViewModel"
              xmlns:local="using:Arconic.View.UserControls.MainTab"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -33,9 +33,9 @@
         
         <ListBox Grid.Row="1" ItemsSource="{Binding ArchieveScans}">
             <ListBox.ItemTemplate>
-                <DataTemplate DataType="strip:TrendUserDto">
+                <DataTemplate DataType="trend:TrendUserDto">
                     <Grid ColumnDefinitions="*, Auto">
-                        <local:MainTrendTemplate Height="300"
+                        <local:LiveChartsTrendTemplate Height="300"
                                                  Grid.Column="0"/>
                         <ListBox Grid.Column="1"
                                  IsVisible="{Binding Mode,Converter={StaticResource IfNotEqualConverter}, ConverterParameter={x:Static drive:MeasModes.CentralLine}}"
@@ -58,7 +58,7 @@
                             </DockPanel>
                             <DockPanel>
                                 <TextBlock Classes="LStyle" Text="Чечевица, мкм"/>
-                                <TextBlock Classes="RStyle" Text="{Binding Path=Chechecitsa, StringFormat=f1}"/>
+                                <TextBlock Classes="RStyle" Text="{Binding Path=Chechevitsa, StringFormat=f1}"/>
                             </DockPanel>
                             <DockPanel>
                                 <TextBlock Classes="LStyle" Text="Отклонение полосы от ЦЛ, мм"/>

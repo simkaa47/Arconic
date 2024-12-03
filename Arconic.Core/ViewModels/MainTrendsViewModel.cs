@@ -14,6 +14,9 @@ namespace Arconic.Core.ViewModels;
 
 public partial class MainTrendsViewModel:ObservableObject
 {
+    Random _rnd = new();
+    
+    
     private readonly ILogger<MainTrendsViewModel> _logger;
     private readonly IRepository<Strip> _stripRepository;
     private readonly MainPlcService _plcService;
@@ -23,13 +26,15 @@ public partial class MainTrendsViewModel:ObservableObject
     [ObservableProperty]
     private ParkingMeasure? _parkingMeasure;
 
-    public TrendUserDto ActualTrend { get; } = new TrendUserDto();
+    public ITrendUserDto ActualTrend { get; }
     public MainTrendsViewModel(ILogger<MainTrendsViewModel> logger, 
         IRepository<Strip> stripRepository, 
+        ITrendUserDto actualTrend,
         MainPlcService plcService,
         PlcViewModel plcViewModel, 
         ITrendsService trendsService)
     {
+        ActualTrend = actualTrend;
         _logger = logger;
         _stripRepository = stripRepository;
         _plcService = plcService;
@@ -46,7 +51,7 @@ public partial class MainTrendsViewModel:ObservableObject
     [ObservableProperty]
     private DateTime _endArchieveTime = DateTime.Now;
     [ObservableProperty]
-    private IEnumerable<TrendUserDto>? _archieveScans;
+    private IEnumerable<ITrendUserDto>? _archieveScans;
 
     private Strip? _selectedArchieveStrip;
     [ObservableProperty]
@@ -133,15 +138,13 @@ public partial class MainTrendsViewModel:ObservableObject
             ExpectedWidth = Plc.ControlAndIndication.HighLevelData.Coils[1].ExpectedWidth.Value,
             ExpectedThick = Plc.ControlAndIndication.HighLevelData.Coils[1].ExpectedThick.Value,
         };
-        ActualTrend.Mode = ActualStrip.MeasMode;
-        ActualTrend.ExpectedThick = ActualStrip.ExpectedThick;
-        ActualTrend.ExpectedWidth = ActualStrip.ExpectedWidth;
-        ActualTrend.CentralLine = ActualStrip.CentralLinePosition;
-        ActualTrend.LeftBorder = ActualStrip.CentralLinePosition - ActualStrip.ExpectedWidth / 2;
-        ActualTrend.RightBorder = ActualStrip.CentralLinePosition + ActualStrip.ExpectedWidth / 2;
-        ActualTrend.PreviousScan = null;
-        ActualTrend.ActualScan.Clear();
-        ActualTrend.Thicks.Clear();
+        ActualTrend.ReInit(mode:ActualStrip.MeasMode, 
+            expectedThick:ActualStrip.ExpectedThick, 
+            expectedWidth:ActualStrip.ExpectedWidth, 
+            centralLine:ActualStrip.CentralLinePosition, 
+            leftBorder: ActualStrip.CentralLinePosition - ActualStrip.ExpectedWidth / 2,
+            rightBorder:ActualStrip.CentralLinePosition + ActualStrip.ExpectedWidth / 2);
+       
         await AddStripToDbAsync();
     }
 
@@ -163,8 +166,8 @@ public partial class MainTrendsViewModel:ObservableObject
                         plcLastScan.EndPosition.Value,
                         ActualStrip);
                     var lastIndex = ActualStrip.Scans.Count - 1;
-                    ActualTrend.PreviousScan = ActualStrip.Scans[lastIndex].ThickPoints;
-                    ActualTrend.ActualScan.Clear();
+                    ActualTrend.SetPreviousScan(ActualStrip.Scans[lastIndex].ThickPoints);
+                    ActualTrend.ClearActualScan();
                     ActualStrip.Scans.Add(new Scan());
                     await AddStripToDbAsync();
                 }
@@ -198,7 +201,9 @@ public partial class MainTrendsViewModel:ObservableObject
             Plc.ControlAndIndication.MeasureIndicationAndControl.StripUnderFlag.Value)
         {
             var currDt = DateTime.Now;
-            if (ActualStrip is not null && currDt> _lastPointDateTime.AddMilliseconds(50))
+            if (ActualStrip is not null && currDt> _lastPointDateTime.AddMilliseconds(20)
+                && Plc.ControlAndIndication.MeasureIndicationAndControl.StripUnderFlag.Value
+                && Plc.ControlAndIndication.MeasureIndicationAndControl.Thick.Value>0)
             {
                 _lastPointDateTime = currDt;
                 var point = new ThickPoint()
@@ -212,7 +217,7 @@ public partial class MainTrendsViewModel:ObservableObject
                 if (ActualStrip.MeasMode == MeasModes.CentralLine)
                 {
                     ActualStrip.ThickPoints.Add(point);
-                    ActualTrend.Thicks.Add(point);
+                    ActualTrend.AddDateTimeThick(point);
                     await AddStripToDbAsync();
                 }
                 else
@@ -223,7 +228,7 @@ public partial class MainTrendsViewModel:ObservableObject
                     if (lastScan != null)
                     {
                         lastScan.ThickPoints.Add(point);
-                        ActualTrend.ActualScan.Add(point);
+                        ActualTrend.AddPointToScan(point);
                     }
                 }
                 

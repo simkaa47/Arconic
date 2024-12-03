@@ -8,7 +8,7 @@ public interface ITrendsService
     public Task SaveStripAsync(Strip? strip);
     public Task AddStripAsync(Strip? strip);
     public void AddEdgesAndRecalculate(Scan scan, float startEdge, float endEdge, Strip parent);
-    public List<TrendUserDto>? GetScansFromStrip(Strip source);
+    public List<ITrendUserDto>? GetScansFromStrip(Strip source);
     public Task<Strip?> GetExtendedStrip(long stripId); 
     public Task<List<Strip>?> GetArchieveStrips(DateTime start, DateTime end);
     

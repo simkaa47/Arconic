@@ -34,6 +34,10 @@
             <common:NumericParameter DataContext="{Binding Plc.ControlAndIndication.BsIndication.Current}"
                                      DockPanel.Dock="Left"/>
         </DockPanel>
+        <!--T корпуса трубки-->
+        <common:NumericParameter DataContext="{Binding Plc.ControlAndIndication.BsIndication.TubeCaseTemp}"/>
+        <!--T шланга трубки-->
+        <common:NumericParameter DataContext="{Binding Plc.ControlAndIndication.BsIndication.TubeCaseTemp}"/>
         <!--Время определения связи с генератором-->
         <common:NumericParameter DataContext="{Binding Plc.Settings.Source.TimeOutComm}"/>
         <!--Время определения ошибки датчика затвора-->

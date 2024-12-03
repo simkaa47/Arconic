@@ -8,5 +8,5 @@
              x:DataType="vm:MainTrendsViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Arconic.View.UserControls.MainTab.CurrentTrendsControl">
-    <local:MainTrendTemplate DataContext="{Binding ActualTrend}"/>
+    <local:LiveChartsTrendTemplate DataContext="{Binding ActualTrend}"/>
 </UserControl>
