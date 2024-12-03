@@ -5,7 +5,7 @@ namespace Arconic.Core.Models.Trends;
 
 public partial class Scan:Entity
 {
-    public List<ThickPoint> ThickPoints { get; private set; } = new List<ThickPoint>();
+    public List<ThickPoint> ThickPoints { get;  set; } = new List<ThickPoint>();
     [ObservableProperty]
     private float _width;
     [ObservableProperty]

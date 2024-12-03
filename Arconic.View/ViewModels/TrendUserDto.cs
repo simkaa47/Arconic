@@ -16,6 +16,7 @@ using LiveChartsCore.Drawing;
 using LiveChartsCore.Measure;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
+using LiveChartsCore.SkiaSharpView.Painting.Effects;
 using SkiaSharp;
 
 namespace Arconic.View.ViewModels;
@@ -75,8 +76,16 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
         CentralLine = centralLine;
         lock (Sync)
         {
-            ReInitTrend();
+            if (Series is not null && Series.Length >= 2)
+            {
+                 Dispatcher.UIThread.Invoke(() =>
+                {
+                    Series[1].Values =  new List<ObservablePoint>();
+                });
+            }
             ActualPoints.Clear();
+            ReInitTrend();
+            
         }
     }
 
@@ -176,11 +185,29 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
 
     private void ReInitTrend()
     {
+        Sections =
+        [
+            new RectangularSection
+            {
+                Label = "Задание толщины, мкм",
+                LabelPaint = new SolidColorPaint(SKColors.White),
+                ScalesYAt = 0,
+                Yi = ExpectedThick,
+                Yj = ExpectedThick,
+                Stroke = new SolidColorPaint
+                {
+                    Color = SKColors.Red,
+                    StrokeThickness = 3,
+                    PathEffect = new DashEffect([6, 6])
+                }
+            }
+        ];
         YAxes =
         [
             new Axis()
             {
                 Name = "Толщина, мкм",
+                MinLimit = ExpectedThick-10,
                 InLineNamePlacement = true,
                 NamePaint =  new SolidColorPaint(SKColors.White.WithAlpha(204)),
                 AnimationsSpeed = TimeSpan.FromMilliseconds(0),
@@ -193,17 +220,18 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
         ];
         if (Mode == MeasModes.CentralLine)
         {
+            
             XAxes =
             [
                 new Axis()
                 {
                     Name = "Длина, м",
-                    InLineNamePlacement = true,
+                    InLineNamePlacement = false,
                     NamePaint =  new SolidColorPaint(SKColors.White.WithAlpha(204)),
                     AnimationsSpeed = TimeSpan.FromMilliseconds(0),
                     ShowSeparatorLines = true,
                     
-                    Position = AxisPosition.Start,
+                    Position = AxisPosition.End,
                     Padding = new Padding(16, 5, 16, 5),
                     LabelsPaint = new SolidColorPaint(SKColors.White.WithAlpha(204)),
                     SeparatorsPaint = new SolidColorPaint(SKColors.White.WithAlpha(128)),
@@ -228,12 +256,30 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
         }
         else
         {
+            Sections =
+            [
+                Sections[0],
+                new RectangularSection
+                {
+                    Label = "Поциция ЦЛ",
+                    LabelPaint = new SolidColorPaint(SKColors.White),
+                    ScalesYAt = 0,
+                    Xi = CentralLine,
+                    Xj = CentralLine,
+                    Stroke = new SolidColorPaint
+                    {
+                        Color = SKColors.Aqua,
+                        StrokeThickness = 3,
+                        PathEffect = new DashEffect([6, 6])
+                    }
+                }
+            ];
             XAxes =
             [
                 new Axis()
                 {
                     Name = "Положение рамы, мм",
-                    InLineNamePlacement = true,
+                    InLineNamePlacement = false,
                     NamePaint =  new SolidColorPaint(SKColors.White.WithAlpha(204)),
                     AnimationsSpeed = TimeSpan.FromMilliseconds(0),
                     ShowSeparatorLines = true,
@@ -281,6 +327,9 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
 
     [ObservableProperty] 
     private ISeries[]? _series;
+    [ObservableProperty]
+    private RectangularSection[]? _sections;
+    
     [RelayCommand]
     private void  ZoomOut()
     {
@@ -291,7 +340,7 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
                 XAxes[0].MaxLimit = null;
                 XAxes[0].MinLimit = null;
                 YAxes[0].MaxLimit = null;
-                YAxes[0].MinLimit = null;
+                YAxes[0].MinLimit = ExpectedThick - 10;
             }
         }
     }

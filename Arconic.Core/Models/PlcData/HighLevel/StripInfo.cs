@@ -12,8 +12,10 @@ public class StripInfo(int offset, string name, bool isEdited = false)
         DataType.DataBlock, 2, offset, 0){IsReadOnly = !isEdited, Length = 26};
     public Parameter<string> StripId { get; } = new Parameter<string>("ID полосы", "", "zzzzzzzzzz",
         DataType.DataBlock, 2, offset+26, 0){IsReadOnly = !isEdited, Length = 12};
-    public Parameter<string> DateAndTime { get; } = new Parameter<string>("Дата и время", "", "zzzzzzzzzzzzzzz",
-        DataType.DataBlock, 2, offset+166, 0){IsReadOnly = !isEdited, Length = 16};
+    public Parameter<string> Date { get; } = new Parameter<string>("Дата", "", "zzzzzzzzzzzzzzz",
+        DataType.DataBlock, 2, offset+174, 0){IsReadOnly = !isEdited, Length = 8};
+    public Parameter<string> Time { get; } = new Parameter<string>("Время", "", "zzzzzzzzzzzzzzz",
+        DataType.DataBlock, 2, offset+166, 0){IsReadOnly = !isEdited, Length = 8};
     public Parameter<ushort> Mode { get; } = new Parameter<ushort>("Режим толщиномера", 0, 2,
         DataType.DataBlock, 2, offset+184, 0){IsReadOnly = !isEdited};
     public Parameter<float> ExpectedThick { get; } = new Parameter<float>("Ожидаемая толщина", 0, float.MaxValue,

@@ -61,7 +61,16 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTextColumn Header="ДАТА И ВРЕМЯ" Binding="{Binding DateAndTime.Value}"/>
+            <DataGridTemplateColumn Header="ВРЕМЯ И ДАТА">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="strips:StripInfo">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Time.Value}"></TextBlock>
+                            <TextBlock Margin="10,0,0,0" Text="{Binding Date.Value}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
         </DataGrid.Columns>
         
     </DataGrid>

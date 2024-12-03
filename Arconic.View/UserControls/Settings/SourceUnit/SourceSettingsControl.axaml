@@ -37,7 +37,7 @@
         <!--T корпуса трубки-->
         <common:NumericParameter DataContext="{Binding Plc.ControlAndIndication.BsIndication.TubeCaseTemp}"/>
         <!--T шланга трубки-->
-        <common:NumericParameter DataContext="{Binding Plc.ControlAndIndication.BsIndication.TubeCaseTemp}"/>
+        <common:NumericParameter DataContext="{Binding Plc.ControlAndIndication.BsIndication.TubeHoseTemp}"/>
         <!--Время определения связи с генератором-->
         <common:NumericParameter DataContext="{Binding Plc.Settings.Source.TimeOutComm}"/>
         <!--Время определения ошибки датчика затвора-->

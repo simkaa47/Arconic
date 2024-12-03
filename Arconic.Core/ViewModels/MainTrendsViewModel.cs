@@ -14,7 +14,7 @@ namespace Arconic.Core.ViewModels;
 
 public partial class MainTrendsViewModel:ObservableObject
 {
-    Random _rnd = new();
+    private event Action? _needToDoOnScanCompleted;
     
     
     private readonly ILogger<MainTrendsViewModel> _logger;
@@ -128,6 +128,13 @@ public partial class MainTrendsViewModel:ObservableObject
     {
         if (args.PropertyName != "Value") return;
         if (!Plc.ControlAndIndication.PlcEventsData.StripStart.Value) return;
+        ReInitActualTrend();
+        _needToDoOnScanCompleted += ReInitActualTrend;
+    }
+
+    private async void ReInitActualTrend()
+    {
+        _needToDoOnScanCompleted -= ReInitActualTrend;
         ActualStrip = new Strip()
         {
             MeasMode = (MeasModes)Plc.Settings.DriveSettings.MeasMode.Value,
@@ -144,23 +151,31 @@ public partial class MainTrendsViewModel:ObservableObject
             centralLine:ActualStrip.CentralLinePosition, 
             leftBorder: ActualStrip.CentralLinePosition - ActualStrip.ExpectedWidth / 2,
             rightBorder:ActualStrip.CentralLinePosition + ActualStrip.ExpectedWidth / 2);
-       
         await AddStripToDbAsync();
     }
 
 
     private async void OnScanNumberChanged(object? sender, PropertyChangedEventArgs args)
     {
+        _needToDoOnScanCompleted?.Invoke();
         if (args.PropertyName == "Value" 
             && Plc.Settings.DriveSettings.MeasMode.Value != (short)MeasModes.CentralLine 
             && ActualStrip is not null)
         {
-            if (Plc.ControlAndIndication.MeasureIndicationAndControl.ScanNumber.Value > 0)
+            if (Plc.ControlAndIndication.MeasureIndicationAndControl.ScanNumber.Value > 1)
             {
-                var lastScan = ActualStrip.Scans.LastOrDefault();
                 var plcLastScan = Plc.ControlAndIndication.MeasureIndicationAndControl.PreviousScan;
+                var lastScan = ActualStrip.Scans.LastOrDefault();
+                
                 if (lastScan is { ThickPoints.Count: > 5 })
                 {
+                    lastScan.ThickPoints = plcLastScan.Points
+                        .Take(plcLastScan.PointsNumber.Value)
+                        .Select(p => new ThickPoint()
+                        {
+                            Position = p.Position.Value,
+                            Thick = p.Thick.Value
+                        }).ToList();
                     _trendsService.AddEdgesAndRecalculate(lastScan, 
                         plcLastScan.StartPosition.Value, 
                         plcLastScan.EndPosition.Value,
@@ -174,6 +189,7 @@ public partial class MainTrendsViewModel:ObservableObject
                 
             }
         }
+       
     }
     
     private void PutIntoParkingMeasure()

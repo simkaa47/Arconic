@@ -13,6 +13,7 @@
                         XAxes="{Binding XAxes}"
                         Series="{Binding Series}"
                         YAxes="{Binding YAxes}"
+                        Sections="{Binding Sections}"
                         SyncContext="{Binding Sync}"
                         AnimationsSpeed="0"
                         ZoomMode="Both">
