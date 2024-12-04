@@ -58,25 +58,19 @@ public class TrendsService(ArconicDbContext dbContext,
         }
     }
 
-    public void  AddEdgesAndRecalculate(Scan scan, float startEdge, float endEdge, Strip parent)
+    public void  RecalculateScan(Scan scan,  Strip parent)
     {
         if (scan.ThickPoints.Count > 0)
         {
-            var left = Math.Min(startEdge, endEdge);
-            var right = Math.Max(startEdge, endEdge);
             var minPos = scan.ThickPoints.MinBy(p=>p.Position)!;
-            var maxPos = scan.ThickPoints.MaxBy(p=>p.Position)!;;
-            minPos.Position = left;
-            maxPos.Position = right;
+            var maxPos = scan.ThickPoints.MaxBy(p=>p.Position)!;
             
-            scan.OrderPoints();
-            scan.Width = Math.Abs(right - right);
-            scan.CentralLineDeviation = (right + left) / 2 - parent.CentralLinePosition;
-            var preLastIndex = scan.ThickPoints.Count - 2;
+            scan.Width = Math.Abs(maxPos.Position - minPos.Position);
+            scan.CentralLineDeviation = (maxPos.Position + minPos.Position) / 2 - parent.CentralLinePosition;
             var centralIndex = scan.ThickPoints.Count / 2;
-            scan.Klin = scan.ThickPoints[1].Thick - scan.ThickPoints[preLastIndex].Thick;
+            scan.Klin = minPos.Thick - maxPos.Thick;
             scan.Chechewitsa = scan.ThickPoints[centralIndex].Thick -
-                               (scan.ThickPoints[1].Thick + scan.ThickPoints[preLastIndex].Thick) / 2;
+                               (minPos.Thick + maxPos.Thick) / 2;
 
         }
     }

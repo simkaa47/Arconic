@@ -149,7 +149,7 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
     }
     
     public float ExpectedWidth { get; private set; }
-    public float ExpectedThick { get; private set; }
+    public float ExpectedThick { get; private set; } = 1000;
     public float LeftBorder { get; private set; }
     public float CentralLine { get; private set; }
     public float RightBorder { get; private set; }
@@ -207,7 +207,7 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
             new Axis()
             {
                 Name = "Толщина, мкм",
-                MinLimit = ExpectedThick-10,
+                //MinLimit = ExpectedThick-10,
                 InLineNamePlacement = true,
                 NamePaint =  new SolidColorPaint(SKColors.White.WithAlpha(204)),
                 AnimationsSpeed = TimeSpan.FromMilliseconds(0),

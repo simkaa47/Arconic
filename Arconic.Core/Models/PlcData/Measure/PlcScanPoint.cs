@@ -9,4 +9,6 @@ public class PlcScanPoint(int offset)
         new("Положение, мм", float.MinValue, float.MaxValue, DataType.DataBlock, 2, offset);
     public Parameter<float> Thick { get; } = 
         new("Толщина, мкм", float.MinValue, float.MaxValue, DataType.DataBlock, 2, offset+4);
+    
+    
 }

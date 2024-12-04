@@ -176,15 +176,12 @@ public partial class MainTrendsViewModel:ObservableObject
                             Position = p.Position.Value,
                             Thick = p.Thick.Value
                         }).ToList();
-                    _trendsService.AddEdgesAndRecalculate(lastScan, 
-                        plcLastScan.StartPosition.Value, 
-                        plcLastScan.EndPosition.Value,
-                        ActualStrip);
+                    _trendsService.RecalculateScan(lastScan, ActualStrip);
                     var lastIndex = ActualStrip.Scans.Count - 1;
                     ActualTrend.SetPreviousScan(ActualStrip.Scans[lastIndex].ThickPoints);
                     ActualTrend.ClearActualScan();
                     ActualStrip.Scans.Add(new Scan());
-                    await AddStripToDbAsync();
+                    //await AddStripToDbAsync();
                 }
                 
             }
