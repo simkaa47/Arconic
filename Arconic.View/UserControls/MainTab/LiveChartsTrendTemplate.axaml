@@ -5,20 +5,27 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="using:Arconic.View.ViewModels"
              x:DataType="vm:TrendUserDto"
+             xmlns:mat="using:Material.Icons.Avalonia"
              xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
-             xmlns:drive="using:Arconic.Core.Models.PlcData.Drive"
              x:Class="Arconic.View.UserControls.MainTab.LiveChartsTrendTemplate">
-    <lvc:CartesianChart EasingFunction="{x:Null}"
-                        DrawMarginFrame="{Binding DrawMarginFrame}"
-                        XAxes="{Binding XAxes}"
-                        Series="{Binding Series}"
-                        LegendPosition="Top"
-                        LegendBackgroundPaint="{Binding LegendBackgroundColor}"
-                        LegendTextPaint="{Binding LegendTextColor}"
-                        YAxes="{Binding YAxes}"
-                        Sections="{Binding Sections}"
-                        SyncContext="{Binding Sync}"
-                        AnimationsSpeed="0"
-                        ZoomMode="Both">
-    </lvc:CartesianChart>
+    <Grid>
+        <lvc:CartesianChart EasingFunction="{x:Null}"
+                            DrawMarginFrame="{Binding DrawMarginFrame}"
+                            XAxes="{Binding XAxes}"
+                            Series="{Binding Series}"
+                            YAxes="{Binding YAxes}"
+                            Sections="{Binding Sections}"
+                            SyncContext="{Binding Sync}"
+                            AnimationsSpeed="0"
+                            ZoomMode="Both">
+        </lvc:CartesianChart>
+        <Button VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                CornerRadius="25"
+                Command="{Binding ZoomOutCommand}">
+            <mat:MaterialIcon Kind="ZoomOut"
+                              Height="50"
+                              Width="50"></mat:MaterialIcon>
+        </Button>
+    </Grid>
+    
 </UserControl>

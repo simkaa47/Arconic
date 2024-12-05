@@ -4,9 +4,37 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:mainTab="clr-namespace:Arconic.View.UserControls.MainTab"
              xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:mod="using:Arconic.Core.Models.PlcData.Drive"
              xmlns:local="using:Arconic.View.UserControls.MainTab"
              x:DataType="vm:MainTrendsViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Arconic.View.UserControls.MainTab.CurrentTrendsControl">
-    <local:LiveChartsTrendTemplate DataContext="{Binding ActualTrend}"/>
+    <Grid>
+        
+        <local:LiveChartsTrendTemplate DataContext="{Binding ActualTrend}"/>
+        <StackPanel HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    IsVisible="{Binding Plc.Settings.DriveSettings.MeasMode.Value, 
+                    Converter={StaticResource IfNotEqualConverter}, 
+                    ConverterParameter=2}"
+                    Margin="40,60,80,40">
+           
+            <DockPanel>
+                <Rectangle Height="20"
+                           Width="20"
+                           Fill="Red"
+                           Margin="5"></Rectangle>
+                <TextBlock Text="Текущий скан"></TextBlock>
+            </DockPanel>
+            <DockPanel>
+                <Rectangle Height="20"
+                           Width="20"
+                           Fill="Orange"
+                           Margin="5"></Rectangle>
+                <TextBlock Text="Предыдущий скан"></TextBlock>
+            </DockPanel>
+            
+        </StackPanel>
+    </Grid>
+    
 </UserControl>
