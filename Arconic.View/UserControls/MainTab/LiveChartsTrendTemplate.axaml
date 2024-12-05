@@ -12,17 +12,13 @@
                         DrawMarginFrame="{Binding DrawMarginFrame}"
                         XAxes="{Binding XAxes}"
                         Series="{Binding Series}"
+                        LegendPosition="Top"
+                        LegendBackgroundPaint="{Binding LegendBackgroundColor}"
+                        LegendTextPaint="{Binding LegendTextColor}"
                         YAxes="{Binding YAxes}"
                         Sections="{Binding Sections}"
                         SyncContext="{Binding Sync}"
                         AnimationsSpeed="0"
                         ZoomMode="Both">
-        <lvc:CartesianChart.ContextMenu>
-            <ContextMenu>
-                <MenuItem Header="Zoom Out"
-                          Command="{Binding ZoomOutCommand}"/>
-            </ContextMenu>
-            
-        </lvc:CartesianChart.ContextMenu>
     </lvc:CartesianChart>
 </UserControl>

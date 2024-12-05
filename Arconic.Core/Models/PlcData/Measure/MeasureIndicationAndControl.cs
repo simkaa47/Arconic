@@ -63,4 +63,14 @@ public class MeasureIndicationAndControl
         0, ushort.MaxValue, DataType.DataBlock, ParameterBase.IndicationDbNum, 8020){IsReadOnly = true};
 
     public SingleMeasureIndication SingleMeasureIndication { get; } = new SingleMeasureIndication();
+    
+    public Parameter<float> ThickDeviation { get; } =
+        new Parameter<float>("Отклонение толщины, мкм", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 8026){IsReadOnly = true};
+    
+    public Parameter<short> AoThickDeviationAdc { get; } =
+        new Parameter<short>("Значение АЦП", short.MinValue, short.MaxValue, DataType.DataBlock, 2, 8030){IsReadOnly = true};
+    
+    public Parameter<float> AoThickDeviationVoltage { get; } =
+        new Parameter<float>("Напряжение аналогового выхода, В", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 8032){IsReadOnly = true};
+    
 }

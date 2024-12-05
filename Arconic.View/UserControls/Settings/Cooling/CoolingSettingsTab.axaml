@@ -28,7 +28,7 @@
                         </DataGrid>
                     </StackPanel>
                 </Border>
-                <Border Classes="border">
+                <Border Classes="border" IsVisible="False">
                     <StackPanel Margin="5">
                         <TextBlock Text="ИЗМЕРИТЕЛЬ РАСХОДА ОХЛАЖДАЮЩЕЙ ЖИДКСТИ"></TextBlock>
                         <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}"
@@ -68,23 +68,6 @@
                     <StackPanel Margin="5">
                         <TextBlock Text="ЧИЛЛЕР"/>
                         <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}">
-                            <DockPanel>
-                                <TextBlock Text="Питание на чиллер"/>
-                                <common:ToggleSwitch CommandParameter="{Binding Plc.Settings.CoolingSettings.SbChiller}"
-                                                     HorizontalAlignment="Right"
-                                                     Margin="5"
-                                                     State="{Binding Plc.Settings.CoolingSettings.SbChiller.Value}"/>
-                            </DockPanel>
-                            <DockPanel>
-                                <TextBlock Text="Контактор включен"/>
-                                <common:ImageBitIndicator HorizontalAlignment="Right"
-                                                          Margin="5"
-                                                          Height="35"
-                                                          TrueStateImage="/Assets/Images/ind_ok.png"
-                                                          FalseStateImage="/Assets/Images/ind_err.png"
-                                                          State="{Binding Plc.ControlAndIndication.CoolingIndication.ChillerContactor.Value}"/>
-                            </DockPanel>
-                            <DockPanel>
                                 <TextBlock Text="Аварийное реле чиллера"/>
                                 <common:ImageBitIndicator HorizontalAlignment="Right"
                                                           Margin="5"
@@ -92,7 +75,7 @@
                                                           TrueStateImage="/Assets/Images/ind_ok.png"
                                                           FalseStateImage="/Assets/Images/ind_err.png"
                                                           State="{Binding Plc.ControlAndIndication.CoolingIndication.ChillerAlarmRelay.Value}"/>
-                            </DockPanel>
+                            
                             <DockPanel>
                                 <TextBlock Text="Ошибка связи с чиллером"/>
                                 <common:ImageBitIndicator HorizontalAlignment="Right"

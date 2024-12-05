@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Arconic.Core.Abstractions.Trends;
 using Arconic.Core.Models.PlcData.Drive;
 using Arconic.Core.Models.Trends;
@@ -24,46 +22,13 @@ namespace Arconic.View.ViewModels;
 public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
 {
     
-    private Timer _timer;
+   
     private int _cnt = 0;
-    private Random _rnd;
+    
     public TrendUserDto()
     {
-        _rnd = new Random();
-        //  _timer = new Timer((sender) =>
-        //  {
-        //      
-        //  });
-        //  _timer.Change(1000, 1000);
          ReInitTrend();
     }
-
-
-    public void OnTimer(object? sender)
-    {
-        _cnt++; 
-             
-        AddPointToScan(new ThickPoint()
-        {
-            Position = _cnt,
-            Thick = _rnd.NextSingle()
-                     
-        });
-        
-        if (_cnt % 1000 == 0)
-        {
-            SetPreviousScan(ActualPoints.Select(op=> new ThickPoint()
-            {
-                Position = (float)op.X,
-                Thick = (float)op.Y,
-            }).ToList());
-            ClearActualScan();
-            _cnt = 0;
-            ReInitTrend();
-        }
-    }
-    
-    
     
     public void ReInit(MeasModes mode = MeasModes.ForwRevers, float expectedWidth = 0, float expectedThick = 0,
         float leftBorder = 0, float rightBorder = 0, float centralLine = 0)
@@ -112,11 +77,9 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
             {
                 Series[1].Values = thickPoints?.Select(p=> new ObservablePoint(p.Position, p.Thick)).ToList()
                                    ?? new List<ObservablePoint>();
-                //ReInitTrend();
-            });
-           
-                
+                Series[1].IsVisibleAtLegend = true;
 
+            });
         }
     }
 
@@ -179,45 +142,12 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
             {
                 ActualPoints.Add(new ObservablePoint(point.Position, point.Thick));
             }
-           
         }
+        
     }
 
     private void ReInitTrend()
     {
-        Sections =
-        [
-            new RectangularSection
-            {
-                Label = "Задание толщины, мкм",
-                LabelPaint = new SolidColorPaint(SKColors.White),
-                ScalesYAt = 0,
-                Yi = ExpectedThick,
-                Yj = ExpectedThick,
-                Stroke = new SolidColorPaint
-                {
-                    Color = SKColors.Red,
-                    StrokeThickness = 3,
-                    PathEffect = new DashEffect([6, 6])
-                }
-            }
-        ];
-        YAxes =
-        [
-            new Axis()
-            {
-                Name = "Толщина, мкм",
-                //MinLimit = ExpectedThick-10,
-                InLineNamePlacement = true,
-                NamePaint =  new SolidColorPaint(SKColors.White.WithAlpha(204)),
-                AnimationsSpeed = TimeSpan.FromMilliseconds(0),
-                ShowSeparatorLines = true,
-                Position = AxisPosition.Start,
-                Padding = new Padding(16, 5, 16, 5),
-                LabelsPaint = new SolidColorPaint(SKColors.White.WithAlpha(204)),
-                SeparatorsPaint = new SolidColorPaint(SKColors.White.WithAlpha(128))
-            }
-        ];
         if (Mode == MeasModes.CentralLine)
         {
             
@@ -256,24 +186,6 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
         }
         else
         {
-            Sections =
-            [
-                Sections[0],
-                new RectangularSection
-                {
-                    Label = "Поциция ЦЛ",
-                    LabelPaint = new SolidColorPaint(SKColors.White),
-                    ScalesYAt = 0,
-                    Xi = CentralLine,
-                    Xj = CentralLine,
-                    Stroke = new SolidColorPaint
-                    {
-                        Color = SKColors.Aqua,
-                        StrokeThickness = 3,
-                        PathEffect = new DashEffect([6, 6])
-                    }
-                }
-            ];
             XAxes =
             [
                 new Axis()
@@ -289,11 +201,14 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
                     SeparatorsPaint = new SolidColorPaint(SKColors.White.WithAlpha(128))
                 }
             ];
+            Sections[1].IsVisible = true;
+            Sections[1].Xi = CentralLine;
+            Sections[1].Xj = CentralLine;
             Series =  new[]
             {
                 new LineSeries<ObservablePoint>
                 {
-                    Name = "Текущий скан",
+                    Name = "Актуальный скан",
                     Values = ActualPoints,
                     IsVisible = true,
                     IsVisibleAtLegend = true,
@@ -302,33 +217,95 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
                     Fill = null,
                     LineSmoothness = 0,
                     ScalesYAt = 0,
-                    Stroke = new SolidColorPaint(SKColors.Red)
+                    Stroke = new SolidColorPaint(SKColors.Red){StrokeThickness = 2}
                 },
                 new LineSeries<ObservablePoint>
                 {
                     Name = "Предыдущий скан",
+                    IsVisibleAtLegend = false,
                     IsVisible = true,
-                    IsVisibleAtLegend = true,
                     GeometryStroke = null,
                     GeometrySize = 0,
                     Fill = null,
                     LineSmoothness = 0,
                     ScalesYAt = 0,
-                    Stroke = new SolidColorPaint(SKColors.Orange)
+                    Stroke = new SolidColorPaint(SKColors.Orange){StrokeThickness = 2}
+                },
+                new LineSeries<ObservablePoint>
+                {
+                    IsVisible = true,
+                    Values = [
+                        new ObservablePoint(CentralLine-ExpectedWidth/2, ExpectedThick),
+                        new ObservablePoint(CentralLine+ExpectedWidth/2, ExpectedThick),
+                    ],
+                    IsVisibleAtLegend = false,
+                    GeometryStroke = null,
+                    GeometrySize = 0,
+                    Fill = null,
+                    LineSmoothness = 0,
+                    ScalesYAt = 0,
+                    Stroke = new SolidColorPaint(SKColors.Transparent){StrokeThickness = 0}
                 },
             };
+            Sections[0].IsVisible = true;
+            Sections[0].ScalesXAt = 0;
+            Sections[0].Xi = CentralLine - ExpectedWidth/2;
+            Sections[0].Fill = new SolidColorPaint(SKColors.Lime.WithAlpha(64));
+            Sections[0].Xj = CentralLine + ExpectedWidth/2;
+            Sections[0].Yi = 0;
+            Sections[0].Yj = ExpectedThick;
+            Sections[0].ScalesXAt = 0;
         }
-
     }
+
     [ObservableProperty]
-    private Axis[] _yAxes  = new Axis[0];
+    private Axis[] _yAxes = [
+        new Axis()
+        {
+            Name = "Толщина, мкм",
+            InLineNamePlacement = true,
+            NamePaint =  new SolidColorPaint(SKColors.White.WithAlpha(204)),
+            AnimationsSpeed = TimeSpan.FromMilliseconds(0),
+            ShowSeparatorLines = true,
+            Position = AxisPosition.Start,
+            Padding = new Padding(16, 5, 16, 5),
+            LabelsPaint = new SolidColorPaint(SKColors.White.WithAlpha(204)),
+            SeparatorsPaint = new SolidColorPaint(SKColors.White.WithAlpha(128))
+        }
+    ];
     [ObservableProperty]
     private Axis[] _xAxes  = new Axis[0];
 
     [ObservableProperty] 
     private ISeries[]? _series;
+    
     [ObservableProperty]
-    private RectangularSection[]? _sections;
+    private RectangularSection[] _sections = [
+        new RectangularSection
+        {
+            Label = "Задание толщины, мкм",
+            LabelPaint = new SolidColorPaint(SKColors.White),
+            ScalesYAt = 0,
+            Stroke = new SolidColorPaint
+            {
+                Color = SKColors.Red,
+                StrokeThickness = 3,
+                PathEffect = new DashEffect([6, 6])
+            }
+        },
+        new RectangularSection
+        {
+            Label = "Позиция ЦЛ",
+            LabelPaint = new SolidColorPaint(SKColors.White),
+            ScalesXAt = 0,
+            Stroke = new SolidColorPaint
+            {
+                Color = SKColors.Aqua,
+                StrokeThickness = 3,
+                PathEffect = new DashEffect([6, 6])
+            }
+        }
+    ];
     
     [RelayCommand]
     private void  ZoomOut()
@@ -340,9 +317,13 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
                 XAxes[0].MaxLimit = null;
                 XAxes[0].MinLimit = null;
                 YAxes[0].MaxLimit = null;
-                YAxes[0].MinLimit = ExpectedThick - 10;
+                YAxes[0].MinLimit = null;
             }
         }
     }
-    
+
+
+    public SolidColorPaint LegendBackgroundColor { get; } = new SolidColorPaint(GetSkColor("#2C2C2E"));
+    public SolidColorPaint LegendTextColor { get; } = new SolidColorPaint(GetSkColor("#C0FFFFFF"));
+
 }

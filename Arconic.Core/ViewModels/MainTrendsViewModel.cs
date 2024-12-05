@@ -14,8 +14,7 @@ namespace Arconic.Core.ViewModels;
 
 public partial class MainTrendsViewModel:ObservableObject
 {
-    private event Action? _needToDoOnScanCompleted;
-    
+    private event Action? NeedToDoOnScanCompleted;
     
     private readonly ILogger<MainTrendsViewModel> _logger;
     private readonly IRepository<Strip> _stripRepository;
@@ -40,7 +39,7 @@ public partial class MainTrendsViewModel:ObservableObject
         _plcService = plcService;
         _trendsService = trendsService;
         Plc = plcViewModel.Plc;
-        InitAsync();
+        Init();
     }
     [ObservableProperty]
     private Strip? _actualStrip;
@@ -74,7 +73,7 @@ public partial class MainTrendsViewModel:ObservableObject
         ArchieveScans = SelectedArchieveStripForViewing != null ?  _trendsService.GetScansFromStrip(SelectedArchieveStripForViewing) : null;
     }
 
-    private async void InitAsync()
+    private  void Init()
     {
         //Plc.ControlAndIndication.PlcEventsData.StripEnd.PropertyChanged += OnEndStrip;
         Plc.ControlAndIndication.PlcEventsData.StripStart.PropertyChanged += OnStartStrip;
@@ -103,23 +102,27 @@ public partial class MainTrendsViewModel:ObservableObject
     }
 
 
-    private async Task AddStripToDbAsync()
+    private void AddStripToDbAsync()
     {
-        if (!await _trendsService.StripExist(ActualStrip))
+        Task.Run(async () =>
         {
-            await _trendsService.AddStripAsync(ActualStrip);
-        }
-        else
-            await _trendsService.SaveStripAsync(ActualStrip);
+            if (!await _trendsService.StripExist(ActualStrip))
+            {
+                await _trendsService.AddStripAsync(ActualStrip);
+            }
+            else
+                await _trendsService.SaveStripAsync(ActualStrip);
+        });
+        
     }
 
-    private async void OnEndStrip(object? sender, PropertyChangedEventArgs args)
+    private  void OnEndStrip(object? sender, PropertyChangedEventArgs args)
     {
         if (sender is not null && sender is Parameter<bool> endParameter && args.PropertyName == "Value")
         {
             if(args.PropertyName == nameof(endParameter.Value) && endParameter.Value && ActualStrip != null)
             {
-                await  AddStripToDbAsync();
+                AddStripToDbAsync();
             }
         }
     }
@@ -129,12 +132,12 @@ public partial class MainTrendsViewModel:ObservableObject
         if (args.PropertyName != "Value") return;
         if (!Plc.ControlAndIndication.PlcEventsData.StripStart.Value) return;
         ReInitActualTrend();
-        _needToDoOnScanCompleted += ReInitActualTrend;
+        NeedToDoOnScanCompleted += ReInitActualTrend;
     }
 
-    private async void ReInitActualTrend()
+    private  void ReInitActualTrend()
     {
-        _needToDoOnScanCompleted -= ReInitActualTrend;
+        NeedToDoOnScanCompleted -= ReInitActualTrend;
         ActualStrip = new Strip()
         {
             MeasMode = (MeasModes)Plc.Settings.DriveSettings.MeasMode.Value,
@@ -151,13 +154,13 @@ public partial class MainTrendsViewModel:ObservableObject
             centralLine:ActualStrip.CentralLinePosition, 
             leftBorder: ActualStrip.CentralLinePosition - ActualStrip.ExpectedWidth / 2,
             rightBorder:ActualStrip.CentralLinePosition + ActualStrip.ExpectedWidth / 2);
-        await AddStripToDbAsync();
+            AddStripToDbAsync();
     }
 
 
-    private async void OnScanNumberChanged(object? sender, PropertyChangedEventArgs args)
+    private  void OnScanNumberChanged(object? sender, PropertyChangedEventArgs args)
     {
-        _needToDoOnScanCompleted?.Invoke();
+        NeedToDoOnScanCompleted?.Invoke();
         if (args.PropertyName == "Value" 
             && Plc.Settings.DriveSettings.MeasMode.Value != (short)MeasModes.CentralLine 
             && ActualStrip is not null)
@@ -181,7 +184,7 @@ public partial class MainTrendsViewModel:ObservableObject
                     ActualTrend.SetPreviousScan(ActualStrip.Scans[lastIndex].ThickPoints);
                     ActualTrend.ClearActualScan();
                     ActualStrip.Scans.Add(new Scan());
-                    //await AddStripToDbAsync();
+                    AddStripToDbAsync();
                 }
                 
             }
@@ -206,7 +209,7 @@ public partial class MainTrendsViewModel:ObservableObject
         }
     }
 
-    private async void OnPlcScanCompleted()
+    private  void OnPlcScanCompleted()
     {
         PutIntoParkingMeasure();
         
@@ -231,7 +234,7 @@ public partial class MainTrendsViewModel:ObservableObject
                 {
                     ActualStrip.ThickPoints.Add(point);
                     ActualTrend.AddDateTimeThick(point);
-                    await AddStripToDbAsync();
+                    AddStripToDbAsync();
                 }
                 else
                 {
@@ -254,6 +257,5 @@ public partial class MainTrendsViewModel:ObservableObject
     {
         ArchieveStrips = await _trendsService.GetArchieveStrips(StartArchieveTime, EndArchieveTime);
     }
-    
     
 }

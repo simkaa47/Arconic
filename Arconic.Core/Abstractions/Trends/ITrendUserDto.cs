@@ -40,9 +40,4 @@ public interface ITrendUserDto
     public void AddDateTimeThick(ThickPoint? point);
     public void AddPointToScan(ThickPoint? point);
 
-    public void OnTimer(object? sender);
-
-
-
-
 }

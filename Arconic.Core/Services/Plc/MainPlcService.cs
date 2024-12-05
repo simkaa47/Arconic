@@ -75,7 +75,7 @@ public partial class MainPlcService(ILogger<MainPlcService> logger, IOptionsMoni
                 }
                 _plc.Close();
                 IsConnected = _plc.IsConnected;
-                await Task.Delay(5000);
+                await Task.Delay(2000);
             }
             
         }
@@ -83,7 +83,7 @@ public partial class MainPlcService(ILogger<MainPlcService> logger, IOptionsMoni
 
     private async Task ReadGroupAsync(PlcScanHelper helper)
     {
-        _cts.CancelAfter(1000);
+        _cts.CancelAfter(2000);
         var bytes = await _plc.ReadBytesAsync(helper.DataType, helper.DbNum, 0, helper.MaxByteNum, _cts.Token);
         foreach (var par in helper.Parameters)
         {
