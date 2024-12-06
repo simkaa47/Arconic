@@ -87,9 +87,11 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
     {
         lock (Sync)
         {
-            ActualPoints = new ObservableCollection<ObservablePoint>(
-                thickPoints?.Select(p=> new ObservablePoint(p.Lendth, p.Position))
-                ?? new List<ObservablePoint>());
+            if (Series is not null && Series.Length >= 1)
+            {
+                Series[0].Values = thickPoints?.Select(p=> new ObservablePoint(p.Position, p.Thick))
+                                   ?? new List<ObservablePoint>();
+            }
         }
     }
 
@@ -97,9 +99,12 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
     {
         lock (Sync)
         {
-            ActualPoints = new ObservableCollection<ObservablePoint>(
-                thickPoints?.Select(p=> new ObservablePoint(p.Lendth, p.Position))
-                ?? new List<ObservablePoint>());
+            if (Series is not null && Series.Length >= 1)
+            {
+                Series[0].Values = thickPoints?.Select(p=> new ObservablePoint(p.Lendth, p.Thick))
+                    ?? new List<ObservablePoint>();
+            }
+            
         }
     }
 
@@ -150,7 +155,6 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
     {
         if (Mode == MeasModes.CentralLine)
         {
-            
             XAxes =
             [
                 new Axis()
@@ -160,8 +164,7 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
                     NamePaint =  new SolidColorPaint(SKColors.White.WithAlpha(204)),
                     AnimationsSpeed = TimeSpan.FromMilliseconds(0),
                     ShowSeparatorLines = true,
-                    
-                    Position = AxisPosition.End,
+                    Position = AxisPosition.Start,
                     Padding = new Padding(16, 5, 16, 5),
                     LabelsPaint = new SolidColorPaint(SKColors.White.WithAlpha(204)),
                     SeparatorsPaint = new SolidColorPaint(SKColors.White.WithAlpha(128)),
@@ -180,7 +183,21 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
                     Fill = null,
                     LineSmoothness = 0,
                     ScalesYAt = 0,
-                    Stroke = new SolidColorPaint(SKColors.Red)
+                    Stroke = new SolidColorPaint(SKColors.Red){StrokeThickness = 4}
+                },
+                new LineSeries<ObservablePoint>
+                {
+                    IsVisible = true,
+                    Values = [
+                        new ObservablePoint(0, ExpectedThick)
+                    ],
+                    IsVisibleAtLegend = false,
+                    GeometryStroke = null,
+                    GeometrySize = 0,
+                    Fill = null,
+                    LineSmoothness = 0,
+                    ScalesYAt = 0,
+                    Stroke = new SolidColorPaint(SKColors.Transparent){StrokeThickness = 0}
                 },
             };
         }
@@ -201,9 +218,7 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
                     SeparatorsPaint = new SolidColorPaint(SKColors.White.WithAlpha(128))
                 }
             ];
-            Sections[1].IsVisible = true;
-            Sections[1].Xi = CentralLine;
-            Sections[1].Xj = CentralLine;
+            
             Series =  new[]
             {
                 new LineSeries<ObservablePoint>
@@ -217,7 +232,7 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
                     Fill = null,
                     LineSmoothness = 0,
                     ScalesYAt = 0,
-                    Stroke = new SolidColorPaint(SKColors.Red){StrokeThickness = 2}
+                    Stroke = new SolidColorPaint(SKColors.Red){StrokeThickness = 4}
                 },
                 new LineSeries<ObservablePoint>
                 {
@@ -229,7 +244,7 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
                     Fill = null,
                     LineSmoothness = 0,
                     ScalesYAt = 0,
-                    Stroke = new SolidColorPaint(SKColors.Orange){StrokeThickness = 2}
+                    Stroke = new SolidColorPaint(SKColors.Orange){StrokeThickness = 4}
                 },
                 new LineSeries<ObservablePoint>
                 {
@@ -247,15 +262,8 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
                     Stroke = new SolidColorPaint(SKColors.Transparent){StrokeThickness = 0}
                 },
             };
-            Sections[0].IsVisible = true;
-            Sections[0].ScalesXAt = 0;
-            Sections[0].Xi = CentralLine - ExpectedWidth/2;
-            Sections[0].Fill = new SolidColorPaint(SKColors.Lime.WithAlpha(64));
-            Sections[0].Xj = CentralLine + ExpectedWidth/2;
-            Sections[0].Yi = 0;
-            Sections[0].Yj = ExpectedThick;
-            Sections[0].ScalesXAt = 0;
         }
+        SetSections();
     }
 
     [ObservableProperty]
@@ -325,5 +333,32 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
 
     public SolidColorPaint LegendBackgroundColor { get; } = new SolidColorPaint(GetSkColor("#2C2C2E"));
     public SolidColorPaint LegendTextColor { get; } = new SolidColorPaint(GetSkColor("#C0FFFFFF"));
+
+
+    private void SetSections()
+    {
+        if (Mode == MeasModes.CentralLine)
+        {
+            Sections[0].Xi = null;
+            Sections[0].Xj = null;
+            Sections[0].Yi = ExpectedThick;
+            Sections[0].Yj = ExpectedThick;
+            Sections[1].IsVisible = false;
+        }
+        else
+        {
+            Sections[0].Xi = CentralLine - ExpectedWidth/2;
+            Sections[0].Xj = CentralLine + ExpectedWidth/2;
+            Sections[0].Yi = 0;
+            Sections[0].Yj = ExpectedThick;
+            
+            Sections[1].IsVisible = true;
+            Sections[1].Xi = CentralLine;
+            Sections[1].Xj = CentralLine;
+        }
+        Sections[0].IsVisible = true;
+        Sections[0].Fill = new SolidColorPaint(SKColors.Lime.WithAlpha(64));
+        Sections[0].ScalesXAt = 0;
+    }
 
 }

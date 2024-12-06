@@ -35,7 +35,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="trend:TrendUserDto">
                     <Grid ColumnDefinitions="*, Auto">
-                        <local:LiveChartsTrendTemplate Height="300"
+                        <local:LiveChartsTrendTemplate MinHeight="400"
                                                  Grid.Column="0"/>
                         <ListBox Grid.Column="1"
                                  IsVisible="{Binding Mode,Converter={StaticResource IfNotEqualConverter}, ConverterParameter={x:Static drive:MeasModes.CentralLine}}"

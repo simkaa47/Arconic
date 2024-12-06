@@ -198,7 +198,7 @@ public partial class MainTrendsViewModel:ObservableObject
             Plc.ControlAndIndication.DriveIndication.IsParkingPosition.Value &&
             ParkingMeasure is not null)
         {
-            if (ParkingMeasure.Points.Count == 0 || DateTime.Now > ParkingMeasure.Points[0].DateTime.AddSeconds(1))
+            if (ParkingMeasure.Points.Count == 0 || DateTime.Now > ParkingMeasure.Points[^1].DateTime.AddSeconds(1))
             {
                 ParkingMeasure.Points.Add(new TimePoint()
                 {
@@ -209,7 +209,7 @@ public partial class MainTrendsViewModel:ObservableObject
         }
     }
 
-    private  void OnPlcScanCompleted()
+    private async void OnPlcScanCompleted()
     {
         PutIntoParkingMeasure();
         
@@ -232,9 +232,11 @@ public partial class MainTrendsViewModel:ObservableObject
                 };
                 if (ActualStrip.MeasMode == MeasModes.CentralLine)
                 {
-                    ActualStrip.ThickPoints.Add(point);
                     ActualTrend.AddDateTimeThick(point);
-                    AddStripToDbAsync();
+                    if (ActualStrip.Id > 0)
+                        await _trendsService.AddPointToStrip(point, ActualStrip.Id);
+                    else
+                        AddStripToDbAsync();
                 }
                 else
                 {

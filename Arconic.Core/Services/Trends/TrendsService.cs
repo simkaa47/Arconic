@@ -12,7 +12,7 @@ namespace Arconic.Core.Services.Trends;
 
 public class TrendsService(ArconicDbContext dbContext, 
     ILogger<TrendsService> logger, 
-    IServiceProvider _serviceProvider) : ITrendsService
+    IServiceProvider serviceProvider) : ITrendsService
 {
     
 
@@ -27,6 +27,20 @@ public class TrendsService(ArconicDbContext dbContext,
         {
             logger.LogError(e, $"Ошибка при проверки наличия в базе данных полосы с ID = {strip.Id}");
             return false;
+        }
+    }
+
+    public async Task AddPointToStrip(ThickPoint point, long stripId)
+    {
+        try
+        {
+            point.StripId = stripId;
+            await dbContext.ThickPoints.AddAsync(point);
+            await dbContext.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, $"Ошибка при добавлении точки измерения в данные полосы с ID = {stripId}");
         }
     }
 
@@ -77,7 +91,7 @@ public class TrendsService(ArconicDbContext dbContext,
 
     public List<ITrendUserDto>? GetScansFromStrip(Strip source)
     {
-        var dto = _serviceProvider.GetService<ITrendUserDto>();
+        var dto = serviceProvider.GetService<ITrendUserDto>();
         if(dto is null) return null;
         dto.ReInit(mode:source.MeasMode, 
             expectedThick:source.ExpectedThick, 
@@ -95,7 +109,7 @@ public class TrendsService(ArconicDbContext dbContext,
         {
             ITrendUserDto? scanInfo = null;
             return source.Scans.Where(s=>s.ThickPoints.Count>0)
-                .Where(s=> (scanInfo = _serviceProvider.GetService<ITrendUserDto>()) is not null)
+                .Where(s=> (scanInfo = serviceProvider.GetService<ITrendUserDto>()) is not null)
                 .Select(s =>
             {
                 scanInfo!.ReInit(mode:source.MeasMode, 
