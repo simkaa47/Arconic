@@ -17,11 +17,6 @@ public class Settings
     public DriveSettings DriveSettings { get; } = new DriveSettings();
     public CoolingSettings CoolingSettings { get; } = new CoolingSettings();
     public SafetySettings SafetySettings { get; } = new SafetySettings();
-
     public SteelMagazineSettings SteelSettings { get; } = new SteelMagazineSettings();
-    
-    public List<SingleMeasuresList> SingleMeasures { get; } = Enumerable
-        .Range(0,3)
-        .Select(i=> new SingleMeasuresList(1400+i*288))
-        .ToList();
+    public SingleMeasuresList SingleMeasures { get; } = new SingleMeasuresList(1400);
 }

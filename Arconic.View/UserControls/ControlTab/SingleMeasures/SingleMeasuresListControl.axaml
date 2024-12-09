@@ -12,17 +12,7 @@
              xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
              x:Class="Arconic.View.UserControls.ControlTab.SingleMeasures.SingleMeasuresListControl">
     <Grid RowDefinitions="Auto,*">
-        <DockPanel>
-            <ComboBox  ItemsSource="{StaticResource MeasDiapasones}"
-                       Padding="10,5"
-                       SelectedIndex="{Binding SelectedDiapasone}">
-                <i:Interaction.Behaviors>
-                    <ia:EventTriggerBehavior EventName="DropDownClosed">
-                        <ia:InvokeCommandAction
-                            Command="{Binding ChangeDiapasoneCommand}"/>
-                    </ia:EventTriggerBehavior>
-                </i:Interaction.Behaviors>
-            </ComboBox>
+        <StackPanel Orientation="Horizontal">
             <Button Height="40"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right"
@@ -35,7 +25,7 @@
                     <TextBlock Text="Экспорт в файл"></TextBlock>
                 </ToolTip.Tip>
             </Button>
-        </DockPanel>
+        </StackPanel>
         
         
         <DataGrid Grid.Row="1"

@@ -22,7 +22,7 @@ public partial class SingleMeasuresViewModel:ObservableObject
         _logger = logger;
         _fileDialog = fileDialog;
         Plc = plcViewModel.Plc;
-        SingleMeasuresList = GetSingleMeasuresListFromDiapasone(0);
+        SingleMeasuresList = GetSingleMeasuresList();
         Init();
     }
     [ObservableProperty]
@@ -44,15 +44,14 @@ public partial class SingleMeasuresViewModel:ObservableObject
                 }
             };
         }
-        foreach (var isChecked in Plc.Settings.SingleMeasures.
-                     SelectMany(s=>s.Measures)
+        foreach (var isChecked in Plc.Settings.SingleMeasures.Measures
                      .Select(mc=>mc.IsChecked))
         {
             isChecked.PropertyChanged += (o, args) =>
             {
                 if (args.PropertyName == "Value")
                 {
-                    SingleMeasuresList = GetSingleMeasuresListFromDiapasone(SelectedDiapasone);
+                    SingleMeasuresList = GetSingleMeasuresList();
                 }
             };
 
@@ -62,7 +61,7 @@ public partial class SingleMeasuresViewModel:ObservableObject
     [RelayCommand]
     private void OnChangeDiapasone()
     {
-        SingleMeasuresList = GetSingleMeasuresListFromDiapasone(SelectedDiapasone);
+        SingleMeasuresList = GetSingleMeasuresList();
     }
     
     [ObservableProperty]
@@ -75,9 +74,9 @@ public partial class SingleMeasuresViewModel:ObservableObject
             .Select(si => si.Name.Value).ToList();
     }
 
-    private List<SingleMeasCell> GetSingleMeasuresListFromDiapasone(int diapasone)
+    private List<SingleMeasCell> GetSingleMeasuresList()
     {
-        return Plc.Settings.SingleMeasures[SelectedDiapasone].Measures.
+        return Plc.Settings.SingleMeasures.Measures.
             Where(c => c.IsChecked.Value).
             ToList();
     }
