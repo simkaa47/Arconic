@@ -50,7 +50,7 @@ public partial class MainTrendsViewModel:ObservableObject
     [ObservableProperty]
     private DateTime _endArchieveTime = DateTime.Now;
     [ObservableProperty]
-    private IEnumerable<ITrendUserDto>? _archieveScans;
+    private List<ITrendUserDto>? _archieveScans;
 
     private Strip? _selectedArchieveStrip;
     [ObservableProperty]

@@ -26,9 +26,7 @@
     </UserControl.Styles>
     <Grid RowDefinitions="Auto,*">
         <Grid RowDefinitions="*,Auto">
-            <StackPanel IsVisible="{Binding SelectedArchieveStripForViewing, Converter={x:Static ObjectConverters.IsNotNull}}" >
-                <local:StripResultsViewer DataContext="{Binding SelectedArchieveStripForViewing}"/>    
-            </StackPanel>
+            <local:StripResultsViewer DataContext="{Binding SelectedArchieveStripForViewing}"/> 
         </Grid>
         
         <ListBox Grid.Row="1" ItemsSource="{Binding ArchieveScans}">
@@ -42,7 +40,18 @@
                                  ItemContainerTheme="{StaticResource SelectorListBoxItem}">
                             <DockPanel>
                                 <TextBlock Classes="LStyle" Text="Номер скана"/>
-                                <TextBlock Classes="RStyle" Text="{Binding ScanNumber}"/>
+                                <StackPanel Orientation="Horizontal"
+                                            MinWidth="60"
+                                            VerticalAlignment="Center"
+                                            Margin="0,5"
+                                            HorizontalAlignment="Right">
+                                    <TextBlock Foreground="{StaticResource TexBoxCommon80}" Text="{Binding ScanNumber}"/>
+                                    <TextBlock Foreground="{StaticResource TexBoxCommon80}" Text="/" Margin="5,0,5,0"/>
+                                    <TextBlock Foreground="{StaticResource TexBoxCommon80}"
+                                               Text="{Binding $parent[UserControl].((vm:MainTrendsViewModel)DataContext).ArchieveScans.Count,
+                                               FallbackValue=0}"/>
+                                </StackPanel>
+                                
                             </DockPanel>
                             <DockPanel>
                                 <TextBlock Classes="LStyle" Text="Ширина полосы, мм"/>

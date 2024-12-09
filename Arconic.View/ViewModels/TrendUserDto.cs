@@ -103,7 +103,7 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
         {
             if (Series is not null && Series.Length >= 1)
             {
-                Series[0].Values = thickPoints?.Select(p=> new ObservablePoint(p.Lendth, p.Thick))
+                Series[0].Values = thickPoints?.Select(p=> new ObservablePoint(p.Lendth, p.Thick)).ToList()
                     ?? new List<ObservablePoint>();
             }
             

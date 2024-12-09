@@ -37,6 +37,7 @@
             <Popup Name="Popup"
                    WindowManagerAddShadowHint="False"
                    x:CompileBindings="False"
+                   IsLightDismissEnabled="True"
                    Placement="Bottom"
                    PlacementTarget="{Binding ElementName=PickButton}">
                 <dt:DateTimePickerPresenter Name="PopPresenter"/>

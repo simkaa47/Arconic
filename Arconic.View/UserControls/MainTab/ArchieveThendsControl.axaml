@@ -10,7 +10,7 @@
              x:Class="Arconic.View.UserControls.MainTab.ArchieveThendsControl">
     <Grid ColumnDefinitions="*,300">
         <!--Тренды-->
-        <local:ArchieveTrendsViewer/>
+        <local:ArchieveTrendsViewer IsVisible="{Binding SelectedArchieveStripForViewing, Converter={x:Static ObjectConverters.IsNotNull}}"/>
         <!--Выбор трендов по дате-->
         <Grid Grid.Column="1" RowDefinitions="Auto,*">
             <Border
