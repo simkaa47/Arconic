@@ -5,9 +5,6 @@ namespace Arconic.Core.Models.PlcData.Source;
 
 public class SourceUnitSettings()
 {
-    public GateSettings[] GateSettings { get; } =
-        Enumerable.Range(0, 3).Select(i => new GateSettings(i * 10, $"Диапазон {i+1}")).ToArray();
-
     public Parameter<float> VoltageSv { get; } =
         new Parameter<float>("Уставка напряжения, кВ", 0, 160, DataType.DataBlock, 1, 30, 0);
     public Parameter<float> CurrentSv { get; } =

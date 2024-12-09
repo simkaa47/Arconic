@@ -152,8 +152,7 @@
                                 </common:ParameterButton.ButtonContent>
                             </common:ParameterButton>
                         </StackPanel>
-                    </Grid>
-                    <local:SingleMeasuresListControl Grid.Row="1"/>
+                    </Grid>                    
                 </Grid>
             </Border>
         </Grid>

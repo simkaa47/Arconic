@@ -12,7 +12,8 @@
              xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
              x:Class="Arconic.View.UserControls.ControlTab.SingleMeasures.SingleMeasuresListControl">
     <Grid RowDefinitions="Auto,*">
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right">
             <Button Height="40"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right"

@@ -12,12 +12,8 @@
     <UserControl.Resources>
         <scg:List x:TypeArguments="sys:Object" x:Key="ModeNames">
             <sys:String>Данные детекторов</sys:String>
-            <sys:String>Диапазон 1 - значения стандартизации на открытом затворе</sys:String>
-            <sys:String>Диапазон 1 - значения стандартизации на закрытом затворе</sys:String>
-            <sys:String>Диапазон 2 - значения стандартизации на открытом затворе</sys:String>
-            <sys:String>Диапазон 2 - значения стандартизации на закрытом затворе</sys:String>
-            <sys:String>Диапазон 3 - значения стандартизации на открытом затворе</sys:String>
-            <sys:String>Диапазон 3 - значения стандартизации на закрытом затворе</sys:String>
+            <sys:String>Значения стандартизации на открытом затворе</sys:String>
+            <sys:String>Значения стандартизации на закрытом затворе</sys:String>
             <sys:String>Значения эмуляций детекторов</sys:String>
         </scg:List>
     </UserControl.Resources>

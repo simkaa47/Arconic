@@ -114,18 +114,6 @@ public partial class DetectorsTrendViewModel : TrendBaseViewModel
                 case DetectorsTrendMode.StandClose0:
                     Series[0].Values = _plc.Settings.DetectorsSettings.Diap0.Close.Select(v => v.Value).ToList();
                     break;
-                case DetectorsTrendMode.StandOpen1:
-                    Series[0].Values = _plc.Settings.DetectorsSettings.Diap1.Open.Select(v => v.Value).ToList();
-                    break;
-                case DetectorsTrendMode.StandClose1:
-                    Series[0].Values = _plc.Settings.DetectorsSettings.Diap1.Close.Select(v => v.Value).ToList();
-                    break;
-                case DetectorsTrendMode.StandOpen2:
-                    Series[0].Values = _plc.Settings.DetectorsSettings.Diap2.Open.Select(v => v.Value).ToList();
-                    break;
-                case DetectorsTrendMode.StandClose2:
-                    Series[0].Values = _plc.Settings.DetectorsSettings.Diap2.Close.Select(v => v.Value).ToList();
-                    break;
                 case DetectorsTrendMode.Emulations:
                     Series[0].Values = _plc.Settings.DetectorsSettings.EmulationValues.Select(v => (float)v.Value);
                     break;
