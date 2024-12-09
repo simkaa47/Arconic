@@ -43,8 +43,16 @@
                 <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.SendDataToAsutpPeriod}"/>
                 <!--Время закрытия завтора-->
                 <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.CloseGateTimeSv}"/>
-                <!--Время закрытия завтора-->
+                <!--Температура полосы-->
                 <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.TemperatureSv}"/>
+                <!--K1-->
+                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.K1}"/>
+                <!--K2-->
+                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.K2}"/>
+                <!--K3-->
+                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.K3}"/>
+                <!--K4-->
+                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.K4}"/>
                 <!--Время закрытия завтора-->
                 <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.CloseGateTimeCv}"/>
                 <!--Время посл станд-ии-->

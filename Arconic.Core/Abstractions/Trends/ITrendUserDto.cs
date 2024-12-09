@@ -10,7 +10,8 @@ public interface ITrendUserDto
         float expectedThick = 0,
         float leftBorder = 0,
         float rightBorder = 0,
-        float centralLine = 0);
+        float centralLine = 0, 
+        int scanNumber = 0);
 
     public void Recalculate(float stripDeviation = 0, 
         float maxThick = 0, 
@@ -25,6 +26,7 @@ public interface ITrendUserDto
     public void SetActualScan(List<ThickPoint>? thickPoints);
     public void SetTimeCurve(List<ThickPoint>? thickPoints);
     public void ClearActualScan();
+    public int ScanNumber { get; }
     public float ExpectedWidth { get; }
     public float ExpectedThick { get;  }
     public float LeftBorder { get; }

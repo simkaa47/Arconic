@@ -104,6 +104,9 @@ namespace Arconic.Core.Infrastructure.DataContext.Data.Migrations
                     b.Property<float>("Klin")
                         .HasColumnType("REAL");
 
+                    b.Property<int>("ScanNumber")
+                        .HasColumnType("INTEGER");
+
                     b.Property<long>("StripId")
                         .HasColumnType("INTEGER");
 

@@ -41,7 +41,7 @@ public class DriveIndication
         new Parameter<bool>("В позиции парковки",
             false, true, DataType.DataBlock, ParameterBase.IndicationDbNum, 222, 0);
     public Parameter<bool> IsCentralPosition { get; } =
-        new Parameter<bool>("В позиции измерения",
+        new Parameter<bool>("В позиции ЦЛ",
             false, true, DataType.DataBlock, ParameterBase.IndicationDbNum, 222, 1);
     public Parameter<bool> FcComm { get; } =
         new Parameter<bool>("Связь с ПЧ",

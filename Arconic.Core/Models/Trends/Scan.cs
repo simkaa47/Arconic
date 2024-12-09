@@ -6,17 +6,13 @@ namespace Arconic.Core.Models.Trends;
 public partial class Scan:Entity
 {
     public List<ThickPoint> ThickPoints { get;  set; } = new List<ThickPoint>();
-    [ObservableProperty]
-    private float _width;
-    [ObservableProperty]
-    private float _klin;
-    [ObservableProperty] 
-    private float _chechewitsa;
+    public float Width { get; set; }
+    public float Klin { get; set; } 
+    public float Chechewitsa { get; set; }
     public long StripId { get; init; }
-    [ObservableProperty]
-    private Strip? _strip;
-    [ObservableProperty] 
-    private float _centralLineDeviation;
+    public Strip? Strip { get; init; }
+    public float CentralLineDeviation { get; set; }
+    public int ScanNumber { get; set; }
 
     public void OrderPoints()
     {

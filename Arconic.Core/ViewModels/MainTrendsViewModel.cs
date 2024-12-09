@@ -172,6 +172,7 @@ public partial class MainTrendsViewModel:ObservableObject
                 
                 if (lastScan is { ThickPoints.Count: > 5 })
                 {
+                    lastScan.ScanNumber = plcLastScan.ScanNumber.Value;
                     lastScan.ThickPoints = plcLastScan.Points
                         .Take(plcLastScan.PointsNumber.Value)
                         .Select(p => new ThickPoint()

@@ -94,10 +94,9 @@ public class TrendsService(ArconicDbContext dbContext,
         var dto = serviceProvider.GetService<ITrendUserDto>();
         if(dto is null) return null;
         dto.ReInit(mode:source.MeasMode, 
+            centralLine:source.CentralLinePosition,
             expectedThick:source.ExpectedThick, 
-            expectedWidth:source.ExpectedWidth, 
-            leftBorder:source.CentralLinePosition - source.ExpectedWidth / 2,
-            rightBorder:source.CentralLinePosition + source.ExpectedWidth / 2);
+            expectedWidth:source.ExpectedWidth);
         
         
         if (dto.Mode == MeasModes.CentralLine)
@@ -114,6 +113,8 @@ public class TrendsService(ArconicDbContext dbContext,
             {
                 scanInfo!.ReInit(mode:source.MeasMode, 
                     expectedThick:source.ExpectedThick, 
+                    scanNumber:s.ScanNumber,
+                    centralLine:source.CentralLinePosition,
                     expectedWidth:source.ExpectedWidth, 
                     leftBorder:source.CentralLinePosition - source.ExpectedWidth / 2,
                     rightBorder:source.CentralLinePosition + source.ExpectedWidth / 2);
@@ -136,7 +137,7 @@ public class TrendsService(ArconicDbContext dbContext,
                     klin: klin,
                     chechevitsa: chechevitsa);
                scanInfo.SetActualScan(s.ThickPoints);
-               
+               scanInfo.SetPreviousScan(source.AverageScan);
                 return scanInfo;
             }).ToList();
         }

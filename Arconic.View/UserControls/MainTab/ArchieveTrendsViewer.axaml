@@ -26,9 +26,9 @@
     </UserControl.Styles>
     <Grid RowDefinitions="Auto,*">
         <Grid RowDefinitions="*,Auto">
-            <local:StripResultsViewer DataContext="{Binding SelectedArchieveStripForViewing}"
-                                      IsVisible="{Binding Converter={x:Static ObjectConverters.IsNotNull}}"/>
-            
+            <StackPanel IsVisible="{Binding SelectedArchieveStripForViewing, Converter={x:Static ObjectConverters.IsNotNull}}" >
+                <local:StripResultsViewer DataContext="{Binding SelectedArchieveStripForViewing}"/>    
+            </StackPanel>
         </Grid>
         
         <ListBox Grid.Row="1" ItemsSource="{Binding ArchieveScans}">
@@ -40,6 +40,10 @@
                         <ListBox Grid.Column="1"
                                  IsVisible="{Binding Mode,Converter={StaticResource IfNotEqualConverter}, ConverterParameter={x:Static drive:MeasModes.CentralLine}}"
                                  ItemContainerTheme="{StaticResource SelectorListBoxItem}">
+                            <DockPanel>
+                                <TextBlock Classes="LStyle" Text="Номер скана"/>
+                                <TextBlock Classes="RStyle" Text="{Binding ScanNumber}"/>
+                            </DockPanel>
                             <DockPanel>
                                 <TextBlock Classes="LStyle" Text="Ширина полосы, мм"/>
                                 <TextBlock Classes="RStyle" Text="{Binding ActualWidth, StringFormat=f1}"/>

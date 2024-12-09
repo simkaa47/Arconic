@@ -2,7 +2,7 @@
 
 public class TimePoint
 {
-    public DateTime DateTime { get; set; }
+    public DateTime DateTime { get; init; }
     public float Thick { get; set; }
     
 }

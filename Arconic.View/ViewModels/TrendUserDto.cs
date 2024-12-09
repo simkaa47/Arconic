@@ -31,7 +31,8 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
     }
     
     public void ReInit(MeasModes mode = MeasModes.ForwRevers, float expectedWidth = 0, float expectedThick = 0,
-        float leftBorder = 0, float rightBorder = 0, float centralLine = 0)
+        float leftBorder = 0, float rightBorder = 0, float centralLine = 0, 
+        int scanNumber = 0)
     {
         Mode = mode;
         ExpectedWidth = expectedWidth;
@@ -39,6 +40,7 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
         LeftBorder = leftBorder;
         RightBorder = rightBorder;
         CentralLine = centralLine;
+        ScanNumber = scanNumber;
         lock (Sync)
         {
             if (Series is not null && Series.Length >= 2)
@@ -89,7 +91,7 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
         {
             if (Series is not null && Series.Length >= 1)
             {
-                Series[0].Values = thickPoints?.Select(p=> new ObservablePoint(p.Position, p.Thick))
+                Series[0].Values = thickPoints?.Select(p=> new ObservablePoint(p.Position, p.Thick)).ToList()
                                    ?? new List<ObservablePoint>();
             }
         }
@@ -126,6 +128,7 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
     public float MaxThick { get; private set; }
     public float StripDeviation { get; private set; }
     public float Klin { get; set; }
+    public int ScanNumber { get; private set; }
     public float Chechevitsa { get; private set; }
     public void AddDateTimeThick(ThickPoint? point)
     {
