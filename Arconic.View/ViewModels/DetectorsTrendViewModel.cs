@@ -115,7 +115,7 @@ public partial class DetectorsTrendViewModel : TrendBaseViewModel
                     Series[0].Values = _plc.Settings.DetectorsSettings.Diap0.Close.Select(v => v.Value).ToList();
                     break;
                 case DetectorsTrendMode.Emulations:
-                    Series[0].Values = _plc.Settings.DetectorsSettings.EmulationValues.Select(v => (float)v.Value);
+                    Series[0].Values = _plc.Settings.DetectorsSettings.EmulationValues.Select(v => (float)v.Value).ToList();
                     break;
             }
         }
