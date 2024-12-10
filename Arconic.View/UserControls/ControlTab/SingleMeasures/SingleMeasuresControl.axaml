@@ -40,10 +40,10 @@
                                           ItemsSource="{Binding SteelLabels, Mode=OneWay, UpdateSourceTrigger=LostFocus}"
                                           Margin="20,5,5,5"
                                           SelectedIndex="0"
+                                          MinWidth="200"
                                           SelectedItem="{Binding Plc.ControlAndIndication.MeasureIndicationAndControl.SingleMeasureIndication.SteelLabel.WriteValue}"
                                           DockPanel.Dock="Right"
-                                          HorizontalAlignment="Right"
-                                          Width="160">
+                                          HorizontalAlignment="Right">
                                     <i:Interaction.Behaviors>
                                         <ia:EventTriggerBehavior EventName="DropDownClosed">
                                             <ia:InvokeCommandAction
