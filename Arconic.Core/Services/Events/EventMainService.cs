@@ -55,6 +55,7 @@ public class EventMainService
         try
         {
             item.Date = DateTime.Now;
+            item.User = _accessService.CurrentUser;
             item.UserId = _accessService.CurrentUser?.Id;
             await _eventRepo.AddAsync(item);
             EventOccuredEvent?.Invoke(item);

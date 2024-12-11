@@ -37,10 +37,10 @@
         <steel:SteelMagazineControl Grid.Row="0" Grid.Column="1"
                                     DataContext="{Binding  SteelMagazineViewModel}"/>
         
-        <StackPanel Grid.Column="2" IsVisible="{Binding AccessViewModel.CurrentUser, 
+        <Grid Grid.Column="2" IsVisible="{Binding AccessViewModel.CurrentUser, 
             Converter={StaticResource UserAccessConverter}, ConverterParameter={x:Static acc:AccessLevel.Admin}}">
             <single:SingleMeasuresListControl DataContext="{Binding SingleMeasuresViewModel}"/>
-        </StackPanel>
+        </Grid>
         
         
     </Grid>
