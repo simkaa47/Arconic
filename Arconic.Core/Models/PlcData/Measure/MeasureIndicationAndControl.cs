@@ -34,7 +34,7 @@ public class MeasureIndicationAndControl
     public Parameter<float> Width { get; } =
         new Parameter<float>("Текущая ширина, мм", 0, float.MaxValue, DataType.DataBlock, 2, 7976);
     public Parameter<float> Speed { get; } =
-        new Parameter<float>("Текущая скорость, м/c", 0, float.MaxValue, DataType.DataBlock, 2, 7980);
+        new Parameter<float>("Текущая скорость, м/мин", 0, float.MaxValue, DataType.DataBlock, 2, 7980);
     public Parameter<float> Thick { get; } =
         new Parameter<float>("Текущая толщина, мкм", 0, float.MaxValue, DataType.DataBlock, 2, 7992);
     

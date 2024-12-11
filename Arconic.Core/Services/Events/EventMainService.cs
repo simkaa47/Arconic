@@ -1,4 +1,5 @@
 ﻿using Arconic.Core.Abstractions.DataAccess;
+using Arconic.Core.Models.AccessControl;
 using Arconic.Core.Models.Event;
 using Arconic.Core.Services.Access;
 
@@ -55,9 +56,14 @@ public class EventMainService
         try
         {
             item.Date = DateTime.Now;
-            item.User = _accessService.CurrentUser;
-            item.UserId = _accessService.CurrentUser?.Id;
+            
+            if (_accessService.CurrentUser is not null && _accessService.CurrentUser.Id > 0)
+            {
+                item.UserId = _accessService.CurrentUser?.Id;
+            }
+            
             await _eventRepo.AddAsync(item);
+            item.User = _accessService.CurrentUser;
             EventOccuredEvent?.Invoke(item);
         }
         catch (Exception e)
