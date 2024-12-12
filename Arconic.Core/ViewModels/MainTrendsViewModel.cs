@@ -164,7 +164,7 @@ public partial class MainTrendsViewModel:ObservableObject
             && Plc.Settings.DriveSettings.MeasMode.Value != (short)MeasModes.CentralLine 
             && ActualStrip is not null)
         {
-            if (Plc.ControlAndIndication.MeasureIndicationAndControl.ScanNumber.Value > 1)
+            if (Plc.ControlAndIndication.MeasureIndicationAndControl.ScanNumber.Value > 0)
             {
                 var plcLastScan = Plc.ControlAndIndication.MeasureIndicationAndControl.PreviousScan;
                 var lastScan = ActualStrip.Scans.LastOrDefault();
