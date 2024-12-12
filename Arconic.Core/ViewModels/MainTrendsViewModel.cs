@@ -160,7 +160,6 @@ public partial class MainTrendsViewModel:ObservableObject
 
     private  void OnScanNumberChanged(object? sender, PropertyChangedEventArgs args)
     {
-        NeedToDoOnScanCompleted?.Invoke();
         if (args.PropertyName == "Value" 
             && Plc.Settings.DriveSettings.MeasMode.Value != (short)MeasModes.CentralLine 
             && ActualStrip is not null)
@@ -213,6 +212,7 @@ public partial class MainTrendsViewModel:ObservableObject
     private async void OnPlcScanCompleted()
     {
         PutIntoParkingMeasure();
+        NeedToDoOnScanCompleted?.Invoke();
         
         if (Plc.ControlAndIndication.PlcEventsData.StripStart.Value && 
             Plc.ControlAndIndication.MeasureIndicationAndControl.StripUnderFlag.Value)

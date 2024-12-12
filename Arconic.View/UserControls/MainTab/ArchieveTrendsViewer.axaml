@@ -87,7 +87,7 @@
                                                Text="Текущий скан"
                                                ></TextBlock>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal">
+                                <!--<StackPanel Orientation="Horizontal">
                                     <Rectangle Height="20" Width="20"
                                                Fill="Orange"
                                     ></Rectangle>
@@ -95,7 +95,7 @@
                                                Margin="5"
                                                Text="Средний скан"
                                     ></TextBlock>
-                                </StackPanel>
+                                </StackPanel>-->
                             </StackPanel>
                             
                             

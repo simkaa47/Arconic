@@ -267,6 +267,7 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
             };
         }
         SetSections();
+        ZoomOut();
     }
 
     [ObservableProperty]

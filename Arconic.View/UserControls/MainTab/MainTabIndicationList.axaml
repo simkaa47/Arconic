@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             xmlns:drive="using:Arconic.Core.Models.PlcData.Drive"
              xmlns:plc="using:Arconic.Core.Models.PlcData"
              x:DataType="plc:Plc"
              x:Class="Arconic.View.UserControls.MainTab.MainTabIndicationList">
@@ -40,14 +41,15 @@
                        Classes="Right"/>
         </DockPanel>
         <!--Текущая ширина, мм-->
-        <DockPanel>
+        <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value, 
+        Converter={StaticResource IfNotEqualConverter}, ConverterParameter={x:Static drive:MeasModes.CentralLine}}">
             <TextBlock Text="Текущая ширина полосы, мм" Classes="Left"/>
             <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Width.Value, StringFormat=f3}" 
                        Classes="Right"/>
         </DockPanel>
         <!--Скорость полосы, м/c-->
         <DockPanel>
-            <TextBlock Text="Скорость полосы, м/c" Classes="Left"/>
+            <TextBlock Text="Скорость полосы, м/мин" Classes="Left"/>
             <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Speed.Value, StringFormat=f3}" 
                        Classes="Right"/>
         </DockPanel>
@@ -58,25 +60,29 @@
                        Classes="Right"/>
         </DockPanel>
         <!--Положение каретки от левого края полосы, мм-->
-        <DockPanel>
+        <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value, 
+        Converter={StaticResource IfNotEqualConverter}, ConverterParameter={x:Static drive:MeasModes.CentralLine}}">
             <TextBlock Text="Положение каретки от левого края полосы, мм" Classes="Left"/>
             <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.CaretPosition.Value, StringFormat=f3}" 
                        Classes="Right"/>
         </DockPanel>
         <!--Клин, мкм-->
-        <DockPanel>
+        <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value, 
+        Converter={StaticResource IfNotEqualConverter}, ConverterParameter={x:Static drive:MeasModes.CentralLine}}">
             <TextBlock Text="Клин, мкм" Classes="Left"/>
             <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Klin.Value, StringFormat=f3}" 
                        Classes="Right"/>
         </DockPanel>
         <!--Чечевица, мкм-->
-        <DockPanel>
+        <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value, 
+        Converter={StaticResource IfNotEqualConverter}, ConverterParameter={x:Static drive:MeasModes.CentralLine}}">
             <TextBlock Text="Чечевица, мкм" Classes="Left"/>
             <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Chechevitsa.Value, StringFormat=f3}" 
                        Classes="Right"/>
         </DockPanel>
         <!--Номер скана-->
-        <DockPanel>
+        <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value, 
+        Converter={StaticResource IfNotEqualConverter}, ConverterParameter={x:Static drive:MeasModes.CentralLine}}">
             <TextBlock Text="Номер скана" Classes="Left"/>
             <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.ScanNumber.Value}" 
                        Classes="Right"/>

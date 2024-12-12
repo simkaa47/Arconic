@@ -137,7 +137,7 @@ public class TrendsService(ArconicDbContext dbContext,
                     klin: klin,
                     chechevitsa: chechevitsa);
                scanInfo.SetActualScan(s.ThickPoints);
-               scanInfo.SetPreviousScan(source.AverageScan);
+               //scanInfo.SetPreviousScan(source.AverageScan);
                 return scanInfo;
             }).ToList();
         }
