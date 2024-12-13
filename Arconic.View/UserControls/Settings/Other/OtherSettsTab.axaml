@@ -98,6 +98,8 @@
                         DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.AoThickDeviationVoltage}"/>
                 </ListBox>
             </StackPanel>
+            <DataGrid ItemsSource="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.BoolValues}"
+                      Template="{StaticResource BoolSensorTemplate}"/>
         </WrapPanel>
          
     </Grid>

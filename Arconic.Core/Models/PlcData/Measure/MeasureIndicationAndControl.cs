@@ -71,6 +71,21 @@ public class MeasureIndicationAndControl
         new Parameter<short>("Значение АЦП", short.MinValue, short.MaxValue, DataType.DataBlock, 2, 8030){IsReadOnly = true};
     
     public Parameter<float> AoThickDeviationVoltage { get; } =
-        new Parameter<float>("Напряжение аналогового выхода, В", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 8032){IsReadOnly = true};
+        new Parameter<float>("Напряжение аналогового выхода, В", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 8032)
+            {IsReadOnly = true};
+
+    public List<BoolSensorInfo> BoolValues { get; } =
+    [
+        // Управление и индикация сигнала "Металл в клети"
+        new BoolSensorInfo(
+        "Металл в клети",
+        new Parameter<bool>("Дискретный вход 'Металл в клети'", false, true, DataType.Input, 0, 1),
+        new Parameter<bool>("Значение эмуляции сигнала 'Металл в клети'", false, true, DataType.DataBlock, 2, 1501),
+        new Parameter<bool>("Эмуляция сигнала 'Металл в клети'", false, true, DataType.DataBlock, 2, 1500, 7),
+        new Parameter<bool>("Результат сигнала 'Металл в клети'", false, true, DataType.DataBlock, 2, 1502, 4))
+    ];
     
+    
+   
+
 }
