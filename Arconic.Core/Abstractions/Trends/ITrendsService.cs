@@ -6,6 +6,7 @@ public interface ITrendsService
 {
     public Task<bool> StripExist(Strip? strip);
     public Task AddPointToStrip(ThickPoint point, long stripId);
+    public Task AddScanToStrip(Scan scan, long stripId);
     public Task SaveStripAsync(Strip? strip);
     public Task AddStripAsync(Strip? strip);
     public void RecalculateScan(Scan scan, Strip parent);

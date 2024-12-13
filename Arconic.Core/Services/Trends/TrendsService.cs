@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Arconic.Core.Abstractions.DataAccess;
 using Arconic.Core.Abstractions.Trends;
 using Arconic.Core.Infrastructure.DataContext.Data;
 using Arconic.Core.Models.PlcData.Drive;
@@ -10,14 +11,15 @@ using Microsoft.Extensions.Logging;
 
 namespace Arconic.Core.Services.Trends;
 
-public class TrendsService(ArconicDbContext dbContext, 
-    ILogger<TrendsService> logger, 
-    IServiceProvider serviceProvider) : ITrendsService
+public class TrendsService(ILogger<TrendsService> logger, 
+    IServiceScopeFactory scopeFactory) : ITrendsService
 {
     
 
     public async Task<bool> StripExist(Strip? strip)
     {
+        using var scope = scopeFactory.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ArconicDbContext>();
         if (strip is null) return false;
         try
         {
@@ -32,6 +34,8 @@ public class TrendsService(ArconicDbContext dbContext,
 
     public async Task AddPointToStrip(ThickPoint point, long stripId)
     {
+        using var scope = scopeFactory.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ArconicDbContext>();
         try
         {
             point.StripId = stripId;
@@ -44,8 +48,27 @@ public class TrendsService(ArconicDbContext dbContext,
         }
     }
 
+    public async Task AddScanToStrip(Scan scan, long stripId)
+    {
+        using var scope = scopeFactory.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ArconicDbContext>();
+        if(stripId<=0)return;
+        try
+        {
+            scan.StripId = stripId;
+            await dbContext.Scans.AddAsync(scan);
+            await dbContext.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, $"Ошибка при добавлении скана в данные полосы с ID = {stripId}");
+        }
+    }
+
     public async Task SaveStripAsync(Strip? strip)
     {
+        using var scope = scopeFactory.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ArconicDbContext>();
         if (strip is null) return;
         try
         {
@@ -60,6 +83,8 @@ public class TrendsService(ArconicDbContext dbContext,
 
     public async Task AddStripAsync(Strip? strip)
     {
+        using var scope = scopeFactory.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ArconicDbContext>();
         if (strip is null) return;
         try
         {
@@ -91,8 +116,8 @@ public class TrendsService(ArconicDbContext dbContext,
 
     public List<ITrendUserDto>? GetScansFromStrip(Strip source)
     {
-        var dto = serviceProvider.GetService<ITrendUserDto>();
-        if(dto is null) return null;
+        using var scope = scopeFactory.CreateScope();
+        var dto = scope.ServiceProvider.GetRequiredService<ITrendUserDto>();
         dto.ReInit(mode:source.MeasMode, 
             centralLine:source.CentralLinePosition,
             expectedThick:source.ExpectedThick, 
@@ -108,7 +133,7 @@ public class TrendsService(ArconicDbContext dbContext,
         {
             ITrendUserDto? scanInfo = null;
             return source.Scans.Where(s=>s.ThickPoints.Count>0)
-                .Where(s=> (scanInfo = serviceProvider.GetService<ITrendUserDto>()) is not null)
+                .Where(s=> (scanInfo = scope.ServiceProvider.GetService<ITrendUserDto>()) is not null)
                 .Select(s =>
             {
                 scanInfo!.ReInit(mode:source.MeasMode, 
@@ -146,6 +171,8 @@ public class TrendsService(ArconicDbContext dbContext,
 
     public async Task<Strip?> GetExtendedStrip(long stripId)
     {
+        using var scope = scopeFactory.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ArconicDbContext>();
         try
         {
             var strip =  await dbContext.Strips
@@ -167,6 +194,8 @@ public class TrendsService(ArconicDbContext dbContext,
 
     public async Task<List<Strip>?> GetArchieveStrips(DateTime start, DateTime end)
     {
+        using var scope = scopeFactory.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ArconicDbContext>();
         try
         {
             return await dbContext.Strips

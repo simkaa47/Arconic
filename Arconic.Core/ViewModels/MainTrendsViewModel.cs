@@ -131,7 +131,6 @@ public partial class MainTrendsViewModel:ObservableObject
     {
         if (args.PropertyName != "Value") return;
         if (!Plc.ControlAndIndication.PlcEventsData.StripStart.Value) return;
-        ReInitActualTrend();
         NeedToDoOnScanCompleted += ReInitActualTrend;
     }
 
@@ -158,7 +157,7 @@ public partial class MainTrendsViewModel:ObservableObject
     }
 
 
-    private  void OnScanNumberChanged(object? sender, PropertyChangedEventArgs args)
+    private async void OnScanNumberChanged(object? sender, PropertyChangedEventArgs args)
     {
         if (args.PropertyName == "Value" 
             && Plc.Settings.DriveSettings.MeasMode.Value != (short)MeasModes.CentralLine 
@@ -184,7 +183,7 @@ public partial class MainTrendsViewModel:ObservableObject
                     ActualTrend.SetPreviousScan(ActualStrip.Scans[lastIndex].ThickPoints);
                     ActualTrend.ClearActualScan();
                     ActualStrip.Scans.Add(new Scan());
-                    AddStripToDbAsync();
+                    await _trendsService.AddScanToStrip(lastScan, ActualStrip.Id);
                 }
                 
             }

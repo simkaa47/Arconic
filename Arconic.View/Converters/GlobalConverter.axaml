@@ -7,6 +7,7 @@
     <conv:IfEqualConverter x:Key="IfEqualConverter"/>
     <conv:IfNotEqualConverter x:Key="IfNotEqualConverter"/>
     <conv:GetEventColor x:Key="GetEventColor"/>
+    <conv:GetEventVisibilityConverter x:Key="GetEventVisibilityConverter"/>
     <conv:UserAccessConverter x:Key="UserAccessConverter"/>
     <conv:GetByIndexFromParameterConverter x:Key="GetByIndexFromParameterConverter"/>
     <conv:MultiplyOnNumberConverter x:Key="MultiplyOnNumberConverter"/>

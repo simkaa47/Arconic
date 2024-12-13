@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="using:Arconic.View.ViewModels"
+             xmlns:vmc="using:Arconic.Core.ViewModels"
+             xmlns:beh="using:Arconic.View.Behaviors"
              xmlns:e="using:Arconic.Core.Models.Event"
              xmlns:dt="using:Arconic.View.UserControls.CommonControls.DateTimePicker"
              x:DataType="vm:EventsViewModel"
@@ -24,13 +26,23 @@
                       Source="{Binding EventsSource}">
             <TreeDataGrid.Styles>
                 <Style Selector="TreeDataGridRow" x:DataType="e:EventHistoryItem">
+                   
                     <Setter Property="Background" Value="{Binding Converter={StaticResource GetEventColor}}"/>
+                    <Setter Property="MaxHeight">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource GetEventVisibilityConverter}">
+                                <Binding/>
+                                <Binding Path="$parent[Window].((vmc:MainViewModel)DataContext).AccessViewModel.CurrentUser" FallbackValue="{x:Null}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
                     <Setter Property="Margin" Value="2"></Setter>
                     <Setter Property="Template">
                         <ControlTemplate TargetType="TreeDataGridRow">
                             <Grid>
                                 <Border Margin="{TemplateBinding Margin}"
                                         MinHeight="40"
+                                        IsVisible="{TemplateBinding IsVisible}"
                                         HorizontalAlignment="Stretch"
                                         Background="{TemplateBinding Background}">
                                     <TreeDataGridCellsPresenter ElementFactory="{TemplateBinding ElementFactory}"

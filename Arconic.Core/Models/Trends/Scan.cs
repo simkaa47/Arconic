@@ -9,7 +9,7 @@ public partial class Scan:Entity
     public float Width { get; set; }
     public float Klin { get; set; } 
     public float Chechewitsa { get; set; }
-    public long StripId { get; init; }
+    public long StripId { get; set; }
     public Strip? Strip { get; init; }
     public float CentralLineDeviation { get; set; }
     public int ScanNumber { get; set; }
