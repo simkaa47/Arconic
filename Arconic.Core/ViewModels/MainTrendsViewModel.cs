@@ -51,6 +51,17 @@ public partial class MainTrendsViewModel:ObservableObject
     private DateTime _endArchieveTime = DateTime.Now;
     [ObservableProperty]
     private List<ITrendUserDto>? _archieveScans;
+    [ObservableProperty]
+    private ITrendUserDto? _currentArchieveScan;
+    private int _archieveScanIndex = 0;
+    [ObservableProperty]
+    private bool _showPrevScanEnabled;
+    [ObservableProperty]
+    private bool _showNextScanEnabled;
+    [ObservableProperty]
+    private bool _isArchieveScanLoading;
+    
+    
 
     private Strip? _selectedArchieveStrip;
     [ObservableProperty]
@@ -62,15 +73,24 @@ public partial class MainTrendsViewModel:ObservableObject
         {
             if (SetProperty(ref _selectedArchieveStrip, value) && SelectedArchieveStrip is not null)
             {
-                UpdateSelectedArchieveStrip(SelectedArchieveStrip.Id);
+                Task.Run(() =>
+                {
+                    UpdateSelectedArchieveStrip(SelectedArchieveStrip.Id);
+                });
+
             }
         }
     }
 
     private async void UpdateSelectedArchieveStrip(long id)
     {
+        IsArchieveScanLoading = true;
         SelectedArchieveStripForViewing = await _trendsService.GetExtendedStrip(id);
         ArchieveScans = SelectedArchieveStripForViewing != null ?  _trendsService.GetScansFromStrip(SelectedArchieveStripForViewing) : null;
+        CurrentArchieveScan = ArchieveScans?.FirstOrDefault();
+        _archieveScanIndex = 0;
+        EnableChangeScanNumber();
+        IsArchieveScanLoading = false;
     }
 
     private  void Init()
@@ -259,5 +279,47 @@ public partial class MainTrendsViewModel:ObservableObject
     {
         ArchieveStrips = await _trendsService.GetArchieveStrips(StartArchieveTime, EndArchieveTime);
     }
-    
+    [RelayCommand]
+    private async Task ShowNextArchieveScanAsync()
+    {
+        if (ShowNextScanEnabled)
+        {
+            IsArchieveScanLoading = true;
+            await Task.Run(() =>
+            {
+                CurrentArchieveScan = ArchieveScans?[++_archieveScanIndex] ?? null;
+            });
+        }
+        IsArchieveScanLoading = false;
+        EnableChangeScanNumber();
+    }
+    [RelayCommand]
+    private async Task ShowPreviousArchieveScanAsync()
+    {
+        
+        if (ShowNextScanEnabled)
+        {
+            IsArchieveScanLoading = true;
+            await Task.Run(() =>
+            {
+                CurrentArchieveScan = ArchieveScans?[--_archieveScanIndex] ?? null;
+            });
+        }
+        EnableChangeScanNumber();
+        IsArchieveScanLoading = false;
+    }
+
+    private void EnableChangeScanNumber()
+    {
+        if (ArchieveScans is null || ArchieveScans.Count == 0)
+        {
+            ShowNextScanEnabled = false;
+            ShowPrevScanEnabled = false;
+        }
+        else
+        {
+            ShowPrevScanEnabled = _archieveScanIndex > 0;
+            ShowNextScanEnabled = _archieveScanIndex < ArchieveScans.Count - 1;
+        }
+    }
 }

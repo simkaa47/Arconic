@@ -4,13 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:li="using:LoadingIndicators.Avalonia"
              xmlns:dt="using:Arconic.View.UserControls.CommonControls.DateTimePicker"
              xmlns:local="using:Arconic.View.UserControls.MainTab"
              x:DataType="vm:MainTrendsViewModel"
              x:Class="Arconic.View.UserControls.MainTab.ArchieveThendsControl">
     <Grid ColumnDefinitions="*,300">
         <!--Тренды-->
-        <local:ArchieveTrendsViewer IsVisible="{Binding SelectedArchieveStripForViewing, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+        <li:LoadingIndicator IsActive="{Binding IsArchieveScanLoading}"
+                             IsVisible="{Binding IsArchieveScanLoading}"
+                             Mode="ArcsRing"
+                             Background="Transparent"
+                             ></li:LoadingIndicator>
+        <local:ArchieveTrendsViewer Grid.Column="0" >
+            <local:ArchieveTrendsViewer.IsVisible>
+                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <Binding Path="!IsArchieveScanLoading"/>
+                    <Binding Path="SelectedArchieveStripForViewing" Converter="{x:Static ObjectConverters.IsNotNull}"/>
+                </MultiBinding>
+            </local:ArchieveTrendsViewer.IsVisible>
+        </local:ArchieveTrendsViewer>
+        
         <!--Выбор трендов по дате-->
         <Grid Grid.Column="1" RowDefinitions="Auto,*">
             <Border

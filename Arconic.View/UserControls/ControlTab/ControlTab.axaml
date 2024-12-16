@@ -41,7 +41,5 @@
             Converter={StaticResource UserAccessConverter}, ConverterParameter={x:Static acc:AccessLevel.Admin}}">
             <single:SingleMeasuresListControl DataContext="{Binding SingleMeasuresViewModel}"/>
         </Grid>
-        
-        
     </Grid>
 </UserControl>

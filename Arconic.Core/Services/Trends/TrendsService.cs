@@ -187,7 +187,7 @@ public class TrendsService(ILogger<TrendsService> logger,
         }
         catch (Exception e)
         {
-            logger.LogError(e, $"Ошибка при хагрузке из базы данных данных полосы с ID = {stripId}");
+            logger.LogError(e, $"Ошибка при загрузке из базы данных данных полосы с ID = {stripId}");
         }
         return null;
     }
@@ -236,7 +236,7 @@ public class TrendsService(ILogger<TrendsService> logger,
                 .Where(s => s.ThickPoints.Count > 2)
                 .Select(s => Math.Abs(s.ThickPoints.Last().Position - s.ThickPoints[0].Position))
                 .Average();
-            strip.AverageScan = GetAverageScan(strip);
+            //strip.AverageScan = GetAverageScan(strip);
             if (strip.AverageScan.Count > 3)
             {
                 var centralIndex = strip.AverageScan.Count / 2;

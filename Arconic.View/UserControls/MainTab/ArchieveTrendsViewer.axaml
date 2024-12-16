@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="using:Arconic.Core.ViewModels"
              xmlns:drive="using:Arconic.Core.Models.PlcData.Drive"
-             xmlns:trend="using:Arconic.View.ViewModels"
+             xmlns:mat="using:Material.Icons.Avalonia"
              x:DataType="vm:MainTrendsViewModel"
              xmlns:local="using:Arconic.View.UserControls.MainTab"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -26,16 +26,19 @@
     </UserControl.Styles>
     <Grid RowDefinitions="Auto,*">
         <Grid RowDefinitions="*,Auto">
-            <local:StripResultsViewer DataContext="{Binding SelectedArchieveStripForViewing}"/> 
+            <local:StripResultsViewer 
+                DataContext="{Binding SelectedArchieveStripForViewing}"/> 
         </Grid>
         
-        <ListBox Grid.Row="1" ItemsSource="{Binding ArchieveScans}">
-            <ListBox.ItemTemplate>
-                <DataTemplate DataType="trend:TrendUserDto">
-                    <Grid ColumnDefinitions="*, Auto">
+        <Grid Grid.Row="1" ColumnDefinitions="*, Auto"
+              RowDefinitions="*,Auto"
+              DataContext="{Binding CurrentArchieveScan}">
                         <local:LiveChartsTrendTemplate MinHeight="400"
-                                                 Grid.Column="0"/>
-                        <ListBox Grid.Column="1"
+                                                       Grid.RowSpan="2"
+                                                       Grid.Column="0"/>
+                        
+                        <!--Информация о скане-->
+                        <ListBox Grid.Row="0" Grid.Column="1"
                                  IsVisible="{Binding Mode,Converter={StaticResource IfNotEqualConverter}, ConverterParameter={x:Static drive:MeasModes.CentralLine}}"
                                  ItemContainerTheme="{StaticResource SelectorListBoxItem}">
                             <DockPanel>
@@ -100,11 +103,51 @@
                             
                             
                         </ListBox>
-                    </Grid>
-                    
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-    </ListBox>
+                        
+                        <!--Кнопки навигации-->
+                        <Grid Grid.Column="1"
+                              IsVisible="{Binding Mode, 
+                              Converter={StaticResource IfNotEqualConverter}, 
+                              ConverterParameter={x:Static drive:MeasModes.CentralLine}}"
+                              ColumnDefinitions="*,*"
+                              Grid.Row="1">
+                            <Button Grid.Column="0"
+                                    Margin="5"
+                                    DataContext="{Binding $parent[UserControl].((vm:MainTrendsViewModel)DataContext), 
+                                    FallbackValue={x:Null}}"
+                                    Command="{Binding ShowPreviousArchieveScanCommand}"
+                                    HorizontalAlignment="Stretch"
+                                    Background="{StaticResource ButtonAccept}">
+                                <Button.IsEnabled>
+                                    <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                        <Binding  Path="ShowPrevScanEnabled"/>
+                                        <Binding Path="!IsArchieveScanLoading"/>
+                                    </MultiBinding>
+                                </Button.IsEnabled>
+                                <mat:MaterialIcon Kind="ArrowUp"
+                                                  Margin="10"
+                                                  Height="25"/>
+                            </Button>
+                            <Button Grid.Column="1"
+                                    Margin="5"
+                                    DataContext="{Binding $parent[UserControl].((vm:MainTrendsViewModel)DataContext), 
+                                    FallbackValue={x:Null}}"
+                                    Command="{Binding ShowNextArchieveScanCommand}"
+                                    HorizontalAlignment="Stretch"
+                                    Background="{StaticResource ButtonAccept}">
+                                <Button.IsEnabled>
+                                    <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                        <Binding  Path="ShowNextScanEnabled"/>
+                                        <Binding Path="!IsArchieveScanLoading"/>
+                                    </MultiBinding>
+                                </Button.IsEnabled>
+                                <mat:MaterialIcon Kind="ArrowDown"
+                                                  Margin="10"
+                                                  Height="25"/>
+                            </Button>
+                           
+                        </Grid>
+        </Grid>
     </Grid>
     
 </UserControl>
