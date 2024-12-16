@@ -13,7 +13,7 @@
               IsReadOnly="True">
         <DataGrid.Columns>
             <DataGridTextColumn Header="НАЗВАНИЕ" Binding="{Binding Name}"/>
-            <DataGridTemplateColumn Header="МАРКА СТАЛИ">
+            <DataGridTemplateColumn Header="МАРКА СПЛАВА">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate DataType="strips:StripInfo">
                         <common:NumericParameter
@@ -33,7 +33,7 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="ОЖИДАЕМАЯ ТОЛЩИНА" MaxWidth="120">
+            <DataGridTemplateColumn Header="ЗАДАНИЕ ТОЛЩИНЫ, МКМ" MaxWidth="120">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate DataType="strips:StripInfo">
                         <common:NumericParameter
@@ -43,7 +43,7 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="ОЖИДАЕМАЯ ШИРИНА" MaxWidth="160">
+            <DataGridTemplateColumn Header="ЗАДАНИЕ ШИРИНЫ, МКМ" MaxWidth="160">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate DataType="strips:StripInfo">
                         <common:NumericParameter
@@ -53,16 +53,10 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="ДОПОЛНИТЕЛЬНЫЙ К-Т" MaxWidth="160">
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate DataType="strips:StripInfo">
-                        <common:NumericParameter
-                            DataContext="{Binding AddCoeff}"
-                            DescriptionInvisible="True"
-                            ParamWidth="80"/>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
+            <DataGridTextColumn Header="ФАКТОР МАРКИ СПЛАВА" MaxWidth="160"
+                                Binding="{Binding K1.Value}"/>
+            <DataGridTextColumn Header="ФАКТОР ХИМСОСТАВА" MaxWidth="160"
+                                Binding="{Binding K2.Value}"/>
             <DataGridTemplateColumn Header="ВРЕМЯ И ДАТА">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate DataType="strips:StripInfo">

@@ -14,7 +14,6 @@ public class HighLevelData
 
     public List<StripInfo> Coils { get; } =
     [
-        new StripInfo(820, "Предыдущая полоса"),
         new StripInfo(1026, "Текущая полоса"),
         new StripInfo(1232, "Следующая полоса", true)
     ];

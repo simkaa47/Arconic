@@ -10,97 +10,114 @@
              xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
              x:Class="Arconic.View.UserControls.Settings.Other.OtherSettsTab">
     <Grid>
-        <WrapPanel>
-            <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}"
-                 VerticalAlignment="Top"
-                 Margin="20"
-                 HorizontalAlignment="Left">
-                <DockPanel>
-                    <!--Режим измерения-->
-                    <TextBlock Text="Режим измерения"></TextBlock>
-                    <ComboBox Height="40"
-                              ItemsSource="{StaticResource MeasModes}"
-                              Margin="20,5,5,5"
-                              SelectedIndex="{Binding PlcViewModel.Plc.Settings.DriveSettings.MeasMode.WriteValue}"
-                              DockPanel.Dock="Right"
-                              HorizontalAlignment="Right"
-                              Width="160">
-                        <i:Interaction.Behaviors>
-                            <ia:EventTriggerBehavior EventName="DropDownClosed">
-                                <ia:InvokeCommandAction Command="{Binding PlcViewModel.WriteParameterCommand}"
-                                                        CommandParameter="{Binding PlcViewModel.Plc.Settings.DriveSettings.MeasMode}"/>
-                            </ia:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                    </ComboBox>
-                </DockPanel>
-                <!--Время стандартизации (откр затвор)-->
-                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.StanOpenTime}"/>
-                <!--Время стандартизации (закр затвор)-->
-                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.StanCloseTime}"/>
-                <!--Время усреднения-->
-                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.AverageTime}"/>
-                <!--Период выдачи данных-->
-                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.SendDataToAsutpPeriod}"/>
-                <!--Время закрытия завтора-->
-                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.CloseGateTimeSv}"/>
-                <!--Температура полосы-->
-                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.TemperatureSv}"/>
-                <!--K1-->
-                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.K1}"/>
-                <!--K2-->
-                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.K2}"/>
-                <!--K3-->
-                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.K3}"/>
-                <!--K4-->
-                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.K4}"/>
-                <!--Время закрытия завтора-->
-                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.CloseGateTimeCv}"/>
-                <!--Время посл станд-ии-->
-                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.LastStandTime}"
-                                         ParamWidth="160"/>
-                <!--Температура последней стандартизации-->
-                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.LastStandTemperature}"
-                                         ParamWidth="160"/>
-                <!--Режим калибровки-->
-                <DockPanel>
-                    <TextBlock Text="Режим калибровки"></TextBlock>
-                    <common:ToggleSwitch CommandParameter="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.SbCalibration}"
-                                         State="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.SbCalibration.Value}"
-                                         Margin="5"
-                                         HorizontalAlignment="Right"/>
-                </DockPanel>
-            </ListBox> 
-            <StackPanel Margin="20">
-                <TextBlock Text="Аналоговый выход отклонения толщины"
-                           FontSize="24"
-                           Margin="20,0,0,0"></TextBlock>
+        <ScrollViewer>
+            <WrapPanel>
                 <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}"
                          VerticalAlignment="Top"
                          Margin="20"
                          HorizontalAlignment="Left">
-                   
-                    <!--Мин ацп-->
-                    <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.AoThickDeviationMinAdc}"/>
-                    <!--Макс ацп-->
-                    <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.AoThickDeviationMaxAdc}"/>
-                    <!--Мин значение-->
-                    <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.AoThickDeviationMinValue}"/>
-                    <!--Макс значение-->
-                    <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.AoThickDeviationMaxValue}"/>
-                    <!--Отклонение-->
-                    <common:NumericParameter 
-                        DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.ThickDeviation}"/>
-                    <!--АЦП-->
-                    <common:NumericParameter 
-                        DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.AoThickDeviationAdc}"/>
-                    <!--Напряжение-->
-                    <common:NumericParameter 
-                        DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.AoThickDeviationVoltage}"/>
+                    <DockPanel>
+                        <!--Режим измерения-->
+                        <TextBlock Text="Режим измерения"></TextBlock>
+                        <ComboBox Height="40"
+                                  ItemsSource="{StaticResource MeasModes}"
+                                  Margin="20,5,5,5"
+                                  SelectedIndex="{Binding PlcViewModel.Plc.Settings.DriveSettings.MeasMode.WriteValue}"
+                                  DockPanel.Dock="Right"
+                                  HorizontalAlignment="Right"
+                                  Width="160">
+                            <i:Interaction.Behaviors>
+                                <ia:EventTriggerBehavior EventName="DropDownClosed">
+                                    <ia:InvokeCommandAction Command="{Binding PlcViewModel.WriteParameterCommand}"
+                                                            CommandParameter="{Binding PlcViewModel.Plc.Settings.DriveSettings.MeasMode}" />
+                                </ia:EventTriggerBehavior>
+                            </i:Interaction.Behaviors>
+                        </ComboBox>
+                    </DockPanel>
+                    <!--Время стандартизации (откр затвор)-->
+                    <common:NumericParameter
+                        DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.StanOpenTime}" />
+                    <!--Время стандартизации (закр затвор)-->
+                    <common:NumericParameter
+                        DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.StanCloseTime}" />
+                    <!--Время усреднения-->
+                    <common:NumericParameter
+                        DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.AverageTime}" />
+                    <!--Период выдачи данных-->
+                    <common:NumericParameter
+                        DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.SendDataToAsutpPeriod}" />
+                    <!--Время закрытия завтора-->
+                    <common:NumericParameter
+                        DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.CloseGateTimeSv}" />
+                    <!--Температура полосы-->
+                    <common:NumericParameter
+                        DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.TemperatureSv}" />
+                    <!--K1-->
+                    <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.K1}" />
+                    <!--K2-->
+                    <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.K2}" />
+                    <!--K3-->
+                    <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.K3}" />
+                    <!--K4-->
+                    <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.K4}" />
+                    <!--Время закрытия завтора-->
+                    <common:NumericParameter
+                        DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.CloseGateTimeCv}" />
+                    <!--Время посл станд-ии-->
+                    <common:NumericParameter
+                        DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.LastStandTime}"
+                        ParamWidth="160" />
+                    <!--Температура последней стандартизации-->
+                    <common:NumericParameter
+                        DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.LastStandTemperature}"
+                        ParamWidth="160" />
+                    <!--Режим калибровки-->
+                    <DockPanel>
+                        <TextBlock Text="Режим калибровки"></TextBlock>
+                        <common:ToggleSwitch
+                            CommandParameter="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.SbCalibration}"
+                            State="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.SbCalibration.Value}"
+                            Margin="5"
+                            HorizontalAlignment="Right" />
+                    </DockPanel>
                 </ListBox>
-            </StackPanel>
-            <DataGrid ItemsSource="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.BoolValues}"
-                      Template="{StaticResource BoolSensorTemplate}"/>
-        </WrapPanel>
+                <StackPanel Margin="20">
+                    <TextBlock Text="Аналоговый выход отклонения толщины"
+                               FontSize="24"
+                               Margin="20,0,0,0">
+                    </TextBlock>
+                    <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}"
+                             VerticalAlignment="Top"
+                             Margin="20"
+                             HorizontalAlignment="Left">
+
+                        <!--Мин ацп-->
+                        <common:NumericParameter
+                            DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.AoThickDeviationMinAdc}" />
+                        <!--Макс ацп-->
+                        <common:NumericParameter
+                            DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.AoThickDeviationMaxAdc}" />
+                        <!--Мин значение-->
+                        <common:NumericParameter
+                            DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.AoThickDeviationMinValue}" />
+                        <!--Макс значение-->
+                        <common:NumericParameter
+                            DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.AoThickDeviationMaxValue}" />
+                        <!--Отклонение-->
+                        <common:NumericParameter
+                            DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.ThickDeviation}" />
+                        <!--АЦП-->
+                        <common:NumericParameter
+                            DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.AoThickDeviationAdc}" />
+                        <!--Напряжение-->
+                        <common:NumericParameter
+                            DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.AoThickDeviationVoltage}" />
+                    </ListBox>
+                </StackPanel>
+                <DataGrid
+                    ItemsSource="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.BoolValues}"
+                    Template="{StaticResource BoolSensorTemplate}" />
+            </WrapPanel></ScrollViewer>
          
     </Grid>
     

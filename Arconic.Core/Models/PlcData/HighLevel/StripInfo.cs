@@ -22,6 +22,10 @@ public class StripInfo(int offset, string name, bool isEdited = false)
         DataType.DataBlock, 2, offset+186, 0){IsReadOnly = !isEdited};
     public Parameter<float> ExpectedWidth{ get; } = new Parameter<float>("Ожидаемая ширина, мм", 0, float.MaxValue,
         DataType.DataBlock, 2, offset+190, 0){IsReadOnly = !isEdited};
+    public Parameter<float> K1{ get; } = new Parameter<float>("Фактор сплава", 0, float.MaxValue,
+        DataType.DataBlock, 2, offset+194, 0){IsReadOnly = !isEdited};
+    public Parameter<float> K2{ get; } = new Parameter<float>("Фактор химсостава", 0, float.MaxValue,
+        DataType.DataBlock, 2, offset+194, 0){IsReadOnly = !isEdited};
     public Parameter<float> AddCoeff { get; } = new Parameter<float>("Дполнительный мультипликативный к-т", 0, float.MaxValue,
         DataType.DataBlock, 2, offset+202, 0){IsReadOnly = !isEdited};
     

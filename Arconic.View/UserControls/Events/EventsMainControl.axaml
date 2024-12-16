@@ -36,10 +36,10 @@
                             </MultiBinding>
                         </Setter.Value>
                     </Setter>
-                    <Setter Property="Margin" Value="2"></Setter>
+                    <Setter Property="Margin" Value="0"></Setter>
                     <Setter Property="Template">
                         <ControlTemplate TargetType="TreeDataGridRow">
-                            <Grid>
+                            <Grid Margin="2">
                                 <Border Margin="{TemplateBinding Margin}"
                                         MinHeight="40"
                                         IsVisible="{TemplateBinding IsVisible}"

@@ -11,13 +11,16 @@
              xmlns:oth="using:Arconic.View.UserControls.Settings.Other"
              xmlns:cool="using:Arconic.View.UserControls.Settings.Cooling"
              xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:acc="using:Arconic.Core.Models.AccessControl"
              x:DataType="vm:MainViewModel"
              x:Class="Arconic.View.UserControls.Settings.SettingsMainControl">
     <TabControl TabStripPlacement="Left">
         <TabItem Header="БЛОК ИСТОЧНИКА">
             <bs:SourceMainControl DataContext="{Binding PlcViewModel}"></bs:SourceMainControl>
         </TabItem>
-        <TabItem Header="БЛОК ДЕТЕКТОРОВ">
+        <TabItem Header="БЛОК ДЕТЕКТОРОВ"
+                 IsVisible="{Binding AccessViewModel.CurrentUser, 
+            Converter={StaticResource UserAccessConverter}, ConverterParameter={x:Static acc:AccessLevel.Admin}}">
             <det:DetectorsMainControl DataContext="{Binding PlcViewModel}"></det:DetectorsMainControl>
         </TabItem>
         <TabItem Header="ОХЛАЖДЕНИЕ">

@@ -13,6 +13,16 @@
        <!--Konvels logo-->
        <Image Source="/Assets/Images/KONVELS_logo.png"
               Margin="10"></Image>
+       <!--Металл в клети-->
+       <DockPanel Grid.Column="1">
+           <common:ImageBitIndicator 
+               FalseStateImage="/Assets/Images/ind_err.png"
+               TrueStateImage="/Assets/Images/ind_ok.png"
+               Height="50" Width="50" DockPanel.Dock="Left"
+               State="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.BoolValues[0].Result.Value}"/>
+           <TextBlock Text="ПОЛОСА В КЛЕТИ" DockPanel.Dock="Right"
+                      VerticalAlignment="Center" Margin="20"/>
+       </DockPanel>
        <!--Индикатор связи с ПЛК-->
        <DockPanel Grid.Column="2">
            <common:ImageBitIndicator 
