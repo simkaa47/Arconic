@@ -25,7 +25,7 @@ public class StripInfo(int offset, string name, bool isEdited = false)
     public Parameter<float> K1{ get; } = new Parameter<float>("Фактор сплава", 0, float.MaxValue,
         DataType.DataBlock, 2, offset+194, 0){IsReadOnly = !isEdited};
     public Parameter<float> K2{ get; } = new Parameter<float>("Фактор химсостава", 0, float.MaxValue,
-        DataType.DataBlock, 2, offset+194, 0){IsReadOnly = !isEdited};
+        DataType.DataBlock, 2, offset+198, 0){IsReadOnly = !isEdited};
     public Parameter<float> AddCoeff { get; } = new Parameter<float>("Дполнительный мультипликативный к-т", 0, float.MaxValue,
         DataType.DataBlock, 2, offset+202, 0){IsReadOnly = !isEdited};
     

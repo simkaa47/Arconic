@@ -11,7 +11,7 @@ public class SteelMagazineItem(int dbNum, int offset, int index = 0)
             { Length = 26 };
 
     public Parameter<float> K1 { get; } =
-        new Parameter<float>("К-т марки стали 1", float.MinValue, float.MaxValue, DataType.DataBlock, dbNum, offset + 26);
+        new Parameter<float>("Фактор сплава", float.MinValue, float.MaxValue, DataType.DataBlock, dbNum, offset + 26);
     
     public Parameter<float> K2 { get; } =
         new Parameter<float>("К-т марки стали 2", float.MinValue, float.MaxValue, DataType.DataBlock, dbNum, offset + 30);

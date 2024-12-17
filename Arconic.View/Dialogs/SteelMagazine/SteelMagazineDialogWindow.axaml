@@ -24,9 +24,7 @@
                 <!--К-т 1-->
                 <common:NumericParameter 
                     DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.K1}"/>
-                <!--К-т 2-->
-                <common:NumericParameter 
-                    DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.K2}"/> 
+                 
                 <!--Si-->
                 <common:NumericParameter 
                     DataContext="{Binding ControlAndIndication.SteelMagazineIndication.Steel.Si}"/> 
