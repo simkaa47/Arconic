@@ -265,8 +265,26 @@ public partial class MainTrendsViewModel:ObservableObject
                     var lastScan = ActualStrip.Scans.LastOrDefault();
                     if (lastScan != null)
                     {
-                        lastScan.ThickPoints.Add(point);
-                        ActualTrend.AddPointToScan(point);
+                        if (lastScan.ThickPoints.Count == 0)
+                        {
+                            var plcPoints = Plc.ControlAndIndication.MeasureIndicationAndControl.ActualScan.Points;
+                            var plcPointNumber = Plc.ControlAndIndication.MeasureIndicationAndControl.ActualScan
+                                .PointsNumber.Value;
+                            
+                            lastScan.ThickPoints = plcPoints.Take(plcPointNumber)
+                                .Select(p=> new ThickPoint()
+                                {
+                                    Position = p.Position.Value,
+                                    Thick = p.Thick.Value
+                                }).ToList();
+                            ActualTrend.SetActualScan(lastScan.ThickPoints);
+                        }
+                        else
+                        {
+                            lastScan.ThickPoints.Add(point);
+                            ActualTrend.AddPointToScan(point);
+                        }
+                        
                     }
                 }
                 
