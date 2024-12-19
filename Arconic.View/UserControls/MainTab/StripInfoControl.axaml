@@ -67,6 +67,23 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="ФАКТОР ПЛОТНОСТИ" MaxWidth="160">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="strips:StripInfo">
+                        <common:NumericParameter
+                            DataContext="{Binding AddCoeff}"
+                            DescriptionInvisible="True"
+                            ParamWidth="80"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Планшетность">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="strips:StripInfo">
+                        <common:ToggleSwitch CommandParameter="{Binding WithPlanshet}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
             <DataGridTemplateColumn>
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate DataType="strips:StripInfo">

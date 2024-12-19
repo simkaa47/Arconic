@@ -5,6 +5,7 @@ namespace Arconic.Core.Models.PlcData.Measure;
 
 public class MeasureSettings
 {
+    public PlanshetSettings PlanshetSettings { get; } = new PlanshetSettings();
     public Parameter<ushort> StanOpenTime { get; } =
         new Parameter<ushort>("Время стандартизации при открытом затворе, мс.", 1000, 20000, DataType.DataBlock, 1, 1200);
     public Parameter<ushort> StanCloseTime { get; } =

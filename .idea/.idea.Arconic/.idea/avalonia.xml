@@ -69,6 +69,7 @@
         <entry key="Arconic.View/UserControls/Settings/DiagnBoards/DiagnBoardsTab.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Settings/Drive/DriveSettingsTab.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Settings/Other/OtherSettsTab.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/Settings/Other/PlanshetSettingsControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Settings/Safety/SafetyTab.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Settings/SettingsMainControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Settings/SourceUnit/GateSettingsControl.axaml" value="Arconic.View/Arconic.View.csproj" />

@@ -1,0 +1,50 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:mod="using:Arconic.Core.Models.PlcData.Measure"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             x:DataType="mod:PlanshetSettings"
+             x:Class="Arconic.View.UserControls.Settings.Other.PlanshetSettingsControl">
+        <Grid Margin="20"
+              RowDefinitions="Auto,*">
+                    <TextBlock Text="Настройки планшета"
+                               FontSize="24"
+                               Margin="20,0,0,0">
+                    </TextBlock>
+                    <ListBox Grid.Row="1" ItemContainerTheme="{StaticResource SelectorListBoxItem}"
+                             VerticalAlignment="Top"
+                             Margin="20"
+                             HorizontalAlignment="Stretch">
+
+                        <!--К-т-->
+                        <common:NumericParameter
+                            DataContext="{Binding K}" />
+                        <!--Толщина-->
+                        <common:NumericParameter
+                            DataContext="{Binding ThickSv}" />
+                        <common:NumericParameter DataContext="{Binding Si}"/>
+                        <common:NumericParameter DataContext="{Binding Fe}"/>
+                        <common:NumericParameter DataContext="{Binding Cu}"/>
+                        <common:NumericParameter DataContext="{Binding Mn}"/>
+                        <common:NumericParameter DataContext="{Binding Mg}"/>
+                        <common:NumericParameter DataContext="{Binding Cr}"/>
+                        <common:NumericParameter DataContext="{Binding Zn}"/>
+                        <common:NumericParameter DataContext="{Binding Ni}"/>
+                        <common:NumericParameter DataContext="{Binding Ti}"/>
+                        <common:NumericParameter DataContext="{Binding Be}"/>
+                        <common:NumericParameter DataContext="{Binding Ga}"/>
+                        <common:NumericParameter DataContext="{Binding Pb}"/>
+                        <common:NumericParameter DataContext="{Binding Cd}"/>
+                        <common:NumericParameter DataContext="{Binding Zr}"/>
+                        <common:NumericParameter DataContext="{Binding Li}"/>
+                        <common:NumericParameter DataContext="{Binding Na}"/>
+                        <common:NumericParameter DataContext="{Binding Co}"/>
+                        <common:NumericParameter DataContext="{Binding V}"/>
+                        <common:NumericParameter DataContext="{Binding As}"/>
+                        <common:NumericParameter DataContext="{Binding Sc}"/>
+                        <common:NumericParameter DataContext="{Binding Ce}"/>
+                    </ListBox>
+        </Grid>
+</UserControl>

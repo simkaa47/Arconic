@@ -4,18 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:local="using:Arconic.View.UserControls.Settings.Other"
              xmlns:common="using:Arconic.View.UserControls.CommonControls"
              x:DataType="vm:MainViewModel"
              xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
              xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
              x:Class="Arconic.View.UserControls.Settings.Other.OtherSettsTab">
-    <Grid>
-        <ScrollViewer>
-            <WrapPanel>
+    <Grid ColumnDefinitions="*,*">
+        <ScrollViewer Grid.Column="0">
+            <StackPanel>
                 <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}"
                          VerticalAlignment="Top"
                          Margin="20"
-                         HorizontalAlignment="Left">
+                         HorizontalAlignment="Stretch">
                     <DockPanel>
                         <!--Режим измерения-->
                         <TextBlock Text="Режим измерения"></TextBlock>
@@ -81,7 +82,9 @@
                             HorizontalAlignment="Right" />
                     </DockPanel>
                 </ListBox>
-                <StackPanel Margin="20">
+                
+                <!--Настройки аналогового выхода-->
+                <StackPanel Margin="0,20">
                     <TextBlock Text="Аналоговый выход отклонения толщины"
                                FontSize="24"
                                Margin="20,0,0,0">
@@ -89,7 +92,7 @@
                     <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}"
                              VerticalAlignment="Top"
                              Margin="20"
-                             HorizontalAlignment="Left">
+                             HorizontalAlignment="Stretch">
 
                         <!--Мин ацп-->
                         <common:NumericParameter
@@ -117,8 +120,10 @@
                 <DataGrid
                     ItemsSource="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.BoolValues}"
                     Template="{StaticResource BoolSensorTemplate}" />
-            </WrapPanel></ScrollViewer>
-         
+            </StackPanel>
+        </ScrollViewer>
+        <!--Натсройки планшетности-->
+        <local:PlanshetSettingsControl Grid.Column="1" DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.PlanshetSettings}"/>
     </Grid>
     
 </UserControl>

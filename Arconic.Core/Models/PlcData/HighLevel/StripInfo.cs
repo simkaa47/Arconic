@@ -28,6 +28,9 @@ public class StripInfo(int offset, string name, bool isEdited = false)
         DataType.DataBlock, 2, offset+198, 0){IsReadOnly = !isEdited};
     public Parameter<float> AddCoeff { get; } = new Parameter<float>("Дполнительный мультипликативный к-т", 0, float.MaxValue,
         DataType.DataBlock, 2, offset+202, 0){IsReadOnly = !isEdited};
+
+    public Parameter<bool> WithPlanshet { get; } =
+        new Parameter<bool>("Планшет", false, false, DataType.DataBlock, 2, offset + 180);
     
     public Parameter<float> Si { get; } =
         new Parameter<float>("Массовая доля Si, %", float.MinValue, float.MaxValue, DataType.DataBlock, 2, offset + 38);
