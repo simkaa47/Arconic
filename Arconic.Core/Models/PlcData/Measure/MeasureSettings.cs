@@ -33,12 +33,13 @@ public class MeasureSettings
     public Parameter<float> AoThickDeviationMaxValue { get; } = new Parameter<float>("Аналоговый выход отклонения толщины, макс. значение отклонения, мкм",
         float.MinValue, float.MaxValue, DataType.DataBlock, ParameterBase.SettingsDbNum, 1238);
     public Parameter<float> LastStandTemperature { get; } =
-        new Parameter<float>("Температура во время последней стандартизации, С", float.MinValue, float.MaxValue, DataType.DataBlock, ParameterBase.SettingsDbNum, 1242){IsReadOnly = true};
+        new Parameter<float>("Температура во время последней стандартизации, С", 
+            float.MinValue, float.MaxValue, DataType.DataBlock, ParameterBase.SettingsDbNum, 1242){IsReadOnly = true};
     
     public Parameter<float> K1 { get; } =
-        new Parameter<float>("K1", float.MinValue, float.MaxValue, DataType.DataBlock, ParameterBase.SettingsDbNum, 1246);
+        new Parameter<float>("К-т компенсации по температуре", float.MinValue, float.MaxValue, DataType.DataBlock, ParameterBase.SettingsDbNum, 1246);
     public Parameter<float> K2 { get; } =
-        new Parameter<float>("K2", float.MinValue, float.MaxValue, DataType.DataBlock, ParameterBase.SettingsDbNum, 1250);
+        new Parameter<float>("К-т постраивания под под тощиномер Thermo", float.MinValue, float.MaxValue, DataType.DataBlock, ParameterBase.SettingsDbNum, 1250);
     public Parameter<float> K3 { get; } =
         new Parameter<float>("K3", float.MinValue, float.MaxValue, DataType.DataBlock, ParameterBase.SettingsDbNum, 1254);
     public Parameter<float> K4 { get; } =
