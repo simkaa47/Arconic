@@ -196,9 +196,13 @@ public partial class MainTrendsViewModel:ObservableObject
                         .Select(p => new ThickPoint()
                         {
                             Position = p.Position.Value,
+                            Lendth = p.Length.Value,
                             Thick = p.Thick.Value
                         }).ToList();
                     _trendsService.RecalculateScan(lastScan, ActualStrip);
+                    lastScan.Klin = plcLastScan.Klin.Value;
+                    lastScan.Width = plcLastScan.Width.Value;
+                    lastScan.Chechewitsa = plcLastScan.Chehevitsa.Value;
                     var lastIndex = ActualStrip.Scans.Count - 1;
                     ActualTrend.SetPreviousScan(ActualStrip.Scans[lastIndex].ThickPoints);
                     ActualTrend.ClearActualScan();
@@ -232,15 +236,16 @@ public partial class MainTrendsViewModel:ObservableObject
     {
         PutIntoParkingMeasure();
         NeedToDoOnScanCompleted?.Invoke();
-        
         if (Plc.ControlAndIndication.PlcEventsData.StripStart.Value && 
             Plc.ControlAndIndication.MeasureIndicationAndControl.StripUnderFlag.Value)
         {
             var currDt = DateTime.Now;
-            if (ActualStrip is not null && currDt> _lastPointDateTime.AddMilliseconds(20)
+            if (ActualStrip is not null 
                 && Plc.ControlAndIndication.MeasureIndicationAndControl.StripUnderFlag.Value
                 && Plc.ControlAndIndication.MeasureIndicationAndControl.Thick.Value>0)
             {
+                var delay = ActualStrip.MeasMode == MeasModes.CentralLine ? 50 : 333;
+                if (currDt < _lastPointDateTime.AddMilliseconds(delay)) return;
                 _lastPointDateTime = currDt;
                 var point = new ThickPoint()
                 {
@@ -265,26 +270,17 @@ public partial class MainTrendsViewModel:ObservableObject
                     var lastScan = ActualStrip.Scans.LastOrDefault();
                     if (lastScan != null)
                     {
-                        if (lastScan.ThickPoints.Count == 0)
-                        {
-                            var plcPoints = Plc.ControlAndIndication.MeasureIndicationAndControl.ActualScan.Points;
-                            var plcPointNumber = Plc.ControlAndIndication.MeasureIndicationAndControl.ActualScan
-                                .PointsNumber.Value;
+                        var plcPoints = Plc.ControlAndIndication.MeasureIndicationAndControl.ActualScan.Points;
+                        var plcPointNumber = Plc.ControlAndIndication.MeasureIndicationAndControl.ActualScan
+                            .PointsNumber.Value;
                             
-                            lastScan.ThickPoints = plcPoints.Take(plcPointNumber)
-                                .Select(p=> new ThickPoint()
-                                {
-                                    Position = p.Position.Value,
-                                    Thick = p.Thick.Value
-                                }).ToList();
-                            ActualTrend.SetActualScan(lastScan.ThickPoints);
-                        }
-                        else
-                        {
-                            lastScan.ThickPoints.Add(point);
-                            ActualTrend.AddPointToScan(point);
-                        }
-                        
+                        lastScan.ThickPoints = plcPoints.Take(plcPointNumber)
+                            .Select(p=> new ThickPoint()
+                            {
+                                Position = p.Position.Value,
+                                Thick = p.Thick.Value
+                            }).ToList();
+                        ActualTrend.SetActualScan(lastScan.ThickPoints);
                     }
                 }
                 
@@ -315,7 +311,7 @@ public partial class MainTrendsViewModel:ObservableObject
     private async Task ShowPreviousArchieveScanAsync()
     {
         
-        if (ShowNextScanEnabled)
+        if (ShowPrevScanEnabled)
         {
             IsArchieveScanLoading = true;
             await Task.Run(() =>

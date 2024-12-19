@@ -14,7 +14,8 @@ namespace Arconic.Core.Services.Trends;
 public class TrendsService(ILogger<TrendsService> logger, 
     IServiceScopeFactory scopeFactory) : ITrendsService
 {
-    
+    private const float _stain = 50;
+    private const int _medianSize = 7;
 
     public async Task<bool> StripExist(Strip? strip)
     {
@@ -135,7 +136,8 @@ public class TrendsService(ILogger<TrendsService> logger,
             return source.Scans.Where(s=>s.ThickPoints.Count>0)
                 .Where(s=> (scanInfo = scope.ServiceProvider.GetService<ITrendUserDto>()) is not null)
                 .Select(s =>
-            {
+                {
+                    //s.ThickPoints = SmoothScan(s.ThickPoints);
                 scanInfo!.ReInit(mode:source.MeasMode, 
                     expectedThick:source.ExpectedThick, 
                     scanNumber:s.ScanNumber,
@@ -145,22 +147,14 @@ public class TrendsService(ILogger<TrendsService> logger,
                     rightBorder:source.CentralLinePosition + source.ExpectedWidth / 2);
                 var left = s.ThickPoints.Min(tp => tp.Position);
                 var right = s.ThickPoints.Max(tp => tp.Position);
-                var klin = 0.0f;
-                var chechevitsa = 0.0f;
-                if (s.ThickPoints.Count > 1)
-                {
-                    var preLastIndex = s.ThickPoints.Count - 2;
-                    var centralIndex = s.ThickPoints.Count / 2;
-                    klin = s.ThickPoints[1].Thick - s.ThickPoints[preLastIndex].Thick;
-                    chechevitsa = s.ThickPoints[centralIndex].Thick -
-                                  (s.ThickPoints[1].Thick + s.ThickPoints[preLastIndex].Thick) / 2;
-                }
+                
+               
                 scanInfo!.Recalculate(stripDeviation:(right + left) / 2 - source.CentralLinePosition,
                     maxThick:s.ThickPoints.Where(tp=>tp.Thick>0).Max(tp => tp.Thick),
                     minThick:s.ThickPoints.Where(tp=>tp.Thick>0).Min(tp => tp.Thick),
                     actualWidth:right - left,
-                    klin: klin,
-                    chechevitsa: chechevitsa);
+                    klin: s.Klin,
+                    chechevitsa: s.Chechewitsa);
                scanInfo.SetActualScan(s.ThickPoints);
                //scanInfo.SetPreviousScan(source.AverageScan);
                 return scanInfo;
@@ -290,6 +284,60 @@ public class TrendsService(ILogger<TrendsService> logger,
         
         
         return new List<ThickPoint>();
+        
+    }
+
+
+    private float GetMedFromArr(List<ThickPoint> points, int index)
+    {
+        var startIndex = 0;
+        var take = 0;
+        // if (dir)
+        // {
+        //     startIndex = Math.Min(0, index - _medianSize / 2);
+        //     take = Math.Min(_medianSize, points.Count - startIndex);
+        // }
+        // else
+        // {
+        //     var endIndex = Math.Min(points.Count-1, index + _medianSize / 2);
+        // }
+        
+        if((index - _medianSize/2)<0)
+            startIndex = 0;
+        else if((index+ _medianSize/2) > (points.Count-1))
+            startIndex = points.Count - _medianSize;
+        else
+        {
+            startIndex = index - _medianSize/2;
+        }
+        take = Math.Min(_medianSize, points.Count - startIndex);
+        
+        var orderedPoints = points.Skip(startIndex)
+            .Take(take)
+            .Select(p=>p.Thick)
+            .OrderBy(th=>th)
+            .ToList();
+        
+        return orderedPoints[orderedPoints.Count/2];
+    }
+
+    private List<ThickPoint> SmoothScan(List<ThickPoint> points)
+    {
+        var medScan =  Enumerable.Range(0, points.Count)
+            .Select(i => new ThickPoint() 
+                { Position = points[i].Position, 
+                    Thick = GetMedFromArr(points, i) 
+                })
+            .ToList();
+        
+        return Enumerable.Range(0, points.Count)
+            .Select(i => new ThickPoint() 
+            { Position = points[i].Position, 
+                Thick = medScan.Where(p=>p.Position >= medScan[i].Position - _stain && p.Position <= points[i].Position + _stain)
+                    .Select(p=> p.Thick)
+                    .Average()
+            })
+            .ToList();
     }
     
     

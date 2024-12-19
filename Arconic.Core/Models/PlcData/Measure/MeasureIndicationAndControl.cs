@@ -30,48 +30,48 @@ public class MeasureIndicationAndControl
     #endregion
 
     public Parameter<float> Length { get; } =
-        new Parameter<float>("Текущая длина, м", 0, float.MaxValue, DataType.DataBlock, 2, 7972);
+        new Parameter<float>("Текущая длина, м", 0, float.MaxValue, DataType.DataBlock, 2, 1540);
     public Parameter<float> Width { get; } =
-        new Parameter<float>("Текущая ширина, мм", 0, float.MaxValue, DataType.DataBlock, 2, 7976);
+        new Parameter<float>("Текущая ширина, мм", 0, float.MaxValue, DataType.DataBlock, 2, 1544);
     public Parameter<float> Speed { get; } =
-        new Parameter<float>("Текущая скорость, м/мин", 0, float.MaxValue, DataType.DataBlock, 2, 7980);
+        new Parameter<float>("Текущая скорость, м/мин", 0, float.MaxValue, DataType.DataBlock, 2, 1548);
     public Parameter<float> Thick { get; } =
-        new Parameter<float>("Текущая толщина, мкм", 0, float.MaxValue, DataType.DataBlock, 2, 7992);
+        new Parameter<float>("Текущая толщина, мкм", 0, float.MaxValue, DataType.DataBlock, 2, 1560);
     
     public Parameter<float> ArmThick { get; } =
-        new Parameter<float>("Текущая толщина, мкм", 0, float.MaxValue, DataType.DataBlock, 2, 8022);
+        new Parameter<float>("Текущая толщина, мкм", 0, float.MaxValue, DataType.DataBlock, 2, 1590);
     public Parameter<ushort> ScanNumber { get; } =
-        new Parameter<ushort>("Номер скана", 0, ushort.MaxValue, DataType.DataBlock, 2, 8000);
+        new Parameter<ushort>("Номер скана", 0, ushort.MaxValue, DataType.DataBlock, 2, 1568);
     
     public Parameter<float> CaretPosition { get; } =
-        new Parameter<float>("Положение каретки от левого края полосы, мм", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 8002);
+        new Parameter<float>("Положение каретки от левого края полосы, мм", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 1570);
     
     public Parameter<bool> StripUnderFlag { get; } =
         new Parameter<bool>("Полоса в измермтельном зазоре", false, true, DataType.DataBlock, 2, 1502, bitNum:0);
     
     public Parameter<short> MainStatuse { get; } =
-        new Parameter<short>("Статус прибора", 0, 20, DataType.DataBlock, 2, 8006);
+        new Parameter<short>("Статус прибора", 0, 20, DataType.DataBlock, 2, 1574);
     public Parameter<float> Klin { get; } =
-        new Parameter<float>("Клин, мкм", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 8008);
+        new Parameter<float>("Клин, мкм", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 1576);
     public Parameter<float> Chechevitsa { get; } =
-        new Parameter<float>("Клин, мкм", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 8012);
+        new Parameter<float>("Клин, мкм", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 1580);
 
-    public PlcScan PreviousScan { get; } = new PlcScan(1540);
-    public PlcScan ActualScan { get; } = new PlcScan(4756);
+    public PlcScan PreviousScan { get; } = new PlcScan(0);
+    public PlcScan ActualScan { get; } = new PlcScan(7224);
 
     public Parameter<ushort> CloseGateTimeCv { get; } = new Parameter<ushort>("Осталось времени до закрытия затвора, с",
-        0, ushort.MaxValue, DataType.DataBlock, ParameterBase.IndicationDbNum, 8020){IsReadOnly = true};
+        0, ushort.MaxValue, DataType.DataBlock, ParameterBase.IndicationDbNum, 1588){IsReadOnly = true};
 
     public SingleMeasureIndication SingleMeasureIndication { get; } = new SingleMeasureIndication();
     
     public Parameter<float> ThickDeviation { get; } =
-        new Parameter<float>("Отклонение толщины, мкм", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 8026){IsReadOnly = true};
+        new Parameter<float>("Отклонение толщины, мкм", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 1594){IsReadOnly = true};
     
     public Parameter<short> AoThickDeviationAdc { get; } =
-        new Parameter<short>("Значение АЦП", short.MinValue, short.MaxValue, DataType.DataBlock, 2, 8030){IsReadOnly = true};
+        new Parameter<short>("Значение АЦП", short.MinValue, short.MaxValue, DataType.DataBlock, 2, 1598){IsReadOnly = true};
     
     public Parameter<float> AoThickDeviationVoltage { get; } =
-        new Parameter<float>("Напряжение аналогового выхода, В", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 8032)
+        new Parameter<float>("Напряжение аналогового выхода, В", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 1600)
             {IsReadOnly = true};
 
     public List<BoolSensorInfo> BoolValues { get; } =

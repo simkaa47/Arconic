@@ -258,13 +258,13 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
                         new ObservablePoint(CentralLine-ExpectedWidth/2, ExpectedThick),
                         new ObservablePoint(CentralLine+ExpectedWidth/2, ExpectedThick),
                     ],
-                    IsVisibleAtLegend = false,
+                    IsVisibleAtLegend = true,
                     GeometryStroke = null,
                     GeometrySize = 0,
-                    Fill = null,
+                    Fill = new SolidColorPaint(SKColors.Lime.WithAlpha(64)),
                     LineSmoothness = 0,
                     ScalesYAt = 0,
-                    Stroke = new SolidColorPaint(SKColors.Transparent){StrokeThickness = 0}
+                    Stroke = new SolidColorPaint(SKColors.Transparent){StrokeThickness = 1}
                 },
             };
         }
@@ -363,7 +363,6 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
             Sections[1].Xj = CentralLine;
         }
         Sections[0].IsVisible = true;
-        Sections[0].Fill = new SolidColorPaint(SKColors.Lime.WithAlpha(64));
         Sections[0].ScalesXAt = 0;
     }
 
