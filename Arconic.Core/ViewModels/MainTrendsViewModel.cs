@@ -190,7 +190,7 @@ public partial class MainTrendsViewModel:ObservableObject
                 
                 if (lastScan is { ThickPoints.Count: > 5 })
                 {
-                    lastScan.ScanNumber = plcLastScan.ScanNumber.Value;
+                    lastScan.ScanNumber = plcLastScan.ScanNumber.Value+1;
                     lastScan.ThickPoints = plcLastScan.Points
                         .Take(plcLastScan.PointsNumber.Value)
                         .Select(p => new ThickPoint()
@@ -272,8 +272,8 @@ public partial class MainTrendsViewModel:ObservableObject
                     {
                         var plcPoints = Plc.ControlAndIndication.MeasureIndicationAndControl.ActualScan.Points;
                         var plcPointNumber = Plc.ControlAndIndication.MeasureIndicationAndControl.ActualScan
-                            .PointsNumber.Value;
-                            
+                            .PointsNumber.Value-4;
+                        if (plcPointNumber < 0) return;    
                         lastScan.ThickPoints = plcPoints.Take(plcPointNumber)
                             .Select(p=> new ThickPoint()
                             {

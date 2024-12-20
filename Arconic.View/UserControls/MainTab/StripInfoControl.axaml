@@ -80,7 +80,8 @@
             <DataGridTemplateColumn Header="Планшетность">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate DataType="strips:StripInfo">
-                        <common:ToggleSwitch CommandParameter="{Binding WithPlanshet}"/>
+                        <common:ToggleSwitch CommandParameter="{Binding WithPlanshet}"
+                                             State="{Binding WithPlanshet.Value}"/>
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>

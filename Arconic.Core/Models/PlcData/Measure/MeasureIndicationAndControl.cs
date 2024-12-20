@@ -54,7 +54,12 @@ public class MeasureIndicationAndControl
     public Parameter<float> Klin { get; } =
         new Parameter<float>("Клин, мкм", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 1576);
     public Parameter<float> Chechevitsa { get; } =
-        new Parameter<float>("Клин, мкм", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 1580);
+        new Parameter<float>("Клин, %", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 1580);
+    
+    public Parameter<float> KlinRelative { get; } =
+        new Parameter<float>("Клин, %", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 1616);
+    public Parameter<float> ChechevitsaRelative { get; } =
+        new Parameter<float>("Клин, мкм", float.MinValue, float.MaxValue, DataType.DataBlock, 2, 1620);
 
     public PlcScan PreviousScan { get; } = new PlcScan(0);
     public PlcScan ActualScan { get; } = new PlcScan(7224);
