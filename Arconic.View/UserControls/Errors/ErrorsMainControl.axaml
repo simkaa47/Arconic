@@ -67,8 +67,7 @@
 									BorderThickness="0"
 									Background="Red"
 									MinHeight="32">
-								<DataGridCellsPresenter Name="PART_CellsPresenter"
-                      Grid.Column="1"/>
+								<DataGridCellsPresenter Name="PART_CellsPresenter"/>
 							</Border>
 							
 						</ControlTemplate>

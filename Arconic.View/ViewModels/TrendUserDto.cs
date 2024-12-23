@@ -256,6 +256,7 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
                     IsVisible = true,
                     Values = [
                         new ObservablePoint(CentralLine-ExpectedWidth/2, ExpectedThick),
+                        new ObservablePoint(CentralLine, ExpectedThick-0.0001),
                         new ObservablePoint(CentralLine+ExpectedWidth/2, ExpectedThick),
                     ],
                     IsVisibleAtLegend = true,
@@ -263,7 +264,6 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
                     GeometrySize = 0,
                     Fill = new SolidColorPaint(SKColors.Lime.WithAlpha(64)),
                     LineSmoothness = 0,
-                    ScalesYAt = 0,
                     Stroke = new SolidColorPaint(SKColors.Transparent){StrokeThickness = 1}
                 },
             };
@@ -295,7 +295,7 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
     
     [ObservableProperty]
     private RectangularSection[] _sections = [
-        new RectangularSection
+        new()
         {
             Label = "Задание толщины, мкм",
             LabelPaint = new SolidColorPaint(SKColors.White),
@@ -307,7 +307,7 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
                 PathEffect = new DashEffect([6, 6])
             }
         },
-        new RectangularSection
+        new()
         {
             Label = "Позиция ЦЛ",
             LabelPaint = new SolidColorPaint(SKColors.White),

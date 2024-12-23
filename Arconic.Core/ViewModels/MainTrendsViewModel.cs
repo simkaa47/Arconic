@@ -16,26 +16,20 @@ public partial class MainTrendsViewModel:ObservableObject
 {
     private event Action? NeedToDoOnScanCompleted;
     
-    private readonly ILogger<MainTrendsViewModel> _logger;
-    private readonly IRepository<Strip> _stripRepository;
     private readonly MainPlcService _plcService;
     private readonly ITrendsService _trendsService;
-    public Plc Plc { get; set; }
+    public Plc Plc { get; }
     private DateTime _lastPointDateTime;
     [ObservableProperty]
     private ParkingMeasure? _parkingMeasure;
 
     public ITrendUserDto ActualTrend { get; }
-    public MainTrendsViewModel(ILogger<MainTrendsViewModel> logger, 
-        IRepository<Strip> stripRepository, 
-        ITrendUserDto actualTrend,
+    public MainTrendsViewModel(ITrendUserDto actualTrend,
         MainPlcService plcService,
         PlcViewModel plcViewModel, 
         ITrendsService trendsService)
     {
         ActualTrend = actualTrend;
-        _logger = logger;
-        _stripRepository = stripRepository;
         _plcService = plcService;
         _trendsService = trendsService;
         Plc = plcViewModel.Plc;

@@ -5,10 +5,25 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="using:Arconic.View.ViewModels"
              x:DataType="vm:TrendUserDto"
+             xmlns:drive="using:Arconic.Core.Models.PlcData.Drive"
              xmlns:mat="using:Material.Icons.Avalonia"
              xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
              x:Class="Arconic.View.UserControls.MainTab.LiveChartsTrendTemplate">
     <Grid>
+        <StackPanel Orientation="Horizontal"
+                    Margin="5"
+                    IsVisible="{Binding Mode, 
+                    Converter={StaticResource IfNotEqualConverter}, 
+                    ConverterParameter={x:Static drive:MeasModes.CentralLine}}"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Center">
+            <mat:MaterialIcon Kind="ArrowLeft"></mat:MaterialIcon>
+            <TextBlock Text="Сторона привода"
+                       Margin="0,0,20,0"></TextBlock>
+            <TextBlock Text="Сторона оператора"
+                       Margin="20,0,0,0"></TextBlock>
+            <mat:MaterialIcon Kind="ArrowRight"></mat:MaterialIcon>
+        </StackPanel>
         <lvc:CartesianChart EasingFunction="{x:Null}"
                             DrawMarginFrame="{Binding DrawMarginFrame}"
                             XAxes="{Binding XAxes}"
