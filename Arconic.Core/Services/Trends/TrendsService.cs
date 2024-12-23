@@ -194,6 +194,7 @@ public class TrendsService(ILogger<TrendsService> logger,
         {
             return await dbContext.Strips
                 .Where(s => s.StartTime >= start && s.StartTime <= end)
+                .Where(s=> s.MeasMode == MeasModes.CentralLine ? s.ThickPoints.Count>0 : s.Scans.Count>0)
                 .ToListAsync();
         }
         catch (Exception e)

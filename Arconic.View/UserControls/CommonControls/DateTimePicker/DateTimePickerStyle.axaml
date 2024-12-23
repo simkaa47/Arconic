@@ -1,5 +1,6 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:dt="using:Arconic.View.UserControls.CommonControls.DateTimePicker"
+        
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Padding="20">
@@ -8,7 +9,8 @@
     </Design.PreviewWith>
 
     <Style Selector="dt|DateTimePickerPresenter">
-        <Setter Property="Template">
+	    
+	    <Setter Property="Template">
 			<ControlTemplate>
 				<Grid ColumnDefinitions="Auto, Auto" RowDefinitions="Auto,40" Background="LightGray">
 					<Grid.Styles>
@@ -32,6 +34,7 @@
 							<Setter Property="Margin" Value="0,10,0,0"/>
 						</Style>
 						<Style Selector="Button" >
+							<Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
 							<Setter Property="HorizontalAlignment" Value="Center"/>
 							<Setter Property="VerticalAlignment"  Value="Center"/>
 							<Setter Property="BorderBrush" Value="Orange"/>
@@ -40,16 +43,16 @@
 					<Calendar SelectedDate="{TemplateBinding DateOnly, Mode=TwoWay}"
 							  BorderBrush="Gray" BorderThickness="1"/>
 					<Grid Grid.Row="0" Grid.Column="1" RowDefinitions="1*,1*,1*,1*,1*,1*">
-						<TextBlock Grid.Row="0" Text="Часы" />
+						<TextBlock Grid.Row="0" Text="Часы"  Foreground="Black"/>
 						<NumericUpDown Name="Hour" Grid.Row="1"  Minimum="0" Maximum="23" Value="{TemplateBinding Hour, Mode=TwoWay}"/>
-						<TextBlock Grid.Row="2"  Text="Минуты" />
+						<TextBlock Grid.Row="2"  Text="Минуты" Foreground="Black"/>
 						<NumericUpDown Name="Minute"  Grid.Row="3"  Minimum="0" Maximum="59" Value="{TemplateBinding Minute, Mode=TwoWay}"/>
-						<TextBlock Grid.Row="4"  Text="Секунды" />
+						<TextBlock Grid.Row="4"  Text="Секунды" Foreground="Black" />
 						<NumericUpDown Name="Second"  Grid.Row="5"  Minimum="0" Maximum="59" Value="{TemplateBinding Second, Mode=TwoWay}"/>
 					</Grid>
 					<Grid Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" ColumnDefinitions="1*, 1*">
-						<Button Grid.Column="0" Content="ОК" Name="BtnOK"/>
-						<Button Grid.Column="1" Content="Отмена" Name="BtnCancel"/>
+						<Button Grid.Column="0" Content="ОК" Name="BtnOK" Foreground="Black" MinWidth="80"/>
+						<Button Grid.Column="1" Content="Отмена" Name="BtnCancel" Foreground="Black" MinWidth="80"/>
 					</Grid>
 				</Grid>
 			</ControlTemplate>

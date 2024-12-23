@@ -3,6 +3,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
+using Avalonia.Styling;
 
 namespace Arconic.View.UserControls.CommonControls.DateTimePicker;
 
