@@ -177,14 +177,15 @@ public partial class MainTrendsViewModel:ObservableObject
             && Plc.Settings.DriveSettings.MeasMode.Value != (short)MeasModes.CentralLine 
             && ActualStrip is not null)
         {
-            if (Plc.ControlAndIndication.MeasureIndicationAndControl.ScanNumber.Value > 0)
+            var scanNum = Plc.ControlAndIndication.MeasureIndicationAndControl.ScanNumber.Value;
+            if (scanNum > 0)
             {
                 var plcLastScan = Plc.ControlAndIndication.MeasureIndicationAndControl.PreviousScan;
                 var lastScan = ActualStrip.Scans.LastOrDefault();
                 
-                if (lastScan is { ThickPoints.Count: > 5 })
+                if (lastScan is { ThickPoints.Count: > 5 } && scanNum>1)
                 {
-                    lastScan.ScanNumber = plcLastScan.ScanNumber.Value+1;
+                    lastScan.ScanNumber = plcLastScan.ScanNumber.Value;
                     lastScan.ThickPoints = plcLastScan.Points
                         .Take(plcLastScan.PointsNumber.Value)
                         .Select(p => new ThickPoint()
@@ -200,9 +201,9 @@ public partial class MainTrendsViewModel:ObservableObject
                     var lastIndex = ActualStrip.Scans.Count - 1;
                     ActualTrend.SetPreviousScan(ActualStrip.Scans[lastIndex].ThickPoints);
                     ActualTrend.ClearActualScan();
-                    ActualStrip.Scans.Add(new Scan());
                     await _trendsService.AddScanToStrip(lastScan, ActualStrip.Id);
                 }
+                ActualStrip.Scans.Add(new Scan());
                 
             }
         }
@@ -266,7 +267,7 @@ public partial class MainTrendsViewModel:ObservableObject
                     {
                         var plcPoints = Plc.ControlAndIndication.MeasureIndicationAndControl.ActualScan.Points;
                         var plcPointNumber = Plc.ControlAndIndication.MeasureIndicationAndControl.ActualScan
-                            .PointsNumber.Value-4;
+                            .PointsNumber.Value-6;
                         if (plcPointNumber < 0) return;    
                         lastScan.ThickPoints = plcPoints.Take(plcPointNumber)
                             .Select(p=> new ThickPoint()

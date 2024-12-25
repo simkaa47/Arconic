@@ -77,6 +77,17 @@
             </TextBlock>
             
         </DockPanel>
+        <!--Средний клин за полосу, мкм-->
+        <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value, 
+        Converter={StaticResource IfNotEqualConverter}, ConverterParameter=2}">
+            <TextBlock Text="Средний клин за полосу, мкм / %" Classes="Left"/>
+            <TextBlock Classes="Right">
+                <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.KlinAverage.Value, StringFormat=f3}"/>
+                <Run Text="/"/>
+                <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.KlinAverageRelative.Value, StringFormat=f3}"/>
+            </TextBlock>
+            
+        </DockPanel>
         <!--Чечевица, мкм-->
         <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value, 
         Converter={StaticResource IfNotEqualConverter}, ConverterParameter=2}">
@@ -85,6 +96,16 @@
                 <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Chechevitsa.Value, StringFormat=f3}"/>
                 <Run Text="/"/>
                 <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.ChechevitsaRelative.Value, StringFormat=f3}"/>
+            </TextBlock>
+        </DockPanel>
+        <!--Средняя чечевица за полосу, мкм-->
+        <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value, 
+        Converter={StaticResource IfNotEqualConverter}, ConverterParameter=2}">
+            <TextBlock Text="Средняя чечевица за полосу, мкм / %" Classes="Left"/>
+            <TextBlock Classes="Right">
+                <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.ChechevitsaAverage.Value, StringFormat=f3}"/>
+                <Run Text="/"/>
+                <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.ChechevitsaAverageRelative.Value, StringFormat=f3}"/>
             </TextBlock>
         </DockPanel>
         <!--Номер скана-->

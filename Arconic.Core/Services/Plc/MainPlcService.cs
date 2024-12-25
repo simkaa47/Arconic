@@ -67,7 +67,7 @@ public partial class MainPlcService(ILogger<MainPlcService> logger, IOptionsMoni
             }
             catch (Exception e)
             {
-                logger.LogError(e, $"{nameof(MainPlcService)}: ошибка взаимодействия с ПЛК.");
+                //logger.LogError(e, $"{nameof(MainPlcService)}: ошибка взаимодействия с ПЛК.");
                 if (e is OperationCanceledException cancelException)
                 {
                     _cts.Dispose();

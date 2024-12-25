@@ -11,5 +11,15 @@ public class Entity:ObservableValidator
         return !HasErrors;
     }
 
+    protected Entity()
+    {
+        this.PropertyChanged += (s, args) =>
+        {
+            Validate();
+        };
+    }
+    
+    
+
     
 }

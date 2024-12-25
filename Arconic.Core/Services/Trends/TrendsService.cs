@@ -150,8 +150,8 @@ public class TrendsService(ILogger<TrendsService> logger,
                 
                
                 scanInfo!.Recalculate(stripDeviation:(right + left) / 2 - source.CentralLinePosition,
-                    maxThick:s.ThickPoints.Where(tp=>tp.Thick>0).Max(tp => tp.Thick),
-                    minThick:s.ThickPoints.Where(tp=>tp.Thick>0).Min(tp => tp.Thick),
+                    maxThick:s.ThickPoints.Max(tp => tp.Thick),
+                    minThick:s.ThickPoints.Min(tp => tp.Thick),
                     actualWidth:right - left,
                     klin: s.Klin,
                     chechevitsa: s.Chechewitsa);
@@ -175,6 +175,7 @@ public class TrendsService(ILogger<TrendsService> logger,
                 .ThenInclude(s => s.ThickPoints)
                 .Include(s => s.ThickPoints)
                 .SingleOrDefaultAsync();
+            Console.WriteLine($"{DateTime.Now} end downloading from db");
             if(strip  is not null)
                 RecalculateStrip(strip);
             return strip;
