@@ -1,5 +1,8 @@
 ﻿using System.ComponentModel;
+using System.Globalization;
+using Arconic.Core.Abstractions.Common;
 using Arconic.Core.Abstractions.DataAccess;
+using Arconic.Core.Abstractions.FileAccess;
 using Arconic.Core.Abstractions.Trends;
 using Arconic.Core.Models.Parameters;
 using Arconic.Core.Models.PlcData;
@@ -9,6 +12,7 @@ using Arconic.Core.Services.Plc;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
+using Spire.Xls;
 
 namespace Arconic.Core.ViewModels;
 
@@ -17,6 +21,8 @@ public partial class MainTrendsViewModel:ObservableObject
     private event Action? NeedToDoOnScanCompleted;
     
     private readonly MainPlcService _plcService;
+    private readonly IQuestionDialog _dialog;
+    private readonly IFileDialog _fileDialog;
     private readonly ITrendsService _trendsService;
     public Plc Plc { get; }
     private DateTime _lastPointDateTime;
@@ -26,11 +32,15 @@ public partial class MainTrendsViewModel:ObservableObject
     public ITrendUserDto ActualTrend { get; }
     public MainTrendsViewModel(ITrendUserDto actualTrend,
         MainPlcService plcService,
+        IQuestionDialog dialog,
+        IFileDialog fileDialog,
         PlcViewModel plcViewModel, 
         ITrendsService trendsService)
     {
         ActualTrend = actualTrend;
         _plcService = plcService;
+        _dialog = dialog;
+        _fileDialog = fileDialog;
         _trendsService = trendsService;
         Plc = plcViewModel.Plc;
         Init();
@@ -330,5 +340,90 @@ public partial class MainTrendsViewModel:ObservableObject
             ShowPrevScanEnabled = _archieveScanIndex > 0;
             ShowNextScanEnabled = _archieveScanIndex < ArchieveScans.Count - 1;
         }
+    }
+
+
+    [RelayCommand]
+    private async Task  ExportScanAsync(object? o)
+    {
+        if (o is not null && o is Strip strip)
+        {
+            try
+            {
+                var directory = await _fileDialog.GetDirectory();
+                if (string.IsNullOrEmpty(directory)) return;
+                var fileName = $"{strip.StartTime:dd_MM_yyyy_HH_mm_ss}_{strip.StripNumber}.xlsx";
+                await SaveToXlsAsync($"{directory}{fileName}", strip);
+                await _dialog.AskAsync("Успех!", $"Сохранение данных полосы в {directory}{fileName} выполнено успешно");
+
+                
+            }
+            
+            catch (Exception e)
+            {
+                await _dialog.AskAsync("Ошибка при сохранении полосы", e.Message);
+            }
+            
+        }
+    }
+
+
+    private async Task SaveToXlsAsync(string path, Strip strip)
+    {
+        await Task.Run(() =>
+        {
+            Workbook workbook = new Workbook();
+                if (strip.MeasMode == MeasModes.CentralLine)
+                {
+                    Worksheet worksheet = workbook.Worksheets[0];
+                    worksheet.Range[1, 1].Value = "Дата и время";
+                    worksheet.Range[1, 2].Value = "Длина, м";
+                    worksheet.Range[1, 3].Value = "Толщина, мкм";
+
+                    for (int i = 0; i < strip.ThickPoints.Count; i++)
+                    {
+                        worksheet.Range[2+i, 1].DateTimeValue = strip.ThickPoints[i].DateTime;
+                        worksheet.Range[2+i, 1].Style.NumberFormat = "dd.MM.yyyy hh:mm:ss.00";
+                        worksheet.Range[2+i, 2].Value = strip.ThickPoints[i].Lendth.ToString("f3");
+                        worksheet.Range[2+i, 3].Value = strip.ThickPoints[i].Thick.ToString("f3");
+                    }
+                
+                    worksheet.AllocatedRange.AutoFitColumns();
+                
+                    CellStyle style = workbook.Styles.Add("newStyle");
+                    style.Font.IsBold = true;
+                    worksheet.Range[1, 1, 1, 3].Style = style;
+                }
+                else
+                {
+                    CellStyle style = workbook.Styles.Add("newStyle");
+                    style.Font.IsBold = true;
+
+                    if (workbook.Worksheets.Count < strip.Scans.Count)
+                    {
+                        workbook.CreateEmptySheets(strip.Scans.Count);
+                    }
+                    
+                    for (int i = 0; i < strip.Scans.Count; i++)
+                    {
+                        Worksheet worksheet = workbook.Worksheets[i];
+                        worksheet.Name = $"Скан № {i + 1}";
+                        worksheet.Range[1, 1].Value = "Длина, м";
+                        worksheet.Range[1, 2].Value = "Положение рамы, мм";
+                        worksheet.Range[1, 3].Value = "Толщина, мкм";
+                        worksheet.Range[1, 1, 1, 3].Style = style;
+                        for (int j = 0; j < strip.Scans[i].ThickPoints.Count; j++)
+                        {
+                            worksheet.Range[2+j, 1].Value = strip.Scans[i].ThickPoints[j].Lendth.ToString("f3");
+                            worksheet.Range[2+j, 2].Value = strip.Scans[i].ThickPoints[j].Position.ToString("f0");
+                            worksheet.Range[2+j, 3].Value = strip.Scans[i].ThickPoints[j].Thick.ToString("f3");
+                        }
+                        worksheet.AllocatedRange.AutoFitColumns();
+                    }
+                    
+                }
+                workbook.SaveToFile(path, ExcelVersion.Version2016);
+                
+        });
     }
 }

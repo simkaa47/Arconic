@@ -24,10 +24,28 @@
             <Setter Property="Foreground" Value="{StaticResource TexBoxCommon80}"/>
         </Style>
     </UserControl.Styles>
-    <Grid RowDefinitions="Auto,*">
-        <Grid RowDefinitions="*,Auto">
+    <Grid RowDefinitions="Auto,*, 50">
+        <Grid RowDefinitions="*,Auto"
+              ColumnDefinitions="*, 50">
             <local:StripResultsViewer 
                 DataContext="{Binding SelectedArchieveStripForViewing}"/> 
+            
+            <!--Кнопочка сохранить в тестовый файл-->
+            <Button Grid.Row="0"  Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    CommandParameter="{Binding SelectedArchieveStripForViewing}"
+                    Command="{Binding $parent[Window].((vm:MainViewModel)DataContext).MainTrendsViewModel.ExportScanCommand, FallbackValue={x:Null}}"
+                    Background="{StaticResource ButtonAccept}"
+                    Margin="5">
+                <mat:MaterialIcon Kind="Text"
+                                  Margin="10"
+                                  Height="25"/>
+                <ToolTip.Tip>
+                    <TextBlock Text="Экспорт в текстовый файл"></TextBlock>
+                </ToolTip.Tip>
+                
+            </Button>
         </Grid>
         
         <Grid Grid.Row="1" ColumnDefinitions="*, Auto"
@@ -145,7 +163,6 @@
                                                   Margin="10"
                                                   Height="25"/>
                             </Button>
-                           
                         </Grid>
         </Grid>
     </Grid>

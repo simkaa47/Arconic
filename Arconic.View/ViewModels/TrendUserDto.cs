@@ -256,7 +256,6 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
                     IsVisible = true,
                     Values = [
                         new ObservablePoint(CentralLine-ExpectedWidth/2, ExpectedThick),
-                        new ObservablePoint(CentralLine, ExpectedThick-0.0001),
                         new ObservablePoint(CentralLine+ExpectedWidth/2, ExpectedThick),
                     ],
                     IsVisibleAtLegend = true,
