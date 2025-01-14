@@ -65,6 +65,9 @@
                     <Grid ColumnDefinitions="*,*">
                         <common:ParameterButton Grid.Column="0"
                                                 Margin="5"
+                                                State="{Binding ControlAndIndication.DriveIndication.DriveStatus.Value,
+                                                Converter={StaticResource IfEqualConverter},
+                                                ConverterParameter=2}"
                                                 CommandParameter="{Binding ControlAndIndication.DriveIndication.SbParking}">
                             <common:ParameterButton.ButtonContent>
                                 <TextBlock Text="ДВИЖЕНИЕ В ПАРКОВКУ"
@@ -74,6 +77,9 @@
                         </common:ParameterButton>
                         <common:ParameterButton Grid.Column="1"
                                                 Margin="5"
+                                                State="{Binding ControlAndIndication.DriveIndication.DriveStatus.Value,
+                                                Converter={StaticResource IfEqualConverter},
+                                                ConverterParameter=4}"
                                                 CommandParameter="{Binding ControlAndIndication.DriveIndication.SbMeasure}">
                             <common:ParameterButton.ButtonContent>
                                 <TextBlock Text="ДВИЖЕНИЕ В ПОЛОЖЕНИЕ ИЗМЕРЕНИЯ"

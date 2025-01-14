@@ -108,6 +108,9 @@
                       ColumnDefinitions="*,*">
                     <common:ParameterButton Grid.Column="0" Grid.Row="0"
                                             Behavior="TrueIfPress"
+                                            State="{Binding DriveStatus.Value,
+                                            Converter={StaticResource IfEqualConverter},
+                                            ConverterParameter=2}"
                                             CommandParameter="{Binding SbParking}">
                         <common:ParameterButton.ButtonContent>
                             <TextBlock Text="ДВИЖЕНИЕ В ПАРКОВКУ"></TextBlock>
@@ -115,6 +118,9 @@
                     </common:ParameterButton>
                     <common:ParameterButton Grid.Column="1" Grid.Row="0"
                                             Behavior="TrueIfPress"
+                                            State="{Binding DriveStatus.Value,
+                                            Converter={StaticResource IfEqualConverter},
+                                            ConverterParameter=4}"
                                             CommandParameter="{Binding SbMeasure}">
                         <common:ParameterButton.ButtonContent>
                             <TextBlock Text="ДВИЖЕНИЕ В ПОЛОЖЕНИЕ ИЗМЕРЕНИЯ"></TextBlock>
@@ -122,16 +128,22 @@
                     </common:ParameterButton>
                     <common:ParameterButton Grid.Column="0" Grid.Row="1"
                                             Behavior="TrueIfPress"
+                                            State="{Binding DriveStatus.Value,
+                                            Converter={StaticResource IfEqualConverter},
+                                            ConverterParameter=12}"
                                             CommandParameter="{Binding SbJogForw}">
                         <common:ParameterButton.ButtonContent>
-                            <TextBlock Text="ТОЛЧКОВОЕ ПЕРЕМЕЩЕНИЕ ВПЕРЕД'"></TextBlock>
+                            <TextBlock Text="ТОЛЧКОВОЕ ПЕРЕМЕЩЕНИЕ ВПЕРЕД"></TextBlock>
                         </common:ParameterButton.ButtonContent>
                     </common:ParameterButton>
                     <common:ParameterButton Grid.Column="1" Grid.Row="1"
                                             Behavior="TrueIfPress"
+                                            State="{Binding DriveStatus.Value,
+                                            Converter={StaticResource IfEqualConverter},
+                                            ConverterParameter=11}"
                                             CommandParameter="{Binding SbJogRev}">
                         <common:ParameterButton.ButtonContent>
-                            <TextBlock Text="ТОЛЧКОВОЕ ПЕРЕМЕЩЕНИЕ НАЗАД'"></TextBlock>
+                            <TextBlock Text="ТОЛЧКОВОЕ ПЕРЕМЕЩЕНИЕ НАЗАД"></TextBlock>
                         </common:ParameterButton.ButtonContent>
                     </common:ParameterButton>
                     <common:ParameterButton Grid.Column="0" Grid.Row="2"
