@@ -20,6 +20,8 @@ public class DriveErrors
         new PlcError($"{PlcError.DriveTag.ToTitleCase()}: Сработал аварийный концевик слева", 2, 738, 0),
         new PlcError($"{PlcError.DriveTag.ToTitleCase()}: Сработал аварийный концевик справа", 2, 738, 1),
         new PlcError($"{PlcError.DriveTag.ToTitleCase()}: Ошибка преобразователя частоты", 2, 738, 2),
-        new PlcError($"{PlcError.DriveTag.ToTitleCase()}: Нет связи с преобразователем частоты", 2, 738, 3)
+        new PlcError($"{PlcError.DriveTag.ToTitleCase()}: Нет связи с преобразователем частоты", 2, 738, 3),
+        new PlcError($"{PlcError.DriveTag.ToTitleCase()}: Нет связи с датчиком положения рамы", 2, 738, 4)
+        
     ];
 }

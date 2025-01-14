@@ -4,6 +4,7 @@
              xmlns:vm="using:Arconic.Core.ViewModels"
              xmlns:common="using:Arconic.View.UserControls.CommonControls"
              x:DataType="vm:MainViewModel"
+             xmlns:acc="using:Arconic.Core.Models.AccessControl"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Arconic.View.UserControls.Settings.Drive.DriveSettingsTab">
@@ -46,9 +47,14 @@
                 <!--MaxWidth-->
                 <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.DriveSettings.MaxMeasureWidth}"/>
                 <!--K gear-->
-                <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.DriveSettings.Kgear}"/>
+                <DockPanel IsVisible="{Binding AccessViewModel.CurrentUser, 
+            Converter={StaticResource UserAccessConverter}, ConverterParameter={x:Static acc:AccessLevel.Admin}}">
+                    <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.DriveSettings.Kgear}"/>
+                </DockPanel>
+                
                 <!--Preset value-->
-                <DockPanel>
+                <DockPanel IsVisible="{Binding AccessViewModel.CurrentUser, 
+            Converter={StaticResource UserAccessConverter}, ConverterParameter={x:Static acc:AccessLevel.Admin}}">
                     <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.DriveIndication.SetPosition}"/>
                     <common:ParameterButton Margin="5"
                                             HorizontalAlignment="Right"
@@ -130,7 +136,6 @@
                     </common:ParameterButton>
                     <common:ParameterButton Grid.Column="0" Grid.Row="2"
                                             Grid.ColumnSpan="2"
-                                            
                                             CommandParameter="{Binding SbRstErr}">
                         <common:ParameterButton.ButtonContent>
                             <TextBlock Text="СБРОС ОШИБКИ ПЧ"></TextBlock>
@@ -168,6 +173,14 @@
                 <DockPanel>
                     <TextBlock Text="{Binding IsCentralPosition.Description}"></TextBlock>
                     <common:ImageBitIndicator State="{Binding IsCentralPosition.Value}"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock Text="{Binding IsWaitPosition.Description}"></TextBlock>
+                    <common:ImageBitIndicator State="{Binding IsWaitPosition.Value}"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock Text="Связь с датчиком положения рамы"></TextBlock>
+                    <common:ImageBitIndicator State="{Binding !ErrSensorComm.Value}"/>
                 </DockPanel>
                 <DockPanel>
                     <TextBlock Text="{Binding FcComm.Description}"></TextBlock>

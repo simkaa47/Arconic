@@ -1,4 +1,5 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:ava="using:Avalonia"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ControlTheme x:Key="SelectorListBoxItem"
                   TargetType="ListBoxItem">
@@ -8,10 +9,12 @@
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
                     <Border BorderBrush="{DynamicResource ListBoxItemBorderBrush}"
                             Background="{TemplateBinding Background}"
-                            IsVisible="{TemplateBinding IsVisible}"
+                            IsVisible="{Binding ElementName=content, Path=((ava:Visual)Content).IsVisible, FallbackValue={x:False}}"
                             BorderThickness="0,0,0,1" Margin="0">
+                       
                         <ContentPresenter Content="{TemplateBinding Content}"
                                           Name="content"
+                                          IsVisible="{TemplateBinding IsVisible}"
                                           ContentTemplate="{TemplateBinding ContentTemplate}"
                                           VerticalAlignment="Center"
                                           Margin="10,0,0,0"/>

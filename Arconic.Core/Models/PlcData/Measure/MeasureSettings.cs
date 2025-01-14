@@ -29,9 +29,9 @@ public class MeasureSettings
         short.MinValue, short.MaxValue, DataType.DataBlock, ParameterBase.SettingsDbNum, 1230);
     public Parameter<short> AoThickDeviationMaxAdc { get; } = new Parameter<short>("Аналоговый выход отклонения толщины, макс. значение АЦП",
         short.MinValue, short.MaxValue, DataType.DataBlock, ParameterBase.SettingsDbNum, 1232);
-    public Parameter<float> AoThickDeviationMinValue { get; } = new Parameter<float>("Аналоговый выход отклонения толщины, мин. значение отклонения, мкм",
+    public Parameter<float> AoThickDeviationMinValue { get; } = new Parameter<float>("Аналоговый выход отклонения толщины, мин. значение отклонения, %",
         float.MinValue, float.MaxValue, DataType.DataBlock, ParameterBase.SettingsDbNum, 1234);
-    public Parameter<float> AoThickDeviationMaxValue { get; } = new Parameter<float>("Аналоговый выход отклонения толщины, макс. значение отклонения, мкм",
+    public Parameter<float> AoThickDeviationMaxValue { get; } = new Parameter<float>("Аналоговый выход отклонения толщины, макс. значение отклонения, $",
         float.MinValue, float.MaxValue, DataType.DataBlock, ParameterBase.SettingsDbNum, 1238);
     public Parameter<float> LastStandTemperature { get; } =
         new Parameter<float>("Температура во время последней стандартизации, С", 

@@ -47,4 +47,12 @@ public class DriveIndication
         new Parameter<bool>("Связь с ПЧ",
             false, true, DataType.DataBlock, ParameterBase.IndicationDbNum, 222, 4);
     
+    public Parameter<bool> IsWaitPosition { get; } =
+        new Parameter<bool>("В позиции ожидания полосы",
+            false, true, DataType.DataBlock, ParameterBase.IndicationDbNum, 222, 7);
+    
+    public Parameter<bool> ErrSensorComm { get; } =
+        new Parameter<bool>("Нет связи с датчиком положения рамы",
+            false, true, DataType.DataBlock, ParameterBase.IndicationDbNum, 738, 4);
+    
 }
