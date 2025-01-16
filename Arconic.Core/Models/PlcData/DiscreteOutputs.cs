@@ -78,11 +78,11 @@ public class DiscreteOutputs
         DataType.Output,  0, 12, 3);
     #endregion
     #region Сигнал на открытие образца 5 мм
-    public Parameter<bool> Gate1 { get; } = new Parameter<bool>("Сигнал на открытие образца 5 мм", false, true,
+    public Parameter<bool> Gate1 { get; } = new Parameter<bool>("Сигнал на снятие образца 5 мм", false, true,
         DataType.Output,  0, 12, 4);
     #endregion
     #region Сигнал на открытие образца 10 мм
-    public Parameter<bool> Gate2 { get; } = new Parameter<bool>("Сигнал на открытие образца 10 мм", false, true,
+    public Parameter<bool> Gate2 { get; } = new Parameter<bool>("Сигнал на снятие образца 10 мм", false, true,
         DataType.Output,  0, 12, 5);
     #endregion
 }

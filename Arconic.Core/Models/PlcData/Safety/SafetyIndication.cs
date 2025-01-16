@@ -34,4 +34,7 @@ public class SafetyIndication
         new Parameter<bool>("Датчик рамы", false, true, DataType.Input, 2, 14, 3);
     public Parameter<bool> SqDetectors { get; } =
         new Parameter<bool>("Блок детектора", false, true, DataType.Input, 2, 14, 4);
+    
+    public Parameter<bool> SbStopHmi { get; } =
+        new Parameter<bool>("Кнопка STOP на HMI", false, true, DataType.DataBlock, 2, 700, 5);
 }

@@ -7,14 +7,34 @@
              xmlns:hb="using:Arconic.View.UserControls.HighBar"
              xmlns:common="using:Arconic.View.UserControls.CommonControls"
              x:DataType="vm:MainViewModel"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="450"
              x:Class="Arconic.View.UserControls.HighBar.HighBarControl">
-   <Grid ColumnDefinitions="*,*,*,*,*,*,*,240" Height="80">
+    
+    <Grid ColumnDefinitions="*,*,*,*,*,*,*,*,240" Height="80">
        <!--Konvels logo-->
        <Image Source="/Assets/Images/KONVELS_logo.png"
               Margin="10"></Image>
+       <!--Аварийный стоп на HMI-->
+       <common:ParameterButton Grid.Column="1"
+                               Margin="10"
+                               CommandParameter="{Binding PlcViewModel.Plc.ControlAndIndication.SafetyIndication.SbStopHmi}"
+                               BorderThickness="1">
+           <common:ParameterButton.ButtonContent>
+               <Border Background="{Binding PlcViewModel.Plc.ControlAndIndication.SafetyIndication.SbStopHmi.Value,
+               Converter={StaticResource GetIfTrueConverter}, 
+               ConverterParameter={StaticResource AlarmButtonsColors}}">
+                   <TextBlock Text="АВАРИЙНЫЙ СТОП"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              TextWrapping="Wrap"
+                   ></TextBlock>
+               </Border>
+               
+             
+           </common:ParameterButton.ButtonContent>
+       </common:ParameterButton>
        <!--Металл в клети-->
-       <DockPanel Grid.Column="1">
+       <DockPanel Grid.Column="2">
            <common:ImageBitIndicator 
                FalseStateImage="/Assets/Images/ind_err.png"
                TrueStateImage="/Assets/Images/ind_ok.png"
@@ -24,7 +44,7 @@
                       VerticalAlignment="Center" Margin="20"/>
        </DockPanel>
        <!--Индикатор связи с ПЛК-->
-       <DockPanel Grid.Column="2">
+       <DockPanel Grid.Column="3">
            <common:ImageBitIndicator 
                Height="50" Width="50" DockPanel.Dock="Left"
                State="{Binding PlcViewModel.MainPlcService.IsConnected}"
@@ -34,7 +54,7 @@
                     VerticalAlignment="Center" Margin="20"/>
        </DockPanel>
        <!--Индикатор связи с АСУТП заказчика-->
-       <DockPanel Grid.Column="3">
+       <DockPanel Grid.Column="4">
            <common:ImageBitIndicator 
                Height="50" Width="50" DockPanel.Dock="Left"
                State="{Binding PlcViewModel.Plc.ControlAndIndication.HighLevelData.CommState.Value}"
@@ -44,7 +64,7 @@
                       VerticalAlignment="Center" Margin="20"/>
        </DockPanel>
        <!--Кнопка Открыть-закрыть затвор-->
-       <common:ParameterButton Grid.Column="4"
+       <common:ParameterButton Grid.Column="5"
                                Margin="10"
                                BorderThickness="1"
                                CommandParameter="{Binding PlcViewModel.Plc.Settings.Source.SbGate}">
@@ -63,7 +83,7 @@
            </common:ParameterButton.ButtonContent>
        </common:ParameterButton>
        <!--Кнопка "Сброс ошибок"-->
-       <common:ParameterButton Grid.Column="5"
+       <common:ParameterButton Grid.Column="6"
                                Margin="10"
                                Behavior="TrueIfPress"
                                BorderThickness="1"
@@ -79,7 +99,7 @@
          </common:ParameterButton.ButtonContent>
        </common:ParameterButton>
        <!--Время и пользователь-->
-       <StackPanel Grid.Column="6">
+       <StackPanel Grid.Column="7">
            <Border Margin="10,5"
                    VerticalAlignment="Center"
                    Background="{StaticResource DateTimeBackground}"
@@ -94,7 +114,7 @@
            
        </StackPanel>
        <!--Кнопки управления приложением-->
-       <Grid Grid.Column="7" ColumnDefinitions="*,*,*">
+       <Grid Grid.Column="8" ColumnDefinitions="*,*,*">
            <Grid.Styles>
                <Style Selector="Button">
                    <Setter Property="BorderBrush" Value="{StaticResource CommonBorderBrush}"></Setter>

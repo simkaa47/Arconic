@@ -6,6 +6,10 @@
         <SolidColorBrush Color="Transparent"/>
         <SolidColorBrush Color="#28BCBA"/>
     </scg:List>
+    <scg:List x:TypeArguments="sys:Object" x:Key="AlarmButtonsColors">
+        <SolidColorBrush Color="Transparent"/>
+        <SolidColorBrush Color="#F44336"/>
+    </scg:List>
     <scg:List x:TypeArguments="sys:Object" x:Key="TextBoxErrorColors">
         <SolidColorBrush Color="{DynamicResource TextBoxErrorColorOk}"/>
         <SolidColorBrush Color="{DynamicResource TextBoxErrorColorNotOk}"/>

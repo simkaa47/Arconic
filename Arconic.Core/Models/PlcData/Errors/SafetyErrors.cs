@@ -23,5 +23,6 @@ public class SafetyErrors
         new PlcError($"{PlcError.SafetyTag.ToTitleCase()}: Сработал аварийный концевик к генератору 2", 2, 734, 4),
         new PlcError($"{PlcError.SafetyTag.ToTitleCase()}: Сработал аварийный концевик рамы", 2, 734, 5),
         new PlcError($"{PlcError.SafetyTag.ToTitleCase()}: Сработал аварийный концевик блока детектирования", 2, 734, 6),
+        new PlcError($"{PlcError.SafetyTag.ToTitleCase()}: Нажата кнопка \"СТОП\" на HMI", 2, 734, 7)
     ];
 }

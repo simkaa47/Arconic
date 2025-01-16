@@ -11,12 +11,12 @@
              x:Class="Arconic.View.UserControls.Settings.SourceUnit.GateSettingsControl">
     <UserControl.Resources>
         <scg:List x:TypeArguments="sys:Object" x:Key="OpenGateNames1">
-            <sys:String>ЗАКРЫТЬ ОБРАЗЕЦ 5 ММ</sys:String>
-            <sys:String>ОТКРЫТЬ ОБРАЗЕЦ 5 ММ</sys:String>
+            <sys:String>СНЯТЬ ОБРАЗЕЦ 5 ММ</sys:String>
+            <sys:String>ПОСТАВИТЬ ОБРАЗЕЦ 5 ММ</sys:String>
         </scg:List>
         <scg:List x:TypeArguments="sys:Object" x:Key="OpenGateNames2">
-            <sys:String>ЗАКРЫТЬ ОБРАЗЕЦ 10 ММ</sys:String>
-            <sys:String>ОТКРЫТЬ ОБРАЗЕЦ 10 ММ</sys:String>
+            <sys:String>СНЯТЬ ОБРАЗЕЦ 10 ММ</sys:String>
+            <sys:String>ПОСТАВИТЬ ОБРАЗЕЦ 10 ММ</sys:String>
         </scg:List>
     </UserControl.Resources>
     <Grid RowDefinitions="Auto,*">
@@ -31,19 +31,19 @@
             <!--Кнопки управления дополнительными затворами-->
             <common:ParameterButton Grid.Column="0"
                                     Margin="5"
-                                    State="{Binding Plc.Di.SqGateOpen1}"
+                                    State="{Binding !Plc.Do.Gate1.Value}"
                                     CommandParameter="{Binding Plc.Settings.Source.SbGate1}">
                 <common:ParameterButton.ButtonContent>
-                    <TextBlock Text="{Binding Plc.Di.SqGateOpen1.Value, Converter={StaticResource GetIfTrueConverter}, ConverterParameter={StaticResource OpenGateNames1}}"
+                    <TextBlock Text="{Binding Plc.Do.Gate1.Value, Converter={StaticResource GetIfTrueConverter}, ConverterParameter={StaticResource OpenGateNames1}}"
                                HorizontalAlignment="Center"/>
                 </common:ParameterButton.ButtonContent>
             </common:ParameterButton>
             <common:ParameterButton Grid.Column="1"
                                     Margin="5"
-                                    State="{Binding Plc.Di.SqGateOpen2}"
+                                    State="{Binding !Plc.Do.Gate2.Value}"
                                     CommandParameter="{Binding Plc.Settings.Source.SbGate2}">
                 <common:ParameterButton.ButtonContent>
-                    <TextBlock Text="{Binding Plc.Di.SqGateOpen2.Value, Converter={StaticResource GetIfTrueConverter}, ConverterParameter={StaticResource OpenGateNames2}}"
+                    <TextBlock Text="{Binding Plc.Do.Gate2.Value, Converter={StaticResource GetIfTrueConverter}, ConverterParameter={StaticResource OpenGateNames2}}"
                                HorizontalAlignment="Center"/>
                 </common:ParameterButton.ButtonContent>
             </common:ParameterButton>
