@@ -42,6 +42,18 @@
                         <dt:DateTimePicker DateTime="{Binding EndArchieveTime}"
                                            Command="{Binding GetArchieveStripsCommand}"/>
                     </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="№ полосы"></TextBlock>
+                        <TextBox Margin="5,0,5,5"
+                                 Text="{Binding SearchStripNumber}"/>
+                    </StackPanel>
+                    <Button Margin="5"
+                            Background="{StaticResource ButtonAccept}"
+                            VerticalAlignment="Stretch"
+                            Content="Поиск"
+                            Command="{Binding GetArchieveStripsCommand}"
+                            HorizontalContentAlignment="Center"
+                            HorizontalAlignment="Stretch"></Button>
                 </StackPanel>
             </Border>
            <local:ArchieveStripsListControl Grid.Row="1"/>

@@ -12,7 +12,7 @@ public interface ITrendsService
     public void RecalculateScan(Scan scan, Strip parent);
     public List<ITrendUserDto>? GetScansFromStrip(Strip source);
     public Task<Strip?> GetExtendedStrip(long stripId); 
-    public Task<List<Strip>?> GetArchieveStrips(DateTime start, DateTime end);
+    public Task<List<Strip>?> GetArchieveStrips(DateTime start, DateTime end, string? stripNumber);
     
 
 }

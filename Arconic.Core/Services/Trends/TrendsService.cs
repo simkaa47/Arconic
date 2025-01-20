@@ -187,7 +187,7 @@ public class TrendsService(ILogger<TrendsService> logger,
         return null;
     }
 
-    public async Task<List<Strip>?> GetArchieveStrips(DateTime start, DateTime end)
+    public async Task<List<Strip>?> GetArchieveStrips(DateTime start, DateTime end, string? stripNumber)
     {
         using var scope = scopeFactory.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<ArconicDbContext>();
@@ -196,6 +196,7 @@ public class TrendsService(ILogger<TrendsService> logger,
             return await dbContext.Strips
                 .Where(s => s.StartTime >= start && s.StartTime <= end)
                 .Where(s=> s.MeasMode == MeasModes.CentralLine ? s.ThickPoints.Count>0 : s.Scans.Count>0)
+                .Where(s=>string.IsNullOrEmpty(stripNumber) || s.StripNumber.Contains(stripNumber))
                 .ToListAsync();
         }
         catch (Exception e)

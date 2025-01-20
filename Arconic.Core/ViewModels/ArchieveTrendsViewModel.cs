@@ -13,11 +13,12 @@ public partial class ArchieveTrendsViewModel(ITrendsService trendsService,
     IQuestionDialog dialog,
     IFileDialog fileDialog) : ObservableObject
 {
-    private readonly ITrendsService _trendsService = trendsService;
     [ObservableProperty]
     private IEnumerable<Strip>? _archieveStrips;
     [ObservableProperty]
     private DateTime _startArchieveTime = DateTime.Today;
+    [ObservableProperty]
+    private string? _searchStripNumber;
     [ObservableProperty]
     private DateTime _endArchieveTime = DateTime.Now;
     [ObservableProperty]
@@ -54,8 +55,8 @@ public partial class ArchieveTrendsViewModel(ITrendsService trendsService,
     private async void UpdateSelectedArchieveStrip(long id)
     {
         IsArchieveScanLoading = true;
-        SelectedArchieveStripForViewing = await _trendsService.GetExtendedStrip(id);
-        ArchieveScans = SelectedArchieveStripForViewing != null ?  _trendsService.GetScansFromStrip(SelectedArchieveStripForViewing) : null;
+        SelectedArchieveStripForViewing = await trendsService.GetExtendedStrip(id);
+        ArchieveScans = SelectedArchieveStripForViewing != null ?  trendsService.GetScansFromStrip(SelectedArchieveStripForViewing) : null;
         CurrentArchieveScan = ArchieveScans?.FirstOrDefault();
         _archieveScanIndex = 0;
         EnableChangeScanNumber();
@@ -65,7 +66,7 @@ public partial class ArchieveTrendsViewModel(ITrendsService trendsService,
     [RelayCommand]
     private async Task GetArchieveStrips()
     {
-        ArchieveStrips = await _trendsService.GetArchieveStrips(StartArchieveTime, EndArchieveTime);
+        ArchieveStrips = await trendsService.GetArchieveStrips(StartArchieveTime, EndArchieveTime, SearchStripNumber);
     }
     [RelayCommand]
     private async Task ShowNextArchieveScanAsync()
