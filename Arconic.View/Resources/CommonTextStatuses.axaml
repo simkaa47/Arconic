@@ -36,20 +36,20 @@
         <sys:String>ГОТОВНОСТЬ К ИЗМЕРЕНИЯМ</sys:String>
     </scg:List>
     <scg:List x:TypeArguments="sys:Object" x:Key="DriveStatuses">
-        <sys:String>РАМА В НЕОПРЕДЕЛЕННОМ ПОЛОЖЕНИИ</sys:String>
-        <sys:String>РАМА В ПОЛОЖЕНИИ "ПАРКИНГ"</sys:String>
-        <sys:String>ДВИЖЕНИЕ В ПОЗИЦИЮ "ПАРКИНГ"</sys:String>
-        <sys:String>РАМА В ПОЛОЖЕНИИ ИЗМЕРЕНИЯ</sys:String>
-        <sys:String>ДВИЖЕНИЕ В ПОЗИЦИЮ ИЗМЕРЕНИЯ</sys:String>
-        <sys:String>РАМА В ПОЛОЖЕНИИ ЛЕВОГО КРАЯ ПОЛОСЫ</sys:String>
-        <sys:String>ДВИЖЕНИЕ В СТОРОНУ ЛЕВОГО КРАЯ ПОЛОСЫ</sys:String>
-        <sys:String>РАМА В ПОЛОЖЕНИИ ПРАВОГО КРАЯ ПОЛОСЫ</sys:String>
-        <sys:String>ДВИЖЕНИЕ В СТОРОНУ ПРАВОГО КРАЯ ПОЛОСЫ</sys:String>
-        <sys:String>РАМА В КРАЙНЕМ ЛЕВОМ АВАРИЙНОМ ПОЛОЖЕНИИ</sys:String>
-        <sys:String>РАМА В КРАЙНЕМ ПРАВОМ АВАРИЙНОМ ПОЛОЖЕНИИ</sys:String>
+        <sys:String>ПОЛОЖЕНИЕ РАМЫ НЕ ОПЕРЕДЕЛЕНО</sys:String>
+        <sys:String>РАМА В ПОЛОЖЕНИИ "ПАРКОВКА"</sys:String>
+        <sys:String>ДВИЖЕНИЕ В "ПАРКОВКА"</sys:String>
+        <sys:String>РАМА В ПОЛОЖЕНИИ "ИЗМЕРЕНИЕ"</sys:String>
+        <sys:String>ДВИЖЕНИЕ В "ИЗМЕРЕНИЕ"</sys:String>
+        <sys:String>РАМА В ПОЛОЖЕНИИ "СТОРОНА ПРИВОДА"</sys:String>
+        <sys:String>ДВИЖЕНИЕ В ПОЛОЖЕНИЕ "СТОРОНА ПРИВОДА"</sys:String>
+        <sys:String>РАМА В ПОЛОЖЕНИИ "СТОРОНА ОПЕРАТОРА"</sys:String>
+        <sys:String>ДВИЖЕНИЕ В ПОЛОЖЕНИЕ "СТОРОНА ОПЕРАТОРА"</sys:String>
+        <sys:String>АВАРИЙНОЕ ПОЛОЖЕНИЕ РАМЫ НА "СТОРОНЕ ПРИВОДА"</sys:String>
+        <sys:String>АВАРИЙНОЕ ПОЛОЖЕНИЕ РАМЫ НА "СТОРОНЕ ОПЕРАТОРА"</sys:String>
         <sys:String>ТОЧКОВОЕ ПЕРЕМЕЩЕНИЕ НАЗАД</sys:String>
         <sys:String>ТОЧКОВОЕ ПЕРЕМЕЩЕНИЕ ВПЕРЕД</sys:String>
-        <sys:String>НАЖАТ АВАРИЙНЫЙ СТОП</sys:String>
+        <sys:String>НА ЛПУ НАЖАТ "АВАРИЙНЫЙ СТОП"</sys:String>
         <sys:String>НЕТ ГОТОВНОСТИ ПРИВОДА</sys:String>
     </scg:List>
 </ResourceDictionary>

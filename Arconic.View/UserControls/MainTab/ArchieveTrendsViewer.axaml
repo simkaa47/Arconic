@@ -4,7 +4,7 @@
              xmlns:vm="using:Arconic.Core.ViewModels"
              xmlns:drive="using:Arconic.Core.Models.PlcData.Drive"
              xmlns:mat="using:Material.Icons.Avalonia"
-             x:DataType="vm:MainTrendsViewModel"
+             x:DataType="vm:ArchieveTrendsViewModel"
              xmlns:local="using:Arconic.View.UserControls.MainTab"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -35,7 +35,7 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     CommandParameter="{Binding SelectedArchieveStripForViewing}"
-                    Command="{Binding $parent[Window].((vm:MainViewModel)DataContext).MainTrendsViewModel.ExportScanCommand, FallbackValue={x:Null}}"
+                    Command="{Binding $parent[Window].((vm:MainViewModel)DataContext).ArchieveTrendsViewModel.ExportScanCommand, FallbackValue={x:Null}}"
                     Background="{StaticResource ButtonAccept}"
                     Margin="5">
                 <mat:MaterialIcon Kind="Text"
@@ -69,7 +69,7 @@
                                     <TextBlock Foreground="{StaticResource TexBoxCommon80}" Text="{Binding ScanNumber}"/>
                                     <TextBlock Foreground="{StaticResource TexBoxCommon80}" Text="/" Margin="5,0,5,0"/>
                                     <TextBlock Foreground="{StaticResource TexBoxCommon80}"
-                                               Text="{Binding $parent[UserControl].((vm:MainTrendsViewModel)DataContext).ArchieveScans.Count,
+                                               Text="{Binding $parent[UserControl].((vm:ArchieveTrendsViewModel)DataContext).ArchieveScans.Count,
                                                FallbackValue=0}"/>
                                 </StackPanel>
                                 
@@ -131,7 +131,7 @@
                               Grid.Row="1">
                             <Button Grid.Column="0"
                                     Margin="5"
-                                    DataContext="{Binding $parent[UserControl].((vm:MainTrendsViewModel)DataContext), 
+                                    DataContext="{Binding $parent[UserControl].((vm:ArchieveTrendsViewModel)DataContext), 
                                     FallbackValue={x:Null}}"
                                     Command="{Binding ShowPreviousArchieveScanCommand}"
                                     HorizontalAlignment="Stretch"
@@ -148,7 +148,7 @@
                             </Button>
                             <Button Grid.Column="1"
                                     Margin="5"
-                                    DataContext="{Binding $parent[UserControl].((vm:MainTrendsViewModel)DataContext), 
+                                    DataContext="{Binding $parent[UserControl].((vm:ArchieveTrendsViewModel)DataContext), 
                                     FallbackValue={x:Null}}"
                                     Command="{Binding ShowNextArchieveScanCommand}"
                                     HorizontalAlignment="Stretch"

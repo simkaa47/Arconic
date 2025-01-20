@@ -7,7 +7,7 @@
              xmlns:li="using:LoadingIndicators.Avalonia"
              xmlns:dt="using:Arconic.View.UserControls.CommonControls.DateTimePicker"
              xmlns:local="using:Arconic.View.UserControls.MainTab"
-             x:DataType="vm:MainTrendsViewModel"
+             x:DataType="vm:ArchieveTrendsViewModel"
              x:Class="Arconic.View.UserControls.MainTab.ArchieveThendsControl">
     <Grid ColumnDefinitions="*,300">
         <!--Тренды-->

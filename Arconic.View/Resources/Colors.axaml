@@ -28,21 +28,21 @@
     </scg:List>
     
     <scg:List x:TypeArguments="sys:Object" x:Key="DriveStatuseColors">
-        <SolidColorBrush Color="{DynamicResource TextBoxErrorColorNotOk}"/>
-        <SolidColorBrush Color="{DynamicResource TexBoxCommonColor80}"/>
-        <SolidColorBrush Color="LightGreen"/>
-        <SolidColorBrush Color="{DynamicResource TexBoxCommonColor80}"/>
-        <SolidColorBrush Color="LightGreen"/>
-        <SolidColorBrush Color="{DynamicResource TexBoxCommonColor80}"/>
-        <SolidColorBrush Color="LightGreen"/>
-        <SolidColorBrush Color="{DynamicResource TexBoxCommonColor80}"/>
-        <SolidColorBrush Color="LightGreen"/>
-        <SolidColorBrush Color="{DynamicResource TextBoxErrorColorNotOk}"/>
-        <SolidColorBrush Color="{DynamicResource TextBoxErrorColorNotOk}"/>
-        <SolidColorBrush Color="LightGreen"/>
-        <SolidColorBrush Color="LightGreen"/>
-        <SolidColorBrush Color="{DynamicResource TextBoxErrorColorNotOk}"/>
-        <SolidColorBrush Color="{DynamicResource TextBoxErrorColorNotOk}"/>
+        <SolidColorBrush Color="#FF3B30"/>
+        <SolidColorBrush Color="#FFA500"/>
+        <SolidColorBrush Color="#478DDC"/>
+        <SolidColorBrush Color="#32D74B"/>
+        <SolidColorBrush Color="#478DDC"/>
+        <SolidColorBrush Color="#C0C0C0"/>
+        <SolidColorBrush Color="#478DDC"/>
+        <SolidColorBrush Color="#C0C0C0"/>
+        <SolidColorBrush Color="#478DDC"/>
+        <SolidColorBrush Color="#FF3B30"/>
+        <SolidColorBrush Color="#FF3B30"/>
+        <SolidColorBrush Color="#C0C0C0"/>
+        <SolidColorBrush Color="#C0C0C0"/>
+        <SolidColorBrush Color="#FF3B30"/>
+        <SolidColorBrush Color="#FF3B30"/>
     </scg:List>
     
     <SolidColorBrush Color="#F44336" x:Key="ErrorMainColor"/>

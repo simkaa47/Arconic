@@ -36,6 +36,7 @@ public static class CoreServicesRegistration
         services.AddSingleton<SafetyViewModel>();
         services.AddSingleton<MainTrendsViewModel>();
         services.AddSingleton<SingleMeasuresViewModel>();
+        services.AddSingleton<ArchieveTrendsViewModel>();
         services.AddSingleton<SteelMagazineViewModel>();
         
         services.AddSingleton<AccessViewModel>();

@@ -37,75 +37,54 @@
         <!--Текущая толщина, мм-->
         <DockPanel>
             <TextBlock Text="Текущая толщина полосы, мкм" Classes="Left"/>
-            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.ArmThick.Value, StringFormat=f3}" 
+            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.ArmThick.Value, StringFormat=f1}" 
                        Classes="Right"/>
         </DockPanel>
         <!--Текущая ширина, мм-->
         <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value, 
         Converter={StaticResource IfNotEqualConverter}, ConverterParameter=2}">
             <TextBlock Text="Текущая ширина полосы, мм" Classes="Left"/>
-            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Width.Value, StringFormat=f3}" 
+            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Width.Value, StringFormat=f1}" 
                        Classes="Right"/>
         </DockPanel>
         <!--Скорость полосы, м/c-->
         <DockPanel>
             <TextBlock Text="Скорость полосы, м/мин" Classes="Left"/>
-            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Speed.Value, StringFormat=f3}" 
+            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Speed.Value, StringFormat=f1}" 
                        Classes="Right"/>
         </DockPanel>
         <!--Текущая длина полосы, м-->
         <DockPanel>
             <TextBlock Text="Текущая длина полосы, м" Classes="Left"/>
-            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Length.Value, StringFormat=f3}" 
+            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Length.Value, StringFormat=f1}" 
                        Classes="Right"/>
         </DockPanel>
         <!--Положение каретки от левого края полосы, мм-->
         <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value, 
         Converter={StaticResource IfNotEqualConverter}, ConverterParameter=2}">
             <TextBlock Text="Положение каретки от левого края полосы, мм" Classes="Left"/>
-            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.CaretPosition.Value, StringFormat=f3}" 
+            <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.CaretPosition.Value, StringFormat=f1}" 
                        Classes="Right"/>
         </DockPanel>
         <!--Клин, мкм-->
         <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value, 
         Converter={StaticResource IfNotEqualConverter}, ConverterParameter=2}">
-            <TextBlock Text="Клин, мкм / %" Classes="Left"/>
+            <TextBlock Text="Клин, % скан / полоса" Classes="Left"/>
             <TextBlock Classes="Right">
-                <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Klin.Value, StringFormat=f3}"/>
+                <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.KlinRelative.Value, StringFormat=f1}"/>
                 <Run Text="/"/>
-                <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.KlinRelative.Value, StringFormat=f3}"/>
-            </TextBlock>
-            
-        </DockPanel>
-        <!--Средний клин за полосу, мкм-->
-        <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value, 
-        Converter={StaticResource IfNotEqualConverter}, ConverterParameter=2}">
-            <TextBlock Text="Средний клин за полосу, мкм / %" Classes="Left"/>
-            <TextBlock Classes="Right">
-                <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.KlinAverage.Value, StringFormat=f3}"/>
-                <Run Text="/"/>
-                <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.KlinAverageRelative.Value, StringFormat=f3}"/>
+                <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.KlinAverageRelative.Value, StringFormat=f1}"/>
             </TextBlock>
             
         </DockPanel>
         <!--Чечевица, мкм-->
         <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value, 
         Converter={StaticResource IfNotEqualConverter}, ConverterParameter=2}">
-            <TextBlock Text="Чечевица, мкм / %" Classes="Left"/>
+            <TextBlock Text="Чечевица, % скан / полоса" Classes="Left"/>
             <TextBlock Classes="Right">
-                <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Chechevitsa.Value, StringFormat=f3}"/>
+                <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.ChechevitsaRelative.Value, StringFormat=f1}"/>
                 <Run Text="/"/>
-                <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.ChechevitsaRelative.Value, StringFormat=f3}"/>
-            </TextBlock>
-        </DockPanel>
-        <!--Средняя чечевица за полосу, мкм-->
-        <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value, 
-        Converter={StaticResource IfNotEqualConverter}, ConverterParameter=2}">
-            <TextBlock Text="Средняя чечевица за полосу, мкм / %" Classes="Left"/>
-            <TextBlock Classes="Right">
-                <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.ChechevitsaAverage.Value, StringFormat=f3}"/>
-                <Run Text="/"/>
-                <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.ChechevitsaAverageRelative.Value, StringFormat=f3}"/>
+                <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.ChechevitsaAverageRelative.Value, StringFormat=f1}"/>
             </TextBlock>
         </DockPanel>
         <!--Номер скана-->
