@@ -91,7 +91,7 @@
                                 <TextBlock Classes="RStyle" Text="{Binding Klin, StringFormat=f1}"/>
                             </DockPanel>
                             <DockPanel>
-                                <TextBlock Classes="LStyle" Text="Чечевица, мкм"/>
+                                <TextBlock Classes="LStyle" Text="Профиль, мкм"/>
                                 <TextBlock Classes="RStyle" Text="{Binding Path=Chechevitsa, StringFormat=f1}"/>
                             </DockPanel>
                             <DockPanel>
