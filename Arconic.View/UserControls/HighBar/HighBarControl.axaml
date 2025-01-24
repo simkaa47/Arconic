@@ -53,6 +53,7 @@
            <TextBlock Text="СВЯЗЬ С ПЛК" DockPanel.Dock="Right"
                     VerticalAlignment="Center" Margin="20"/>
        </DockPanel>
+       
        <!--Индикатор связи с АСУТП заказчика-->
        <DockPanel Grid.Column="4">
            <common:ImageBitIndicator 

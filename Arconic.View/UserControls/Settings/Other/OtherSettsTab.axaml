@@ -7,6 +7,7 @@
              xmlns:local="using:Arconic.View.UserControls.Settings.Other"
              xmlns:common="using:Arconic.View.UserControls.CommonControls"
              x:DataType="vm:MainViewModel"
+             xmlns:acc="using:Arconic.Core.Models.AccessControl"
              xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
              xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
              x:Class="Arconic.View.UserControls.Settings.Other.OtherSettsTab">
@@ -73,7 +74,8 @@
                         DataContext="{Binding PlcViewModel.Plc.Settings.MeasureSettings.LastStandTemperature}"
                         ParamWidth="160" />
                     <!--Режим калибровки-->
-                    <DockPanel>
+                    <DockPanel IsVisible="{Binding AccessViewModel.CurrentUser, 
+            Converter={StaticResource UserAccessConverter}, ConverterParameter={x:Static acc:AccessLevel.Admin}}">
                         <TextBlock Text="Режим калибровки"></TextBlock>
                         <common:ToggleSwitch
                             CommandParameter="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.SbCalibration}"

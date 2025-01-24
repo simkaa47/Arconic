@@ -80,7 +80,7 @@
         <!--Чечевица, мкм-->
         <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value, 
         Converter={StaticResource IfNotEqualConverter}, ConverterParameter=2}">
-            <TextBlock Text="Чечевица, % скан / полоса" Classes="Left"/>
+            <TextBlock Text="Профиль, % скан / полоса" Classes="Left"/>
             <TextBlock Classes="Right">
                 <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.ChechevitsaRelative.Value, StringFormat=f1}"/>
                 <Run Text="/"/>

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             xmlns:vm="using:Arconic.Core.ViewModels"
              xmlns:plc="using:Arconic.Core.Models.PlcData"
              x:DataType="plc:Plc"
              x:Class="Arconic.View.UserControls.MainTab.MainTextStatusesControl">
@@ -33,7 +34,8 @@
             </Style>
         </StackPanel.Styles>
         <!--Статус СИТ-->
-        <StackPanel Margin="20,5">
+        <StackPanel Margin="20,5"
+                    IsVisible="{Binding !$parent[Window].((vm:MainViewModel)DataContext).PlcViewModel.MainPlcService.IsStopMode, FallbackValue={x:False}}">
             <TextBlock Classes="Small" Text="Статус СИТ"/>
             <Border BorderBrush="{Binding ControlAndIndication.MeasureIndicationAndControl.MainStatuse.Value, 
             Converter={StaticResource GetByIndexFromParameterConverter}, 
@@ -44,6 +46,16 @@
                            Foreground="{Binding ControlAndIndication.MeasureIndicationAndControl.MainStatuse.Value, 
             Converter={StaticResource GetByIndexFromParameterConverter}, 
             ConverterParameter={StaticResource MainStatusColors}}"/>
+            </Border>
+        </StackPanel>
+        <!--Статус ПЛК-->
+        <StackPanel Margin="20,5"
+                    IsVisible="{Binding $parent[Window].((vm:MainViewModel)DataContext).PlcViewModel.MainPlcService.IsStopMode, FallbackValue={x:False}}">
+            <TextBlock Classes="Small" Text="Статус ПЛК"/>
+            <Border BorderBrush="Red">
+                <TextBlock Classes="Big" 
+                           Text="ПЛК В РЕЖИМЕ 'СТОП'"
+                           Foreground="Red"/>
             </Border>
         </StackPanel>
         

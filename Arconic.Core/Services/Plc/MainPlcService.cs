@@ -17,6 +17,8 @@ public partial class MainPlcService(ILogger<MainPlcService> logger, IOptionsMoni
     private List<PlcScanHelper> _ordered = new List<PlcScanHelper>();
     [ObservableProperty]
     private bool _isConnected;
+    [ObservableProperty]
+    private bool _isStopMode;
     private readonly Queue<ParameterBase> _writeCommands = new();
 
     public void WriteParameter(ParameterBase par)
@@ -62,7 +64,13 @@ public partial class MainPlcService(ILogger<MainPlcService> logger, IOptionsMoni
                 {
                     await ReadGroupAsync(helper);
                 }
-                PlcScanCompleted?.Invoke();
+
+                var status = await _plc.ReadStatusAsync();
+                IsStopMode = status != 0x08;
+                if (!IsStopMode)
+                {
+                    PlcScanCompleted?.Invoke();
+                }
                 FirstScanCompleted = true;
             }
             catch (Exception e)
