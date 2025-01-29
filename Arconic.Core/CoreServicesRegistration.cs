@@ -31,6 +31,7 @@ public static class CoreServicesRegistration
         services.AddSingleton<MainViewModel>();
         services.AddSingleton<EventMainService>();
         services.AddSingleton<AccessService>();
+        services.AddSingleton<PlcConfigurationViewModel>();
         services.AddSingleton<CoolingViewModel>();
         services.AddHostedService<ClearDatabaseService>();
         services.AddSingleton<SafetyViewModel>();

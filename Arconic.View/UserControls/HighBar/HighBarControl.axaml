@@ -39,7 +39,7 @@
                FalseStateImage="/Assets/Images/ind_err.png"
                TrueStateImage="/Assets/Images/ind_ok.png"
                Height="50" Width="50" DockPanel.Dock="Left"
-               State="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.BoolValues[0].Result.Value}"/>
+               State="{Binding PlcViewModel.Plc.Config.DiA2.Sensors[8].Result.Value}"/>
            <TextBlock Text="ПОЛОСА В КЛЕТИ" DockPanel.Dock="Right"
                       VerticalAlignment="Center" Margin="20"/>
        </DockPanel>

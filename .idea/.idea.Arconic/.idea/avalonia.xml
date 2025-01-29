@@ -18,6 +18,7 @@
         <entry key="Arconic.View/Styles/DataGrid/DataGridColumnCells.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Styles/DataGrid/DataGridHeader.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Styles/DataGrid/DataGridRows.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/Styles/Indicators/BoolIndicators.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Styles/TextBlocks/TextBlockCommon.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Styles/TextBoxes/TextBoxCommon.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/Styles/Validation/ValidationErrors.axaml" value="Arconic.View/Arconic.View.csproj" />
@@ -70,6 +71,7 @@
         <entry key="Arconic.View/UserControls/Settings/Drive/DriveSettingsTab.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Settings/Other/OtherSettsTab.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Settings/Other/PlanshetSettingsControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/Settings/PlcConfiguration/PlcConfigurationControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Settings/Safety/SafetyTab.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Settings/SettingsMainControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Settings/SourceUnit/GateSettingsControl.axaml" value="Arconic.View/Arconic.View.csproj" />

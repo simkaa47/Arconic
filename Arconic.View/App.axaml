@@ -24,6 +24,7 @@
         <StyleInclude Source="avares://Avalonia.Controls.TreeDataGrid/Themes/Fluent.axaml"/>
         <StyleInclude Source="/UserControls/CommonControls/DateTimePicker/DateTimePickerStyle.axaml"/>
         <StyleInclude Source="/Styles/Validation/ValidationErrors.axaml"></StyleInclude>
+        <StyleInclude Source="/Styles/Indicators/BoolIndicators.axaml"></StyleInclude>
         <StyleInclude Source="/Styles/TextBlocks/TextBlockCommon.axaml"></StyleInclude>
         <StyleInclude Source="/Styles/DataGrid/DataGridHeader.axaml"></StyleInclude>
         <StyleInclude Source="/Styles/DataGrid/DataGridRows.axaml"></StyleInclude>

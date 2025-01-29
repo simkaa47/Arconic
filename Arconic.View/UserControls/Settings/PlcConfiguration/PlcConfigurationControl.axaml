@@ -1,0 +1,71 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:modules="using:Arconic.Core.Models.PlcModules"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             x:DataType="vm:PlcConfigurationViewModel"
+             x:Class="Arconic.View.UserControls.Settings.PlcConfiguration.PlcConfigurationControl">
+   <Grid Margin="20" RowDefinitions="Auto, *">
+       <Grid.DataTemplates>
+           <DataTemplate x:DataType="modules:Di16Module">
+               <DataGrid ItemsSource="{Binding Sensors}"
+                         GridLinesVisibility="All"
+                         
+                         HorizontalAlignment="Stretch"
+                         IsReadOnly="True">
+                   <DataGrid.Columns>
+                       <DataGridTextColumn Foreground="{StaticResource TexBoxCommonColor80}" 
+                                           Width="120"
+                                           Header="Обозначение на схеме" Binding="{Binding Position}"/>
+                       <DataGridTextColumn Foreground="{StaticResource TexBoxCommonColor80}" 
+                                           Width="*"
+                                           Header="Название сигнала" Binding="{Binding Description}"/>
+                       <DataGridTemplateColumn Header="Вход ПЛК" Width="100" >
+                           <DataGridTemplateColumn.CellTemplate>
+                               <DataTemplate>
+                                   <common:ImageBitIndicator
+                                       Margin="5"
+                                       State="{Binding RealValue.Value}"/>
+                               </DataTemplate>
+                           </DataGridTemplateColumn.CellTemplate>
+                       </DataGridTemplateColumn>
+                       <DataGridTemplateColumn Header="Эмуляция" Width="100">
+                           <DataGridTemplateColumn.CellTemplate>
+                               <DataTemplate>
+                                   <common:ToggleSwitch CommandParameter="{Binding EmulOnOff}"
+                                                        State="{Binding EmulOnOff.Value}"/>
+                               </DataTemplate>
+                           </DataGridTemplateColumn.CellTemplate>
+                       </DataGridTemplateColumn>
+                       <DataGridTemplateColumn Header="Значение эмуляции" Width="100">
+                           <DataGridTemplateColumn.CellTemplate>
+                               <DataTemplate>
+                                   <common:ToggleSwitch CommandParameter="{Binding EmulValue}"
+                                                        State="{Binding EmulValue.Value}"/>
+                               </DataTemplate>
+                           </DataGridTemplateColumn.CellTemplate>
+                       </DataGridTemplateColumn>
+                       <DataGridTemplateColumn Header="Результат" Width="100">
+                           <DataGridTemplateColumn.CellTemplate>
+                               <DataTemplate>
+                                   <common:ImageBitIndicator
+                                       Margin="5"
+                                       State="{Binding Result.Value}"/>
+                               </DataTemplate>
+                           </DataGridTemplateColumn.CellTemplate>
+                       </DataGridTemplateColumn>
+                   </DataGrid.Columns>
+               </DataGrid>
+           </DataTemplate>
+       </Grid.DataTemplates>
+       <ComboBox ItemsSource="{Binding Plc.Config.Modules}"
+                 SelectedItem="{Binding SelectedModule}"
+                 DisplayMemberBinding="{Binding Description}"></ComboBox>
+       <ContentControl Grid.Row="1"
+                       Content="{Binding SelectedModule}"></ContentControl>
+       
+   </Grid>
+</UserControl>

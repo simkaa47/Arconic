@@ -10,13 +10,6 @@
              x:Class="Arconic.View.UserControls.Settings.SourceUnit.SourceIndicationControl">
     <Grid  ColumnDefinitions="*,*,*">
         <Grid.Styles>
-            <Style Selector="common|ImageBitIndicator">
-                <Setter Property="Height" Value="35"></Setter>
-                <Setter Property="VerticalAlignment" Value="Center"></Setter>
-                <Setter Property="DockPanel.Dock" Value="Right"></Setter>
-                <Setter Property="FalseStateImage" Value="/Assets/Images/ind_err.png"></Setter>
-                <Setter Property="TrueStateImage" Value="/Assets/Images/ind_ok.png"></Setter>
-            </Style>
             <Style Selector="TextBlock">
                 <Setter Property="DockPanel.Dock" Value="Left"></Setter>
             </Style>

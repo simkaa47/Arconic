@@ -10,11 +10,15 @@
              xmlns:drive="using:Arconic.View.UserControls.Settings.Drive"
              xmlns:oth="using:Arconic.View.UserControls.Settings.Other"
              xmlns:cool="using:Arconic.View.UserControls.Settings.Cooling"
+             xmlns:plc="using:Arconic.View.UserControls.Settings.PlcConfiguration"
              xmlns:vm="using:Arconic.Core.ViewModels"
              xmlns:acc="using:Arconic.Core.Models.AccessControl"
              x:DataType="vm:MainViewModel"
              x:Class="Arconic.View.UserControls.Settings.SettingsMainControl">
     <TabControl TabStripPlacement="Left">
+        <TabItem Header="ПЛК">
+            <plc:PlcConfigurationControl DataContext="{Binding PlcConfigurationViewModel}"/>
+        </TabItem>
         <TabItem Header="БЛОК ИСТОЧНИКА">
             <bs:SourceMainControl DataContext="{Binding PlcViewModel}"></bs:SourceMainControl>
         </TabItem>

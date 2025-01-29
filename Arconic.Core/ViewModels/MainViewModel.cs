@@ -13,6 +13,7 @@ public partial class MainViewModel : ObservableObject
         SafetyViewModel safetyViewModel,
         ArchieveTrendsViewModel archieveTrendsViewModel,
         CoolingViewModel coolingViewModel,
+        PlcConfigurationViewModel plcConfigurationViewModel,
         SingleMeasuresViewModel singleMeasuresViewModel,
         SteelMagazineViewModel steelMagazineViewModel,
         MainTrendsViewModel mainTrendsViewModel)
@@ -22,6 +23,7 @@ public partial class MainViewModel : ObservableObject
         SafetyViewModel = safetyViewModel;
         ArchieveTrendsViewModel = archieveTrendsViewModel;
         CoolingViewModel = coolingViewModel;
+        PlcConfigurationViewModel = plcConfigurationViewModel;
         SingleMeasuresViewModel = singleMeasuresViewModel;
         SteelMagazineViewModel = steelMagazineViewModel;
         MainTrendsViewModel = mainTrendsViewModel;
@@ -42,6 +44,7 @@ public partial class MainViewModel : ObservableObject
     public SafetyViewModel SafetyViewModel { get; }
     public ArchieveTrendsViewModel ArchieveTrendsViewModel { get; }
     public CoolingViewModel CoolingViewModel { get; }
+    public PlcConfigurationViewModel PlcConfigurationViewModel { get; }
     public SingleMeasuresViewModel SingleMeasuresViewModel { get; }
     public SteelMagazineViewModel SteelMagazineViewModel { get; }
     public MainTrendsViewModel MainTrendsViewModel { get; }

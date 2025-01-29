@@ -2,8 +2,18 @@
 
 namespace Arconic.Core.Models.PlcData;
 
-public record AnalogSensorInfo(string Description, Parameter<short> AdcValue, 
-    Parameter<float> RealValue,
-    Parameter<float> EmulValue, 
-    Parameter<bool> EmulOnOff,
-    Parameter<float> MaxValue);
+public class AnalogSensorInfo(
+    string description,
+    Parameter<short> adcValue,
+    Parameter<float> realValue,
+    Parameter<float> emulValue,
+    Parameter<bool> emulOnOff,
+    Parameter<float> maxValue) : ISensorInfo
+{
+    public string Description { get; set;  } = description;
+    public Parameter<short> AdcValue { get; } = adcValue;
+    public Parameter<float> RealValue { get; } = realValue;
+    public Parameter<float> EmulValue { get; } = emulValue;
+    public Parameter<bool> EmulOnOff { get; } = emulOnOff;
+    public Parameter<float> MaxValue { get; } = maxValue;
+}
