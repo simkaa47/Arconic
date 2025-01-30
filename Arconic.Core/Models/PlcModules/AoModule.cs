@@ -18,7 +18,6 @@ public class AoModule:IPlcModule
         DataType emulatedMemoryType = DataType.Memory,
         DataType emulatedControlMemoryType = DataType.Memory,
         DataType outputMemoryType = DataType.Output,
-        int initaialSchemePosition = 0,
         int sensorsNum = 4)
     {
         Description = description;
@@ -48,7 +47,7 @@ public class AoModule:IPlcModule
                     short.MaxValue,
                     outputMemoryType,
                     0,
-                    outputMemoryByteNum + i*2)){Position = $"CH{initaialSchemePosition+i}"}).ToList();
+                    outputMemoryByteNum + i*2)){Position = $"AQ{i}"}).ToList();
     }
     
 }

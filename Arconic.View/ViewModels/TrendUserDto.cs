@@ -21,10 +21,6 @@ namespace Arconic.View.ViewModels;
 
 public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
 {
-    
-   
-    private int _cnt = 0;
-    
     public TrendUserDto()
     {
          ReInitTrend();

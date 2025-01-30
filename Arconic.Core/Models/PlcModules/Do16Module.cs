@@ -17,8 +17,8 @@ public class Do16Module:IPlcModule
         DataType inputMemoryType = DataType.Memory,
         DataType emulatedMemoryType = DataType.Memory,
         DataType emulatedControlMemoryType = DataType.Memory,
-        DataType outputMemoryType = DataType.Output,
-        int initaialSchemePosition = 0)
+        DataType outputMemoryType = DataType.Output, 
+        DoModuleType doModuleType = DoModuleType.Do16)
     {
         Description = description;
         Sensors = Enumerable.Range(0, 16)
@@ -52,6 +52,20 @@ public class Do16Module:IPlcModule
                     outputMemoryType,
                     0,
                     outputMemoryByteNum + i / 8,
-                    i % 8)){Position = $"CH{i+initaialSchemePosition}"}).ToList();
+                    i % 8)){Position = GetPosition(i,doModuleType)}).ToList();
+        
+    }
+
+    private static string GetPosition(int outNum, DoModuleType doModuleType)
+    {
+        switch (doModuleType)
+        {
+            case DoModuleType.Do16:
+                return outNum<8 ? $"DQa{outNum}" : $"DQb{outNum%8}";
+            case DoModuleType.Dio32:
+                return $"DQ{16 + outNum}";
+            default:
+                return $"CH{outNum}";
+        }
     }
 }

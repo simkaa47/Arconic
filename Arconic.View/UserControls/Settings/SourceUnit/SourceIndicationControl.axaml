@@ -51,50 +51,50 @@
         <ListBox Grid.Column="1" HorizontalAlignment="Stretch">
             <!--Основной затвор открыт-->
             <DockPanel>
-                <common:ImageBitIndicator State="{Binding Plc.Di.SqGateOpen0.Value}"/>
-                <TextBlock Text="{Binding Plc.Di.SqGateOpen0.Description}"></TextBlock>
+                <common:ImageBitIndicator State="{Binding Plc.Config.DiA7.Sensors[8].Result.Value}"/>
+                <TextBlock Text="Датчик открытого затвора"></TextBlock>
             </DockPanel>
             <!--Образец 1 открыт-->
             <DockPanel>
-                <common:ImageBitIndicator State="{Binding Plc.Di.SqGateOpen1.Value}"/>
-                <TextBlock Text="{Binding Plc.Di.SqGateOpen1.Description}"></TextBlock>
+                <common:ImageBitIndicator State="{Binding Plc.Config.DiA7.Sensors[10].Result.Value}"/>
+                <TextBlock Text="Образец 5 мм снят"></TextBlock>
             </DockPanel>
             <!--Доп Образец открыт 2-->
             <DockPanel>
-                <common:ImageBitIndicator State="{Binding Plc.Di.SqGateOpen2.Value}"/>
-                <TextBlock Text="{Binding Plc.Di.SqGateOpen2.Description}"></TextBlock>
+                <common:ImageBitIndicator State="{Binding Plc.Config.DiA7.Sensors[12].Result.Value}"/>
+                <TextBlock Text="Образец 10 мм снят"></TextBlock>
             </DockPanel>
             <!--Сигнал на открытие затвора-->
             <DockPanel>
-                <common:ImageBitIndicator State="{Binding Plc.Do.Gate0.Value}"/>
-                <TextBlock Text="{Binding Plc.Do.Gate0.Description}"></TextBlock>
+                <common:ImageBitIndicator State="{Binding Plc.Config.DoA4.Sensors[3].RealValue.Value}"/>
+                <TextBlock Text="Сигнал на открытие основного завтора"></TextBlock>
             </DockPanel>
             <!--Сигнал на закрытие образца 2-->
             <DockPanel>
-                <common:ImageBitIndicator State="{Binding Plc.Do.Gate2.Value}"/>
-                <TextBlock Text="{Binding Plc.Do.Gate2.Description}"></TextBlock>
+                <common:ImageBitIndicator State="{Binding Plc.Config.DoA4.Sensors[5].RealValue.Value}"/>
+                <TextBlock Text="Сигнал на снятие образца 10 мм"></TextBlock>
             </DockPanel>
         </ListBox>
         <ListBox Grid.Column="2" HorizontalAlignment="Stretch">
             <!--Основной затвор закрыт-->
             <DockPanel>
-                <common:ImageBitIndicator State="{Binding Plc.Di.SqGateСlose0.Value}"/>
-                <TextBlock Text="{Binding Plc.Di.SqGateСlose0.Description}"></TextBlock>
+                <common:ImageBitIndicator State="{Binding Plc.Config.DiA7.Sensors[9].Result.Value}"/>
+                <TextBlock Text="Датчик закрытого затвора"></TextBlock>
             </DockPanel>
             <!--Доп образец закрыт 1-->
             <DockPanel>
-                <common:ImageBitIndicator State="{Binding Plc.Di.SqGateClose1.Value}"/>
-                <TextBlock Text="{Binding Plc.Di.SqGateClose1.Description}"></TextBlock>
+                <common:ImageBitIndicator State="{Binding Plc.Config.DiA7.Sensors[11].Result.Value}"/>
+                <TextBlock Text="Образец 5 мм поставлен"></TextBlock>
             </DockPanel>
             <!--Доп образец закрыт 2-->
             <DockPanel>
-                <common:ImageBitIndicator State="{Binding Plc.Di.SqGateClose2.Value}"/>
-                <TextBlock Text="{Binding Plc.Di.SqGateClose2.Description}"></TextBlock>
+                <common:ImageBitIndicator State="{Binding Plc.Config.DiA7.Sensors[13].Result.Value}"/>
+                <TextBlock Text="Образец 10 мм поставлен"></TextBlock>
             </DockPanel>
             <!--Сигнал на закрытие затвора 1-->
             <DockPanel>
-                <common:ImageBitIndicator State="{Binding Plc.Do.Gate1.Value}"/>
-                <TextBlock Text="{Binding Plc.Do.Gate1.Description}"></TextBlock>
+                <common:ImageBitIndicator State="{Binding Plc.Config.DoA4.Sensors[4].RealValue.Value}"/>
+                <TextBlock Text="Сигнал на снятие образца 5 мм"></TextBlock>
             </DockPanel>
         </ListBox>
         

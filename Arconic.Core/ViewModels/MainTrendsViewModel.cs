@@ -87,7 +87,7 @@ public partial class MainTrendsViewModel:ObservableObject
         }
     }
     
-    private async void OnStartStrip(object? sender, PropertyChangedEventArgs args)
+    private void OnStartStrip(object? sender, PropertyChangedEventArgs args)
     {
         if (args.PropertyName != "Value") return;
         if (!Plc.ControlAndIndication.PlcEventsData.StripStart.Value) return;

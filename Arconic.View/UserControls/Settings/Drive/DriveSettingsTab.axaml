@@ -157,7 +157,7 @@
                 
             </StackPanel>
             <!--Датчики-->
-            <ListBox DataContext="{Binding PlcViewModel.Plc.ControlAndIndication.DriveIndication}"
+            <ListBox DataContext="{Binding PlcViewModel.Plc}"
                      VerticalAlignment="Top"
                      ItemContainerTheme="{StaticResource SelectorListBoxItem}">
                 <ListBox.Styles>
@@ -171,32 +171,32 @@
                     </Style>
                 </ListBox.Styles>
                 <DockPanel>
-                    <TextBlock Text="{Binding SqAbortLeft.Description}"></TextBlock>
-                    <common:ImageBitIndicator State="{Binding SqAbortLeft.Value}"/>
+                    <TextBlock Text="Датчик крайнего левого положения"></TextBlock>
+                    <common:ImageBitIndicator State="{Binding Config.DiA6.Sensors[2].Result.Value}"/>
                 </DockPanel>
                 <DockPanel>
-                    <TextBlock Text="{Binding SqAbortRight.Description}"></TextBlock>
-                    <common:ImageBitIndicator State="{Binding SqAbortRight.Value}"/>
+                    <TextBlock Text="Датчик крайнего правого положения"></TextBlock>
+                    <common:ImageBitIndicator State="{Binding Config.DiA6.Sensors[0].Result.Value}"/>
                 </DockPanel>
                 <DockPanel>
-                    <TextBlock Text="{Binding IsParkingPosition.Description}"></TextBlock>
-                    <common:ImageBitIndicator State="{Binding IsParkingPosition.Value}"/>
+                    <TextBlock Text="{Binding ControlAndIndication.DriveIndication.IsParkingPosition.Description}"></TextBlock>
+                    <common:ImageBitIndicator State="{Binding ControlAndIndication.DriveIndication.IsParkingPosition.Value}"/>
                 </DockPanel>
                 <DockPanel>
-                    <TextBlock Text="{Binding IsCentralPosition.Description}"></TextBlock>
-                    <common:ImageBitIndicator State="{Binding IsCentralPosition.Value}"/>
+                    <TextBlock Text="{Binding ControlAndIndication.DriveIndication.IsCentralPosition.Description}"></TextBlock>
+                    <common:ImageBitIndicator State="{Binding ControlAndIndication.DriveIndication.IsCentralPosition.Value}"/>
                 </DockPanel>
                 <DockPanel>
-                    <TextBlock Text="{Binding IsWaitPosition.Description}"></TextBlock>
-                    <common:ImageBitIndicator State="{Binding IsWaitPosition.Value}"/>
+                    <TextBlock Text="{Binding ControlAndIndication.DriveIndication.IsWaitPosition.Description}"></TextBlock>
+                    <common:ImageBitIndicator State="{Binding ControlAndIndication.DriveIndication.IsWaitPosition.Value}"/>
                 </DockPanel>
                 <DockPanel>
                     <TextBlock Text="Связь с датчиком положения рамы"></TextBlock>
-                    <common:ImageBitIndicator State="{Binding !ErrSensorComm.Value}"/>
+                    <common:ImageBitIndicator State="{Binding !ControlAndIndication.DriveIndication.ErrSensorComm.Value}"/>
                 </DockPanel>
                 <DockPanel>
-                    <TextBlock Text="{Binding FcComm.Description}"></TextBlock>
-                    <common:ImageBitIndicator State="{Binding FcComm.Value}"/>
+                    <TextBlock Text="{Binding ControlAndIndication.DriveIndication.FcComm.Description}"></TextBlock>
+                    <common:ImageBitIndicator State="{Binding ControlAndIndication.DriveIndication.FcComm.Value}"/>
                 </DockPanel>
             </ListBox>
         </WrapPanel>

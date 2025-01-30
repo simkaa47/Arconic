@@ -21,42 +21,12 @@ public partial class CoolingViewModel:ObservableObject
     {
         FlowBoolSensors =
         [
-            //Датчик потока на входе в бак
-            /*new BoolSensorInfo(Plc.ControlAndIndication.CoolingIndication.SqFlowTanksIn.Description, 
-                Plc.ControlAndIndication.CoolingIndication.SqFlowTanksIn,
-                 Plc.Settings.CoolingSettings.SqFlowTanksInEmulationValue,
-                Plc.Settings.CoolingSettings.SqFlowTanksInEmulation,
-                Plc.ControlAndIndication.CoolingIndication.SqFlowTanksInResult),*/
             //Датчик потока на выходе бака
-            new BoolSensorInfo(Plc.ControlAndIndication.CoolingIndication.SqFlowTanksOut.Description, 
-                Plc.ControlAndIndication.CoolingIndication.SqFlowTanksOut,
-                Plc.Settings.CoolingSettings.SqFlowTanksOutEmulationValue,
-                Plc.Settings.CoolingSettings.SqFlowTanksOutEmulation,
-                Plc.ControlAndIndication.CoolingIndication.SqFlowTanksOutResult),
-            // Датчик потока на входе трубок
-            /* new BoolSensorInfo(Plc.ControlAndIndication.CoolingIndication.SqFlowTubeIn.Description, 
-                Plc.ControlAndIndication.CoolingIndication.SqFlowTubeIn,
-                Plc.Settings.CoolingSettings.SqFlowTubeInEmulationValue,
-                Plc.Settings.CoolingSettings.SqFlowTubeInEmulation,
-                Plc.ControlAndIndication.CoolingIndication.SqFlowTubeInResult),
-            // Датчик потока на выходе трубок
-            new BoolSensorInfo(Plc.ControlAndIndication.CoolingIndication.SqFlowTubeOut.Description, 
-                Plc.ControlAndIndication.CoolingIndication.SqFlowTubeOut,
-                Plc.Settings.CoolingSettings.SqFlowTubeOutEmulationValue,
-                Plc.Settings.CoolingSettings.SqFlowTubeOutEmulation,
-                Plc.ControlAndIndication.CoolingIndication.SqFlowTubeOutResult),*/
+            Plc.Config.DiA6.Sensors[6],
             // Датчик потока c баков (гидрошкаф)
-            new BoolSensorInfo(Plc.ControlAndIndication.CoolingIndication.SqFlowTanksOutCabinet.Description, 
-                Plc.ControlAndIndication.CoolingIndication.SqFlowTanksOutCabinet,
-                Plc.Settings.CoolingSettings.SqFlowTanksOutCabinetEmulationValue,
-                Plc.Settings.CoolingSettings.SqFlowTanksOutCabinetEmulation,
-                Plc.ControlAndIndication.CoolingIndication.SqFlowTanksOutCabinetResult),
+            Plc.Config.DiA8.Sensors[2],
             // Датчик потока c баков (гидрошкаф)
-            new BoolSensorInfo(Plc.ControlAndIndication.CoolingIndication.SqFlowTubeOutCabinet.Description, 
-                Plc.ControlAndIndication.CoolingIndication.SqFlowTubeOutCabinet,
-                Plc.Settings.CoolingSettings.SqFlowTubeOutCabinetEmulationValue,
-                Plc.Settings.CoolingSettings.SqFlowTubeOutCabinetEmulation,
-                Plc.ControlAndIndication.CoolingIndication.SqFlowTubeOutCabinetResult),
-            ];
+            Plc.Config.DiA8.Sensors[3]
+        ];
     }
 }

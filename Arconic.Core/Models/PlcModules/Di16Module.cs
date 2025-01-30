@@ -18,7 +18,7 @@ public class Di16Module:IPlcModule
         DataType emulatedMemoryType = DataType.Memory,
         DataType emulatedControlMemoryType = DataType.Memory,
         DataType outputMemoryType = DataType.Memory,
-        int initaialSchemePosition = 0)
+        DiModuleType diModuleType = DiModuleType.Di16)
     {
         Description = description;
         Sensors = Enumerable.Range(0, 16)
@@ -52,8 +52,21 @@ public class Di16Module:IPlcModule
                     outputMemoryType,
                     0,
                     outputMemoryByteNum + i / 8,
-                    i % 8)){Position = $"CH{i+initaialSchemePosition}"}).ToList();
+                    i % 8)){Position = GetPosition(i, diModuleType)}).ToList();
        
+    }
+    
+    private static string GetPosition(int outNum, DiModuleType diModuleType)
+    {
+        switch (diModuleType)
+        {
+            case DiModuleType.Di16:
+                return outNum<8 ? $"DIa{outNum}" : $"DIb{outNum%8}";
+            case DiModuleType.Dio32:
+                return $"DI{outNum}";
+            default:
+                return $"CH{outNum}";
+        }
     }
     
     

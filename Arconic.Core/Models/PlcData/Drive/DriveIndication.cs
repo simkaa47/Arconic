@@ -29,14 +29,6 @@ public class DriveIndication
         true, DataType.DataBlock, 2, 220,5);
     public Parameter<short> DriveStatus { get; } =
         new Parameter<short>("Статус перемещения рамы", 0, 20, DataType.DataBlock, 2, 224);
-
-    public Parameter<bool> SqAbortLeft { get; } =
-        new Parameter<bool>("Датчик крайнего левого положения",
-            false, true, DataType.Input, 0, 12, 2);
-    public Parameter<bool> SqAbortRight { get; } =
-        new Parameter<bool>("Датчик крайнего правого положения",
-            false, true, DataType.Input, 0, 12, 0);
-    
     public Parameter<bool> IsParkingPosition { get; } =
         new Parameter<bool>("В позиции парковки",
             false, true, DataType.DataBlock, ParameterBase.IndicationDbNum, 222, 0);

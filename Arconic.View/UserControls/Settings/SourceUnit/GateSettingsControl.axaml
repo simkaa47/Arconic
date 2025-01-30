@@ -31,19 +31,19 @@
             <!--Кнопки управления дополнительными затворами-->
             <common:ParameterButton Grid.Column="0"
                                     Margin="5"
-                                    State="{Binding !Plc.Do.Gate1.Value}"
+                                    State="{Binding !Plc.Config.DoA4.Sensors[4].RealValue.Value}"
                                     CommandParameter="{Binding Plc.Settings.Source.SbGate1}">
                 <common:ParameterButton.ButtonContent>
-                    <TextBlock Text="{Binding Plc.Do.Gate1.Value, Converter={StaticResource GetIfTrueConverter}, ConverterParameter={StaticResource OpenGateNames1}}"
+                    <TextBlock Text="{Binding Plc.Config.DoA4.Sensors[4].RealValue.Value, Converter={StaticResource GetIfTrueConverter}, ConverterParameter={StaticResource OpenGateNames1}}"
                                HorizontalAlignment="Center"/>
                 </common:ParameterButton.ButtonContent>
             </common:ParameterButton>
             <common:ParameterButton Grid.Column="1"
                                     Margin="5"
-                                    State="{Binding !Plc.Do.Gate2.Value}"
+                                    State="{Binding !Plc.Config.DoA4.Sensors[5].RealValue.Value}"
                                     CommandParameter="{Binding Plc.Settings.Source.SbGate2}">
                 <common:ParameterButton.ButtonContent>
-                    <TextBlock Text="{Binding Plc.Do.Gate2.Value, Converter={StaticResource GetIfTrueConverter}, ConverterParameter={StaticResource OpenGateNames2}}"
+                    <TextBlock Text="{Binding Plc.Config.DoA4.Sensors[5].RealValue.Value, Converter={StaticResource GetIfTrueConverter}, ConverterParameter={StaticResource OpenGateNames2}}"
                                HorizontalAlignment="Center"/>
                 </common:ParameterButton.ButtonContent>
             </common:ParameterButton>

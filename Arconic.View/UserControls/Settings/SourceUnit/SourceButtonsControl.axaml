@@ -65,9 +65,9 @@
         <!--Затвор-->
         <common:ParameterButton Grid.Row="2" Grid.Column="0"
                                 CommandParameter="{Binding Plc.Settings.Source.SbGate}"
-                                State="{Binding Plc.Di.SqGateOpen0.Value}">
+                                State="{Binding Plc.Config.DiA7.Sensors[8].Result.Value}">
             <common:ParameterButton.ButtonContent>
-                <TextBlock Text="{Binding Plc.Di.SqGateСlose0.Value, Converter={StaticResource GetIfTrueConverter}, 
+                <TextBlock Text="{Binding Plc.Config.DiA7.Sensors[8].Result.Value, Converter={StaticResource GetIfTrueConverter}, 
                 ConverterParameter={StaticResource GateBtns}}"/>
             </common:ParameterButton.ButtonContent>
         </common:ParameterButton>

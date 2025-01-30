@@ -27,8 +27,6 @@ namespace Arconic.View;
 public partial class App : Application
 {
     private IHost? _host;
-
-    private ServiceProvider? _serviceProvider;
     
     public T? GetService<T>() where T : notnull
     {

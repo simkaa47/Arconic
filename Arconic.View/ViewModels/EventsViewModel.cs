@@ -139,7 +139,7 @@ public partial class EventsViewModel:ObservableObject
                 _events.Add(item);
             });
         }
-        catch (Exception e)
+        catch (Exception)
         {
             //Ignore
         }

@@ -71,11 +71,11 @@
                                CommandParameter="{Binding PlcViewModel.Plc.Settings.Source.SbGate}">
            <common:ParameterButton.ButtonContent>
                <DockPanel>
-                   <common:ImageBitIndicator State="{Binding PlcViewModel.Plc.Di.SqGateСlose0.Value}"
+                   <common:ImageBitIndicator State="{Binding PlcViewModel.Plc.Config.DiA7.Sensors[9].Result.Value}"
                                              Height="50" Width="50" Margin="5"
                                              FalseStateImage="/Assets/Images/x_ray_red.png"
                                              TrueStateImage="/Assets/Images/x_ray_grey.png"/>
-                   <TextBlock Text="{Binding PlcViewModel.Plc.Di.SqGateСlose0.Value, 
+                   <TextBlock Text="{Binding PlcViewModel.Plc.Config.DiA7.Sensors[9].Result.Value, 
                    Converter={StaticResource GetIfTrueConverter}, 
                    ConverterParameter={StaticResource GateBtns}}"
                               DockPanel.Dock="Right"/>

@@ -46,7 +46,7 @@
                                </DataTemplate>
                            </DataGridTemplateColumn.CellTemplate>
                        </DataGridTemplateColumn>
-                       <DataGridTemplateColumn Header="Результат" Width="100">
+                       <DataGridTemplateColumn Header="Вход программы" Width="100">
                            <DataGridTemplateColumn.CellTemplate>
                                <DataTemplate>
                                    <common:ImageBitIndicator
@@ -69,7 +69,7 @@
                        <DataGridTextColumn Foreground="{StaticResource TexBoxCommonColor80}" 
                                            Width="*"
                                            Header="Название сигнала" Binding="{Binding Description}"/>
-                       <DataGridTemplateColumn Header="Вход программы" Width="100" >
+                       <DataGridTemplateColumn Header="Выход программы" Width="100" >
                            <DataGridTemplateColumn.CellTemplate>
                                <DataTemplate>
                                    <common:ImageBitIndicator
@@ -117,7 +117,7 @@
                        <DataGridTextColumn Foreground="{StaticResource TexBoxCommonColor80}" 
                                            Width="*"
                                            Header="Название сигнала" Binding="{Binding Description}"/>
-                       <DataGridTextColumn Header="Вход программы" Width="100" Binding="{Binding Input.Value}"/>
+                       <DataGridTextColumn Header="Выход программы" Width="100" Binding="{Binding Input.Value}"/>
                        
                        <DataGridTemplateColumn Header="Эмуляция" Width="100">
                            <DataGridTemplateColumn.CellTemplate>
