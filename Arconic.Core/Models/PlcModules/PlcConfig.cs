@@ -15,6 +15,8 @@ public class PlcConfig
     public Di16Module DiA6 { get; }
     public Di16Module DiA7 { get; }
     public Di16Module DiA8 { get; }
+    private AiModule AiA9 { get; }
+    private AiModule AiA10 { get; }
 
     public PlcConfig()
     {
@@ -147,5 +149,19 @@ public class PlcConfig
         DiA8.Sensors[3].Description = "Реле протока ОЖ от трубки";
         
         Modules.Add(DiA8);
+        
+        // A9 - Ai
+        AiA9 = new AiModule("ШCД - A9 - аналоговые входы",
+            18, 324, 224, 
+            118);
+        Modules.Add(AiA9);
+        
+        // A10 - Ai
+        AiA10 = new AiModule("ШCД - A10 - аналоговые входы",
+            26, 332, 232, 
+            126, sensorsNum:8);
+        AiA10.Sensors[0].Description = "Т. корпуса трубки";
+        AiA10.Sensors[1].Description = "Т. шланга трубки";
+        Modules.Add(AiA10);
     }
 }
