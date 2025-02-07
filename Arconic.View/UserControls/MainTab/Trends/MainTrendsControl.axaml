@@ -5,20 +5,23 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:local="using:Arconic.View.UserControls.MainTab"
              xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:trends="clr-namespace:Arconic.View.UserControls.MainTab.Trends"
              x:DataType="vm:MainViewModel"
-             x:Class="Arconic.View.UserControls.MainTab.MainTrendsControl">
+             x:Class="Arconic.View.UserControls.MainTab.Trends.MainTrendsControl">
     <TabControl TabStripPlacement="Top">
         <TabItem Header="Текущий тренд">
-            <Grid DataContext="{Binding MainTrendsViewModel}">
-                <local:CurrentTrendsControl
-                    IsVisible="{Binding !Plc.ControlAndIndication.DriveIndication.IsParkingPosition.Value}"/>
-                <local:ParkingTrendControl
+            <Grid 
+                  RowDefinitions="*, Auto">
+                <trends:CurrentTrendsControl DataContext="{Binding MainTrendsViewModel}"
+                                             IsVisible="{Binding !Plc.ControlAndIndication.DriveIndication.IsParkingPosition.Value}"/>
+                <trends:ParkingTrendControl Grid.Row="0" DataContext="{Binding MainTrendsViewModel}"
                     IsVisible="{Binding Plc.ControlAndIndication.DriveIndication.IsParkingPosition.Value}"/>
+                <local:BigIndicatorsControl Grid.Row="1"></local:BigIndicatorsControl>
             </Grid>
            
         </TabItem>
         <TabItem Header="Архивные тренды">
-            <local:ArchieveThendsControl DataContext="{Binding ArchieveTrendsViewModel}"/>
+            <trends:ArchieveThendsControl DataContext="{Binding ArchieveTrendsViewModel}"/>
         </TabItem>
     </TabControl>
 </UserControl>

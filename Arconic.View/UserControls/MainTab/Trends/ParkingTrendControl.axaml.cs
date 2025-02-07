@@ -1,8 +1,6 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+﻿using Avalonia.Controls;
 
-namespace Arconic.View.UserControls.MainTab;
+namespace Arconic.View.UserControls.MainTab.Trends;
 
 public partial class ParkingTrendControl : UserControl
 {

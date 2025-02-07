@@ -7,8 +7,9 @@
              xmlns:li="using:LoadingIndicators.Avalonia"
              xmlns:dt="using:Arconic.View.UserControls.CommonControls.DateTimePicker"
              xmlns:local="using:Arconic.View.UserControls.MainTab"
+             xmlns:trends="clr-namespace:Arconic.View.UserControls.MainTab.Trends"
              x:DataType="vm:ArchieveTrendsViewModel"
-             x:Class="Arconic.View.UserControls.MainTab.ArchieveThendsControl">
+             x:Class="Arconic.View.UserControls.MainTab.Trends.ArchieveThendsControl">
     <Grid ColumnDefinitions="*,300">
         <!--Тренды-->
         <li:LoadingIndicator IsActive="{Binding IsArchieveScanLoading}"
@@ -16,14 +17,14 @@
                              Mode="ArcsRing"
                              Background="Transparent"
                              ></li:LoadingIndicator>
-        <local:ArchieveTrendsViewer Grid.Column="0" >
-            <local:ArchieveTrendsViewer.IsVisible>
+        <trends:ArchieveTrendsViewer Grid.Column="0" >
+            <trends:ArchieveTrendsViewer.IsVisible>
                 <MultiBinding Converter="{x:Static BoolConverters.And}">
                     <Binding Path="!IsArchieveScanLoading"/>
                     <Binding Path="SelectedArchieveStripForViewing" Converter="{x:Static ObjectConverters.IsNotNull}"/>
                 </MultiBinding>
-            </local:ArchieveTrendsViewer.IsVisible>
-        </local:ArchieveTrendsViewer>
+            </trends:ArchieveTrendsViewer.IsVisible>
+        </trends:ArchieveTrendsViewer>
         
         <!--Выбор трендов по дате-->
         <Grid Grid.Column="1" RowDefinitions="Auto,*">
@@ -56,7 +57,7 @@
                             HorizontalAlignment="Stretch"></Button>
                 </StackPanel>
             </Border>
-           <local:ArchieveStripsListControl Grid.Row="1"/>
+           <trends:ArchieveStripsListControl Grid.Row="1"/>
            
         </Grid>
     </Grid>

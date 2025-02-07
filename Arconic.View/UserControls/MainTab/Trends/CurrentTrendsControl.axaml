@@ -6,12 +6,13 @@
              xmlns:vm="using:Arconic.Core.ViewModels"
              xmlns:mod="using:Arconic.Core.Models.PlcData.Drive"
              xmlns:local="using:Arconic.View.UserControls.MainTab"
+             xmlns:trends="clr-namespace:Arconic.View.UserControls.MainTab.Trends"
              x:DataType="vm:MainTrendsViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Arconic.View.UserControls.MainTab.CurrentTrendsControl">
+             x:Class="Arconic.View.UserControls.MainTab.Trends.CurrentTrendsControl">
     <Grid>
         
-        <local:LiveChartsTrendTemplate DataContext="{Binding ActualTrend}"/>
+        <trends:LiveChartsTrendTemplate DataContext="{Binding ActualTrend}"/>
         <StackPanel HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     IsVisible="{Binding Plc.Settings.DriveSettings.MeasMode.Value, 

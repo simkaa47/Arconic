@@ -1,0 +1,56 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             x:DataType="vm:MainViewModel"
+             xmlns:drive="using:Arconic.Core.Models.PlcData.Drive"
+             x:Class="Arconic.View.UserControls.MainTab.BigIndicatorsControl">
+    <Grid Height="95" Margin="145,0,30,0"
+          ColumnDefinitions="*,*">
+        <Grid.Styles>
+            <Style Selector="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            </Style>
+            <!--Режим профилирования-->
+            
+        </Grid.Styles>
+        <WrapPanel
+            IsVisible="{Binding PlcViewModel.Plc.Settings.DriveSettings.MeasMode.Value,
+               Converter={StaticResource IfNotEqualConverter}, 
+                    ConverterParameter=1}">
+            
+            <TextBlock Text="Клин, скан / полоса, %" FontSize="24"/>
+            <TextBlock FontSize="36" Margin="78,0,0,0"
+                       Foreground="#32D74B" FontWeight="Bold">
+                <Run Text="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.KlinRelative.Value, StringFormat=f1}"/>
+                <Run Text=" / "/>
+                <Run Text="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.KlinAverageRelative.Value, StringFormat=f1}"/>
+            </TextBlock>
+        </WrapPanel>
+        <WrapPanel Grid.Column="1" IsVisible="{Binding PlcViewModel.Plc.Settings.DriveSettings.MeasMode.Value,
+               Converter={StaticResource IfNotEqualConverter}, 
+                    ConverterParameter=1}">
+            <TextBlock Text="Профиль, скан/ полоса, %" FontSize="24"/>
+            <TextBlock FontSize="36" Margin="78,0,0,0"
+                       Foreground="#32D74B" FontWeight="Bold">
+                <Run Text="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.ChechevitsaRelative.Value, StringFormat=f1}"/>
+                <Run Text=" / "/>
+                <Run Text="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.ChechevitsaAverageRelative.Value, StringFormat=f1}"/>
+            </TextBlock>
+        </WrapPanel>
+        <!--Режим ЦЛ-->
+        <WrapPanel Grid.Column="0" Grid.ColumnSpan="2"
+                   IsVisible="{Binding PlcViewModel.Plc.Settings.DriveSettings.MeasMode.Value,
+               Converter={StaticResource IfEqualConverter}, 
+                    ConverterParameter=1}">
+            <TextBlock Text="Текущая толщина полосы, мкм" FontSize="24"/>
+            <TextBlock FontSize="36" Margin="78,0,0,0"
+                       Text="{Binding PlcViewModel.Plc.ControlAndIndication.MeasureIndicationAndControl.ArmThick.Value, StringFormat=f1}"
+                       Foreground="#32D74B" FontWeight="Bold">
+            </TextBlock>
+        </WrapPanel>
+        
+    </Grid>
+</UserControl>

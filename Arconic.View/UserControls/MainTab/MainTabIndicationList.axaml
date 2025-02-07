@@ -35,14 +35,16 @@
              ItemContainerTheme="{StaticResource SelectorListBoxItem}"
              VerticalAlignment="Stretch">
         <!--Текущая толщина, мм-->
-        <DockPanel>
+        <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value,
+               Converter={StaticResource IfNotEqualConverter}, 
+                    ConverterParameter=1}">
             <TextBlock Text="Текущая толщина полосы, мкм" Classes="Left"/>
             <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.ArmThick.Value, StringFormat=f1}" 
                        Classes="Right"/>
         </DockPanel>
         <!--Текущая ширина, мм-->
         <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value, 
-        Converter={StaticResource IfNotEqualConverter}, ConverterParameter=2}">
+        Converter={StaticResource IfNotEqualConverter}, ConverterParameter=1}">
             <TextBlock Text="Текущая ширина полосы, мм" Classes="Left"/>
             <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.Width.Value, StringFormat=f1}" 
                        Classes="Right"/>
@@ -61,35 +63,14 @@
         </DockPanel>
         <!--Положение каретки от левого края полосы, мм-->
         <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value, 
-        Converter={StaticResource IfNotEqualConverter}, ConverterParameter=2}">
+        Converter={StaticResource IfNotEqualConverter}, ConverterParameter=1}">
             <TextBlock Text="Положение каретки от левого края полосы, мм" Classes="Left"/>
             <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.CaretPosition.Value, StringFormat=f1}" 
                        Classes="Right"/>
         </DockPanel>
-        <!--Клин, мкм-->
-        <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value, 
-        Converter={StaticResource IfNotEqualConverter}, ConverterParameter=2}">
-            <TextBlock Text="Клин, % скан / полоса" Classes="Left"/>
-            <TextBlock Classes="Right">
-                <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.KlinRelative.Value, StringFormat=f1}"/>
-                <Run Text="/"/>
-                <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.KlinAverageRelative.Value, StringFormat=f1}"/>
-            </TextBlock>
-            
-        </DockPanel>
-        <!--Чечевица, мкм-->
-        <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value, 
-        Converter={StaticResource IfNotEqualConverter}, ConverterParameter=2}">
-            <TextBlock Text="Профиль, % скан / полоса" Classes="Left"/>
-            <TextBlock Classes="Right">
-                <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.ChechevitsaRelative.Value, StringFormat=f1}"/>
-                <Run Text="/"/>
-                <Run Text="{Binding ControlAndIndication.MeasureIndicationAndControl.ChechevitsaAverageRelative.Value, StringFormat=f1}"/>
-            </TextBlock>
-        </DockPanel>
         <!--Номер скана-->
         <DockPanel IsVisible="{Binding Settings.DriveSettings.MeasMode.Value, 
-        Converter={StaticResource IfNotEqualConverter}, ConverterParameter=2}">
+        Converter={StaticResource IfNotEqualConverter}, ConverterParameter=1}">
             <TextBlock Text="Номер скана" Classes="Left"/>
             <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.ScanNumber.Value}" 
                        Classes="Right"/>

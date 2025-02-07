@@ -6,7 +6,7 @@
              xmlns:vm="using:Arconic.Core.ViewModels"
              x:DataType="vm:MainTrendsViewModel"
              xmlns:oxy="using:OxyPlot.Avalonia"
-             x:Class="Arconic.View.UserControls.MainTab.ParkingTrendControl">
+             x:Class="Arconic.View.UserControls.MainTab.Trends.ParkingTrendControl">
     <Grid>
         <oxy:Plot PlotMargins="40,0,40,30" 
                   PlotType="XY"     

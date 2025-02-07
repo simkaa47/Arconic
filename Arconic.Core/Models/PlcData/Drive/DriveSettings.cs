@@ -10,6 +10,9 @@ public class DriveSettings
 
     public Parameter<int> ParkingPosition { get; } =
         new Parameter<int>("Позиция паркинга, мм", int.MinValue, int.MaxValue, DataType.DataBlock, 1, 1132);
+    
+    public Parameter<int> WaitPosition { get; } =
+        new Parameter<int>("Позиция ожидания рамы рядом со станом, мм", int.MinValue, int.MaxValue, DataType.DataBlock, 1, 1154);
 
     public Parameter<int> CentralPosition { get; } =
         new Parameter<int>("Позиция ЦЛ, мм", int.MinValue, int.MaxValue, DataType.DataBlock, 1, 1136);

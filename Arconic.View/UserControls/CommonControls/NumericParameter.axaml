@@ -7,19 +7,24 @@
              xmlns:vm="using:Arconic.Core.ViewModels"
              xmlns:mat="using:Material.Icons.Avalonia"
              xmlns:li="using:LoadingIndicators.Avalonia"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
              Name="root"
-             x:DataType="mod:ParameterBase"
+             x:DataType="mod:Parameter`1"
              x:Class="Arconic.View.UserControls.CommonControls.NumericParameter">
+
+   
     <DockPanel>
         <StackPanel Orientation="Horizontal"
                     Margin="0,5,5,5"
                     DockPanel.Dock="Right"
                     VerticalAlignment="Center">
             <Grid>
-                <TextBox x:CompileBindings="False"  Text="{Binding WriteValue}"
+                <TextBox  Text="{Binding WriteValue}"
                          IsEnabled="{CompiledBinding !IsReadOnly}"
                          Height="40"
+                         x:CompileBindings="False"
                          Width="{Binding ElementName=root, Path=ParamWidth, TargetNullValue=80}">
+                   
                     <TextBox.IsReadOnly>
                         <MultiBinding Converter="{StaticResource UserAccessDeniedConverter}">
                             <CompiledBinding Path="$parent[Window].((vm:MainViewModel)DataContext).AccessViewModel.CurrentUser" FallbackValue="{x:Null}"></CompiledBinding>
@@ -28,8 +33,8 @@
                     </TextBox.IsReadOnly>
                 
                     <TextBox.KeyBindings>
-                        <KeyBinding x:DataType="mod:ParameterBase" x:CompileBindings="True" Gesture="Enter"
-                                    Command="{Binding $parent[Window].((vm:MainViewModel)DataContext).PlcViewModel.WriteParameterCommand, FallbackValue={x:Null}}"
+                        <KeyBinding x:DataType="mod:ParameterBase"  Gesture="Enter"
+                                    Command="{CompiledBinding $parent[Window].((vm:MainViewModel)DataContext).PlcViewModel.WriteParameterCommand, FallbackValue={x:Null}}"
                                     CommandParameter="{Binding}">
                         </KeyBinding>
                     </TextBox.KeyBindings>

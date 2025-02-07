@@ -7,8 +7,9 @@
              x:DataType="vm:ArchieveTrendsViewModel"
              xmlns:local="using:Arconic.View.UserControls.MainTab"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:trends="clr-namespace:Arconic.View.UserControls.MainTab.Trends"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Arconic.View.UserControls.MainTab.ArchieveTrendsViewer">
+             x:Class="Arconic.View.UserControls.MainTab.Trends.ArchieveTrendsViewer">
     <UserControl.Styles>
         <Style Selector="TextBlock.LStyle">
             <Setter Property="DockPanel.Dock" Value="Left"/>
@@ -51,7 +52,7 @@
         <Grid Grid.Row="1" ColumnDefinitions="*, Auto"
               RowDefinitions="*,Auto"
               DataContext="{Binding CurrentArchieveScan}">
-                        <local:LiveChartsTrendTemplate MinHeight="400"
+                        <trends:LiveChartsTrendTemplate MinHeight="400"
                                                        Grid.RowSpan="2"
                                                        Grid.Column="0"/>
                         

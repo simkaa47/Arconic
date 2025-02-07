@@ -26,6 +26,8 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
          ReInitTrend();
     }
     
+    
+    
     public void ReInit(MeasModes mode = MeasModes.ForwRevers, float expectedWidth = 0, float expectedThick = 0,
         float leftBorder = 0, float rightBorder = 0, float centralLine = 0, 
         int scanNumber = 0)

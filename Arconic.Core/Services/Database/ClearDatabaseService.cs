@@ -8,18 +8,21 @@ using Microsoft.Extensions.Options;
 
 namespace Arconic.Core.Services.Database;
 
-public class ClearDatabaseService(ArconicDbContext dbContext,
-    ILogger<ClearDatabaseService> logger, IOptionsMonitor<DbClearOption> option) : BackgroundService
+public class ClearDatabaseService(
+    ArconicDbContext dbContext,
+    ILogger<ClearDatabaseService> logger,
+    IOptionsMonitor<DbClearOption> option)
+    : BackgroundService
 {
-    
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        
         while (!stoppingToken.IsCancellationRequested)
         {
             var now = DateTime.Today;
             var measuresLastDt = now.AddDays(option.CurrentValue.Measures * (-1));
             var historyLastDt = now.AddDays(option.CurrentValue.EventHistory * (-1));
-            logger.LogInformation("Вызов сервиса очистки архивных данных");
+            logger.LogInformation($"Вызов сервиса очистки архивных данных");
             try
             {
                 logger.LogInformation("Удаление данных измерений ранее, чем {time}", measuresLastDt);
@@ -39,7 +42,7 @@ public class ClearDatabaseService(ArconicDbContext dbContext,
                 var result = await dbContext.EventHistoryItems
                     .Where(s => s.Date < historyLastDt)
                     .ExecuteDeleteAsync(cancellationToken: stoppingToken);
-                logger.LogInformation("{num} записей истории событий было удалено", result);
+                logger.LogInformation($"{{num}} записей истории событий было", result);
             }
             catch (Exception e)
             {

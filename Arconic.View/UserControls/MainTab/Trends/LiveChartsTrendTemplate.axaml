@@ -8,23 +8,30 @@
              xmlns:drive="using:Arconic.Core.Models.PlcData.Drive"
              xmlns:mat="using:Material.Icons.Avalonia"
              xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
-             x:Class="Arconic.View.UserControls.MainTab.LiveChartsTrendTemplate">
+             x:Class="Arconic.View.UserControls.MainTab.Trends.LiveChartsTrendTemplate">
     <Grid>
-        <StackPanel Orientation="Horizontal"
-                    Margin="5"
-                    IsVisible="{Binding Mode, 
+        <Grid Name="Grid"
+              Width="1200"
+              Margin="130,0,0,0"
+              VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal"
+                        Margin="5"
+                        IsVisible="{Binding Mode, 
                     Converter={StaticResource IfNotEqualConverter}, 
                     ConverterParameter={x:Static drive:MeasModes.CentralLine}}"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Center">
-            <mat:MaterialIcon Kind="ArrowLeft"></mat:MaterialIcon>
-            <TextBlock Text="Сторона привода"
-                       Margin="0,0,20,0"></TextBlock>
-            <TextBlock Text="Сторона оператора"
-                       Margin="20,0,0,0"></TextBlock>
-            <mat:MaterialIcon Kind="ArrowRight"></mat:MaterialIcon>
-        </StackPanel>
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Center">
+                <mat:MaterialIcon Kind="ArrowLeft"></mat:MaterialIcon>
+                <TextBlock Text="Сторона привода"
+                           Margin="0,0,100,0"></TextBlock>
+                <TextBlock Text="Сторона оператора"
+                           Margin="100,0,0,0"></TextBlock>
+                <mat:MaterialIcon Kind="ArrowRight"></mat:MaterialIcon>
+            </StackPanel>
+        </Grid>
+        
         <lvc:CartesianChart EasingFunction="{x:Null}"
+                            Name="Cc"
                             DrawMarginFrame="{Binding DrawMarginFrame}"
                             XAxes="{Binding XAxes}"
                             Series="{Binding Series}"

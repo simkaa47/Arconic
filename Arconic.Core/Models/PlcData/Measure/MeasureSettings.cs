@@ -7,16 +7,16 @@ public class MeasureSettings
 {
     public PlanshetSettings PlanshetSettings { get; } = new PlanshetSettings();
     public Parameter<ushort> StanOpenTime { get; } =
-        new Parameter<ushort>("Время стандартизации при открытом затворе, мс.", 1000, 20000, DataType.DataBlock, 1, 1200);
+        new Parameter<ushort>("Время стандартизации при открытом затворе, мс", 1000, 20000, DataType.DataBlock, 1, 1200);
     public Parameter<ushort> StanCloseTime { get; } =
-        new Parameter<ushort>("Время стандартизации при закрытом затворе, мс.", 1000, 20000, DataType.DataBlock, 1, 1202);
+        new Parameter<ushort>("Время стандартизации при закрытом затворе, мс", 1000, 20000, DataType.DataBlock, 1, 1202);
     public Parameter<DateTime> LastStandTime { get; } =
         new Parameter<DateTime>("Дата и время последней стандартизации", DateTime.MinValue, DateTime.MaxValue, DataType.DataBlock, 1, 1204);
     public Parameter<ushort> SingleMeasTime { get; } =
-        new Parameter<ushort>("Время единичного измерения, с.", 1, 2000, DataType.DataBlock, 1, 1220);
+        new Parameter<ushort>("Время единичного измерения, с", 1, 2000, DataType.DataBlock, 1, 1220);
     
     public Parameter<ushort> TemperatureSv { get; } =
-        new Parameter<ushort>("Уставка температуры, С.", 25, 1600, DataType.DataBlock, 1, 1228);
+        new Parameter<ushort>("Уставка температуры, \u00b0C", 25, 1600, DataType.DataBlock, 1, 1228);
     
     public Parameter<ushort> CloseGateTimeSv { get; } = new Parameter<ushort>("Время закрытия затвора после полосы, с",
         10, 600, DataType.DataBlock, ParameterBase.SettingsDbNum, 1222);
@@ -31,10 +31,10 @@ public class MeasureSettings
         short.MinValue, short.MaxValue, DataType.DataBlock, ParameterBase.SettingsDbNum, 1232);
     public Parameter<float> AoThickDeviationMinValue { get; } = new Parameter<float>("Аналоговый выход отклонения толщины, мин. значение отклонения, %",
         float.MinValue, float.MaxValue, DataType.DataBlock, ParameterBase.SettingsDbNum, 1234);
-    public Parameter<float> AoThickDeviationMaxValue { get; } = new Parameter<float>("Аналоговый выход отклонения толщины, макс. значение отклонения, $",
+    public Parameter<float> AoThickDeviationMaxValue { get; } = new Parameter<float>("Аналоговый выход отклонения толщины, макс. значение отклонения, %",
         float.MinValue, float.MaxValue, DataType.DataBlock, ParameterBase.SettingsDbNum, 1238);
     public Parameter<float> LastStandTemperature { get; } =
-        new Parameter<float>("Температура во время последней стандартизации, С", 
+        new Parameter<float>("Температура во время последней стандартизации, \u00b0C", 
             float.MinValue, float.MaxValue, DataType.DataBlock, ParameterBase.SettingsDbNum, 1242){IsReadOnly = true};
     
     public Parameter<float> K1 { get; } =

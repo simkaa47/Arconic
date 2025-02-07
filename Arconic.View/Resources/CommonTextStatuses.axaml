@@ -17,7 +17,6 @@
     </scg:List>
     <scg:List x:TypeArguments="sys:Object" x:Key="MeasModes">
         <sys:String>Сканирование</sys:String>
-        <sys:String>Сканирования (20 мм от края)</sys:String>
         <sys:String>Измерение по ЦЛ</sys:String>
     </scg:List>
     <scg:List x:TypeArguments="sys:Object" x:Key="StandStates">
@@ -51,5 +50,7 @@
         <sys:String>ТОЧКОВОЕ ПЕРЕМЕЩЕНИЕ ВПЕРЕД</sys:String>
         <sys:String>НА ЛПУ НАЖАТ "АВАРИЙНЫЙ СТОП"</sys:String>
         <sys:String>НЕТ ГОТОВНОСТИ ПРИВОДА</sys:String>
+        <sys:String>ДВИЖЕНИЕ В "ОЖИДАНИЕ"</sys:String>
+        <sys:String>РАМА В ПОЛОЖЕНИИ "ОЖИДАНИЕ"</sys:String>
     </scg:List>
 </ResourceDictionary>

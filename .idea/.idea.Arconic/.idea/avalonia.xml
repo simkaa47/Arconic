@@ -50,6 +50,7 @@
         <entry key="Arconic.View/UserControls/MainTab/ArchieveStripsListControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainTab/ArchieveThendsControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainTab/ArchieveTrendsViewer.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/MainTab/BigIndicatorsControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainTab/ChemistryViewerControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainTab/CurrentTrendsControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainTab/LiveChartsTrendControl.axaml" value="Arconic.View/Arconic.View.csproj" />
@@ -63,6 +64,11 @@
         <entry key="Arconic.View/UserControls/MainTab/StripInfoControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainTab/StripResultsViewer.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/MainTab/TextStatusControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/MainTab/Trends/ArchieveStripsListControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/MainTab/Trends/ArchieveThendsControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/MainTab/Trends/CurrentTrendsControl.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/MainTab/Trends/LiveChartsTrendTemplate.axaml" value="Arconic.View/Arconic.View.csproj" />
+        <entry key="Arconic.View/UserControls/MainTab/Trends/MainTrendsControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Settings/Cooling/CoolingSettingsTab.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Settings/Detectors/DetectorsMainControl.axaml" value="Arconic.View/Arconic.View.csproj" />
         <entry key="Arconic.View/UserControls/Settings/Detectors/DetectorsTrendControl.axaml" value="Arconic.View/Arconic.View.csproj" />

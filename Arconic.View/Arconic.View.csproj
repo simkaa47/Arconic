@@ -69,5 +69,36 @@
       <AdditionalFiles Include="UserControls\Settings\SourceUnit\SourceMainControl.axaml" />
       <AdditionalFiles Include="UserControls\Settings\SourceUnit\SourceSettingsControl.axaml" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="UserControls\MainTab\Trends\ArchieveStripsListControl.axaml.cs">
+        <DependentUpon>ArchieveStripsListControl.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UserControls\MainTab\Trends\ArchieveThendsControl.axaml.cs">
+        <DependentUpon>ArchieveThendsControl.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UserControls\MainTab\Trends\ArchieveTrendsViewer.axaml.cs">
+        <DependentUpon>ArchieveTrendsViewer.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UserControls\MainTab\Trends\CurrentTrendsControl.axaml.cs">
+        <DependentUpon>CurrentTrendsControl.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UserControls\MainTab\Trends\LiveChartsTrendTemplate.axaml.cs">
+        <DependentUpon>LiveChartsTrendTemplate.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UserControls\MainTab\Trends\ParkingTrendControl.axaml.cs">
+        <DependentUpon>ParkingTrendControl.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UserControls\MainTab\Trends\MainTrendsControl.axaml.cs">
+        <DependentUpon>MainTrendsControl.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
     
 </Project>

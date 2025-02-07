@@ -47,13 +47,13 @@
                         <TextBlock Classes="Small" Text="Статус положения рамы"/>
                         <Border Classes="status" BorderBrush="{Binding ControlAndIndication.DriveIndication.DriveStatus.Value, 
             Converter={StaticResource GetByIndexFromParameterConverter}, 
-            ConverterParameter={StaticResource DriveStatuseColors}}">
+            ConverterParameter={StaticResource DriveStatuseColors}, Mode=OneWay}">
                             <TextBlock Classes="Big" Text="{Binding ControlAndIndication.DriveIndication.DriveStatus.Value, 
             Converter={StaticResource GetByIndexFromParameterConverter}, 
-            ConverterParameter={StaticResource DriveStatuses}}"
+            ConverterParameter={StaticResource DriveStatuses}, Mode=OneWay}"
                                        Foreground="{Binding ControlAndIndication.DriveIndication.DriveStatus.Value, 
             Converter={StaticResource GetByIndexFromParameterConverter}, 
-            ConverterParameter={StaticResource DriveStatuseColors}}"/>
+            ConverterParameter={StaticResource DriveStatuseColors}, Mode=OneWay}"/>
                         </Border>
                     </StackPanel>
                     <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}">
@@ -62,12 +62,12 @@
                         <!--Текущая скорость рамы-->
                         <common:NumericParameter DataContext="{Binding ControlAndIndication.DriveIndication.CurrentVelocity}"/>
                     </ListBox>
-                    <Grid ColumnDefinitions="*,*">
+                    <Grid ColumnDefinitions="*,*,*">
                         <common:ParameterButton Grid.Column="0"
                                                 Margin="5"
                                                 State="{Binding ControlAndIndication.DriveIndication.DriveStatus.Value,
                                                 Converter={StaticResource IfEqualConverter},
-                                                ConverterParameter=2}"
+                                                ConverterParameter=2, Mode=OneWay}"
                                                 CommandParameter="{Binding ControlAndIndication.DriveIndication.SbParking}">
                             <common:ParameterButton.ButtonContent>
                                 <TextBlock Text="ДВИЖЕНИЕ В ПАРКОВКУ"
@@ -79,10 +79,22 @@
                                                 Margin="5"
                                                 State="{Binding ControlAndIndication.DriveIndication.DriveStatus.Value,
                                                 Converter={StaticResource IfEqualConverter},
-                                                ConverterParameter=4}"
+                                                ConverterParameter=4, Mode=OneWay}"
                                                 CommandParameter="{Binding ControlAndIndication.DriveIndication.SbMeasure}">
                             <common:ParameterButton.ButtonContent>
                                 <TextBlock Text="ДВИЖЕНИЕ В ПОЛОЖЕНИЕ ИЗМЕРЕНИЯ"
+                                           Margin="10"
+                                           HorizontalAlignment="Center"/>
+                            </common:ParameterButton.ButtonContent>
+                        </common:ParameterButton>
+                        <common:ParameterButton Grid.Column="2"
+                                                Margin="5"
+                                                State="{Binding ControlAndIndication.DriveIndication.DriveStatus.Value,
+                                                Converter={StaticResource IfEqualConverter},
+                                                ConverterParameter=15, Mode=OneWay}"
+                                                CommandParameter="{Binding ControlAndIndication.DriveIndication.SbWait}">
+                            <common:ParameterButton.ButtonContent>
+                                <TextBlock Text="ДВИЖЕНИЕ В ПОЛОЖЕНИЕ ОЖИДАНИЯ"
                                            Margin="10"
                                            HorizontalAlignment="Center"/>
                             </common:ParameterButton.ButtonContent>

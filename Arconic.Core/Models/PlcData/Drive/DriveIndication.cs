@@ -17,6 +17,9 @@ public class DriveIndication
 
     public Parameter<bool> SbParking { get; } = new Parameter<bool>("Переместить раму в положение \"Парковка\"", false,
         true, DataType.DataBlock, 2, 220, 0);
+    
+    public Parameter<bool> SbWait { get; } = new Parameter<bool>("Переместить раму в положение \"Ожидание\"", false,
+        true, DataType.DataBlock, 2, 220, 6);
     public Parameter<bool> SbMeasure { get; } = new Parameter<bool>("Переместить раму в положение \"Измерение\"", false,
         true, DataType.DataBlock, 2, 220,1);
     public Parameter<bool> SbJogForw { get; } = new Parameter<bool>("Шаговое перемещение вперед", false,

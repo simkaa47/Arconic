@@ -43,6 +43,8 @@
         <SolidColorBrush Color="#C0C0C0"/>
         <SolidColorBrush Color="#FF3B30"/>
         <SolidColorBrush Color="#FF3B30"/>
+        <SolidColorBrush Color="#478DDC"/>
+        <SolidColorBrush Color="#FFA500"/>
     </scg:List>
     
     <SolidColorBrush Color="#F44336" x:Key="ErrorMainColor"/>

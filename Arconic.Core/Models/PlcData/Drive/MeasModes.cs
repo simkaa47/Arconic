@@ -3,6 +3,5 @@
 public enum MeasModes
 {
     ForwRevers,
-    ForvardReversWaitInEdge,
     CentralLine
 }
