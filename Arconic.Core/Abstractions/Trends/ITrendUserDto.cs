@@ -22,6 +22,7 @@ public interface ITrendUserDto
     public MeasModes Mode { get; }
     
     public void SetPreviousScan(List<ThickPoint>? thickPoints);
+    public void SetAverageScan(List<ThickPoint>? thickPoints);
 
     public void SetActualScan(List<ThickPoint>? thickPoints);
     public void SetTimeCurve(List<ThickPoint>? thickPoints);

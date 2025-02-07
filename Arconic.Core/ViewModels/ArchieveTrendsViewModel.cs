@@ -57,6 +57,14 @@ public partial class ArchieveTrendsViewModel(ITrendsService trendsService,
         IsArchieveScanLoading = true;
         SelectedArchieveStripForViewing = await trendsService.GetExtendedStrip(id);
         ArchieveScans = SelectedArchieveStripForViewing != null ?  trendsService.GetScansFromStrip(SelectedArchieveStripForViewing) : null;
+        if (SelectedArchieveStripForViewing is not null && ArchieveScans is not null)
+        {
+            var averageScan = await trendsService.GetAverageScan(SelectedArchieveStripForViewing);
+            foreach (var scan in ArchieveScans)
+            {
+                scan.SetAverageScan(averageScan.ThickPoints);
+            }
+        }
         CurrentArchieveScan = ArchieveScans?.FirstOrDefault();
         _archieveScanIndex = 0;
         EnableChangeScanNumber();

@@ -140,10 +140,9 @@ public partial class MainTrendsViewModel:ObservableObject
                             Lendth = p.Length.Value,
                             Thick = p.Thick.Value
                         }).ToList();
-                    _trendsService.RecalculateScan(lastScan, ActualStrip);
-                    lastScan.Klin = plcLastScan.Klin.Value;
-                    lastScan.Width = plcLastScan.Width.Value;
-                    lastScan.Chechewitsa = plcLastScan.Chehevitsa.Value;
+                    lastScan.Klin = Plc.ControlAndIndication.MeasureIndicationAndControl.KlinRelative.Value;
+                    lastScan.Width = Plc.ControlAndIndication.MeasureIndicationAndControl.Width.Value;
+                    lastScan.Chechewitsa = Plc.ControlAndIndication.MeasureIndicationAndControl.ChechevitsaRelative.Value;
                     var lastIndex = ActualStrip.Scans.Count - 1;
                     ActualTrend.SetPreviousScan(ActualStrip.Scans[lastIndex].ThickPoints);
                     ActualTrend.ClearActualScan();

@@ -83,6 +83,20 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
         }
     }
 
+    public async void SetAverageScan(List<ThickPoint>? thickPoints)
+    {
+        if (Series is not null && Series.Length >= 3)
+        {
+            await Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                Series[2].Values = thickPoints?.Select(p=> new ObservablePoint(p.Position, p.Thick)).ToList()
+                                   ?? new List<ObservablePoint>();
+                Series[2].IsVisibleAtLegend = true;
+
+            });
+        }
+    }
+
     public void SetActualScan(List<ThickPoint>? thickPoints)
     {
         lock (Sync)
@@ -248,6 +262,18 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
                     LineSmoothness = 0,
                     ScalesYAt = 0,
                     Stroke = new SolidColorPaint(SKColors.Orange){StrokeThickness = 4}
+                },
+                new LineSeries<ObservablePoint>
+                {
+                    Name = "Средний скан",
+                    IsVisibleAtLegend = false,
+                    IsVisible = true,
+                    GeometryStroke = null,
+                    GeometrySize = 0,
+                    Fill = null,
+                    LineSmoothness = 0,
+                    ScalesYAt = 0,
+                    Stroke = new SolidColorPaint(SKColors.Cyan){StrokeThickness = 4}
                 },
                 new LineSeries<ObservablePoint>
                 {

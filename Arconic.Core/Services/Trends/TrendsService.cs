@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using Arconic.Core.Abstractions.DataAccess;
 using Arconic.Core.Abstractions.Trends;
 using Arconic.Core.Infrastructure.DataContext.Data;
@@ -14,9 +15,8 @@ namespace Arconic.Core.Services.Trends;
 public class TrendsService(ILogger<TrendsService> logger, 
     IServiceScopeFactory scopeFactory) : ITrendsService
 {
-    private const float _stain = 50;
+    private const float _stain = 20;
     private const int _medianSize = 7;
-
     public async Task<bool> StripExist(Strip? strip)
     {
         using var scope = scopeFactory.CreateScope();
@@ -66,6 +66,49 @@ public class TrendsService(ILogger<TrendsService> logger,
         }
     }
 
+    public async Task<Scan> GetAverageScan(Strip strip)
+    {
+        var scan = new Scan();
+        await Task.Run(() =>
+        {
+            if (strip.Scans.Count > 0)
+            {
+                var watch  = Stopwatch.StartNew();
+                watch.Start();
+                var leftBorder = (int)strip.Scans.
+                    Where(s=>s.ThickPoints.Count>2).
+                    Select(s=> Math.Min(s.ThickPoints.First().Position, s.ThickPoints.Last().Position))
+                    .Average();
+                var rightBorder = (int)strip.Scans.
+                    Where(s=>s.ThickPoints.Count>2).
+                    Select(s=> Math.Max(s.ThickPoints.First().Position, s.ThickPoints.Last().Position))
+                    .Average();
+                var dictionary = Enumerable.Range(leftBorder, rightBorder - leftBorder).ToDictionary(i=>i, i=>new List<float>());
+                var points = strip.Scans
+                    .SelectMany(s => s.ThickPoints)
+                    .Where(p => p.Position >= leftBorder && p.Position <= rightBorder);
+
+                foreach (var point in points)
+                {
+                    dictionary[(int)point.Position].Add(point.Thick);
+                }
+                var averPoints = dictionary.Where(p => p.Value.Count>0)
+                    .Select(p=> new ThickPoint()
+                    {
+                        Position = p.Key,
+                        Thick = p.Value.Average()
+                    }).ToList();
+                
+                
+                scan.ThickPoints = SmoothScan(averPoints);
+                var elapsedTime = watch.ElapsedMilliseconds;
+                watch.Stop();
+
+            }
+        });
+        return scan;
+    }
+
     public async Task SaveStripAsync(Strip? strip)
     {
         using var scope = scopeFactory.CreateScope();
@@ -95,23 +138,6 @@ public class TrendsService(ILogger<TrendsService> logger,
         catch (Exception e)
         {
             logger.LogError(e, $"Ошибка при добавлении в базу данных данных полосы с ID = {strip.Id}");
-        }
-    }
-
-    public void  RecalculateScan(Scan scan,  Strip parent)
-    {
-        if (scan.ThickPoints.Count > 0)
-        {
-            var minPos = scan.ThickPoints.MinBy(p=>p.Position)!;
-            var maxPos = scan.ThickPoints.MaxBy(p=>p.Position)!;
-            
-            scan.Width = Math.Abs(maxPos.Position - minPos.Position);
-            scan.CentralLineDeviation = (maxPos.Position + minPos.Position) / 2 - parent.CentralLinePosition;
-            var centralIndex = scan.ThickPoints.Count / 2;
-            scan.Klin = minPos.Thick - maxPos.Thick;
-            scan.Chechewitsa = scan.ThickPoints[centralIndex].Thick -
-                               (minPos.Thick + maxPos.Thick) / 2;
-
         }
     }
 
@@ -216,81 +242,29 @@ public class TrendsService(ILogger<TrendsService> logger,
                 .Where(tp=>tp.Thick>0)
                 .Average(tp => tp.Thick);
         }
-        else
+        else if(strip.Scans.Count>0)
         {
             strip.Length = strip.Scans
                 .LastOrDefault(s => s.ThickPoints.Count > 0)?
                 .ThickPoints.LastOrDefault()?.Lendth ?? 0;
-
             strip.AverageThick = strip.Scans.SelectMany(s => s.ThickPoints)
                 .Where(tp => tp.Thick > 0)
                 .Average(tp => tp.Thick);
             strip.AverageWidth = strip.Scans
-                .Where(s => s.ThickPoints.Count > 2)
-                .Select(s => Math.Abs(s.ThickPoints.Last().Position - s.ThickPoints[0].Position))
+                .Select(s => s.Width)
                 .Average();
             strip.AverageChehevitsa = strip.Scans
-                .Where(s => s.ThickPoints.Count > 2)
-                .Select(s => Math.Abs(s.ThickPoints.Last().Position - s.ThickPoints[0].Position))
+                .Select(s => s.Chechewitsa)
                 .Average();
-            //strip.AverageScan = GetAverageScan(strip);
-            if (strip.AverageScan.Count > 3)
-            {
-                var centralIndex = strip.AverageScan.Count / 2;
-                var preLastIndex = strip.AverageScan.Count - 2;
-                strip.AverageKlin = strip.AverageScan[1].Thick - strip.AverageScan[preLastIndex].Thick;
-                strip.AverageChehevitsa = strip.AverageScan[centralIndex].Thick -
-                                           (strip.AverageScan[1].Thick + (strip.AverageScan[preLastIndex].Thick)) / 2;
-                strip.AverageCentralLineDeviation = (strip.AverageScan[1].Position + strip.AverageScan[preLastIndex].Position) / 2 - strip.CentralLinePosition;
-                
-            }
-            
-            
+            strip.AverageKlin = strip.Scans
+                .Select(s => s.Klin)
+                .Average();
+
+            GetAverageScan(strip);
+
         }
     }
-
-
-    private List<ThickPoint> GetAverageScan(Strip strip)
-    {
-        if (strip.MeasMode != MeasModes.CentralLine 
-            && strip.Scans.Any(s => s.ThickPoints.Count>2))
-        {
-            var leftPos = strip.Scans
-                .Where(s=>s.ThickPoints.Count>2)
-                .Select(s => s.ThickPoints.Min(tp => tp.Position))
-                .Average();
-            var rightPos = strip.Scans
-                .Where(s=>s.ThickPoints.Count>2)
-                .Select(s => s.ThickPoints.Max(tp => tp.Position))
-                .Average();
-            var allPoints = strip.Scans
-                .Where(s => s.ThickPoints.Count > 2)
-                .SelectMany(s => s.ThickPoints)
-                .Where(th => th.Thick > 0)
-                .OrderBy(th=>th.Position).ToList();
-            var scan = GetAverage(allPoints).ToList();
-            scan.Insert(0, new ThickPoint(){Position = scan[0].Position, Thick = 0});
-            scan.Add(new ThickPoint(){Position = scan.Last().Position, Thick = 0});
-            return scan;
-        }
-
-        IEnumerable<ThickPoint> GetAverage(List<ThickPoint> allPoints)
-        {
-            foreach (var point in allPoints)
-            {
-                var averageThick = allPoints
-                    .Where(p => p.Position >= point.Position - 5 && p.Position <= point.Position + 5)
-                    .Average(tp => tp.Thick);
-                yield return new ThickPoint() { Position = point.Position, Thick = averageThick };
-            }
-        }
-        
-        
-        return new List<ThickPoint>();
-        
-    }
-
-
+    
     private float GetMedFromArr(List<ThickPoint> points, int index)
     {
         var startIndex = 0;
@@ -323,14 +297,14 @@ public class TrendsService(ILogger<TrendsService> logger,
         
         return orderedPoints[orderedPoints.Count/2];
     }
-
+    
     private List<ThickPoint> SmoothScan(List<ThickPoint> points)
     {
         var medScan =  Enumerable.Range(0, points.Count)
             .Select(i => new ThickPoint() 
-                { Position = points[i].Position, 
-                    Thick = GetMedFromArr(points, i) 
-                })
+            { Position = points[i].Position, 
+                Thick = GetMedFromArr(points, i) 
+            })
             .ToList();
         
         return Enumerable.Range(0, points.Count)
@@ -342,8 +316,5 @@ public class TrendsService(ILogger<TrendsService> logger,
             })
             .ToList();
     }
-    
-    
-    
     
 }
