@@ -88,11 +88,11 @@
                                 <TextBlock Classes="RStyle" Text="{Binding MaxThick, StringFormat=f1}"/>
                             </DockPanel>
                             <DockPanel>
-                                <TextBlock Classes="LStyle" Text="Клин, мкм"/>
+                                <TextBlock Classes="LStyle" Text="Клин, %"/>
                                 <TextBlock Classes="RStyle" Text="{Binding Klin, StringFormat=f1}"/>
                             </DockPanel>
                             <DockPanel>
-                                <TextBlock Classes="LStyle" Text="Профиль, мкм"/>
+                                <TextBlock Classes="LStyle" Text="Профиль, %"/>
                                 <TextBlock Classes="RStyle" Text="{Binding Path=Chechevitsa, StringFormat=f1}"/>
                             </DockPanel>
                             <DockPanel>
@@ -109,15 +109,15 @@
                                                Text="Текущий скан"
                                                ></TextBlock>
                                 </StackPanel>
-                                <!--<StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal">
                                     <Rectangle Height="20" Width="20"
-                                               Fill="Orange"
+                                               Fill="Cyan"
                                     ></Rectangle>
                                     <TextBlock Foreground="{StaticResource TexBoxCommon80}"
                                                Margin="5"
                                                Text="Средний скан"
                                     ></TextBlock>
-                                </StackPanel>-->
+                                </StackPanel>
                             </StackPanel>
                             
                             

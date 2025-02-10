@@ -7,6 +7,7 @@
              xmlns:drive="using:Arconic.Core.Models.PlcData.Drive"
              xmlns:plc="using:Arconic.Core.Models.PlcData"
              x:DataType="plc:Plc"
+             xmlns:vm="using:Arconic.Core.ViewModels"
              x:Class="Arconic.View.UserControls.MainTab.MainTabIndicationList">
     <UserControl.Styles>
         <Style Selector="TextBlock.Left">
@@ -75,16 +76,24 @@
             <TextBlock Text="{Binding ControlAndIndication.MeasureIndicationAndControl.ScanNumber.Value}" 
                        Classes="Right"/>
         </DockPanel>
-        <!--Время последней стандартизации-->
-        <DockPanel>
-            <TextBlock Text="Время последней стандартизации" Classes="Left"/>
-            <TextBlock Text="{Binding Settings.MeasureSettings.LastStandTime.Value}" 
-                       Classes="Right"/>
-        </DockPanel>
+        
+        
         <!--Наличие полосы в измерительном зазоре-->
         <DockPanel>
             <TextBlock Text="Наличие полосы в измерительном зазоре" Classes="Left"/>
             <common:ImageBitIndicator State="{Binding ControlAndIndication.MeasureIndicationAndControl.StripUnderFlag.Value}"/>
+        </DockPanel>
+        <!--Точек в текущем скане-->
+        <DockPanel>
+            <TextBlock Text="Точек в текущем скане" Classes="Left"/>
+            <TextBlock Text="{Binding $parent[Window].((vm:MainViewModel)DataContext).MainTrendsViewModel.CurrentPointCnt}" 
+                       Classes="Right"/>
+        </DockPanel>
+        <!--Точек в последнем скане-->
+        <DockPanel>
+            <TextBlock Text="Точек в текущем скане" Classes="Left"/>
+            <TextBlock Text="{Binding $parent[Window].((vm:MainViewModel)DataContext).MainTrendsViewModel.LastPointCnt}" 
+                       Classes="Right"/>
         </DockPanel>
     </ListBox>
 </UserControl>

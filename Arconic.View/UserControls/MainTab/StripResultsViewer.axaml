@@ -47,6 +47,12 @@
                    <TextBlock Text="{Binding AverageWidth, StringFormat=f1}"></TextBlock>
                </Border>
            </DockPanel>
+           <DockPanel>
+               <TextBlock Classes="LStyle" Text="Средний профиль, %"/>
+               <Border Classes="ParBorder">
+                   <TextBlock Text="{Binding AverageChehevitsa, StringFormat=f1}"></TextBlock>
+               </Border>
+           </DockPanel>
        </ListBox>
         <ListBox Grid.Column="1"
                  Margin="0"
@@ -55,6 +61,12 @@
                 <TextBlock Classes="LStyle" Text="Средняя толщина, мкм"/>
                 <Border Classes="ParBorder">
                     <TextBlock Text="{Binding AverageThick, StringFormat=f1}"></TextBlock>
+                </Border>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Classes="LStyle" Text="Средний клин, %"/>
+                <Border Classes="ParBorder">
+                    <TextBlock Text="{Binding AverageKlin, StringFormat=f1}"></TextBlock>
                 </Border>
             </DockPanel>
         </ListBox>

@@ -15,7 +15,7 @@ namespace Arconic.Core.Services.Trends;
 public class TrendsService(ILogger<TrendsService> logger, 
     IServiceScopeFactory scopeFactory) : ITrendsService
 {
-    private const float _stain = 20;
+    private const float _stain = 100;
     private const int _medianSize = 7;
     public async Task<bool> StripExist(Strip? strip)
     {
@@ -66,15 +66,13 @@ public class TrendsService(ILogger<TrendsService> logger,
         }
     }
 
-    public async Task<Scan> GetAverageScan(Strip strip)
+    public async Task<List<ThickPoint>> GetAverageScan(Strip strip)
     {
-        var scan = new Scan();
+        List<ThickPoint>? scan = null;
         await Task.Run(() =>
         {
             if (strip.Scans.Count > 0)
             {
-                var watch  = Stopwatch.StartNew();
-                watch.Start();
                 var leftBorder = (int)strip.Scans.
                     Where(s=>s.ThickPoints.Count>2).
                     Select(s=> Math.Min(s.ThickPoints.First().Position, s.ThickPoints.Last().Position))
@@ -86,7 +84,8 @@ public class TrendsService(ILogger<TrendsService> logger,
                 var dictionary = Enumerable.Range(leftBorder, rightBorder - leftBorder).ToDictionary(i=>i, i=>new List<float>());
                 var points = strip.Scans
                     .SelectMany(s => s.ThickPoints)
-                    .Where(p => p.Position >= leftBorder && p.Position <= rightBorder);
+                    .Where(p => p.Position >= leftBorder && p.Position <= rightBorder)
+                    .ToList();
 
                 foreach (var point in points)
                 {
@@ -100,13 +99,11 @@ public class TrendsService(ILogger<TrendsService> logger,
                     }).ToList();
                 
                 
-                scan.ThickPoints = SmoothScan(averPoints);
-                var elapsedTime = watch.ElapsedMilliseconds;
-                watch.Stop();
+                scan = SmoothScan(averPoints);
 
             }
         });
-        return scan;
+        return scan ?? new List<ThickPoint>();
     }
 
     public async Task SaveStripAsync(Strip? strip)
@@ -181,7 +178,7 @@ public class TrendsService(ILogger<TrendsService> logger,
                     actualWidth:right - left,
                     klin: s.Klin,
                     chechevitsa: s.Chechewitsa);
-               scanInfo.SetActualScan(s.ThickPoints);
+               scanInfo.SetActualScan(s.ThickPoints.ToList());
                //scanInfo.SetPreviousScan(source.AverageScan);
                 return scanInfo;
             }).ToList();

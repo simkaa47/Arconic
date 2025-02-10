@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Concurrent;
+using System.ComponentModel;
 using Arconic.Core.Abstractions.Trends;
 using Arconic.Core.Models.Parameters;
 using Arconic.Core.Models.PlcData;
@@ -14,10 +15,16 @@ public partial class MainTrendsViewModel:ObservableObject
     private event Action? NeedToDoOnScanCompleted;
     private readonly MainPlcService _plcService;
     private readonly ITrendsService _trendsService;
+    [ObservableProperty]
+    private int _currentPointCnt;
+    [ObservableProperty]
+    private int _lastPointCnt;
     public Plc Plc { get; }
     private DateTime _lastPointDateTime;
     [ObservableProperty]
     private ParkingMeasure? _parkingMeasure;
+    
+    private Scan? _currentScan;
 
     public ITrendUserDto ActualTrend { get; }
     public MainTrendsViewModel(ITrendUserDto actualTrend,
@@ -107,6 +114,7 @@ public partial class MainTrendsViewModel:ObservableObject
             ExpectedWidth = Plc.ControlAndIndication.HighLevelData.Coils[1].ExpectedWidth.Value,
             ExpectedThick = Plc.ControlAndIndication.HighLevelData.Coils[1].ExpectedThick.Value,
         };
+        _currentScan = new Scan();
         ActualTrend.ReInit(mode:ActualStrip.MeasMode, 
             expectedThick:ActualStrip.ExpectedThick, 
             expectedWidth:ActualStrip.ExpectedWidth, 
@@ -124,35 +132,34 @@ public partial class MainTrendsViewModel:ObservableObject
             && ActualStrip is not null)
         {
             var scanNum = Plc.ControlAndIndication.MeasureIndicationAndControl.ScanNumber.Value;
-            if (scanNum > 0)
+            if (_currentScan is { ThickPoints.Count: > 5 } && scanNum>1)
             {
                 var plcLastScan = Plc.ControlAndIndication.MeasureIndicationAndControl.PreviousScan;
-                var lastScan = ActualStrip.Scans.LastOrDefault();
-                
-                if (lastScan is { ThickPoints.Count: > 5 } && scanNum>1)
-                {
-                    lastScan.ScanNumber = plcLastScan.ScanNumber.Value;
-                    lastScan.ThickPoints = plcLastScan.Points
-                        .Take(plcLastScan.PointsNumber.Value)
-                        .Select(p => new ThickPoint()
-                        {
-                            Position = p.Position.Value,
-                            Lendth = p.Length.Value,
-                            Thick = p.Thick.Value
-                        }).ToList();
-                    lastScan.Klin = Plc.ControlAndIndication.MeasureIndicationAndControl.KlinRelative.Value;
-                    lastScan.Width = Plc.ControlAndIndication.MeasureIndicationAndControl.Width.Value;
-                    lastScan.Chechewitsa = Plc.ControlAndIndication.MeasureIndicationAndControl.ChechevitsaRelative.Value;
-                    var lastIndex = ActualStrip.Scans.Count - 1;
-                    ActualTrend.SetPreviousScan(ActualStrip.Scans[lastIndex].ThickPoints);
-                    ActualTrend.ClearActualScan();
-                    await _trendsService.AddScanToStrip(lastScan, ActualStrip.Id);
-                }
-                ActualStrip.Scans.Add(new Scan());
-                
+                var lastScan = _currentScan;
+                ActualStrip.Scans.Add(lastScan);
+                _currentScan = new Scan();
+                lastScan.ScanNumber = plcLastScan.ScanNumber.Value;
+                var points = plcLastScan.Points
+                    .Take(plcLastScan.PointsNumber.Value)
+                    .Select(p => new ThickPoint()
+                    {
+                        Position = p.Position.Value,
+                        Lendth = p.Length.Value,
+                        Thick = p.Thick.Value
+                    }).ToList();
+                lastScan.SetThickPoints(points);
+                LastPointCnt = lastScan.ThickPoints.Count;
+                lastScan.Klin = Plc.ControlAndIndication.MeasureIndicationAndControl.KlinRelative.Value;
+                lastScan.Width = Plc.ControlAndIndication.MeasureIndicationAndControl.Width.Value;
+                lastScan.Chechewitsa = Plc.ControlAndIndication.MeasureIndicationAndControl.ChechevitsaRelative.Value;
+                var lastIndex = ActualStrip.Scans.Count - 1;
+                ActualTrend.SetPreviousScan(ActualStrip.Scans[lastIndex].ThickPoints.ToList());
+                ActualTrend.ClearActualScan();
+                await _trendsService.AddScanToStrip(lastScan, ActualStrip.Id);
+                var average = await _trendsService.GetAverageScan(ActualStrip);
+                ActualTrend.SetAverageScan(average);
             }
         }
-       
     }
     
     private void PutIntoParkingMeasure()
@@ -185,7 +192,10 @@ public partial class MainTrendsViewModel:ObservableObject
                 && Plc.ControlAndIndication.MeasureIndicationAndControl.Thick.Value>0)
             {
                 var delay = ActualStrip.MeasMode == MeasModes.CentralLine ? 50 : 333;
-                if (currDt < _lastPointDateTime.AddMilliseconds(delay)) return;
+                if (currDt < _lastPointDateTime.AddMilliseconds(delay))
+                {
+                    return;
+                }
                 _lastPointDateTime = currDt;
                 var point = new ThickPoint()
                 {
@@ -205,27 +215,28 @@ public partial class MainTrendsViewModel:ObservableObject
                 }
                 else
                 {
-                    if (ActualStrip.Scans.Count == 0)
-                        ActualStrip.Scans.Add(new Scan());
-                    var lastScan = ActualStrip.Scans.LastOrDefault();
-                    if (lastScan != null)
+                    if (_currentScan != null)
                     {
                         var plcPoints = Plc.ControlAndIndication.MeasureIndicationAndControl.ActualScan.Points;
                         var plcPointNumber = Plc.ControlAndIndication.MeasureIndicationAndControl.ActualScan
                             .PointsNumber.Value-6;
-                        if (plcPointNumber < 0) return;    
-                        lastScan.ThickPoints = plcPoints.Take(plcPointNumber)
+                        if (plcPointNumber < 0)
+                        {
+                            return;
+                        }
+                        var points = plcPoints.Take(plcPointNumber)
                             .Select(p=> new ThickPoint()
                             {
                                 Position = p.Position.Value,
                                 Thick = p.Thick.Value
                             }).ToList();
-                        ActualTrend.SetActualScan(lastScan.ThickPoints);
+                        _currentScan.SetThickPoints(points);
+                        CurrentPointCnt = _currentScan.ThickPoints.Count;
+                        ActualTrend.SetActualScan(_currentScan.ThickPoints.ToList());
                     }
                 }
                 
             }
         }
     }
-    
 }

@@ -59,10 +59,10 @@ public partial class ArchieveTrendsViewModel(ITrendsService trendsService,
         ArchieveScans = SelectedArchieveStripForViewing != null ?  trendsService.GetScansFromStrip(SelectedArchieveStripForViewing) : null;
         if (SelectedArchieveStripForViewing is not null && ArchieveScans is not null)
         {
-            var averageScan = await trendsService.GetAverageScan(SelectedArchieveStripForViewing);
+            var average = await trendsService.GetAverageScan(SelectedArchieveStripForViewing);
             foreach (var scan in ArchieveScans)
             {
-                scan.SetAverageScan(averageScan.ThickPoints);
+                scan.SetAverageScan(average);
             }
         }
         CurrentArchieveScan = ArchieveScans?.FirstOrDefault();

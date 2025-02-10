@@ -34,6 +34,13 @@
                            Margin="5"></Rectangle>
                 <TextBlock Text="Предыдущий скан"></TextBlock>
             </DockPanel>
+            <DockPanel>
+                <Rectangle Height="20"
+                           Width="20"
+                           Fill="Cyan"
+                           Margin="5"></Rectangle>
+                <TextBlock Text="Средний скан"></TextBlock>
+            </DockPanel>
             
         </StackPanel>
     </Grid>
