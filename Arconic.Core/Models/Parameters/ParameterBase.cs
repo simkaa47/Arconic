@@ -4,6 +4,7 @@ using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
 using S7.Net;
 using S7.Net.Types;
+using Byte = System.Byte;
 using DataType = S7.Net.DataType;
 using DateTime = System.DateTime;
 using String = System.String;
@@ -91,6 +92,10 @@ public abstract partial class ParameterBase(string description,
             var arr = S7.Net.Types.LReal.ToByteArray(parDouble.WriteValue);
             await plc.WriteBytesAsync(MemoryType, DbNum, ByteNum, arr, cancellationToken);
         }
+        else if (this is Parameter<Byte> parByte)
+        {
+            await plc.WriteBytesAsync(MemoryType, DbNum, ByteNum, new []{parByte.WriteValue}, cancellationToken);
+        }
     }
 
     public void GetValue(byte[] arr)
@@ -135,6 +140,10 @@ public abstract partial class ParameterBase(string description,
         {
             var dtArr = arr.Skip(ByteNum).Take(8).ToArray();
             parDt.Value = S7.Net.Types.DateTime.FromByteArray(dtArr);
+        }
+        else if (this is Parameter<Byte> parByte)
+        {
+            parByte.Value = arr[ByteNum];
         }
             
     }
