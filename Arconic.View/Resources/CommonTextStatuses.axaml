@@ -6,6 +6,10 @@
         <sys:String>ЗАКРЫТЬ ЗАТВОР</sys:String>
         <sys:String>ОТКРЫТЬ ЗАТВОР</sys:String>
     </scg:List>
+    <scg:List x:TypeArguments="sys:Object" x:Key="PlcNetInterfaces">
+        <sys:String>192.168.1.XXX</sys:String>
+        <sys:String>10.10.10.XXX</sys:String>
+    </scg:List>
     <scg:List x:TypeArguments="sys:Object" x:Key="MeasDiapasones">
         <sys:String>ДИАПАЗОН ТОЛЩИН 1</sys:String>
         <sys:String>ДИАПАЗОН ТОЛЩИН 2</sys:String>

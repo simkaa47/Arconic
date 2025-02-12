@@ -11,5 +11,8 @@
         <TabItem Header="Пользователи">
             <local:UsersControl DataContext="{Binding AccessViewModel}"/>
         </TabItem>
+        <TabItem Header="IBA">
+            <local:IbaSettingsControl></local:IbaSettingsControl>
+        </TabItem>
     </TabControl>
 </UserControl>

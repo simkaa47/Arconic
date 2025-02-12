@@ -1,0 +1,54 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:MainViewModel"
+             xmlns:common="using:Arconic.View.UserControls.CommonControls"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+             xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+             x:Class="Arconic.View.UserControls.Administration.IbaSettingsControl">
+    <Grid>
+         <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}">
+            <DockPanel>
+                <!--Режим измерения-->
+                <TextBlock Text="Сетевой интерфейс"></TextBlock>
+                <ComboBox Height="40"
+                          ItemsSource="{StaticResource PlcNetInterfaces}"
+                          Margin="20,5,5,5"
+                          SelectedIndex="{Binding  PlcViewModel.Plc.Settings.HighLevelSettings.IbaInterface.WriteValue}"
+                          DockPanel.Dock="Right"
+                          HorizontalAlignment="Right"
+                          Width="160">
+                    <i:Interaction.Behaviors>
+                        <ia:EventTriggerBehavior EventName="DropDownClosed">
+                            <ia:InvokeCommandAction Command="{Binding PlcViewModel.WriteParameterCommand}"
+                                                    CommandParameter="{Binding PlcViewModel.Plc.Settings.HighLevelSettings.IbaInterface}" />
+                        </ia:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </ComboBox>
+            </DockPanel>
+            <DockPanel>
+                <!--Режим измерения-->
+                <TextBlock Text="IP адрес компьютера IBA"></TextBlock>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.HighLevelSettings.IbaIp[0]}"
+                                             DescriptionInvisible="True"
+                                             ParamWidth="60"/> 
+                    <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.HighLevelSettings.IbaIp[1]}"
+                                             DescriptionInvisible="True"
+                                             ParamWidth="60"/> 
+                    <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.HighLevelSettings.IbaIp[2]}"
+                                             DescriptionInvisible="True"
+                                             ParamWidth="60"/> 
+                    <common:NumericParameter DataContext="{Binding PlcViewModel.Plc.Settings.HighLevelSettings.IbaIp[3]}"
+                                             DescriptionInvisible="True"
+                                             ParamWidth="60"/> 
+                </StackPanel>
+            </DockPanel>
+        </ListBox>
+    </Grid>
+   
+</UserControl>
