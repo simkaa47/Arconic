@@ -5,13 +5,17 @@ namespace Arconic.Core.Abstractions.Trends;
 
 public interface ITrendUserDto
 {
-    public void ReInit(MeasModes mode = MeasModes.ForwRevers,
+    public void ReStyle(TrendSettings trendSettings, bool isArchieve = false);
+    public void ReInit(
+        TrendSettings trendSettings,
+        MeasModes mode = MeasModes.ForwRevers,
         float expectedWidth = 0,
         float expectedThick = 0,
         float leftBorder = 0,
         float rightBorder = 0,
         float centralLine = 0, 
-        int scanNumber = 0);
+        int scanNumber = 0,
+        bool isArchieve = false);
 
     public void Recalculate(float stripDeviation = 0, 
         float maxThick = 0, 

@@ -31,6 +31,7 @@
         <StyleInclude Source="/Styles/Buttons/Buttons.axaml"></StyleInclude>
         <StyleInclude Source="/Styles/DataGrid/DataGridColumnCells.axaml"></StyleInclude>
         <StyleInclude Source="/Styles/TextBoxes/TextBoxCommon.axaml"></StyleInclude>
+        <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
         <StyleInclude Source="avares://OxyPlot.Avalonia/Themes/Default.axaml"/>
         <mat:MaterialIconStyles />
     </Application.Styles>

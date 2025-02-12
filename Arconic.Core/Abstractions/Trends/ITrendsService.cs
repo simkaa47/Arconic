@@ -4,6 +4,8 @@ namespace Arconic.Core.Abstractions.Trends;
 
 public interface ITrendsService
 {
+    public TrendSettings Settings { get; }
+    public Task SaveTrendSettings(); 
     public Task<bool> StripExist(Strip? strip);
     public Task AddPointToStrip(ThickPoint point, long stripId);
     public Task AddScanToStrip(Scan scan, long stripId);

@@ -1,0 +1,59 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:sett="using:Arconic.Core.Models.Trends"
+             xmlns:vm="using:Arconic.Core.ViewModels"
+             x:DataType="vm:MainTrendsViewModel"
+             x:Class="Arconic.View.UserControls.MainTab.Trends.TrendSettingsControl">
+    <StackPanel>
+        <StackPanel.Styles>
+            <Style Selector="TextBlock">
+                <Setter Property="Margin" Value="5, 5,40,5"></Setter>
+                <Setter Property="DockPanel.Dock" Value="Left"></Setter>
+            </Style>
+            <Style Selector="CheckBox">
+                <Setter Property="DockPanel.Dock" Value="Right"></Setter>
+                <Setter Property="Margin" Value="5"></Setter>
+                <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+            </Style>
+            <Style Selector="ColorPicker">
+                <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+                <Setter Property="Margin" Value="5"></Setter>
+            </Style>
+        </StackPanel.Styles>
+        <ListBox ItemContainerTheme="{StaticResource SelectorListBoxItem}"
+                 DataContext="{Binding TrendSettings}">
+            <DockPanel>
+                <TextBlock Text="Показывать усредненный скан"></TextBlock>
+                <CheckBox IsChecked="{Binding AverageScanIsVisible }"></CheckBox>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Показывать текущий скан"></TextBlock>
+                <CheckBox IsChecked="{Binding CurrentScanIsVisible }"></CheckBox>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Показывать предыдущий скан"></TextBlock>
+                <CheckBox IsChecked="{Binding PreviousScanIsVisible }"></CheckBox>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Цвет усредненного скана"></TextBlock>
+                <ColorPicker  Color="{Binding AverageScanColor, Mode=TwoWay, Converter={StaticResource ColorConverter}}"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Цвет текущего скана"></TextBlock>
+                <ColorPicker  Color="{Binding CurrentScanColor, Mode=TwoWay, Converter={StaticResource ColorConverter}}"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Цвет предыдущего скана"></TextBlock>
+                <ColorPicker  Color="{Binding PreviousScanColor, Mode=TwoWay, Converter={StaticResource ColorConverter}}"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Цвет тренда толщины (для измерения в ЦЛ)"></TextBlock>
+                <ColorPicker  Color="{Binding ThickCurveColor, Mode=TwoWay, Converter={StaticResource ColorConverter}}"/>
+            </DockPanel>
+        </ListBox>
+        
+    </StackPanel>
+</UserControl>

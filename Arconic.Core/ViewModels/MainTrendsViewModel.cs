@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.ComponentModel;
+using Arconic.Core.Abstractions.DataAccess;
 using Arconic.Core.Abstractions.Trends;
 using Arconic.Core.Models.Parameters;
 using Arconic.Core.Models.PlcData;
@@ -7,6 +8,7 @@ using Arconic.Core.Models.PlcData.Drive;
 using Arconic.Core.Models.Trends;
 using Arconic.Core.Services.Plc;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Arconic.Core.ViewModels;
 
@@ -23,8 +25,10 @@ public partial class MainTrendsViewModel:ObservableObject
     private DateTime _lastPointDateTime;
     [ObservableProperty]
     private ParkingMeasure? _parkingMeasure;
-    
     private Scan? _currentScan;
+    public TrendSettings TrendSettings { get; }
+    
+    
 
     public ITrendUserDto ActualTrend { get; }
     public MainTrendsViewModel(ITrendUserDto actualTrend,
@@ -36,19 +40,24 @@ public partial class MainTrendsViewModel:ObservableObject
         _plcService = plcService;
         _trendsService = trendsService;
         Plc = plcViewModel.Plc;
+        TrendSettings = trendsService.Settings;
         Init();
     }
     [ObservableProperty]
     private Strip? _actualStrip;
     
 
-    private  void Init()
+    private async  void Init()
     {
         Plc.ControlAndIndication.PlcEventsData.StripEnd.PropertyChanged += OnEndStrip;
         Plc.ControlAndIndication.PlcEventsData.StripStart.PropertyChanged += OnStartStrip;
         Plc.ControlAndIndication.MeasureIndicationAndControl.ScanNumber.PropertyChanged += OnScanNumberChanged;
         Plc.ControlAndIndication.MeasureIndicationAndControl.StripUnderFlag.PropertyChanged += OnStripUnder;
         _plcService.PlcScanCompleted += OnPlcScanCompleted;
+        _trendsService.Settings.PropertyChanged += (o, args) =>
+        {
+            ActualTrend.ReStyle( _trendsService.Settings);
+        };
     }
 
     private void OnStripUnder(object? sender, PropertyChangedEventArgs args)
@@ -115,7 +124,8 @@ public partial class MainTrendsViewModel:ObservableObject
             ExpectedThick = Plc.ControlAndIndication.HighLevelData.Coils[1].ExpectedThick.Value,
         };
         _currentScan = new Scan();
-        ActualTrend.ReInit(mode:ActualStrip.MeasMode, 
+        ActualTrend.ReInit(_trendsService.Settings,
+            mode:ActualStrip.MeasMode, 
             expectedThick:ActualStrip.ExpectedThick, 
             expectedWidth:ActualStrip.ExpectedWidth, 
             centralLine:ActualStrip.CentralLinePosition, 
@@ -238,5 +248,10 @@ public partial class MainTrendsViewModel:ObservableObject
                 
             }
         }
+    }
+    [RelayCommand]
+    private async Task SaveSettings()
+    {
+        await _trendsService.SaveTrendSettings();
     }
 }

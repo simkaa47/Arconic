@@ -45,7 +45,7 @@ public static class CoreServicesRegistration
         services.AddSingleton<MainPlcService>();
         services.AddSingleton<PlcViewModel>();
         services.AddTransient(typeof(IRepository<>), typeof(BaseRepository<>));
-        services.AddTransient<ITrendsService, TrendsService>();
+        services.AddScoped<ITrendsService, TrendsService>();
         services.Configure<PlcConnectOption>(configuration.GetSection(PlcConnectOption.SectionName));
         services.Configure<DbClearOption>(configuration.GetSection(DbClearOption.SectionName));
         

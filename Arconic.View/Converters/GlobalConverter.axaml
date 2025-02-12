@@ -14,4 +14,5 @@
     <conv:GetByIndexMultiValueConverter x:Key="GetByIndexMultiValueConverter"/>
     <conv:UserAccessLowerThenActualConverter x:Key="UserAccessLowerThenActualConverter"/>
     <conv:UserAccessDeniedConverter x:Key="UserAccessDeniedConverter"/>
+    <conv:ColorConverter x:Key="ColorConverter"></conv:ColorConverter>
 </ResourceDictionary>

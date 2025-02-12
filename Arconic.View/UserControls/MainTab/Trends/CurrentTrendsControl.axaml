@@ -2,47 +2,72 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:mainTab="clr-namespace:Arconic.View.UserControls.MainTab"
              xmlns:vm="using:Arconic.Core.ViewModels"
-             xmlns:mod="using:Arconic.Core.Models.PlcData.Drive"
-             xmlns:local="using:Arconic.View.UserControls.MainTab"
              xmlns:trends="clr-namespace:Arconic.View.UserControls.MainTab.Trends"
              x:DataType="vm:MainTrendsViewModel"
+             xmlns:mat="using:Material.Icons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Arconic.View.UserControls.MainTab.Trends.CurrentTrendsControl">
     <Grid>
         
         <trends:LiveChartsTrendTemplate DataContext="{Binding ActualTrend}"/>
         <StackPanel HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-                    IsVisible="{Binding Plc.Settings.DriveSettings.MeasMode.Value, 
+                    Orientation="Horizontal"
+                    Margin="40,60,80,40"
+                    VerticalAlignment="Top">
+            <StackPanel IsVisible="{Binding Plc.Settings.DriveSettings.MeasMode.Value, 
                     Converter={StaticResource IfNotEqualConverter}, 
                     ConverterParameter=2}"
-                    Margin="40,60,80,40">
+                        >
            
-            <DockPanel>
-                <Rectangle Height="20"
-                           Width="20"
-                           Fill="Red"
-                           Margin="5"></Rectangle>
-                <TextBlock Text="Текущий скан"></TextBlock>
-            </DockPanel>
-            <DockPanel>
-                <Rectangle Height="20"
-                           Width="20"
-                           Fill="Orange"
-                           Margin="5"></Rectangle>
-                <TextBlock Text="Предыдущий скан"></TextBlock>
-            </DockPanel>
-            <DockPanel>
-                <Rectangle Height="20"
-                           Width="20"
-                           Fill="Cyan"
-                           Margin="5"></Rectangle>
-                <TextBlock Text="Средний скан"></TextBlock>
-            </DockPanel>
+                <DockPanel IsVisible="{Binding TrendSettings.CurrentScanIsVisible}">
+                    <Rectangle Height="20"
+                               Width="20"
+                               Fill="{Binding TrendSettings.CurrentScanColor}"
+                               Margin="5"></Rectangle>
+                    <TextBlock Text="Текущий скан"></TextBlock>
+                </DockPanel>
+                <DockPanel IsVisible="{Binding TrendSettings.PreviousScanIsVisible}">
+                    <Rectangle Height="20"
+                               Width="20"
+                               Fill="{Binding TrendSettings.PreviousScanColor}"
+                               Margin="5"></Rectangle>
+                    <TextBlock Text="Предыдущий скан"></TextBlock>
+                </DockPanel>
+                <DockPanel IsVisible="{Binding TrendSettings.AverageScanIsVisible}">
+                    <Rectangle Height="20"
+                               Width="20"
+                               Fill="{Binding TrendSettings.AverageScanColor}"
+                               Margin="5"></Rectangle>
+                    <TextBlock Text="Средний скан"></TextBlock>
+                </DockPanel>
             
+            </StackPanel>
+            <ToggleButton Margin="10"
+                          Name="ShowSettingsBtn"
+                    VerticalAlignment="Center"
+                    >
+                <mat:MaterialIcon Kind="Settings"
+                                  Height="30"
+                                  Width="30"></mat:MaterialIcon>
+            </ToggleButton> 
+            <Popup IsOpen="{Binding ElementName=ShowSettingsBtn, Path=IsChecked, Mode=TwoWay}"
+                   WindowManagerAddShadowHint="False"
+                   Name="Popup"
+                   IsLightDismissEnabled="True">
+                <StackPanel Background="{StaticResource CommonColor}">
+                    <trends:TrendSettingsControl ></trends:TrendSettingsControl>
+                    <Button Margin="10"
+                            HorizontalAlignment="Center"
+                            Content="Сохранить"
+                            Click="Button_OnClick"
+                            Background="{StaticResource ButtonAccept}"
+                            Command="{Binding SaveSettingsCommand}"></Button>
+                </StackPanel>
+                
+            </Popup>
         </StackPanel>
+        
     </Grid>
     
 </UserControl>

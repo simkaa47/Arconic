@@ -9,9 +9,7 @@ using Spire.Xls;
 
 namespace Arconic.Core.ViewModels;
 
-public partial class ArchieveTrendsViewModel(ITrendsService trendsService, 
-    IQuestionDialog dialog,
-    IFileDialog fileDialog) : ObservableObject
+public partial class ArchieveTrendsViewModel : ObservableObject
 {
     [ObservableProperty]
     private IEnumerable<Strip>? _archieveStrips;
@@ -36,6 +34,31 @@ public partial class ArchieveTrendsViewModel(ITrendsService trendsService,
     private Strip? _selectedArchieveStrip;
     [ObservableProperty]
     private Strip? _selectedArchieveStripForViewing;
+
+    private readonly ITrendsService _trendsService;
+    private readonly IQuestionDialog _dialog;
+    private readonly IFileDialog _fileDialog;
+
+    /// <inheritdoc/>
+    public ArchieveTrendsViewModel(ITrendsService trendsService, 
+        IQuestionDialog dialog,
+        IFileDialog fileDialog)
+    {
+        _trendsService = trendsService;
+        _dialog = dialog;
+        _fileDialog = fileDialog;
+        _trendsService.Settings.PropertyChanged += (obj,args) =>
+        {
+            if (_archieveScans != null)
+            {
+                foreach (var scan in _archieveScans)
+                {
+                    scan.ReStyle(_trendsService.Settings, true);
+                }
+            }
+        };
+    }
+
     public Strip? SelectedArchieveStrip
     {
         get => _selectedArchieveStrip;
@@ -55,11 +78,11 @@ public partial class ArchieveTrendsViewModel(ITrendsService trendsService,
     private async void UpdateSelectedArchieveStrip(long id)
     {
         IsArchieveScanLoading = true;
-        SelectedArchieveStripForViewing = await trendsService.GetExtendedStrip(id);
-        ArchieveScans = SelectedArchieveStripForViewing != null ?  trendsService.GetScansFromStrip(SelectedArchieveStripForViewing) : null;
+        SelectedArchieveStripForViewing = await _trendsService.GetExtendedStrip(id);
+        ArchieveScans = SelectedArchieveStripForViewing != null ?  _trendsService.GetScansFromStrip(SelectedArchieveStripForViewing) : null;
         if (SelectedArchieveStripForViewing is not null && ArchieveScans is not null)
         {
-            var average = await trendsService.GetAverageScan(SelectedArchieveStripForViewing);
+            var average = await _trendsService.GetAverageScan(SelectedArchieveStripForViewing);
             foreach (var scan in ArchieveScans)
             {
                 scan.SetAverageScan(average);
@@ -74,7 +97,7 @@ public partial class ArchieveTrendsViewModel(ITrendsService trendsService,
     [RelayCommand]
     private async Task GetArchieveStrips()
     {
-        ArchieveStrips = await trendsService.GetArchieveStrips(StartArchieveTime, EndArchieveTime, SearchStripNumber);
+        ArchieveStrips = await _trendsService.GetArchieveStrips(StartArchieveTime, EndArchieveTime, SearchStripNumber);
     }
     [RelayCommand]
     private async Task ShowNextArchieveScanAsync()
@@ -128,17 +151,17 @@ public partial class ArchieveTrendsViewModel(ITrendsService trendsService,
         {
             try
             {
-                var directory = await fileDialog.GetDirectory();
+                var directory = await _fileDialog.GetDirectory();
                 if (string.IsNullOrEmpty(directory)) return;
                 var fileName = $"{strip.StartTime:dd_MM_yyyy_HH_mm_ss}_{strip.StripNumber}.xlsx";
                 await SaveToXlsAsync($"{directory}{fileName}", strip);
-                await dialog.AskAsync("Успех!", $"Сохранение данных полосы в {directory}{fileName} выполнено успешно");
+                await _dialog.AskAsync("Успех!", $"Сохранение данных полосы в {directory}{fileName} выполнено успешно");
                 
             }
             
             catch (Exception e)
             {
-                await dialog.AskAsync("Ошибка при сохранении полосы", e.Message);
+                await _dialog.AskAsync("Ошибка при сохранении полосы", e.Message);
             }
             
         }

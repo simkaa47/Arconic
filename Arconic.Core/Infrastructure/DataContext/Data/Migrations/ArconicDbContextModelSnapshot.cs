@@ -207,6 +207,42 @@ namespace Arconic.Core.Infrastructure.DataContext.Data.Migrations
                     b.ToTable("ThickPoints");
                 });
 
+            modelBuilder.Entity("Arconic.Core.Models.Trends.TrendSettings", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AverageScanColor")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("AverageScanIsVisible")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CurrentScanColor")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("CurrentScanIsVisible")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PreviousScanColor")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("PreviousScanIsVisible")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ThickCurveColor")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TrendSettings");
+                });
+
             modelBuilder.Entity("Arconic.Core.Models.Event.EventHistoryItem", b =>
                 {
                     b.HasOne("Arconic.Core.Models.AccessControl.User", "User")

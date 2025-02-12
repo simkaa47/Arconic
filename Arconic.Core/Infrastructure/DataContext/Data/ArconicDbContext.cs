@@ -29,6 +29,8 @@ public class ArconicDbContext(DbContextOptions<ArconicDbContext> options) : DbCo
             .OnDelete(DeleteBehavior.Cascade);
     }
     
+    
+    public DbSet<TrendSettings> TrendSettings => Set<TrendSettings>();
     public DbSet<User> Users => Set<User>();
     public DbSet<Strip> Strips => Set<Strip>();
     public DbSet<Scan> Scans => Set<Scan>();

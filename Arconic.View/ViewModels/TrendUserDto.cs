@@ -23,14 +23,37 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
 {
     public TrendUserDto()
     {
-         ReInitTrend();
+         ReInitTrend(new TrendSettings());
     }
-    
-    
-    
-    public void ReInit(MeasModes mode = MeasModes.ForwRevers, float expectedWidth = 0, float expectedThick = 0,
+
+
+    public void ReStyle(TrendSettings trendSettings, bool isArchieve = false)
+    {
+        if (Mode == MeasModes.CentralLine)
+        {
+            if (Series is not null && Series.Length > 0 && Series[0] is LineSeries<ObservablePoint> series)
+            {
+                series.Stroke = new SolidColorPaint(GetSkColor(trendSettings.ThickCurveColor)) { StrokeThickness = 4 };
+            }
+        }
+        else
+        {
+            if (Series is not null && Series.Length>=3 && Series is LineSeries<ObservablePoint>[] seriesArray)
+            {
+                seriesArray[0].IsVisible = isArchieve || trendSettings.CurrentScanIsVisible;
+                seriesArray[1].IsVisible = isArchieve || trendSettings.PreviousScanIsVisible;
+                seriesArray[2].IsVisible = isArchieve || trendSettings.AverageScanIsVisible;
+                seriesArray[0].Stroke = new SolidColorPaint(GetSkColor(trendSettings.CurrentScanColor)) { StrokeThickness = 4 };
+                seriesArray[1].Stroke = new SolidColorPaint(GetSkColor(trendSettings.PreviousScanColor)) { StrokeThickness = 4 };
+                seriesArray[2].Stroke = new SolidColorPaint(GetSkColor(trendSettings.AverageScanColor)) { StrokeThickness = 4 };
+            }
+        }
+    }
+
+    public void ReInit(TrendSettings settings,
+        MeasModes mode = MeasModes.ForwRevers, float expectedWidth = 0, float expectedThick = 0,
         float leftBorder = 0, float rightBorder = 0, float centralLine = 0, 
-        int scanNumber = 0)
+        int scanNumber = 0, bool isArchieve = false)
     {
         Mode = mode;
         ExpectedWidth = expectedWidth;
@@ -49,13 +72,12 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
                 });
             }
             ActualPoints.Clear();
-            ReInitTrend();
+            ReInitTrend(settings, isArchieve);
             
         }
     }
 
     private ObservableCollection<ObservablePoint> ActualPoints { get; set; } = new ObservableCollection<ObservablePoint>();
-    private ObservableCollection<ObservablePoint> PreviousPoints { get; set; } = new ObservableCollection<ObservablePoint>();
 
     public void Recalculate(float stripDeviation = 0, float maxThick = 0, float minThick = 0, float actualWidth = 0, float klin = 0,
         float chechevitsa = 0)
@@ -168,7 +190,7 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
         
     }
 
-    private void ReInitTrend()
+    private void ReInitTrend(TrendSettings settings, bool isArchieve = false)
     {
         if (Mode == MeasModes.CentralLine)
         {
@@ -200,7 +222,7 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
                     Fill = null,
                     LineSmoothness = 0,
                     ScalesYAt = 0,
-                    Stroke = new SolidColorPaint(SKColors.Red){StrokeThickness = 4}
+                    Stroke = new SolidColorPaint(GetSkColor(settings.ThickCurveColor)) {StrokeThickness = 4}
                 },
                 new LineSeries<ObservablePoint>
                 {
@@ -242,38 +264,38 @@ public partial class TrendUserDto:TrendBaseViewModel, ITrendUserDto
                 {
                     Name = "Актуальный скан",
                     Values = ActualPoints,
-                    IsVisible = true,
+                    IsVisible = isArchieve || settings.CurrentScanIsVisible,
                     IsVisibleAtLegend = true,
                     GeometryStroke = null,
                     GeometrySize = 0,
                     Fill = null,
                     LineSmoothness = 0,
                     ScalesYAt = 0,
-                    Stroke = new SolidColorPaint(SKColors.Red){StrokeThickness = 4}
+                    Stroke = new SolidColorPaint(GetSkColor(settings.CurrentScanColor)){StrokeThickness = 4}
                 },
                 new LineSeries<ObservablePoint>
                 {
                     Name = "Предыдущий скан",
                     IsVisibleAtLegend = false,
-                    IsVisible = true,
+                    IsVisible = isArchieve || settings.PreviousScanIsVisible,
                     GeometryStroke = null,
                     GeometrySize = 0,
                     Fill = null,
                     LineSmoothness = 0,
                     ScalesYAt = 0,
-                    Stroke = new SolidColorPaint(SKColors.Orange){StrokeThickness = 4}
+                    Stroke = new SolidColorPaint(GetSkColor(settings.PreviousScanColor)){StrokeThickness = 4}
                 },
                 new LineSeries<ObservablePoint>
                 {
                     Name = "Средний скан",
                     IsVisibleAtLegend = false,
-                    IsVisible = true,
+                    IsVisible = isArchieve || settings.AverageScanIsVisible,
                     GeometryStroke = null,
                     GeometrySize = 0,
                     Fill = null,
                     LineSmoothness = 0,
                     ScalesYAt = 0,
-                    Stroke = new SolidColorPaint(SKColors.Cyan){StrokeThickness = 4}
+                    Stroke = new SolidColorPaint(GetSkColor(settings.AverageScanColor)){StrokeThickness = 4}
                 },
                 new LineSeries<ObservablePoint>
                 {

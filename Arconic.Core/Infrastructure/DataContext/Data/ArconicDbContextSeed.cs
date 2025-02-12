@@ -1,4 +1,5 @@
 ﻿using Arconic.Core.Models.AccessControl;
+using Arconic.Core.Models.Trends;
 using Microsoft.Extensions.Logging;
 
 namespace Arconic.Core.Infrastructure.DataContext.Data;
@@ -10,12 +11,25 @@ public class ArconicDbContextSeed
         try
         {
             SeedUsers(context);
+            SeedTrendSettings(context);
         }
         catch (Exception e)
         {
             var logger = loggerFactory.CreateLogger<ArconicDbContextSeed>();
             logger.LogError(e.Message);
         }
+    }
+
+    private static void SeedTrendSettings(ArconicDbContext context)
+    {
+        var setts = context.TrendSettings.FirstOrDefault();
+        if (setts == null)
+        {
+            setts = new TrendSettings();
+            context.TrendSettings.Add(setts);
+            context.SaveChanges();
+        }
+        
     }
 
     private static void SeedUsers(ArconicDbContext context)

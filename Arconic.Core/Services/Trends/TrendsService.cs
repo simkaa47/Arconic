@@ -12,14 +12,45 @@ using Microsoft.Extensions.Logging;
 
 namespace Arconic.Core.Services.Trends;
 
-public class TrendsService(ILogger<TrendsService> logger, 
-    IServiceScopeFactory scopeFactory) : ITrendsService
+public class TrendsService : ITrendsService
 {
+    private readonly ILogger<TrendsService> _logger;
+    private readonly IServiceScopeFactory _scopeFactory;
+    private readonly IRepository<TrendSettings> _trendSettingsRepository;
+
+    public TrendsService(ILogger<TrendsService> logger, 
+        IServiceScopeFactory scopeFactory, IRepository<TrendSettings> trendSettingsRepository)
+    {
+        _logger = logger;
+        _scopeFactory = scopeFactory;
+        _trendSettingsRepository = trendSettingsRepository;
+        InitAsync();
+    }
+
+    private async void InitAsync()
+    {
+        Settings = await _trendSettingsRepository.GetFirstWhere(s => true) ?? new TrendSettings();
+    }
+
     private const float _stain = 100;
     private const int _medianSize = 7;
+    public TrendSettings Settings { get; private set; } = new TrendSettings();
+
+    public async Task SaveTrendSettings()
+    {
+        try
+        {
+            await _trendSettingsRepository.UpdateAsync(Settings);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "An error occurred while saving trends settings.");
+        }
+    }
+
     public async Task<bool> StripExist(Strip? strip)
     {
-        using var scope = scopeFactory.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<ArconicDbContext>();
         if (strip is null) return false;
         try
@@ -28,14 +59,14 @@ public class TrendsService(ILogger<TrendsService> logger,
         }
         catch (Exception e)
         {
-            logger.LogError(e, $"Ошибка при проверки наличия в базе данных полосы с ID = {strip.Id}");
+            _logger.LogError(e, $"Ошибка при проверки наличия в базе данных полосы с ID = {strip.Id}");
             return false;
         }
     }
 
     public async Task AddPointToStrip(ThickPoint point, long stripId)
     {
-        using var scope = scopeFactory.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<ArconicDbContext>();
         try
         {
@@ -45,13 +76,13 @@ public class TrendsService(ILogger<TrendsService> logger,
         }
         catch (Exception e)
         {
-            logger.LogError(e, $"Ошибка при добавлении точки измерения в данные полосы с ID = {stripId}");
+            _logger.LogError(e, $"Ошибка при добавлении точки измерения в данные полосы с ID = {stripId}");
         }
     }
 
     public async Task AddScanToStrip(Scan scan, long stripId)
     {
-        using var scope = scopeFactory.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<ArconicDbContext>();
         if(stripId<=0)return;
         try
@@ -62,7 +93,7 @@ public class TrendsService(ILogger<TrendsService> logger,
         }
         catch (Exception e)
         {
-            logger.LogError(e, $"Ошибка при добавлении скана в данные полосы с ID = {stripId}");
+            _logger.LogError(e, $"Ошибка при добавлении скана в данные полосы с ID = {stripId}");
         }
     }
 
@@ -81,7 +112,7 @@ public class TrendsService(ILogger<TrendsService> logger,
                     Where(s=>s.ThickPoints.Count>2).
                     Select(s=> Math.Max(s.ThickPoints.First().Position, s.ThickPoints.Last().Position))
                     .Average();
-                var dictionary = Enumerable.Range(leftBorder, rightBorder - leftBorder).ToDictionary(i=>i, i=>new List<float>());
+                var dictionary = Enumerable.Range(leftBorder, rightBorder - leftBorder+1).ToDictionary(i=>i, i=>new List<float>());
                 var points = strip.Scans
                     .SelectMany(s => s.ThickPoints)
                     .Where(p => p.Position >= leftBorder && p.Position <= rightBorder)
@@ -108,7 +139,7 @@ public class TrendsService(ILogger<TrendsService> logger,
 
     public async Task SaveStripAsync(Strip? strip)
     {
-        using var scope = scopeFactory.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<ArconicDbContext>();
         if (strip is null) return;
         try
@@ -118,13 +149,13 @@ public class TrendsService(ILogger<TrendsService> logger,
         }
         catch (Exception e)
         {
-            logger.LogError(e, $"Ошибка при сохранении в базу данных данных полосы с ID = {strip.Id}");
+            _logger.LogError(e, $"Ошибка при сохранении в базу данных данных полосы с ID = {strip.Id}");
         }
     }
 
     public async Task AddStripAsync(Strip? strip)
     {
-        using var scope = scopeFactory.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<ArconicDbContext>();
         if (strip is null) return;
         try
@@ -134,15 +165,15 @@ public class TrendsService(ILogger<TrendsService> logger,
         }
         catch (Exception e)
         {
-            logger.LogError(e, $"Ошибка при добавлении в базу данных данных полосы с ID = {strip.Id}");
+            _logger.LogError(e, $"Ошибка при добавлении в базу данных данных полосы с ID = {strip.Id}");
         }
     }
 
     public List<ITrendUserDto>? GetScansFromStrip(Strip source)
     {
-        using var scope = scopeFactory.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
         var dto = scope.ServiceProvider.GetRequiredService<ITrendUserDto>();
-        dto.ReInit(mode:source.MeasMode, 
+        dto.ReInit(Settings,mode:source.MeasMode, 
             centralLine:source.CentralLinePosition,
             expectedThick:source.ExpectedThick, 
             expectedWidth:source.ExpectedWidth);
@@ -161,13 +192,13 @@ public class TrendsService(ILogger<TrendsService> logger,
                 .Select(s =>
                 {
                     //s.ThickPoints = SmoothScan(s.ThickPoints);
-                scanInfo!.ReInit(mode:source.MeasMode, 
+                scanInfo!.ReInit(Settings, mode:source.MeasMode, 
                     expectedThick:source.ExpectedThick, 
                     scanNumber:s.ScanNumber,
                     centralLine:source.CentralLinePosition,
                     expectedWidth:source.ExpectedWidth, 
                     leftBorder:source.CentralLinePosition - source.ExpectedWidth / 2,
-                    rightBorder:source.CentralLinePosition + source.ExpectedWidth / 2);
+                    rightBorder:source.CentralLinePosition + source.ExpectedWidth / 2, isArchieve:true);
                 var left = s.ThickPoints.Min(tp => tp.Position);
                 var right = s.ThickPoints.Max(tp => tp.Position);
                 
@@ -188,7 +219,7 @@ public class TrendsService(ILogger<TrendsService> logger,
 
     public async Task<Strip?> GetExtendedStrip(long stripId)
     {
-        using var scope = scopeFactory.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<ArconicDbContext>();
         try
         {
@@ -205,14 +236,14 @@ public class TrendsService(ILogger<TrendsService> logger,
         }
         catch (Exception e)
         {
-            logger.LogError(e, $"Ошибка при загрузке из базы данных данных полосы с ID = {stripId}");
+            _logger.LogError(e, $"Ошибка при загрузке из базы данных данных полосы с ID = {stripId}");
         }
         return null;
     }
 
     public async Task<List<Strip>?> GetArchieveStrips(DateTime start, DateTime end, string? stripNumber)
     {
-        using var scope = scopeFactory.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<ArconicDbContext>();
         try
         {
@@ -224,7 +255,7 @@ public class TrendsService(ILogger<TrendsService> logger,
         }
         catch (Exception e)
         {
-            logger.LogError(e, $"Ошибка при загрузке в базу данных архивных трендов");
+            _logger.LogError(e, $"Ошибка при загрузке в базу данных архивных трендов");
         }
 
         return null;
@@ -256,9 +287,6 @@ public class TrendsService(ILogger<TrendsService> logger,
             strip.AverageKlin = strip.Scans
                 .Select(s => s.Klin)
                 .Average();
-
-            GetAverageScan(strip);
-
         }
     }
     
