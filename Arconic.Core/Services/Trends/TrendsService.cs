@@ -233,6 +233,7 @@ public class TrendsService : ITrendsService
             if(strip  is not null)
                 RecalculateStrip(strip);
             return strip;
+            
         }
         catch (Exception e)
         {

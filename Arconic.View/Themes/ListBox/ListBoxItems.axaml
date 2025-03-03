@@ -9,8 +9,13 @@
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
                     <Border BorderBrush="{DynamicResource ListBoxItemBorderBrush}"
                             Background="{TemplateBinding Background}"
-                            IsVisible="{Binding ElementName=content, Path=((ava:Visual)Content).IsVisible, FallbackValue={x:False}}"
+                            IsVisible="{Binding ElementName=content, Path=((ava:Visual)Content).IsVisible, FallbackValue={x:True}}"
                             BorderThickness="0,0,0,1" Margin="0">
+                        <!-- <Border.IsVisible> -->
+                        <!--     <MultiBinding Converter="{x:Static BoolConverters.Or}"> -->
+                        <!--         <Binding ElementName="content" Path="((ava:Visual)Content).IsVisible" FallbackValue="{x:F}"></Binding> -->
+                        <!--     </MultiBinding> -->
+                        <!-- </Border.IsVisible> -->
                        
                         <ContentPresenter Content="{TemplateBinding Content}"
                                           Name="content"

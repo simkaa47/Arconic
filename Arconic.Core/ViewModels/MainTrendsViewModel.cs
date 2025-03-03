@@ -17,10 +17,6 @@ public partial class MainTrendsViewModel:ObservableObject
     private event Action? NeedToDoOnScanCompleted;
     private readonly MainPlcService _plcService;
     private readonly ITrendsService _trendsService;
-    [ObservableProperty]
-    private int _currentPointCnt;
-    [ObservableProperty]
-    private int _lastPointCnt;
     public Plc Plc { get; }
     private DateTime _lastPointDateTime;
     [ObservableProperty]
@@ -158,7 +154,6 @@ public partial class MainTrendsViewModel:ObservableObject
                         Thick = p.Thick.Value
                     }).ToList();
                 lastScan.SetThickPoints(points);
-                LastPointCnt = lastScan.ThickPoints.Count;
                 lastScan.Klin = Plc.ControlAndIndication.MeasureIndicationAndControl.KlinRelative.Value;
                 lastScan.Width = Plc.ControlAndIndication.MeasureIndicationAndControl.Width.Value;
                 lastScan.Chechewitsa = Plc.ControlAndIndication.MeasureIndicationAndControl.ChechevitsaRelative.Value;
@@ -241,7 +236,6 @@ public partial class MainTrendsViewModel:ObservableObject
                                 Thick = p.Thick.Value
                             }).ToList();
                         _currentScan.SetThickPoints(points);
-                        CurrentPointCnt = _currentScan.ThickPoints.Count;
                         ActualTrend.SetActualScan(_currentScan.ThickPoints.ToList());
                     }
                 }

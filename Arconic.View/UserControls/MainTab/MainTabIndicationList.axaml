@@ -83,17 +83,6 @@
             <TextBlock Text="Наличие полосы в измерительном зазоре" Classes="Left"/>
             <common:ImageBitIndicator State="{Binding ControlAndIndication.MeasureIndicationAndControl.StripUnderFlag.Value}"/>
         </DockPanel>
-        <!--Точек в текущем скане-->
-        <DockPanel>
-            <TextBlock Text="Точек в текущем скане" Classes="Left"/>
-            <TextBlock Text="{Binding $parent[Window].((vm:MainViewModel)DataContext).MainTrendsViewModel.CurrentPointCnt}" 
-                       Classes="Right"/>
-        </DockPanel>
-        <!--Точек в последнем скане-->
-        <DockPanel>
-            <TextBlock Text="Точек в текущем скане" Classes="Left"/>
-            <TextBlock Text="{Binding $parent[Window].((vm:MainViewModel)DataContext).MainTrendsViewModel.LastPointCnt}" 
-                       Classes="Right"/>
-        </DockPanel>
+       
     </ListBox>
 </UserControl>
